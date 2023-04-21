@@ -1,4 +1,4 @@
-#include "includes.h"
+#include "../includes.h"
 #include "themes.h"
 
 int fontindex_menu = 1; // define variable in themes.cpp

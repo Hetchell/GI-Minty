@@ -1,29 +1,5 @@
-#include "includes.h"
-//#include "lua/funcs.h" --- CRYING RIP MY FAV LANGUAGE
-#include "../minty/Themes/themes.h"
-#include "Themes/Fonts/fontsloader.h"
-//#include "gilua/luaHook.h" --- CRYING RIP MY FAV LANGUAGE
-//#include "lua/luaHook.cpp" --- CRYING RIP MY FAV LANGUAGE
-//#include "lua/funcs.hpp" --- CRYING RIP MY FAV LANGUAGE
-#include "imgui/TextEditor.h"
-#include <functional>
-#include <iostream>
-#include <string>
-#include <vector>
-//#include "imgui/L2DFileDialog.h"
-#include <chrono>
-#include <thread>
+#include "../includes.h"
 
-#include "../minty/Utils/Log.h"
-#include <Windows.h>
-#include <ShObjIdl.h>
-#include <ObjBase.h>
-
-#include "json/json.hpp"
-
-#include "games/tictactoe.hpp"
-#include "games/lightsout.hpp"
-#include "games/wordle.hpp"
 using namespace std;
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -98,6 +74,14 @@ static HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval
 			return oPresent(pSwapChain, SyncInterval, Flags);
 	}
 
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+
+
+	ImGui::EndFrame();
+	ImGui::Render();
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

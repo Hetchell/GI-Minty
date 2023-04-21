@@ -6,14 +6,9 @@
 #include <commdlg.h>
 #define _CRT_SECURE_NO_WARNINGS
 #include "../minty/json/json.hpp"
-
-
-//#include "../minty/gilua/util.h"
-//#include "../minty/gilua/luahook.h"
+#include "../minty/Json/prejson.hpp"
 
 namespace fs = std::filesystem;
-
-//std::ifstream f("cfg.json");
 
 namespace util
 {
@@ -132,15 +127,16 @@ int main()
     ifs >> cfg;*/
 
     //f >> cfg;
-    std::ifstream settings_file(settings_path);
+    //std::ifstream settings_file(settings_path);
     // Check if the settings file exists
     if (!fs::exists(settings_path)) {
-        std::ofstream settings_file(settings_path);
-        if (settings_file.is_open()) {
+        //std::ofstream settings_file(settings_path);
+        if (settings_fileO.is_open()) {
             // Write the executable path to the settings file
             cfg["exec_path"] = exe_path;
-            settings_file << cfg.dump() << std::endl;
-            settings_file.close();
+            writeToJsonConfig("minty", cfg);
+            //settings_file << cfg.dump() << std::endl;
+            //settings_file.close();
         }
         else {
             std::cout << "Error: Unable to create config file." << std::endl;
@@ -148,7 +144,7 @@ int main()
         }
     }
  
-    settings_file >> cfg;
+    settings_fileI >> cfg;
 
     auto settings = read_whole_file(settings_path);
     if (!settings)
@@ -185,13 +181,14 @@ int main()
         if (GetOpenFileNameA(&ofn))
         {
             std::string(exe_path) = ofn.lpstrFile;
-            std::ofstream settings_file("cfg.json", std::ios_base::out);
-            if (settings_file.is_open()) {
+            //std::ofstream settings_file("cfg.json", std::ios_base::out);
+            if (settings_fileO.is_open()) {
                 /*settings_file << exe_path << std::endl;
                 settings_file.close();*/
                 cfg["exec_path"] = exe_path;
-                settings_file << cfg.dump(4) << std::endl;
-                settings_file.close();
+                writeToJsonConfig("minty", cfg);
+                //settings_file << cfg.dump(4) << std::endl;
+                //settings_file.close();
             }
             else {
                 std::cout << "Error: Unable to open settings file." << std::endl;

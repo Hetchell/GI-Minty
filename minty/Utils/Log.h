@@ -12,6 +12,8 @@ namespace fs = std::filesystem;
 
 void luahookfunc(const char* charLuaScript);
 
+static ImGuiTextBuffer log_textbuf;
+
 namespace util
 {
     template<typename... Args>

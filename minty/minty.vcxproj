@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -153,6 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DX\Hook3d.cpp" />
+    <ClCompile Include="GUI\MainGUI.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -167,7 +169,6 @@
     <ClCompile Include="kiero\minhook\src\hde\hde64.c" />
     <ClCompile Include="kiero\minhook\src\hook.c" />
     <ClCompile Include="kiero\minhook\src\trampoline.c" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="themes.cpp" />
     <ClCompile Include="lua\lapi.c" />
     <ClCompile Include="lua\lauxlib.c" />
@@ -202,6 +203,8 @@
     <ClCompile Include="lua\lutf8lib.c" />
     <ClCompile Include="lua\lvm.c" />
     <ClCompile Include="lua\lzio.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Themes\themes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="kiero\minhook\dll_resources\MinHook.def" />
@@ -214,6 +217,7 @@
     <ClInclude Include="gilua\logtextbuf.h" />
     <ClInclude Include="gilua\luaHook.h" />
     <ClInclude Include="gilua\util.h" />
+    <ClInclude Include="GUI\MainGUI.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -222,10 +226,10 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="imgui\L2DFileDialog.h" />
     <ClInclude Include="imgui\TextEditor.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="json\json.hpp" />
+    <ClInclude Include="Json\prejson.hpp" />
     <ClInclude Include="kiero\kiero.h" />
     <ClInclude Include="kiero\minhook\dll_resources\resource.h" />
     <ClInclude Include="kiero\minhook\include\MinHook.h" />
@@ -241,6 +245,8 @@
     <ClInclude Include="lua\funcs.hpp" />
     <ClInclude Include="res\fonts\font.h" />
     <ClInclude Include="themes.h" />
+    <ClInclude Include="Themes\Fonts\fontsloader.h" />
+    <ClInclude Include="Themes\themes.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\mpc.otf" />
