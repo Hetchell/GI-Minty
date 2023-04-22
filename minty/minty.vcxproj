@@ -153,7 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DX\Hook3d.cpp" />
+    <ClCompile Include="DirectX\Hook3d.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_demo.cpp" />
@@ -167,20 +167,11 @@
     <ClCompile Include="Utils\init.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
+    <ClInclude Include="DirectX\Hook3d.h" />
     <ClInclude Include="Games\lightsout.hpp" />
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
     <ClInclude Include="Games\wordle.hpp" />
-
-=======
-    <ClInclude Include="DX\Hook3d.h" />
-    <ClInclude Include="games\lightsout.hpp" />
-    <ClInclude Include="games\minesweeper.hpp" />
-    <ClInclude Include="games\tictactoe.hpp" />
-    <ClInclude Include="games\wordle.hpp" />
-    <ClInclude Include="gilua\logtextbuf.h" />
->>>>>>> Stashed changes
     <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="GUI\MainGUI.h" />
     <ClInclude Include="ImGui\ImGui\imconfig.h" />
@@ -192,15 +183,14 @@
     <ClInclude Include="ImGui\ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\ImGui\imstb_truetype.h" />
     <ClInclude Include="ImGui\TextEditor\TextEditor.h" />
-
     <ClInclude Include="includes.h" />
+    <ClInclude Include="Json\json.hpp" />
     <ClInclude Include="Json\prejson.hpp" />
     <ClInclude Include="Themes\Fonts\fontsloader.h" />
     <ClInclude Include="Themes\Themeloader.hpp" />
     <ClInclude Include="Themes\themes.h" />
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
     <ClInclude Include="Utils\Log.hpp" />
-    
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

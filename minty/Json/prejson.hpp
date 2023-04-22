@@ -1,6 +1,7 @@
 #include "json.hpp"
 #include <iostream>
 #include <fstream>
+#pragma once
 
 
 std::filesystem::path settings_path = std::filesystem::current_path() / "minty";

@@ -12,14 +12,13 @@
     <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Utils\init.cpp" />
-    <ClCompile Include="DX\Hook3d.cpp" />
+    <ClCompile Include="DirectX\Hook3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
     <ClInclude Include="Games\wordle.hpp" />
-
     <ClInclude Include="GUI\MainGUI.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="Json\prejson.hpp" />
@@ -38,6 +37,7 @@
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
     <ClInclude Include="Utils\Log.hpp" />
     <ClInclude Include="Themes\Themeloader.hpp" />
-    <ClInclude Include="DX\Hook3d.h" />
+    <ClInclude Include="DirectX\Hook3d.h" />
+    <ClInclude Include="Json\json.hpp" />
   </ItemGroup>
 </Project>
