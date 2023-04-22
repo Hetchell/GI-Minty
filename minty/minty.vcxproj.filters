@@ -11,8 +11,12 @@
     <ClCompile Include="ImGui\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
+
     <ClCompile Include="Utils\init.cpp" />
     <ClCompile Include="DirectX\D3D11Hook.cpp" />
+
+    <ClCompile Include="Utils\dllmain.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />

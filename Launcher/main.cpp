@@ -121,7 +121,7 @@ int main()
         return 0;
     }
     std::string exe_path;
-    fs::path settings_path = fs::current_path() / "cfg.json";
+    fs::path settings_path = fs::current_path() / "minty";
 
     /*std::ifstream ifs("cfg.json");
     ifs >> cfg;*/
@@ -144,7 +144,8 @@ int main()
         }
     }
  
-    settings_fileI >> cfg;
+    //settings_fileI >> cfg;
+    readConfigToObject(cfg);
 
     auto settings = read_whole_file(settings_path);
     if (!settings)
@@ -200,7 +201,6 @@ int main()
             return 1;
         }
 
-        exe_path = cfg["exec_path"];
         PROCESS_INFORMATION proc_info{};
         STARTUPINFOA startup_info{};
         CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
