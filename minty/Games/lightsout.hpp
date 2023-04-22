@@ -1,4 +1,4 @@
-#include "../imgui/imgui.h"
+#include "../ImGui/ImGui/imgui.h"
 #include <string>
 void lightsout_main()
 {

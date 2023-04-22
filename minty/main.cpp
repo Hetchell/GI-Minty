@@ -1,11 +1,11 @@
 #include "includes.h"
 //#include "lua/funcs.h" --- CRYING RIP MY FAV LANGUAGE
-#include "../minty/Themes/themes.h"
+#include "Themes/themes.h"
 #include "Themes/Fonts/fontsloader.h"
 //#include "gilua/luaHook.h" --- CRYING RIP MY FAV LANGUAGE
 //#include "lua/luaHook.cpp" --- CRYING RIP MY FAV LANGUAGE
 //#include "lua/funcs.hpp" --- CRYING RIP MY FAV LANGUAGE
-#include "imgui/TextEditor.h"
+#include "ImGui/TextEditor/TextEditor.h"
 #include <functional>
 #include <iostream>
 #include <string>
@@ -14,16 +14,16 @@
 #include <chrono>
 #include <thread>
 
-#include "../minty/Utils/Log.h"
+#include "Utils/Log.hpp"
 #include <Windows.h>
 #include <ShObjIdl.h>
 #include <ObjBase.h>
 
-#include "json/json.hpp"
+#include "Json/json.hpp"
 
-#include "games/tictactoe.hpp"
-#include "games/lightsout.hpp"
-#include "games/wordle.hpp"
+#include "Games/tictactoe.hpp"
+#include "Games/lightsout.hpp"
+#include "Games/wordle.hpp"
 using namespace std;
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -106,7 +106,7 @@ static HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval
 
 DWORD WINAPI MainThread(LPVOID lpReserved)
 {
-	//nigger::dick.Suck(throat);
+	return 0;
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

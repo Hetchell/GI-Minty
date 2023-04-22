@@ -31,7 +31,7 @@ namespace gui {
         {
             TimeScale = 1.0f;
             string result = "CS.UnityEngine.Time.timeScale = 1.0";
-            luahookfunc(result.c_str());
+            //luahookfunc(result.c_str());
         }
 
         if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_F12), false))
@@ -58,14 +58,14 @@ namespace gui {
                 ImGui::SameLine();
                 if (ImGui::Button("Update custom UID")) {
                     string result = R"MY_DELIMITER(CS.UnityEngine.GameObject.Find("/BetaWatermarkCanvas(Clone)/Panel/TxtUID"):GetComponent("Text").text = ")MY_DELIMITER" + string(UID_inputTextBuffer) + "\"";
-                    luahookfunc(result.c_str());
+                    //luahookfunc(result.c_str());
                 }
                 ImGui::SameLine();
                 HelpMarker("Changes your game UID to any defined text. HTML/Rich Text tags can be applied.");
 
                 static bool show_modelswap = false;
                 if (ImGui::Checkbox("Model swapper", &show_modelswap)) {
-                    luahookfunc("CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"snoo.\",\"snoo.\")");
+                    //luahookfunc("CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"snoo.\",\"snoo.\")");
                 }
                 ImGui::SameLine();
                 HelpMarker("Swaps your avatars' models. Switch to character which model you want to set on another, press Clone; Switch to character, which model you want to replace with copied, press Paste.");
@@ -74,10 +74,10 @@ namespace gui {
                     ImGui::Indent();
 
                     if (ImGui::Button("Clone model")) {
-                        //luahookfunc(char_modelswap_clone);
+                        ////luahookfunc(char_modelswap_clone);
                     }
                     if (ImGui::Button("Paste model")) {
-                        //luahookfunc(char_modelswap_paste);
+                        ////luahookfunc(char_modelswap_paste);
                     }
                     ImGui::Unindent();
                 }
@@ -92,7 +92,7 @@ namespace gui {
                     ImGui::Indent();
                     if (ImGui::Button("Initiate resize")) {
                         boob_size = 1.0f;
-                        //luahookfunc(char_bub_initiate);
+                        ////luahookfunc(char_bub_initiate);
                     }
 
                     ImGui::SameLine();
@@ -100,7 +100,7 @@ namespace gui {
                     if (ImGui::SliderFloat("Booba scale", &boob_size, 0.0f, 4.0f, "%.3f"))
                     {
                         //string result = char_bub_resize + to_string(boob_size) + "," + to_string(boob_size) + "," + to_string(boob_size) + ")";
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
                     ImGui::Unindent();
                 }
@@ -117,7 +117,7 @@ namespace gui {
 
                     if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f"))
                     {
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
 
                     ImGui::SameLine();
@@ -126,7 +126,7 @@ namespace gui {
                     {
                         //string result = string(char_avatarresize) + "1 , 1, 1)";
                         avatarsize = 1.0f;
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
 
                     ImGui::Unindent();
@@ -148,7 +148,7 @@ namespace gui {
 
                     if (ImGui::Button("Change")) {
                         //string result = char_eleminf + to_string(cc_r) + "," + to_string(cc_g) + "," + to_string(cc_b) + "," + to_string(cc_a) + char_eleminf_end;
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
                     ImGui::SameLine();
 
@@ -174,11 +174,11 @@ namespace gui {
                     if (ImGui::Button("Change"))
                     {
                         //string result = animchanger + string(animation_options[anim_select_index]) + animchanger2; 
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
                     if (ImGui::Button("Reset"))
                     {
-                        //luahookfunc(animchangerreturn);
+                        ////luahookfunc(animchangerreturn);
                     }
                     ImGui::Unindent();
                 }
@@ -197,62 +197,62 @@ namespace gui {
                     if (ImGui::Button("Change"))
                     {
                         //string result = emochengemo1 + string(emo_options[emo_select_index]) + emochengemo2 + string(pho_options[emo_select_index]) + emochengpho2;
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
         
                 }
 
                 static bool isfreecam = false;
                 if (ImGui::Checkbox("Free camera", &isfreecam)) {
-                    //luahookfunc(cammovesffr1instantiate);
+                    ////luahookfunc(cammovesffr1instantiate);
                 }
                 if (isfreecam) {
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_RightArrow)))
                     {
                         util::log(2, "pressed right");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 10)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 10)");
                     }
 
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_LeftArrow)))
                     {
                         util::log(2, "pressed left");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.left * CS.UnityEngine.Time.deltaTime * 10)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.left * CS.UnityEngine.Time.deltaTime * 10)");
                     }
 
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_UpArrow)))
                     {
                         util::log(2, "pressed up");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.forward * CS.UnityEngine.Time.deltaTime * 10)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.forward * CS.UnityEngine.Time.deltaTime * 10)");
                     }
 
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_DownArrow)))
                     {
                         util::log(2, "pressed down");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.back * CS.UnityEngine.Time.deltaTime * 10)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Translate(CS.UnityEngine.Vector3.back * CS.UnityEngine.Time.deltaTime * 10)");
                     }
 
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_PageUp)))
                     {
                         util::log(2, "pressed down");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(CS.UnityEngine.Vector3.up * CS.UnityEngine.Time.deltaTime * 50.0)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(CS.UnityEngine.Vector3.up * CS.UnityEngine.Time.deltaTime * 50.0)");
                     }
 
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_PageDown)))
                     {
                         util::log(2, "pressed down");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(-CS.UnityEngine.Vector3.up * CS.UnityEngine.Time.deltaTime * 50.0)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(-CS.UnityEngine.Vector3.up * CS.UnityEngine.Time.deltaTime * 50.0)");
                     }
 
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_Z)))
                     {
                         util::log(2, "pressed down");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(-CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 50.0)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(-CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 50.0)");
                     }
 
                     if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_X)))
                     {
                         util::log(2, "pressed down");
-                        //luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 50.0)");
+                        ////luahookfunc("CS.UnityEngine.GameObject.Find(\"/FreeCamera\").transform:Rotate(CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 50.0)");
                     }
                 }
 
@@ -260,10 +260,10 @@ namespace gui {
                 static bool browser_is_enabled = false;
                 if (ImGui::Checkbox("Browser", &browser_is_enabled)) {
                     if (browser_is_enabled) {
-                        //luahookfunc(char_browser_on);
+                        ////luahookfunc(char_browser_on);
                     }
                     else {
-                        //luahookfunc(char_browser_off);
+                        ////luahookfunc(char_browser_off);
                     }
                 }
                 ImGui::SameLine();
@@ -273,10 +273,10 @@ namespace gui {
                 if(ImGui::Checkbox("Disable fog", &no_fog))
                 {
                     if (no_fog) {
-                        //luahookfunc(R"MY_DELIMITER(CS.UnityEngine.RenderSettings.fog = false)MY_DELIMITER");
+                        ////luahookfunc(R"MY_DELIMITER(CS.UnityEngine.RenderSettings.fog = false)MY_DELIMITER");
                     }
                     else {
-                       //luahookfunc(R"MY_DELIMITER(CS.UnityEngine.RenderSettings.fog = true)MY_DELIMITER");
+                       ////luahookfunc(R"MY_DELIMITER(CS.UnityEngine.RenderSettings.fog = true)MY_DELIMITER");
                     }
                 }
                 ImGui::SameLine();
@@ -285,7 +285,7 @@ namespace gui {
                 if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f"))
                 {
                     //string result = "CS.UnityEngine.Time.timeScale = " + to_string(TimeScale);
-                    //luahookfunc(result.c_str());
+                    ////luahookfunc(result.c_str());
                 }
                 ImGui::SameLine();
                 HelpMarker("Changes speed of game time. Applies to everything in game.");
@@ -294,7 +294,7 @@ namespace gui {
                 if (ImGui::Button("Reset (F11)")) {
                     TimeScale = 1.0f;
                     //string result = "CS.UnityEngine.Time.timeScale = 1.0";
-                    //luahookfunc(result.c_str());
+                    ////luahookfunc(result.c_str());
                 }
 
                 char inputmoFilePath[512] = "";
@@ -313,7 +313,7 @@ namespace gui {
 
                 if (ImGui::Button("Load MO")) {
                     //string result = string(char_moloader) + R"MY_DELIMITER(local moFilePath = ")MY_DELIMITER" + string(inputmoFilePath) + "\" \n" + R"MY_DELIMITER(local TextPath = ")MY_DELIMITER" + string(inputpngFilePath) + "\" \n" + string(char_moloader2);
-                    //luahookfunc(result.c_str());
+                    ////luahookfunc(result.c_str());
                 }
                 ImGui::SameLine();
                 HelpMarker("Creates 3D object in world, which will be imported from defined paths.");
@@ -323,7 +323,7 @@ namespace gui {
 
                 /*if (ImGui::Button("123"))
                 {
-                    luahookfunc("a = \"booba\"");
+                    //luahookfunc("a = \"booba\"");
                     lua_getglobal(gi_L, "a");
                     if (lua_isstring(gi_L, -1)) {
                         const char* result = lua_tostring(gi_L, -1);
@@ -344,7 +344,7 @@ namespace gui {
 
                 if (ImGui::Button("Save pos"))
                 {
-                    //luahookfunc("pospospos = tostring(CS.MoleMole.ActorUtils.GetAvatarPos())");
+                    ////luahookfunc("pospospos = tostring(CS.MoleMole.ActorUtils.GetAvatarPos())");
                     //lua_getglobal(gi_L, "pospospos");
                     //if (lua_isstring(gi_L, -1)) {
 
@@ -424,8 +424,8 @@ namespace gui {
                         ImGui::Indent();
                         ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
                         string result = "CS.UnityEngine.Application.targetFrameRate = " + to_string(targetfps);
-                        //luahookfunc(result.c_str());
-                        //luahookfunc("CS.UnityEngine.QualitySettings.vSyncCount = 0");
+                        ////luahookfunc(result.c_str());
+                        ////luahookfunc("CS.UnityEngine.QualitySettings.vSyncCount = 0");
                         ImGui::Unindent();
                     }
 
@@ -433,10 +433,10 @@ namespace gui {
 
                 if(ImGui::Checkbox("Hide UI", &hideui)) {
                     if (hideui) {
-                        //luahookfunc(char_uicamera_off);
+                        ////luahookfunc(char_uicamera_off);
                     }
                     else {
-                        //luahookfunc(char_uicamera_on);
+                        ////luahookfunc(char_uicamera_on);
                     }
                 }
                 ImGui::SameLine();
@@ -446,10 +446,10 @@ namespace gui {
 
                 if(ImGui::Checkbox("Hide DMG numbers", &hidenumdmg)) {
                     if (hidenumdmg) {
-                        //luahookfunc(char_dmgnum_off);
+                        ////luahookfunc(char_dmgnum_off);
                     }
                     else {
-                        //luahookfunc(char_dmgnum_on);
+                        ////luahookfunc(char_dmgnum_on);
                     }
                 }
                 ImGui::SameLine();
@@ -459,10 +459,10 @@ namespace gui {
 
                 if (ImGui::Checkbox("Enable peeking", &turnoffdithering)) {
                     if (turnoffdithering) {
-                        luahookfunc(enablepeeking);
+                        //luahookfunc(enablepeeking);
                     }
                     else {
-                        luahookfunc(disablepeeking);
+                        //luahookfunc(disablepeeking);
                     }
                 }*/
 
@@ -475,7 +475,7 @@ namespace gui {
                     ImGui::Indent();
                     ImGui::SliderFloat("Field Of View", &targetfov, 10.0f, 180.0f, "%.3f");
                     string result = R"MY_DELIMITER(CS.UnityEngine.GameObject.Find("EntityRoot/MainCamera(Clone)"):GetComponent("Camera").main.fieldOfView = )MY_DELIMITER" + to_string(targetfov);
-                    luahookfunc(result.c_str());
+                    //luahookfunc(result.c_str());
                     ImGui::Unindent();
                 }*/
 
@@ -515,7 +515,7 @@ namespace gui {
                     if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != string::npos)
                     {
                         /*if (is_hook_success) {
-                            luahookfunc(code.c_str());
+                            //luahookfunc(code.c_str());
                             if (last_ret_code == 0) {
                                 util::log(2,"compilation success: %s", last_tolstr);
                             }
@@ -542,7 +542,7 @@ namespace gui {
                     if (ImGui::Button("Create")) {
                         string functionText = editor.GetText();
                         function<void()> buttonFunc = [functionText]() {
-                            //luahookfunc(functionText.c_str());
+                            ////luahookfunc(functionText.c_str());
                         };
                         buttonFuncs.emplace_back(string(buttonLabel), buttonFunc);
                         memset(buttonLabel, 0, sizeof(buttonLabel));
@@ -831,7 +831,7 @@ namespace gui {
                     if(strlen(Dump_Path) != 0)
                     {
                         //string result = "local DUMP_FOLDER = \"" + string(Dump_Path) + "\"" + char_dumpcs_part1 + char_dumpcs_part2;
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
                 }
                 if(ImGui::IsItemHovered() && strlen(Dump_Path) != 0){
@@ -845,7 +845,7 @@ namespace gui {
                     if(strlen(Dump_Path) != 0)
                     {
                         //string result = "local dump_path = \"" + string(Dump_Path) + "\"" + char_dump_hierarchy;
-                        //luahookfunc(result.c_str());
+                        ////luahookfunc(result.c_str());
                     }
                 }
                 ImGui::EndTabItem();

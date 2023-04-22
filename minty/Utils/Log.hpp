@@ -1,12 +1,14 @@
-#include <Windows.h>
+#pragma once
 
+#include <Windows.h>
 #include <optional>
 #include <string>
 #include <sstream>
 #include <fstream>
 #include <filesystem>
 #include <chrono>
-#include "../imgui/imgui.h"
+
+#include "../ImGui/ImGui/imgui.h"
 
 namespace fs = std::filesystem;
 
@@ -26,15 +28,6 @@ namespace util
         log_textbuf.appendf("[Minty:%s] ", info_type[output_type]);
         log_textbuf.appendf(fmt, args...);
         log_textbuf.appendf("\n");
-    }
-
-    void logdialog(const char* fmt)
-    {
-        const char* errordialogformat = "CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"%s\",\"Minty\")";
-        char errordialogtext[256];
-        snprintf(errordialogtext, sizeof(errordialogtext), errordialogformat, fmt);
-        luahookfunc(errordialogtext);
-        printf(errordialogtext);
     }
 }
 
