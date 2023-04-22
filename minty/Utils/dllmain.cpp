@@ -1,4 +1,5 @@
 #include "../includes.h"
+#include "../IL2CPP/il2cpp-init.hpp"
 
 DWORD WINAPI MainThread(LPVOID lpReserved)
 {
@@ -15,6 +16,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 	else {
 		util::log(2, "Swapchain not found", "");
 	}
+
+	init_il2cpp();
 
 	return 0;
 }

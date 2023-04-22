@@ -35,4 +35,5 @@ VOID init_il2cpp()
 #define DO_APP_FUNC(a, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
 #include "il2cpp-unityplayer-functions.h"
 #undef DO_APP_FUNC
+	util::log(2, "isle too see pipi ready");
 }
