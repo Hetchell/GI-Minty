@@ -18,6 +18,7 @@
 #include "ImGui/TextEditor/TextEditor.h"
 
 #include "Themes/themes.h"
+<<<<<<< Updated upstream
 #include "Utils/ExtraGuiFuncs.hpp"
 #include "Utils/Log.hpp"
 
@@ -27,6 +28,14 @@
 //#include "Games/minesweeper.hpp"
 //#include "Games/tictactoe.hpp"
 //#include "Games/wordle.hpp"
+=======
+//#include "Utils/ExtraGuiFuncs.hpp"
+#include "ImGui/TextEditor/TextEditor.h"
+//#include "../minty/Games/lightsout.hpp"
+//#include "../minty/Games/minesweeper.hpp"
+//#include "../minty/Games/tictactoe.hpp"
+//#include "../minty/Games/wordle.hpp"
+>>>>>>> Stashed changes
 
 typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);

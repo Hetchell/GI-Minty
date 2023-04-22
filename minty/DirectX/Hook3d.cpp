@@ -1,4 +1,4 @@
-#include "../includes.h"
+#include "../GUI/MainGUI.h"
 
 using namespace std;
 
@@ -78,7 +78,7 @@ static HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-
+	gui::FrameLoadGui();
 
 	ImGui::EndFrame();
 	ImGui::Render();
@@ -86,18 +86,4 @@ static HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	return oPresent(pSwapChain, SyncInterval, Flags);
-}
-
-DWORD WINAPI MainThread(LPVOID lpReserved)
-{
-	//nigger::dick.Suck(throat);
-}
-
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
-{
-	if (fdwReason == DLL_PROCESS_ATTACH) {
-		//CloseHandle(CreateThread(NULL, 0, &, NULL, NULL, NULL)); --- idk if it is required
-		CreateThread(NULL, 0, &MainThread, NULL, NULL, NULL);
-	}
-	return TRUE;
 }

@@ -1,4 +1,5 @@
 #include "MainGUI.h"
+#include "../Utils/ExtraGuiFuncs.hpp"
 
 using namespace std;
 

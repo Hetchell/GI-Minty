@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="GUI\MainGUI.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Themes\themes.cpp" />
     <ClCompile Include="ImGui\TextEditor\TextEditor.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui.cpp" />
@@ -12,6 +11,8 @@
     <ClCompile Include="ImGui\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Utils\init.cpp" />
+    <ClCompile Include="DX\Hook3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -37,5 +38,6 @@
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
     <ClInclude Include="Utils\Log.hpp" />
     <ClInclude Include="Themes\Themeloader.hpp" />
+    <ClInclude Include="DX\Hook3d.h" />
   </ItemGroup>
 </Project>
