@@ -111,7 +111,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -155,6 +155,9 @@
   <ItemGroup>
     <ClCompile Include="DirectX\D3D11Hook.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClInclude Include="IL2CPP\HookManager.h">
+      <FileType>CppHeader</FileType>
+    </ClInclude>
     <ClCompile Include="ImGui\ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_draw.cpp" />
@@ -174,6 +177,12 @@
     <ClInclude Include="Games\wordle.hpp" />
     <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="GUI\MainGUI.h" />
+    <ClInclude Include="IL2CPP\detours.h" />
+    <ClInclude Include="IL2CPP\il2cpp-api-functions.h" />
+    <ClInclude Include="IL2CPP\il2cpp-appdata.h" />
+    <ClInclude Include="IL2CPP\il2cpp-functions.h" />
+    <ClInclude Include="IL2CPP\il2cpp-init.hpp" />
+    <ClInclude Include="IL2CPP\il2cpp-unityplayer-functions.h" />
     <ClInclude Include="ImGui\ImGui\imconfig.h" />
     <ClInclude Include="ImGui\ImGui\imgui.h" />
     <ClInclude Include="ImGui\ImGui\imgui_impl_dx11.h" />
@@ -193,6 +202,7 @@
     <ClInclude Include="Utils\Log.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="IL2CPP\detours.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

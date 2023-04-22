@@ -6,9 +6,14 @@
 #include <commdlg.h>
 #define _CRT_SECURE_NO_WARNINGS
 #include "../minty/json/json.hpp"
-#include "../minty/Json/prejson.hpp"
+
+
+//#include "../minty/gilua/util.h"
+//#include "../minty/gilua/luahook.h"
 
 namespace fs = std::filesystem;
+
+//std::ifstream f("cfg.json");
 
 namespace util
 {
@@ -127,30 +132,28 @@ int main()
     ifs >> cfg;*/
 
     //f >> cfg;
-    //std::ifstream settings_file(settings_path);
+    std::ifstream settings_file(settings_path);
     // Check if the settings file exists
     if (!fs::exists(settings_path)) {
-        //std::ofstream settings_file(settings_path);
-        if (settings_fileO.is_open()) {
+        std::ofstream settings_file(settings_path);
+        if (settings_file.is_open()) {
             // Write the executable path to the settings file
             cfg["exec_path"] = exe_path;
-            writeToJsonConfig("minty", cfg);
-            //settings_file << cfg.dump() << std::endl;
-            //settings_file.close();
+            settings_file << cfg.dump(4) << std::endl;
+            settings_file.close();
         }
         else {
             std::cout << "Error: Unable to create config file." << std::endl;
             return 1;
         }
     }
- 
-    //settings_fileI >> cfg;
-    readConfigToObject(cfg);
+
+    settings_file >> cfg;
 
     auto settings = read_whole_file(settings_path);
     if (!settings)
     {
-        printf("Failed reading cfg.json\n");
+        printf("Failed reading config\n");
         system("pause");
         return 0;
     }
@@ -164,8 +167,8 @@ int main()
     {
         std::cout << "File path in settings.exe invalid" << std::endl;
         std::cout << "Please select your Game Executable" << std::endl;
-       /* printf("Target executable not found\n");
-        system("pause");*/
+        /* printf("Target executable not found\n");
+         system("pause");*/
         OPENFILENAMEA ofn{};
         char szFile[260]{};
         ZeroMemory(&ofn, sizeof(ofn));
@@ -182,14 +185,13 @@ int main()
         if (GetOpenFileNameA(&ofn))
         {
             std::string(exe_path) = ofn.lpstrFile;
-            //std::ofstream settings_file("cfg.json", std::ios_base::out);
-            if (settings_fileO.is_open()) {
+            std::ofstream settings_file("minty", std::ios_base::out);
+            if (settings_file.is_open()) {
                 /*settings_file << exe_path << std::endl;
                 settings_file.close();*/
                 cfg["exec_path"] = exe_path;
-                writeToJsonConfig("minty", cfg);
-                //settings_file << cfg.dump(4) << std::endl;
-                //settings_file.close();
+                settings_file << cfg.dump(4) << std::endl;
+                settings_file.close();
             }
             else {
                 std::cout << "Error: Unable to open settings file." << std::endl;
@@ -201,6 +203,7 @@ int main()
             return 1;
         }
 
+        exe_path = cfg["exec_path"];
         PROCESS_INFORMATION proc_info{};
         STARTUPINFOA startup_info{};
         CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);

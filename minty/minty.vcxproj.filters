@@ -11,12 +11,8 @@
     <ClCompile Include="ImGui\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
-
-    <ClCompile Include="Utils\init.cpp" />
     <ClCompile Include="DirectX\D3D11Hook.cpp" />
-
     <ClCompile Include="Utils\dllmain.cpp" />
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -43,5 +39,15 @@
     <ClInclude Include="Themes\Themeloader.hpp" />
     <ClInclude Include="Json\json.hpp" />
     <ClInclude Include="DirectX\D3D11Hook.h" />
+    <ClInclude Include="IL2CPP\detours.h" />
+    <ClInclude Include="IL2CPP\HookManager.h" />
+    <ClInclude Include="IL2CPP\il2cpp-appdata.h" />
+    <ClInclude Include="IL2CPP\il2cpp-functions.h" />
+    <ClInclude Include="IL2CPP\il2cpp-init.hpp" />
+    <ClInclude Include="IL2CPP\il2cpp-api-functions.h" />
+    <ClInclude Include="IL2CPP\il2cpp-unityplayer-functions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="IL2CPP\detours.lib" />
   </ItemGroup>
 </Project>
