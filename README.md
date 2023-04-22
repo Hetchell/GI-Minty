@@ -1,7 +1,5 @@
-# Minty
-![alt text](https://cdn.discordapp.com/attachments/1074393130113191956/1085601369878171768/Akito_09_st.ayaka.one.png)
 
-<b><i><<Some open-source software, which is great companion for certain game made by chinese devs.>></i></b>
+<b><i><<Some software, which is great companion for certain game made by chinese humans.>></i></b>
 ## Features
 
 ```
