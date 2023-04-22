@@ -22,6 +22,8 @@
 #include "Utils/Log.hpp"
 
 #include "Json/json.hpp"
+#include "Directx/D3D11Hook.h"
+#include "DirectX/D3D11Hook.cpp"
 //#include "Json/prejson.hpp"
 //#include "Games/lightsout.hpp"
 //#include "Games/minesweeper.hpp"

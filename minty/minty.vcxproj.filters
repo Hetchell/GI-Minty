@@ -12,7 +12,7 @@
     <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Utils\init.cpp" />
-    <ClCompile Include="DirectX\Hook3d.cpp" />
+    <ClCompile Include="DirectX\D3D11Hook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -37,7 +37,7 @@
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
     <ClInclude Include="Utils\Log.hpp" />
     <ClInclude Include="Themes\Themeloader.hpp" />
-    <ClInclude Include="DirectX\Hook3d.h" />
     <ClInclude Include="Json\json.hpp" />
+    <ClInclude Include="DirectX\D3D11Hook.h" />
   </ItemGroup>
 </Project>

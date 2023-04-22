@@ -9,6 +9,13 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 
 	util::log(2, "Starting", "");
 
+	if (findDirect11SwapChain() != nullptr) {
+		util::log(2, "Swpachain Found", "");
+	}
+	else {
+		util::log(2, "Swapchain not found", "");
+	}
+
 	return 0;
 }
 
