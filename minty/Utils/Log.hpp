@@ -12,8 +12,6 @@
 
 namespace fs = std::filesystem;
 
-void luahookfunc(const char* charLuaScript);
-
 static ImGuiTextBuffer log_textbuf;
 
 namespace util
@@ -25,6 +23,7 @@ namespace util
         printf("[Minty:%s] ", info_type[output_type]);
         printf(fmt, args...);
         printf("\n");
+        
         log_textbuf.appendf("[Minty:%s] ", info_type[output_type]);
         log_textbuf.appendf(fmt, args...);
         log_textbuf.appendf("\n");

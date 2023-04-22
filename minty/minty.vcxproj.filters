@@ -14,11 +14,11 @@
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="games\lightsout.hpp" />
-    <ClInclude Include="games\minesweeper.hpp" />
-    <ClInclude Include="games\tictactoe.hpp" />
-    <ClInclude Include="games\wordle.hpp" />
-    <ClInclude Include="gilua\logtextbuf.h" />
+    <ClInclude Include="Games\lightsout.hpp" />
+    <ClInclude Include="Games\minesweeper.hpp" />
+    <ClInclude Include="Games\tictactoe.hpp" />
+    <ClInclude Include="Games\wordle.hpp" />
+
     <ClInclude Include="GUI\MainGUI.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="Json\prejson.hpp" />
