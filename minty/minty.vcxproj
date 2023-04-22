@@ -164,7 +164,7 @@
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="ImGui\TextEditor\TextEditor.cpp" />
     <ClCompile Include="Themes\themes.cpp" />
-    <ClCompile Include="Utils\init.cpp" />
+    <ClCompile Include="Utils\dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX\Hook3d.h" />

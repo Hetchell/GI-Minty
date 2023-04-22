@@ -11,7 +11,7 @@
     <ClCompile Include="ImGui\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="Utils\init.cpp" />
+    <ClCompile Include="Utils\dllmain.cpp" />
     <ClCompile Include="DirectX\Hook3d.cpp" />
   </ItemGroup>
   <ItemGroup>
