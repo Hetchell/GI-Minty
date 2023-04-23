@@ -1,5 +1,6 @@
 #include "../includes.h"
 #include "../IL2CPP/il2cpp-init.hpp"
+#include "../DirectX/D3D11Hook.hpp"
 
 DWORD WINAPI MainThread(LPVOID lpReserved)
 {
@@ -10,12 +11,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 
 	util::log(2, "Starting", "");
 
-	if (findDirect11SwapChain() != nullptr) {
-		util::log(2, "Swpachain Found", "");
-	}
-	else {
-		util::log(2, "Swapchain not found", "");
-	}
+	InitializeDX11Hooks();
 
 	init_il2cpp();
 

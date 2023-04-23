@@ -153,8 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DirectX\D3D11Hook.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="IL2CPP\HookManager.h">
       <FileType>CppHeader</FileType>
     </ClInclude>
@@ -170,7 +170,6 @@
     <ClCompile Include="Utils\dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectX\D3D11Hook.h" />
     <ClInclude Include="Games\lightsout.hpp" />
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
