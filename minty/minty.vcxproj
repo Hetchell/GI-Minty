@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
+    <ClInclude Include="DirectX\shadez.h" />
     <ClInclude Include="IL2CPP\HookManager.h">
       <FileType>CppHeader</FileType>
     </ClInclude>

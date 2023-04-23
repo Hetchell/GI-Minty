@@ -45,8 +45,6 @@
     <ClInclude Include="IL2CPP\il2cpp-api-functions.h" />
     <ClInclude Include="IL2CPP\il2cpp-unityplayer-functions.h" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="IL2CPP\detours.lib" />
+    <ClInclude Include="DirectX\shadez.h" />
   </ItemGroup>
 </Project>
