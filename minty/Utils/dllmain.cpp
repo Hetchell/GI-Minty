@@ -10,10 +10,15 @@ DWORD WINAPI MainThread(void* pHandle)
 	freopen("CONOUT$", "w", stderr);
 
 	util::log(2, "Starting", "");
-	
-	init_il2cpp();
 
-	InitializeDX11Hooks(pHandle);
+	GetPresent();
+	printValues();
+
+	detourDirectXPresent();
+	detourDirectXDrawIndexed();
+
+	init_il2cpp();
+	//InitializeDX11Hooks(pHandle);
 	return 0;
 }
 

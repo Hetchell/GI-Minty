@@ -1,482 +1,650 @@
-#pragma once
+// DirectX11Hook.cpp : Defines the exported functions for the DLL application.
+//
 
+// Standard imports
+//#include "stdafx.h"
 #include <Windows.h>
-#include <d3d11.h>
-#include <dxgi.h>
-
-#include "../Utils/Log.hpp"
-#include "../ImGui/ImGui/imgui.h"
-
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-
-#include "../ImGui/ImGui/imgui.h"
-#include "../ImGui/ImGui/imgui_impl_win32.h"
-#include "../ImGui/ImGui/imgui_impl_dx11.h"
-
-#include "shadez.h"
-#include "D3D_VMT_Indices.h"
-
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
-#pragma comment(lib, "d3dcompiler.lib")
-#include <string>
-
-#define VMT_PRESENT (UINT)IDXGISwapChainVMT::Present
-#define PRESENT_STUB_SIZE 5
-
-// d3d11 related object ptrs
-using namespace DirectX;
-
-#define safe_release(p) if (p) { p->Release(); p = nullptr; } 
-
-ID3D11Device* pDevice = nullptr;
-IDXGISwapChain* pSwapchain = nullptr;
-ID3D11DeviceContext* pContext = nullptr;
-ID3D11RenderTargetView* pRenderTargetView = nullptr;
-ID3D11VertexShader* pVertexShader = nullptr;
-ID3D11InputLayout* pVertexLayout = nullptr;
-ID3D11PixelShader* pPixelShader = nullptr;
-ID3D11Buffer* pVertexBuffer = nullptr;
-ID3D11Buffer* pIndexBuffer = nullptr;
-ID3D11Buffer* pConstantBuffer = nullptr;
-
-// Changing this to an array of viewports
-#define MAINVP 0
-D3D11_VIEWPORT pViewports[D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE]{ 0 };
-XMMATRIX mOrtho;
-
-struct ConstantBuffer
-{
-	XMMATRIX mProjection;
-};
-
-struct Vertex
-{
-	XMFLOAT3 pos;
-	XMFLOAT4 color;
-};
-
-HRESULT __stdcall hkPresent( IDXGISwapChain* pThis, UINT SyncInterval, UINT Flags );
-using fnPresent = HRESULT( __stdcall* )(IDXGISwapChain* pThis, UINT SyncInterval, UINT Flags);
-void* ogPresent;					// Pointer to the original Present function
-fnPresent ogPresentTramp;			// Function pointer that calls the Present stub in our trampoline
-void* pTrampoline = nullptr;		// Pointer to jmp instruction in our trampoline that leads to hkPresent
-char ogBytes[PRESENT_STUB_SIZE];	// Buffer to store original bytes from Present
-
-bool Hook( void* pSrc, void* pDst, size_t size );
-bool WriteMem( void* pDst, char* pBytes, size_t size );
-bool HookD3D();
-bool CompileShader( const char* szShader, const char * szEntrypoint, const char * szTarget, ID3D10Blob ** pBlob );
-bool InitD3DHook( IDXGISwapChain* pSwapchain );
-void CleanupD3D();
-void Render();
-
-// adding this code ripped off SO to find the "main window" as a fallback to RSGetViewports
-struct HandleData
-{
-	DWORD pid;
-	HWND hWnd;
-};
-HWND FindMainWindow( DWORD dwPID );
-BOOL CALLBACK EnumWindowsCallback( HWND hWnd, LPARAM lParam );
-
-void DXThread( void* pHandle )
-{
-	AllocConsole();
-	freopen("CONIN$", "r", stdin);
-	freopen("CONOUT$", "w", stdout);
-	freopen("CONOUT$", "w", stderr);
-	
-	// Hook d3d
-	if (HookD3D())
-	{
-		// END key to unload
-		while (!GetAsyncKeyState( VK_END ));
-	}
-
-	// Cleanup and unload dll
-	CleanupD3D();
-	WriteMem( ogPresent, ogBytes, PRESENT_STUB_SIZE );
-	VirtualFree( (void*)ogPresentTramp, 0x1000, MEM_RELEASE );
-	CreateThread( 0, 0, (LPTHREAD_START_ROUTINE)FreeLibrary, pHandle, 0, 0 );
-}
-
-bool Hook( void* pSrc, void* pDst, size_t size )
-{
-	DWORD dwOld;
-	uintptr_t src = (uintptr_t)pSrc;
-	uintptr_t dst = (uintptr_t)pDst;
-
-	if (!VirtualProtect( pSrc, size, PAGE_EXECUTE_READWRITE, &dwOld ))
-		return false;
-
-	*(char*)src = (char)0xE9;
-	*(int*)(src + 1) = (int)(dst - src - 5);
-
-	VirtualProtect( pSrc, size, dwOld, &dwOld );
-	return true;
-}
-
-bool WriteMem( void* pDst, char* pBytes, size_t size )
-{
-	DWORD dwOld;
-	if (!VirtualProtect( pDst, size, PAGE_EXECUTE_READWRITE, &dwOld ))
-		return false;
-
-	memcpy( pDst, pBytes, PRESENT_STUB_SIZE );
-
-	VirtualProtect( pDst, size, dwOld, &dwOld );
-	return true;
-}
-
-bool HookD3D()
-{
-	// Create a dummy device, get swapchain vmt, hook present.
-	D3D_FEATURE_LEVEL featLevel;
-	DXGI_SWAP_CHAIN_DESC sd{ 0 };
-	sd.BufferCount = 1;
-	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	sd.BufferDesc.Height = 800;
-	sd.BufferDesc.Width = 600;
-	sd.BufferDesc.RefreshRate = { 60, 1 };
-	sd.OutputWindow = GetForegroundWindow();
-	sd.Windowed = TRUE;
-	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	sd.SampleDesc.Count = 1;
-	sd.SampleDesc.Quality = 0;
-	HRESULT hr = D3D11CreateDeviceAndSwapChain( nullptr, D3D_DRIVER_TYPE_REFERENCE, nullptr, 0, nullptr, 0, D3D11_SDK_VERSION, &sd, &pSwapchain, &pDevice, &featLevel, nullptr );
-	if (FAILED( hr )) 
-		return false;
-
-	// Get swapchain vmt
-	void** pVMT = *(void***)pSwapchain;
-	
-	// Get Present's address out of vmt
-	ogPresent = (fnPresent)(pVMT[VMT_PRESENT]);
-	util::log(3, "DX11 Present Pointer: %p", ogPresent);
-
-	// got what we need, we can release device and swapchain now
-	// we'll be stealing the game's.
-	safe_release( pSwapchain );
-	safe_release( pDevice );
-
-	// Create a code cave to trampoline to our hook
-	// We'll try to do this close to present to make sure we'll be able to use a 5 byte jmp (important for x64)
-	void* pLoc = (void*)((uintptr_t)ogPresent - 0x2000);
-	void* pTrampLoc = nullptr;
-	while (!pTrampLoc)
-	{
-		pTrampLoc = VirtualAlloc( pLoc, 1, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE );
-		pLoc = (void*)((uintptr_t)pLoc + 0x200);
-	}
-	ogPresentTramp = (fnPresent)pTrampLoc;
-
-	// write original bytes to trampoline
-	// write jmp to hook
-	memcpy( ogBytes, ogPresent, PRESENT_STUB_SIZE );
-	memcpy( pTrampLoc, ogBytes, PRESENT_STUB_SIZE );
-	
-	pTrampLoc = (void*)((uintptr_t)pTrampLoc + PRESENT_STUB_SIZE);
-	
-	// write the jmp back into present
-	*(char*)pTrampLoc = (char)0xE9;
-	pTrampLoc = (void*)((uintptr_t)pTrampLoc + 1);
-	uintptr_t ogPresRet = (uintptr_t)ogPresent + 5;
-	*(int*)pTrampLoc = (int)(ogPresRet - (uintptr_t)pTrampLoc - 4);
-	
-	// write the jmp to our hook
-	pTrampoline = pTrampLoc = (void*)((uintptr_t)pTrampLoc + 4);
-#ifdef _WIN64
-	// if x64, gazzillion byte absolute jmp
-	char pJmp[] = { 0xFF, 0x25, 0x00, 0x00, 0x00, 0x00 };
-	WriteMem( pTrampLoc, pJmp, ARRAYSIZE( pJmp ) );
-	pTrampLoc = (void*)((uintptr_t)pTrampLoc + ARRAYSIZE( pJmp ));
-	*(uintptr_t*)pTrampLoc = (uintptr_t)hkPresent;
+#include <iostream>
+#include <iomanip>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unordered_set>
+#include <mutex>
+#include "../GUI/MainGUI.h"
+// Check windows
+#if _WIN32 || _WIN64
+#if _WIN64
+#define ENV64BIT
 #else
-	// if x86, normal 0xE9 jmp
-	*(char*)pTrampLoc = (char)0xE9;
-	pTrampLoc = (void*)((uintptr_t)pTrampLoc + 1);
-	*(int*)pTrampLoc = (uintptr_t)hkPresent - (uintptr_t)pTrampLoc - 4;
+#define ENV32BIT
+#endif
 #endif
 
-	// hook present, place a normal mid-function at the beginning of the Present function
-	return Hook(ogPresent, pTrampoline, PRESENT_STUB_SIZE);
-}
+// Detours imports
+#include "../IL2CPP/detours.h"
 
-bool CompileShader( const char* szShader, const char * szEntrypoint, const char * szTarget, ID3D10Blob ** pBlob )
+// DX11 imports
+#include <D3D11.h>
+#include <D3Dcompiler.h>
+#pragma comment(lib, "d3dcompiler.lib")
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "detours.lib")
+#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
+
+
+//ImGUI imports
+//#include <imgui.h>
+//#include <imgui_impl_win32.h>
+//#include <imgui_impl_dx11.h>
+//#include <imgui_internal.h>
+#include "../includes.h"
+#include "../ImGui/ImGui/imgui_internal.h"
+
+// D3X HOOK DEFINITIONS
+typedef HRESULT(__fastcall* IDXGISwapChainPresent)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
+typedef void(__stdcall* ID3D11DrawIndexed)(ID3D11DeviceContext* pContext, UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
+// Definition of WndProc Hook. Its here to avoid dragging dependencies on <windows.h> types.
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+
+// Main D3D11 Objects
+ID3D11DeviceContext* pContext = NULL;
+ID3D11Device* pDevice = NULL;
+ID3D11RenderTargetView* mainRenderTargetView;
+static IDXGISwapChain* pSwapChain = NULL;
+static WNDPROC OriginalWndProcHandler = nullptr;
+HWND window = nullptr;
+IDXGISwapChainPresent fnIDXGISwapChainPresent;
+DWORD_PTR* pDeviceContextVTable = NULL;
+ID3D11DrawIndexed fnID3D11DrawIndexed;
+UINT iIndexCount = 0;
+UINT iStartIndexLocation;
+INT iBaseVertexLocation;
+
+// Boolean
+BOOL g_bInitialised = false;
+bool g_ShowMenu = false;
+bool bDrawIndexed = true;
+BOOL bModelLogging;
+bool bCurrent;
+bool g_PresentHooked = false;
+
+//vertex
+UINT veStartSlot;
+UINT veNumBuffers;
+ID3D11Buffer* veBuffer;
+UINT Stride;
+UINT veBufferOffset;
+D3D11_BUFFER_DESC vedesc;
+
+//index
+ID3D11Buffer* inBuffer;
+DXGI_FORMAT inFormat;
+UINT        inOffset;
+D3D11_BUFFER_DESC indesc;
+
+//psgetConstantbuffers
+UINT pscStartSlot;
+UINT pscNumBuffers;
+ID3D11Buffer* pscBuffer;
+D3D11_BUFFER_DESC pscdesc;
+
+//Textures
+ID3D11Texture2D* textureRed = nullptr;
+ID3D11ShaderResourceView* textureView;
+ID3D11SamplerState* pSamplerState;
+ID3D11PixelShader* pShaderRed = NULL;
+bool bShader = 1;
+bool bTexture = 0;
+
+// Model Structures
+struct propertiesModel
 {
-	ID3D10Blob* pErrorBlob = nullptr;
+	UINT stride;
+	UINT vedesc_ByteWidth;
+	UINT indesc_ByteWidth;
+	UINT pscdesc_ByteWidth;
+};
 
-	auto hr = D3DCompile( szShader, strlen( szShader ), 0, nullptr, nullptr, szEntrypoint, szTarget, D3DCOMPILE_ENABLE_STRICTNESS, 0, pBlob, &pErrorBlob );
-	if (FAILED( hr ))
-	{
-		if (pErrorBlob)
-		{
-			char szError[256]{ 0 };
-			memcpy( szError, pErrorBlob->GetBufferPointer(), pErrorBlob->GetBufferSize() );
-			MessageBoxA( nullptr, szError, "Error", MB_OK );
-		}
-		return false;
-	}
-	return true;
-}
+//Z-Buffering variables
+ID3D11DepthStencilState* m_DepthStencilState;
+ID3D11DepthStencilState* m_origDepthStencilState;
+UINT pStencilRef;
+bool bWallhack = false;
 
-bool InitD3DHook( IDXGISwapChain * pSwapchain )
+
+// LightHack
+bool bLighthack = false;
+
+bool operator==(const propertiesModel& lhs, const propertiesModel& rhs)
 {
-	HRESULT hr = pSwapchain->GetDevice( __uuidof(ID3D11Device), (void**)&pDevice );
-	if (FAILED( hr ))
-		return false;
-
-	pDevice->GetImmediateContext( &pContext );
-	pContext->OMGetRenderTargets( 1, &pRenderTargetView, nullptr );
-
-	// If for some reason we fail to get a render target, create one.
-	// This will probably never happen with a real game but maybe certain test environments... :P
-	if (!pRenderTargetView)
+	if (lhs.stride != rhs.stride
+		|| lhs.vedesc_ByteWidth != rhs.vedesc_ByteWidth
+		|| lhs.indesc_ByteWidth != rhs.indesc_ByteWidth
+		|| lhs.pscdesc_ByteWidth != rhs.pscdesc_ByteWidth)
 	{
-		// Get a pointer to the back buffer for the render target view
-		ID3D11Texture2D* pBackbuffer = nullptr;
-		hr = pSwapchain->GetBuffer( 0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&pBackbuffer) );
-		if (FAILED( hr ))
-			return false;
-
-		// Create render target view
-		hr = pDevice->CreateRenderTargetView( pBackbuffer, nullptr, &pRenderTargetView );
-		pBackbuffer->Release();
-		if (FAILED( hr ))
-			return false;
-
-		// Make sure our render target is set.
-		pContext->OMSetRenderTargets( 1, &pRenderTargetView, nullptr );
-	}
-	
-	// initialize shaders
-	ID3D10Blob* pBlob = nullptr;
-
-	// create vertex shader
-	if (!CompileShader( szShadez, "VS", "vs_5_0", &pBlob ))
 		return false;
-
-	hr = pDevice->CreateVertexShader( pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader );
-	if (FAILED( hr ))
-		return false;
-
-	// Define/create the input layout for the vertex shader
-	D3D11_INPUT_ELEMENT_DESC layout[2] = {
-	{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-	{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
-	};
-	UINT numElements = ARRAYSIZE( layout );
-
-	hr = pDevice->CreateInputLayout( layout, numElements, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pVertexLayout );
-	if (FAILED( hr ))
-		return false;
-
-	safe_release( pBlob );
-
-	// create pixel shader
-	if (!CompileShader( szShadez, "PS", "ps_5_0", &pBlob ))
-		return false;
-
-	hr = pDevice->CreatePixelShader( pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader );
-	if (FAILED( hr ))
-		return false;
-
-	UINT numViewports = D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE;
-	float fWidth =  0;
-	float fHeight = 0;
-
-	// Apparently this isn't universal. Works on some games
-	pContext->RSGetViewports( &numViewports, pViewports );
-	
-	//
-	if (!numViewports || !pViewports[MAINVP].Width)
-	{
-		// This should be retrieved dynamically
-		//HWND hWnd0 = FindWindowA( "W2ViewportClass", nullptr );
-		HWND hWnd = FindMainWindow( GetCurrentProcessId() );
-		RECT rc{ 0 };
-		if (!GetClientRect( hWnd, &rc ))
-			return false;
-
-		//fWidth = 1600.0f;
-		//fHeight = 900.0f;
-		fWidth = (float)rc.right;
-		fHeight = (float)rc.bottom;
-
-		// Setup viewport
-		pViewports[MAINVP].Width = (float)fWidth;
-		pViewports[MAINVP].Height = (float)fHeight;
-		pViewports[MAINVP].MinDepth = 0.0f;
-		pViewports[MAINVP].MaxDepth = 1.0f;
-
-		// Set viewport to context
-		pContext->RSSetViewports( 1, pViewports );
 	}
 	else
 	{
-		fWidth = (float)pViewports[MAINVP].Width;
-		fHeight = (float)pViewports[MAINVP].Height;
+		//std::cout << "true" << std::endl;
+		return true;
 	}
-	// Create the constant buffer
-	D3D11_BUFFER_DESC bd{ 0 };
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	bd.ByteWidth = sizeof( ConstantBuffer );
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	
-	// Setup orthographic projection
-	mOrtho = XMMatrixOrthographicLH( fWidth, fHeight, 0.0f, 1.0f );
-	ConstantBuffer cb;
-	cb.mProjection = mOrtho;
-	
-	D3D11_SUBRESOURCE_DATA sr{ 0 };
-	sr.pSysMem = &cb;
-	hr = pDevice->CreateBuffer( &bd, &sr, &pConstantBuffer );
-	if (FAILED( hr ))
-		return false;
-
-	// Create a triangle to render
-	// Create a vertex buffer, start by setting up a description.
-	ZeroMemory( &bd, sizeof( bd ) );
-	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = 3 * sizeof( Vertex );
-	bd.StructureByteStride = sizeof( Vertex );
-
-	// left and top edge of window
-	float left = fWidth / -2;
-	float top = fHeight / 2;
-
-	// Width and height of triangle
-	float w = 50;
-	float h = 50;
-	
-	// Center position of triangle, this should center it in the screen.
-	float fPosX = -1 * left;
-	float fPosY = top;
-
-	// Setup vertices of triangle
-	Vertex pVerts[3] = {
-		{ XMFLOAT3( left + fPosX,			top - fPosY + h / 2,	1.0f ),	XMFLOAT4( 1.0f, 0.0f, 0.0f, 1.0f ) },
-		{ XMFLOAT3( left + fPosX + w / 2,	top - fPosY - h / 2,	1.0f ),	XMFLOAT4( 0.0f, 0.0f, 1.0f, 1.0f ) },
-		{ XMFLOAT3( left + fPosX - w / 2,	top - fPosY - h / 2,	1.0f ),	XMFLOAT4( 0.0f, 1.0f, 0.0f, 1.0f ) },
-	};	  
-
-	// create the buffer.
-	ZeroMemory( &sr, sizeof( sr ) );
-	sr.pSysMem = &pVerts;
-	hr = pDevice->CreateBuffer( &bd, &sr, &pVertexBuffer );
-	if (FAILED( hr ))
-		return false;
-
-	// Create an index buffer
-	ZeroMemory( &bd, sizeof( bd ) );
-	ZeroMemory( &sr, sizeof( sr ) );
-
-	UINT pIndices[3] = { 0, 1, 2 };
-	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof( UINT ) * 3;
-	bd.StructureByteStride = sizeof( UINT );
-
-	sr.pSysMem = &pIndices;
-	hr = pDevice->CreateBuffer( &bd, &sr, &pIndexBuffer );
-	if (FAILED( hr ))
-		return false;
-
-	return true;
 }
 
-void CleanupD3D()
-{
-	safe_release( pVertexBuffer );
-	safe_release( pIndexBuffer );
-	safe_release( pConstantBuffer );
-	safe_release( pPixelShader );
-	safe_release( pVertexShader );
-	safe_release( pVertexLayout );
-}
 
-void Render()
-{	
-	// Make sure our render target is set.
-	pContext->OMSetRenderTargets( 1, &pRenderTargetView, nullptr );
-
-	// Update view
-	ConstantBuffer cb;
-	cb.mProjection = XMMatrixTranspose( mOrtho );
-	pContext->UpdateSubresource( pConstantBuffer, 0, nullptr, &cb, 0, 0 );
-	pContext->VSSetConstantBuffers( 0, 1, &pConstantBuffer );
-
-	// Make sure the input assembler knows how to process our verts/indices
-	UINT stride = sizeof( Vertex );
-	UINT offset = 0;
-	pContext->IASetVertexBuffers( 0, 1, &pVertexBuffer, &stride, &offset );
-	pContext->IASetInputLayout( pVertexLayout );
-	pContext->IASetIndexBuffer( pIndexBuffer, DXGI_FORMAT_R32_UINT, 0 );
-	pContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
-	
-	// Set the shaders we need to render our triangle
-	pContext->VSSetShader( pVertexShader, nullptr, 0 );
-	pContext->PSSetShader( pPixelShader, nullptr, 0 );
-
-	// Set viewport to context
-	pContext->RSSetViewports( 1, pViewports );
-
-	// Draw our triangle
-	pContext->DrawIndexed( 3, 0, 0 );
-}
-
-HRESULT __stdcall hkPresent( IDXGISwapChain * pThis, UINT SyncInterval, UINT Flags )
-{
-	pSwapchain = pThis;
-
-	if (!pDevice)
+namespace std {
+	template<> struct hash<propertiesModel>
 	{
-		if (!InitD3DHook( pThis ))
-			return false;
-	}
+		std::size_t operator()(const propertiesModel& obj) const noexcept
+		{
+			std::size_t h1 = std::hash<int>{}(obj.stride);
+			std::size_t h2 = std::hash<int>{}(obj.vedesc_ByteWidth);
+			std::size_t h3 = std::hash<int>{}(obj.indesc_ByteWidth);
+			std::size_t h4 = std::hash<int>{}(obj.pscdesc_ByteWidth);
+			return (h1 ^ h3 + h4) ^ (h2 << 1);
+		}
+	};
 
-	Render();
-	return ogPresentTramp( pThis, SyncInterval, Flags );
 }
 
-HWND FindMainWindow( DWORD dwPID )
+
+struct propertiesModel	currentParams;
+std::unordered_set<propertiesModel> seenParams;
+std::unordered_set<propertiesModel> wallhackParams;
+int currentParamPosition = 1;
+std::mutex g_propertiesModels;
+
+
+
+void ConsoleSetup()
 {
-	HandleData handleData{ 0 };
-	handleData.pid = dwPID;
-	EnumWindows( EnumWindowsCallback, (LPARAM)&handleData );
-	return handleData.hWnd;
+	// With this trick we'll be able to print content to the console, and if we have luck we could get information printed by the game.
+	AllocConsole();
+	SetConsoleTitle("[+] Hooking DirectX 11 by Niemand");
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+	freopen("CONIN$", "r", stdin);
 }
 
-BOOL CALLBACK EnumWindowsCallback(HWND hWnd, LPARAM lParam)
+
+LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	HandleData& data = *(HandleData*)lParam;
-	DWORD pid = 0;
-	GetWindowThreadProcessId( hWnd, &pid );
-	if (pid == data.pid && GetWindow( hWnd, GW_OWNER ) == HWND( 0 ) && IsWindowVisible( hWnd ))
+	ImGuiIO& io = ImGui::GetIO();
+	POINT mPos;
+	GetCursorPos(&mPos);
+	ScreenToClient(window, &mPos);
+	ImGui::GetIO().MousePos.x = mPos.x;
+	ImGui::GetIO().MousePos.y = mPos.y;
+
+	if (uMsg == WM_KEYUP)
 	{
-		data.hWnd = hWnd;
-		return FALSE;
+		if (wParam == VK_F12)
+		{
+			g_ShowMenu = !g_ShowMenu;
+		}
+
 	}
 
-	return TRUE;
+	if (g_ShowMenu)
+	{
+		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+		return true;
+	}
+
+	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
 
-void InitializeDX11Hooks(void* pHandle) 
+// raiders posted this here - http://www.unknowncheats.me/forum/direct3d/65135-directx-10-generateshader.html
+HRESULT GenerateShader(ID3D11Device* pD3DDevice, ID3D11PixelShader** pShader, float r, float g, float b)
 {
-	util::log(3, "Starting DX11 Hook...","");
+	char szCast[] = "struct VS_OUT"
+		"{"
+		"    float4 Position   : SV_Position;"
+		"    float4 Color    : COLOR0;"
+		"};"
 
-	// Hook d3d
-	HookD3D();
+		"float4 main( VS_OUT input ) : SV_Target"
+		"{"
+		"    float4 fake;"
+		"    fake.a = 1.0;"
+		"    fake.r = %f;"
+		"    fake.g = %f;"
+		"    fake.b = %f;"
+		"    return fake;"
+		"}";
+	ID3D10Blob* pBlob;
+	char szPixelShader[1000];
 
-	// Cleanup and unload dll
-	CleanupD3D();
-	WriteMem( ogPresent, ogBytes, PRESENT_STUB_SIZE );
-	VirtualFree( (void*)ogPresentTramp, 0x1000, MEM_RELEASE );
-	CreateThread( 0, 0, (LPTHREAD_START_ROUTINE)FreeLibrary, pHandle, 0, 0 );
+	sprintf(szPixelShader, szCast, r, g, b);
 
-	util::log(2, "DX11 Hook Initialized.","");
+	HRESULT hr = D3DCompile(szPixelShader, sizeof(szPixelShader), "shader", NULL, NULL, "main", "ps_4_0", NULL, NULL, &pBlob, NULL);
+
+	if (FAILED(hr))
+		return hr;
+
+	hr = pD3DDevice->CreatePixelShader((DWORD*)pBlob->GetBufferPointer(), pBlob->GetBufferSize(), NULL, pShader);
+
+	if (FAILED(hr))
+		return hr;
+
+	return S_OK;
 }
+
+void __stdcall hookD3D11DrawIndexed(ID3D11DeviceContext* pContext, UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation)
+{
+	if (GetAsyncKeyState(VK_DELETE) & 1)
+	{
+		bDrawIndexed = true;
+		std::cout << "[+] Model Log cleared" << std::endl;
+		seenParams.clear();
+	}
+
+	//get stride & vedesc.ByteWidth
+	pContext->IAGetVertexBuffers(0, 1, &veBuffer, &Stride, &veBufferOffset);
+	if (veBuffer)
+		veBuffer->GetDesc(&vedesc);
+	if (veBuffer != NULL) { veBuffer->Release(); veBuffer = NULL; }
+
+	//get indesc.ByteWidth
+	pContext->IAGetIndexBuffer(&inBuffer, &inFormat, &inOffset);
+	if (inBuffer)
+		inBuffer->GetDesc(&indesc);
+	if (inBuffer != NULL) { inBuffer->Release(); inBuffer = NULL; }
+
+	//get pscdesc.ByteWidth
+	pContext->PSGetConstantBuffers(pscStartSlot, 1, &pscBuffer);
+	if (pscBuffer != NULL)
+		pscBuffer->GetDesc(&pscdesc);
+	if (pscBuffer != NULL) { pscBuffer->Release(); pscBuffer = NULL; }
+
+	propertiesModel paramsModel;
+	paramsModel.stride = Stride;
+	paramsModel.vedesc_ByteWidth = vedesc.ByteWidth;
+	paramsModel.indesc_ByteWidth = indesc.ByteWidth;
+	paramsModel.pscdesc_ByteWidth = pscdesc.ByteWidth;
+	g_propertiesModels.lock();
+	seenParams.insert(paramsModel);
+
+	// We need to restore this to avoid future problems
+	if (bWallhack)
+	{
+		pContext->OMGetDepthStencilState(&m_origDepthStencilState, &pStencilRef);
+	}
+
+
+	if (bDrawIndexed)
+	{
+		std::cout << "[+] DrawIndexed Hooked succesfully" << std::endl;
+		bDrawIndexed = false;
+		// Set this for the first time its called
+		currentParams = paramsModel;
+		std::cout << std::dec << currentParams.stride << " :: "
+			<< currentParams.vedesc_ByteWidth << " :: "
+			<< currentParams.indesc_ByteWidth << " :: "
+			<< currentParams.pscdesc_ByteWidth << std::endl;
+	}
+
+	auto current = seenParams.find(currentParams);
+
+	if (GetAsyncKeyState(VK_F9) & 1)
+	{
+		bShader = !bShader;
+		bTexture = !bTexture;
+		if (bShader)
+		{
+			std::cout << "[+] Shader Mode Enabled" << std::endl;
+		}
+		else
+		{
+			std::cout << "[+] Texture Mode Enabled" << std::endl;
+		}
+	}
+	if (GetAsyncKeyState(VK_F10) & 1)
+	{
+		bWallhack = !bWallhack;
+		if (bWallhack)
+		{
+			std::cout << "[+] Wallhack Enabled" << std::endl;
+		}
+		else
+		{
+			std::cout << "[+] Wallhack Disabled" << std::endl;
+		}
+	}
+	if (GetAsyncKeyState(VK_PRIOR) & 1)
+	{
+		//FIX cannot dereference element, because end and begin return an iterator instead of an element
+		if (current == seenParams.end())
+		{
+			std::cout << "Position " << std::dec << currentParamPosition << " of " << std::dec << seenParams.size() << std::endl;
+			// TODO: I need a fix for this I get error "Cannot dereference end list iterator"
+			current = seenParams.begin();
+			currentParamPosition = 1;
+		}
+		else
+		{
+			current++;
+			currentParamPosition++;
+		}
+		currentParams = *current;
+	}
+	if (GetAsyncKeyState(VK_NEXT) & 1)
+	{
+		if (current == seenParams.begin())
+		{
+			std::cout << "Position " << std::dec << currentParamPosition << " of " << std::dec << seenParams.size() << std::endl;
+			// TODO: I need a fix for this I get error "Cannot dereference end list iterator"
+			current = seenParams.end();
+			currentParamPosition = seenParams.size();
+		}
+		else
+		{
+			current--;
+			currentParamPosition--;
+		}
+		currentParams = *current;
+	}
+
+	if (GetAsyncKeyState(0x4C) & 1)
+	{
+		std::cout << std::dec << currentParams.stride << " :: "
+			<< currentParams.vedesc_ByteWidth << " :: "
+			<< currentParams.indesc_ByteWidth << " :: "
+			<< currentParams.pscdesc_ByteWidth << std::endl;
+		std::cout << "Position " << std::dec << currentParamPosition << " of " << std::dec << seenParams.size() << std::endl;
+	}
+	if ((paramsModel == currentParams || wallhackParams.find(paramsModel) != wallhackParams.end()) && bShader)
+	{
+		//std::cout << "[+]SAME!1" << std::endl;
+		pContext->PSSetShader(pShaderRed, NULL, NULL);
+		if (bWallhack)
+		{
+			pContext->OMSetDepthStencilState(m_DepthStencilState, 0);
+		}
+	}
+	else if ((paramsModel == currentParams || wallhackParams.find(paramsModel) != wallhackParams.end()) && bTexture)
+	{
+		//std::cout << "[+]SAME!2" << std::endl;
+		for (int x1 = 0; x1 <= 10; x1++)
+		{
+			pContext->PSSetShaderResources(x1, 1, &textureView);
+		}
+		pContext->PSSetSamplers(0, 1, &pSamplerState);
+		if (bWallhack)
+		{
+			pContext->OMSetDepthStencilState(m_DepthStencilState, 0);
+		}
+	}
+	//pContext->PSSetShader(pShaderRed, NULL, NULL);
+	g_propertiesModels.unlock();
+	//std::cout << Stride << " :: " << vedesc.ByteWidth << " :: " << indesc.ByteWidth << " :: " << pscdesc.ByteWidth << std::endl;
+	fnID3D11DrawIndexed(pContext, IndexCount, StartIndexLocation, BaseVertexLocation);
+	if (bWallhack)
+	{
+		pContext->OMSetDepthStencilState(m_origDepthStencilState, pStencilRef);
+		SAFE_RELEASE(m_origDepthStencilState);
+	}
+}
+
+HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext)
+{
+	HRESULT ret = pSwapChain->GetDevice(__uuidof(ID3D11Device), (PVOID*)ppDevice);
+
+	if (SUCCEEDED(ret))
+		(*ppDevice)->GetImmediateContext(ppContext);
+
+	return ret;
+}
+
+HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags)
+{
+	if (!g_bInitialised) {
+		g_PresentHooked = true;
+		std::cout << "\t[+] Present Hook called by first time" << std::endl;
+		if (FAILED(GetDeviceAndCtxFromSwapchain(pChain, &pDevice, &pContext)))
+			return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
+		pSwapChain = pChain;
+		DXGI_SWAP_CHAIN_DESC sd;
+		pChain->GetDesc(&sd);
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+		window = sd.OutputWindow;
+
+		//Set OriginalWndProcHandler to the Address of the Original WndProc function
+		OriginalWndProcHandler = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)hWndProc);
+
+		// Creating red texture https://docs.microsoft.com/en-us/windows/desktop/direct3d11/overviews-direct3d-11-resources-textures-how-to
+		/*static const uint32_t color = 0xff0000ff;
+		D3D11_SUBRESOURCE_DATA initData = { &color, sizeof(uint32_t), 0 };
+		D3D11_TEXTURE2D_DESC desc;
+		DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+		memset(&desc, 0, sizeof(desc));
+		desc.Width = 1;
+		desc.Height = 1;
+		desc.MipLevels = 1;
+		desc.ArraySize = 1;
+		desc.Format = format;
+		desc.SampleDesc.Count = 1;
+		desc.Usage = D3D11_USAGE_DEFAULT;
+		desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;*/
+		//HRESULT hr;
+		//hr = pDevice->CreateTexture2D(&desc, &initData, &textureRed);
+
+		//GenerateShader(pDevice, &pShaderRed, 1.0f, 0.0f, 0.0f);
+
+
+		// Disabling Z-Buffering
+		D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
+		depthStencilDesc.DepthEnable = TRUE;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_ALWAYS;
+		depthStencilDesc.StencilEnable = FALSE;
+		depthStencilDesc.StencilReadMask = 0xFF;
+		depthStencilDesc.StencilWriteMask = 0xFF;
+
+		// Stencil operations if pixel is front-facing
+		depthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+		depthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+		// Stencil operations if pixel is back-facing
+		depthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+		depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+
+		pDevice->CreateDepthStencilState(&depthStencilDesc, &m_DepthStencilState);
+
+
+
+		//if (SUCCEEDED(hr) && textureRed != 0)
+		//{
+
+		//	D3D11_SHADER_RESOURCE_VIEW_DESC SRVDesc;
+		//	memset(&SRVDesc, 0, sizeof(SRVDesc));
+		//	SRVDesc.Format = format;
+		//	SRVDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		//	SRVDesc.Texture2D.MipLevels = 1;
+
+		//	hr = pDevice->CreateShaderResourceView(textureRed, &SRVDesc, &textureView);
+		//	if (FAILED(hr))
+		//	{
+		//		textureRed->Release();
+		//		return hr;
+		//	}
+
+		//}
+
+
+		ImGui_ImplWin32_Init(window);
+		ImGui_ImplDX11_Init(pDevice, pContext);
+		ImGui::GetIO().ImeWindowHandle = window;
+
+		ID3D11Texture2D* pBackBuffer;
+
+		pChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+		pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
+		pBackBuffer->Release();
+
+		g_bInitialised = true;
+	}
+	/*
+	if (bLighthack)
+	{
+		pDevice->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRBG(100, 100, 100));
+	}
+	*/
+	ImGui_ImplWin32_NewFrame();
+	ImGui_ImplDX11_NewFrame();
+
+	ImGui::NewFrame();
+	//Menu is displayed when g_ShowMenu is TRUE
+	if (g_ShowMenu)
+	{
+		bool bShow = true;
+		gui::FrameLoadGui();
+	}
+
+	//add here?
+
+	//BeginScene
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.0f, 0.0f });
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.0f });
+	ImGui::Begin("##Backbuffer", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoInputs);
+	ImGui::SetWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+	ImGui::SetWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y), ImGuiCond_Always);
+	ImGuiWindow* windowGui = ImGui::GetCurrentWindow();
+
+	//Draw stuff here
+	windowGui->DrawList->AddLine(ImVec2(0, 0), ImVec2(250, 250), ImGui::GetColorU32({ 255,0,0,255 }), 3.0f);
+
+	//EndScene
+	windowGui->DrawList->PushClipRectFullScreen();
+	ImGui::End();
+	ImGui::PopStyleColor();
+	ImGui::PopStyleVar(2);
+
+	ImGui::Render();
+
+	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
+}
+
+
+void detourDirectXPresent()
+{
+	std::cout << "[+] Calling fnIDXGISwapChainPresent Detour" << std::endl;
+	DetourTransactionBegin();
+	std::cout << "Poszlo detour transaction\n";
+	DetourUpdateThread(GetCurrentThread());
+	std::cout << "Poszlo update thread\n";
+	// Detours the original fnIDXGISwapChainPresent with our Present
+	DetourAttach(&(LPVOID&)fnIDXGISwapChainPresent, (PBYTE)hkPresent);
+	std::cout << "Poszedl attach\n";
+	DetourTransactionCommit();
+}
+
+void detourDirectXDrawIndexed()
+{
+	std::cout << "[+] Calling fnID3D11DrawIndexed Detour" << std::endl;
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	// Detours the original fnIDXGISwapChainPresent with our Present fnID3D11DrawIndexed, (PBYTE)hookD3D11DrawIndexed
+	DetourAttach(&(LPVOID&)fnID3D11DrawIndexed, (PBYTE)hookD3D11DrawIndexed);
+	DetourTransactionCommit();
+}
+
+void retrieveValues()
+{
+	DWORD_PTR hDxgi = (DWORD_PTR)GetModuleHandle("dxgi.dll");
+#if defined(ENV64BIT)
+	fnIDXGISwapChainPresent = (IDXGISwapChainPresent)((DWORD_PTR)hDxgi + 0x5070);
+#elif defined (ENV32BIT)
+	fnIDXGISwapChainPresent = (IDXGISwapChainPresent)((DWORD_PTR)hDxgi + 0x10230);
+#endif
+	std::cout << "[+] Present Addr: " << std::hex << fnIDXGISwapChainPresent << " test test test" << std::endl;
+}
+
+void printValues()
+{
+	std::cout << "[+] ID3D11DeviceContext Addr: " << std::hex << pContext << std::endl;
+	std::cout << "[+] ID3D11Device Addr: " << std::hex << pDevice << std::endl;
+	std::cout << "[+] ID3D11RenderTargetView Addr: " << std::hex << mainRenderTargetView << std::endl;
+	std::cout << "[+] IDXGISwapChain Addr: " << std::hex << pSwapChain << std::endl;
+}
+
+void setupWallhack() {
+	propertiesModel wallhackParamsItem;
+	wallhackParamsItem.stride = 8;
+	wallhackParamsItem.vedesc_ByteWidth = 16552;
+	wallhackParamsItem.indesc_ByteWidth = 10164;
+	wallhackParamsItem.pscdesc_ByteWidth = 832;
+	wallhackParams.insert(wallhackParamsItem);
+}
+
+LRESULT CALLBACK DXGIMsgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) { return DefWindowProc(hwnd, uMsg, wParam, lParam); }
+
+void GetPresent()
+{
+	WNDCLASSEXA wc = { sizeof(WNDCLASSEX), CS_CLASSDC, DXGIMsgProc, 0L, 0L, GetModuleHandleA(NULL), NULL, NULL, NULL, NULL, "DX", NULL };
+	RegisterClassExA(&wc);
+	HWND hWnd = CreateWindowA("DX", NULL, WS_OVERLAPPEDWINDOW, 100, 100, 300, 300, NULL, NULL, wc.hInstance, NULL);
+
+	DXGI_SWAP_CHAIN_DESC sd;
+	ZeroMemory(&sd, sizeof(sd));
+	sd.BufferCount = 1;
+	sd.BufferDesc.Width = 2;
+	sd.BufferDesc.Height = 2;
+	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	sd.BufferDesc.RefreshRate.Numerator = 60;
+	sd.BufferDesc.RefreshRate.Denominator = 1;
+	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	sd.OutputWindow = hWnd;
+	sd.SampleDesc.Count = 1;
+	sd.SampleDesc.Quality = 0;
+	sd.Windowed = TRUE;
+	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+	D3D_FEATURE_LEVEL FeatureLevelsRequested = D3D_FEATURE_LEVEL_11_0;
+	UINT numFeatureLevelsRequested = 1;
+	D3D_FEATURE_LEVEL FeatureLevelsSupported;
+	HRESULT hr;
+	IDXGISwapChain* swapchain = 0;
+	ID3D11Device* dev = 0;
+	ID3D11DeviceContext* devcon = 0;
+	if (FAILED(hr = D3D11CreateDeviceAndSwapChain(NULL,
+		D3D_DRIVER_TYPE_HARDWARE,
+		NULL,
+		0,
+		&FeatureLevelsRequested,
+		numFeatureLevelsRequested,
+		D3D11_SDK_VERSION,
+		&sd,
+		&swapchain,
+		&dev,
+		&FeatureLevelsSupported,
+		&devcon)))
+	{
+		std::cout << "[-] Failed to hook Present with VT method." << std::endl;
+		return;
+	}
+	DWORD_PTR* pSwapChainVtable = NULL;
+	pSwapChainVtable = (DWORD_PTR*)swapchain;
+	pSwapChainVtable = (DWORD_PTR*)pSwapChainVtable[0];
+	fnIDXGISwapChainPresent = (IDXGISwapChainPresent)(DWORD_PTR)pSwapChainVtable[8];
+	g_PresentHooked = true;
+	std::cout << "[+] Present Addr:" << fnIDXGISwapChainPresent << std::endl;
+	Sleep(2000);
+}
+
+void* SwapChain[18];
+void* Device[40];
+void* Context[108];

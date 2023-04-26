@@ -12,6 +12,7 @@
     <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Utils\dllmain.cpp" />
+    <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -46,5 +47,6 @@
     <ClInclude Include="IL2CPP\il2cpp-unityplayer-functions.h" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
+    <ClInclude Include="IL2CPP\Functions\molemole.h" />
   </ItemGroup>
 </Project>
