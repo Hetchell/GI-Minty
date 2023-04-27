@@ -21,26 +21,14 @@ namespace gui {
         static float TimeScale = 1.0f;
         static bool themeInit = false;
 
-        if (!themeInit)
-        {
-            settheme(theme_index);
-            setstyle(style_index);
-            themeInit = true;
-        }
-                
-        if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_F11)))
-        {
-            TimeScale = 1.0f;
-            string result = "CS.UnityEngine.Time.timeScale = 1.0";
-            //luahookfunc(result.c_str());
-        }
+  
+        // if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_F11)))
+        // {
+        //     TimeScale = 1.0f;
+        //     string result = "CS.UnityEngine.Time.timeScale = 1.0";
+        //     //luahookfunc(result.c_str());
+        // }
 
-        if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_F12), false))
-        {
-            isopened = !isopened;
-        }
-
-        if (isopened) {
             ImGui::Begin("Minty");
             ImGui::BeginTabBar("Minty");
 
@@ -869,7 +857,7 @@ namespace gui {
 
             ImGui::EndTabBar();
             ImGui::End();
-        }
-        ImGui::PopFont();
+        
+        //ImGui::PopFont();
     }
 }
