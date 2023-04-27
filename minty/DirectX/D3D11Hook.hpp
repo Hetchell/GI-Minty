@@ -47,22 +47,40 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	POINT mPos;
 	GetCursorPos(&mPos);
 	ScreenToClient(window, &mPos);
-	ImGui::GetIO().MousePos.x = static_cast<float>(mPos.x);
-	ImGui::GetIO().MousePos.y = static_cast<float>(mPos.y);
+	io.MousePos.x = static_cast<float>(mPos.x);
+	io.MousePos.y = static_cast<float>(mPos.y);
 
-	if (uMsg == WM_KEYUP) {
-		if (wParam == VK_F12) {
-			g_ShowMenu = !g_ShowMenu;
+	if (g_ShowMenu) {
+		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
+			// If ImGui handled the message, don't pass it on to the main window procedure
+			return true;
+		}
+
+		// Allow closing the window when ImGui is open
+		if (uMsg == WM_CLOSE) {
+			g_ShowMenu = false;
+		}
+
+		// Allow resizing and moving the window when ImGui is open
+		if (uMsg == WM_ENTERSIZEMOVE) {
+			io.MouseDrawCursor = false;
+		}
+		if (uMsg == WM_EXITSIZEMOVE) {
+			io.MouseDrawCursor = true;
+		}
+	}
+	else {
+		// Allow closing the window when ImGui is closed
+		if (uMsg == WM_CLOSE) {
+			DestroyWindow(hWnd);
+			return 0;
 		}
 	}
 
-	if (g_ShowMenu) {
-		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-		return true;
-	}
-
+	// Pass any unhandled messages to the original window procedure
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
+
 
 HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext) {
 	HRESULT ret = pSwapChain->GetDevice(__uuidof(ID3D11Device), (PVOID*)ppDevice);
