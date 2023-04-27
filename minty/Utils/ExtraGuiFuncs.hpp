@@ -1,4 +1,5 @@
 #include "../ImGui/ImGui/imgui.h"
+#pragma once
 
 static void HelpMarker(const char* desc)
 {
