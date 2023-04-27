@@ -156,11 +156,6 @@
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
-    <ClInclude Include="GUI\Tabs\debugTab.hpp" />
-    <ClInclude Include="GUI\Tabs\gamesTab.hpp" />
-    <ClInclude Include="GUI\Tabs\mainTab.hpp" />
-    <ClInclude Include="GUI\Tabs\Tabs.h" />
-    <ClInclude Include="GUI\Tabs\themesTab.hpp" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
     <ClInclude Include="IL2CPP\HookManager.h">
       <FileType>CppHeader</FileType>
