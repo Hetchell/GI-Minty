@@ -2,7 +2,7 @@
 #include "../IL2CPP/il2cpp-init.hpp"
 #include "../DirectX/D3D11Hook.hpp"
 
-DWORD WINAPI MainThread(void* pHandle)
+DWORD WINAPI MainThread(LPVOID lpReserved)
 {
 	AllocConsole();
 	freopen("CONIN$", "r", stdin);
@@ -15,7 +15,6 @@ DWORD WINAPI MainThread(void* pHandle)
 	printValues();
 
 	detourDirectXPresent();
-	//detourDirectXDrawIndexed();
 
 	init_il2cpp();
 
@@ -25,7 +24,8 @@ DWORD WINAPI MainThread(void* pHandle)
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	if (fdwReason == DLL_PROCESS_ATTACH) {
-		CreateThread( nullptr, 0, (LPTHREAD_START_ROUTINE)MainThread, hinstDLL, 0, nullptr );
+		CreateThread(NULL, 0, &MainThread, NULL, NULL, NULL);
+		//CreateThread( nullptr, 0, (LPTHREAD_START_ROUTINE)MainThread, hinstDLL, 0, nullptr );
 	}
 	return TRUE;
 }

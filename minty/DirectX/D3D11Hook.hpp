@@ -50,7 +50,6 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	ImGui::GetIO().MousePos.x = static_cast<float>(mPos.x);
 	ImGui::GetIO().MousePos.y = static_cast<float>(mPos.y);
 
-
 	if (uMsg == WM_KEYUP) {
 		if (wParam == VK_F12) {
 			g_ShowMenu = !g_ShowMenu;
@@ -97,8 +96,13 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 
 		ID3D11Texture2D* pBackBuffer;
 
+		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
+		rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // Use the UNORM format to specify RGB88 color space
+		rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		rtvDesc.Texture2D.MipSlice = 0;
+
 		pChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-		pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
+		pDevice->CreateRenderTargetView(pBackBuffer, &rtvDesc, &mainRenderTargetView);
 		pBackBuffer->Release();
 
 		g_bInitialised = true;
