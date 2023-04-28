@@ -50,37 +50,12 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	io.MousePos.x = static_cast<float>(mPos.x);
 	io.MousePos.y = static_cast<float>(mPos.y);
 
-	if (g_ShowMenu) {
-		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
-			// If ImGui handled the message, don't pass it on to the main window procedure
-			return true;
-		}
-
-		// Allow closing the window when ImGui is open
-		if (uMsg == WM_CLOSE) {
-			g_ShowMenu = false;
-		}
-
-		// Allow resizing and moving the window when ImGui is open
-		if (uMsg == WM_ENTERSIZEMOVE) {
-			io.MouseDrawCursor = false;
-		}
-		if (uMsg == WM_EXITSIZEMOVE) {
-			io.MouseDrawCursor = true;
-		}
-	}
-	else {
-		// Allow closing the window when ImGui is closed
-		if (uMsg == WM_CLOSE) {
-			DestroyWindow(hWnd);
-			return 0;
-		}
-	}
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) 
+		return true;
 
 	// Pass any unhandled messages to the original window procedure
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
-
 
 HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext) {
 	HRESULT ret = pSwapChain->GetDevice(__uuidof(ID3D11Device), (PVOID*)ppDevice);
@@ -130,14 +105,13 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 	ImGui_ImplDX11_NewFrame();
 
 	ImGui::NewFrame();
-	//Menu is displayed when g_ShowMenu is TRUE
+	//Menu is called when g_ShowMenu is true
 	if (g_ShowMenu) {
 		bool bShow = true;
 		gui::FrameLoadGui();
 	}
 
-	//BeginScene
-	ImGuiIO& io = ImGui::GetIO();
+	//ImGuiIO& io = ImGui::GetIO();
 	ImGui::Render();
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
