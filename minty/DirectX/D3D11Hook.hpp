@@ -170,14 +170,13 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 	ImGui_ImplDX11_NewFrame();
 
 	ImGui::NewFrame();
-	//Menu is displayed when g_ShowMenu is TRUE
+	//Menu is called when g_ShowMenu is true
 	if (g_ShowMenu) {
 		bool bShow = true;
 		gui::FrameLoadGui();
 	}
 
-	//BeginScene
-	ImGuiIO& io = ImGui::GetIO();
+	//ImGuiIO& io = ImGui::GetIO();
 	ImGui::Render();
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);

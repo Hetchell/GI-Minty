@@ -48,5 +48,6 @@
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
+    <ClInclude Include="GUI\Sections.hpp" />
   </ItemGroup>
 </Project>
