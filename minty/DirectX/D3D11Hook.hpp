@@ -68,6 +68,15 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		if (uMsg == WM_EXITSIZEMOVE) {
 			io.MouseDrawCursor = true;
 		}
+		
+		if (uMsg == WM_SIZE) {
+			if (pDevice != NULL && wParam != SIZE_MINIMIZED)
+			{
+				ImGuiIO& io = ImGui::GetIO();
+				io.DisplaySize = ImVec2((float)LOWORD(lParam), (float)HIWORD(lParam));
+				io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+			}
+		}
 	}
 	else {
 		// Allow closing the window when ImGui is closed
@@ -79,6 +88,37 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 	// Pass any unhandled messages to the original window procedure
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
+}
+
+// Declare a function pointer for the original ResizeBuffers function
+typedef HRESULT(WINAPI* ResizeBuffersFn)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
+
+// Declare a global variable to hold the original ResizeBuffers function pointer
+ResizeBuffersFn OriginalResizeBuffersFn = nullptr;
+
+// Declare a hook for the ResizeBuffers function
+HRESULT WINAPI HookedResizeBuffersFn(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
+	// Call the original ResizeBuffers function
+	HRESULT hr = OriginalResizeBuffersFn(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+
+	// Handle ImGui resizing
+	ImGuiIO& io = ImGui::GetIO();
+	io.DisplaySize = ImVec2((float)Width, (float)Height);
+	io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+
+	return hr;
+}
+
+// Hook the ResizeBuffers function
+void HookResizeBuffers(IDXGISwapChain* pSwapChain) {
+	// Get the address of the original ResizeBuffers function
+	OriginalResizeBuffersFn = (ResizeBuffersFn)GetProcAddress(GetModuleHandleA("dxgi.dll"), "IDXGISwapChain_ResizeBuffers");
+
+	// Create a trampoline function to call the hooked ResizeBuffers function
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	DetourAttach(&(LPVOID&)OriginalResizeBuffersFn, HookedResizeBuffersFn);
+	DetourTransactionCommit();
 }
 
 

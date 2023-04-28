@@ -1,4 +1,6 @@
-//DO_API(0x000000, LPVOID, il2cpp_string_new, (const char* str));
+//using namespace app;
+
+//DO_API(0x0099AD10, LPVOID, il2cpp_string_new, (const char* str));
 //
 //DO_API(0x000000, LPVOID, il2cpp__vm__MetadataCache__GetTypeInfoFromTypeDefinitionIndex, (uint32_t index));
 //DO_API(0x000000, std::string, il2cpp__vm__Type__GetName, (LPVOID type, uint32_t format));

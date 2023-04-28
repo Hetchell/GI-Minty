@@ -1,5 +1,6 @@
 #include "MainGUI.h"
 #include "../Utils/ExtraGuiFuncs.hpp"
+#include "../IL2CPP/Functions/molemole.h"
 
 using namespace std;
 
@@ -39,6 +40,9 @@ namespace gui {
                     ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "WARNING! LUA NOT HOOKED");
                     ImGui::Separator();
                 }*/
+                if (ImGui::Button("PLEASE WORK")) {
+                    il2fns::MoleMole__ActorUtils__ShowMessage_I();
+                }
 
                 ImGui::SeparatorText("Player");
 
