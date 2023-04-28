@@ -13,7 +13,8 @@ std::vector<std::string> ModuleOrder = {
     "Minigames",
     "Themes",
     "About",
-    "Settings"
+    "Settings",
+    "Testing"
 };
 
 namespace Sections {
@@ -47,6 +48,10 @@ namespace Sections {
     void Themes() {}
 
     void Settings() {}
+    
+    void Testing() {
+ImGui::Button("AddCockHere");
+}
 }
 
 using DrawFunction = void(*)();
@@ -57,7 +62,8 @@ const std::unordered_map<std::string, DrawFunction> SectionMap = {
     {"Minigames", &Sections::Minigames},
     {"About", &Sections::About},
     {"Themes", &Sections::Themes},
-    {"Settings", &Sections::Settings}
+    {"Settings", &Sections::Settings},
+    {"Testing", &Sections::Testing}
 };
 
 void DrawSection(const std::string& sectionName) {
