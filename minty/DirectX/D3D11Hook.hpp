@@ -22,11 +22,11 @@
 #include "../includes.h"
 #include "../ImGui/ImGui/imgui_internal.h"
 #include "../GUI/GuiDefinitions.h"
-//#include "../GUI/InitGui.hpp"
+
 //#include "../ImGui/ImGuiNotify/imgui_notify.h"
-#include "../ImGui/ImGuiNotify/tahoma.h"
-#include "../ImGui/ImGuiNotify/fa_solid_900.h"
-#include "../ImGui/ImGuiNotify/font_awesome_5.h"
+
+
+#include "../GUI/InitGui.hpp"
 
 // D3X HOOK DEFINITIONS
 typedef HRESULT(__fastcall* IDXGISwapChainPresent)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
@@ -43,10 +43,9 @@ static WNDPROC OriginalWndProcHandler = nullptr;
 HWND window = nullptr;
 IDXGISwapChainPresent fnIDXGISwapChainPresent;
 
-
 // Boolean
 BOOL g_bInitialised = false;
-bool g_ShowMenu = true;
+//bool g_ShowMenu = true;
 bool g_PresentHooked = false;
 
 LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -75,33 +74,6 @@ HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** 
 	return ret;
 }
 
-void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false) {
-	static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
-
-	ImFontConfig icons_config;
-	icons_config.MergeMode = true;
-	icons_config.PixelSnapH = true;
-	icons_config.FontDataOwnedByAtlas = FontDataOwnedByAtlas;
-
-	ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)fa_solid_900, sizeof(fa_solid_900), font_size, &icons_config, icons_ranges);
-}
-
-void InitImGui(HWND window) {
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-	ImGui_ImplWin32_Init(window);
-	ImGui_ImplDX11_Init(pDevice, pContext);
-	ImGui::GetIO().ImeWindowHandle = window;
-
-	ImFontConfig font_cfg;
-	font_cfg.FontDataOwnedByAtlas = false;
-	ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &font_cfg);
-
-	// Initialize notify
-	MergeIconsWithLatestFont(16.f, false);
-}
-
 HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags) {
 	if (!g_bInitialised) {
 		g_PresentHooked = true;
@@ -112,8 +84,9 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 		DXGI_SWAP_CHAIN_DESC sd;
 		pChain->GetDesc(&sd);
 		window = sd.OutputWindow;
-		//gui::InitImGui(window, pDevice, pContext);
-		InitImGui(window);
+
+		gui::InitImGui(window, pDevice, pContext);
+
 		//Set OriginalWndProcHandler to the Address of the Original WndProc function
 		OriginalWndProcHandler = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)hWndProc);
 		ID3D11Texture2D* pBackBuffer;
@@ -129,21 +102,7 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 		g_bInitialised = true;
 	}
 
-	ImGui_ImplWin32_NewFrame();
-	ImGui_ImplDX11_NewFrame();
-
-	ImGui::NewFrame();
-	//Menu is called when g_ShowMenu is true
-	if (g_ShowMenu) {
-		bool bShow = true;
-		gui::FrameLoadGui();
-	}
-
-	//ImGuiIO& io = ImGui::GetIO();
-	if(ImGui::IsKeyPressed(ImGuiKey_F12, false))
-		g_ShowMenu = !g_ShowMenu;
-	
-	ImGui::Render();
+	gui::Render();
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
