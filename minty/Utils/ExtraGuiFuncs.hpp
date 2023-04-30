@@ -1,5 +1,6 @@
 #pragma once
 #include "../ImGui/ImGui/imgui.h"
+#include <Windows.h>
 
 static void HelpMarker(const char* desc) {
     ImGui::TextDisabled("(?)");
