@@ -156,7 +156,10 @@
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
+    <ClInclude Include="GUI\GuiDefinitions.h" />
+    <ClInclude Include="GUI\InitGui.hpp" />
     <ClInclude Include="GUI\Sections.hpp" />
+    <ClInclude Include="GUI\Translations.h" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
     <ClInclude Include="IL2CPP\Functions\timescale.h" />

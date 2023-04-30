@@ -57,5 +57,8 @@
     <ClInclude Include="ImGui\ImGuiNotify\font_awesome_5.h" />
     <ClInclude Include="ImGui\ImGuiNotify\imgui_notify.h" />
     <ClInclude Include="ImGui\ImGuiNotify\tahoma.h" />
+    <ClInclude Include="GUI\GuiDefinitions.h" />
+    <ClInclude Include="GUI\InitGui.hpp" />
+    <ClInclude Include="GUI\Translations.h" />
   </ItemGroup>
 </Project>
