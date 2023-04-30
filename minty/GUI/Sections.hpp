@@ -6,7 +6,7 @@
 
 #include "../IL2CPP/Functions/molemole.h"
 #include "../IL2CPP/Functions/bootyfixer.h"
-//#include "../IL2CPP/Functions/timescale.h"
+#include "../IL2CPP/Functions/timescale.h"
 
 #include <string>
 #include <unordered_map>
@@ -51,6 +51,7 @@ namespace Sections {
             if (baseAddress1 == (uint64_t)nullptr)
             {
                 util::log(1, "UA is still very not real, wait pwease qwq uwu");
+                ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "UA is still very not real, wait pwease qwq uwu" });
                 Sleep(1000);
                 baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
                 if (GetModuleHandle("UserAssembly.dll") != nullptr) {
@@ -61,6 +62,9 @@ namespace Sections {
                 util::log(1, "first var of ptr is just getmodule: %p", GetModuleHandle("UserAssembly.dll"));
                 util::log(1, "second var of ptr is baseAddress from il2i: %p", baseAddress1);
                 util::log(1, "third var of ptr is just getmodule but goofy var: %p", GetModuleHandleW(L"UserAssembly.dll"));
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %p", GetModuleHandle("UserAssembly.dll") });
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %p", baseAddress1 });
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %p", GetModuleHandleW(L"UserAssembly.dll") });
             }
         }
     }
@@ -70,7 +74,7 @@ namespace Sections {
         ImGui::Text("World section");
 
         if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
-            //il2fns::UnityEngine__Time__TimeScale(TimeScale);
+            il2fns::UnityEngine__set__Timescale(TimeScale);
         }
 
         ImGui::SameLine();
@@ -78,8 +82,8 @@ namespace Sections {
 
         ImGui::SameLine();
         if (ImGui::Button("Reset (F11)")) {
-            TimeScale = 1.0f;
-            //il2fns::UnityEngine__Time__TimeScale(TimeScale);
+            TimeScale = 1.0;
+            il2fns::UnityEngine__set__Timescale(TimeScale);
         }
 
     }
