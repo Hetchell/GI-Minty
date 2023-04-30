@@ -1,6 +1,6 @@
 #include <Windows.h>
 
-#include "../GUI/MainGUI.h"
+#include "../minty/GUI/MainGUI.h"
 // Check windows
 #if _WIN32 || _WIN64
 #if _WIN64
@@ -11,16 +11,15 @@
 #endif
 
 // Detours imports
-#include "../IL2CPP/detours.h"
+#include "../minty/IL2CPP/detours.h"
 
 // DX11 imports
 #include <D3D11.h>
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "detours.lib")
-
-#include "../includes.h"
-#include "../ImGui/ImGui/imgui_internal.h"
+#include "../minty/includes.h"
+#include "../minty/ImGui/ImGui/imgui_internal.h"
 
 // D3X HOOK DEFINITIONS
 typedef HRESULT(__fastcall* IDXGISwapChainPresent)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
@@ -170,11 +169,9 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 	ImGui_ImplDX11_NewFrame();
 
 	ImGui::NewFrame();
-	//Menu is called when g_ShowMenu is true
-	if (g_ShowMenu) {
-		bool bShow = true;
-		gui::FrameLoadGui();
-	}
+
+	ImGui::Begin("WTF");
+	ImGui::End();
 
 	//ImGuiIO& io = ImGui::GetIO();
 	ImGui::Render();
@@ -255,46 +252,6 @@ void GetPresent() {
 
 	util::log(3, "Present Address: %p", fnIDXGISwapChainPresent);
 	Sleep(2000);
-}
-
-bool LoadTextureFromMemory(LPBYTE image_data, int image_width, int image_height, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height) {
-	if (pDevice == nullptr)
-		return false;
-
-	// Create texture
-	D3D11_TEXTURE2D_DESC desc;
-	ZeroMemory(&desc, sizeof(desc));
-	desc.Width = image_width;
-	desc.Height = image_height;
-	desc.MipLevels = 1;
-	desc.ArraySize = 1;
-	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	desc.SampleDesc.Count = 1;
-	desc.Usage = D3D11_USAGE_DEFAULT;
-	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	desc.CPUAccessFlags = 0;
-
-	ID3D11Texture2D* pTexture = NULL;
-	D3D11_SUBRESOURCE_DATA subResource;
-	subResource.pSysMem = image_data;
-	subResource.SysMemPitch = desc.Width * 4;
-	subResource.SysMemSlicePitch = 0;
-	pDevice->CreateTexture2D(&desc, &subResource, &pTexture);
-
-	// Create texture view
-	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-	ZeroMemory(&srvDesc, sizeof(srvDesc));
-	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	srvDesc.Texture2D.MipLevels = desc.MipLevels;
-	srvDesc.Texture2D.MostDetailedMip = 0;
-	pDevice->CreateShaderResourceView(pTexture, &srvDesc, out_srv);
-	pTexture->Release();
-
-	*out_width = image_width;
-	*out_height = image_height;
-
-	return true;
 }
 
 void* SwapChain[18];

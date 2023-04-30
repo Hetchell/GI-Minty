@@ -1,6 +1,6 @@
 #include <Windows.h>
 
-uintptr_t baseAddress = (UINT64)GetModuleHandle("UserAssembly.dll");
+uintptr_t baseAddress = (uint64_t)GetModuleHandle("UserAssembly.dll");
 uintptr_t unityPlayerAddress = (uint64_t)GetModuleHandle("UnityPlayer.dll");
 
 // Define IL2CPP API function addresses
@@ -24,7 +24,18 @@ namespace app {
 
 VOID init_il2cpp()
 {
-#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
+//#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
+	util::log(2, "isle too see pipi ready; loading ptrs.");
+	util::log(2, "ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
+	while (baseAddress == (uint64_t)nullptr)
+	{
+		util::log(1, "UA is still very not real");
+		Sleep(1000);
+		baseAddress = (uint64_t)GetModuleHandle("UserAssembly.dll");
+		if (GetModuleHandle("UserAssembly.dll") != nullptr) {
+			util::log(2, "now ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
+
+#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + a)
 #include "il2cpp-api-functions.h"
 #undef DO_API
 
@@ -35,14 +46,7 @@ VOID init_il2cpp()
 #define DO_UP_FUNC(a, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
 #include "il2cpp-unityplayer-functions.h"
 #undef DO_UP_FUNC
-	util::log(2, "isle too see pipi ready; loading ptrs.");
-	//util::log(2, "ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
-	while (GetModuleHandle("UserAssembly.dll") == nullptr)
-	{
-		util::log(1, "UserAssembly.dll isn't loaded, waiting for a sec.");
-		Sleep(1000);
-		if (GetModuleHandle("UserAssembly.dll") != nullptr) {
-			util::log(2, "now ua ptr: %p; up ptr: %p", GetModuleHandle("UserAssembly.dll"), unityPlayerAddress);
+
 		}
 	}
 }

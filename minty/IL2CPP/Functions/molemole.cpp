@@ -1,9 +1,8 @@
 #include "molemole.h"
 
-namespace function {
-	LPVOID MoleMole__ActorUtils__ShowMessage__show(LPVOID __this, std::string message) {}
-
-	bool MoleMole__ActorUtils__ShowMessage__show__FN() {
-		HookManager::install(app::MoleMole__ActorUtils__ShowMessage, MoleMole__ActorUtils__ShowMessage__show);
+namespace il2fns {
+	void MoleMole__ActorUtils__ShowMessage(const char* message) {
+		void* result = il2cpp_string_new(message);
+		app::MoleMole__ActorUtils__ShowMessage(result);
 	}
 }
