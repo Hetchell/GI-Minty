@@ -61,10 +61,10 @@ namespace Sections {
     void World() {
         ImGui::Text("World section");
 
-        if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f"))
-        {
+        if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
             //il2fns::UnityEngine__Time__TimeScale(TimeScale);
         }
+
         ImGui::SameLine();
         HelpMarker("Changes speed of game time. Applies to everything in game.");
 
@@ -74,8 +74,6 @@ namespace Sections {
             //il2fns::UnityEngine__Time__TimeScale(TimeScale);
         }
 
-        ImGui::Text("here is");
-        TextURL("Minty Guthibbe", "https://github.com/kindawindytoday/minty", true, false);
     }
 
     void Minigames() {
@@ -89,7 +87,15 @@ namespace Sections {
         ImGui::SeparatorText("Lights out");
     }
 
-    void About() {}
+    void About() {
+        ImGui::Text("Minty Github: ");
+        TextURL("Link", "https://github.com/kindawindytoday/minty", true, false);
+        ImGui::Text("Minty Discord: ");
+        TextURL("Link", "https://discord.gg/kindawindytoday", true, false);
+
+        ImGui::Text("asdasd add stuff");
+        ImGui::Text("ImGui version: %s", ImGui::GetVersion());
+    }
 
     void Themes() {}
 
@@ -103,7 +109,6 @@ namespace Sections {
         ImGui::Button("AddCockHere");
     }
 }
-
 
 using DrawFunction = void(*)();
 
@@ -121,6 +126,7 @@ const std::unordered_map<std::string, DrawFunction> SectionMap = {
 void DrawSection(const std::string& sectionName) {
     auto it = SectionMap.find(sectionName);
     if (it != SectionMap.end()) {
+        //ImGui::Text("this should display for every section");
         it->second();
     } else {
        ImGui::TextDisabled("No section matches name");

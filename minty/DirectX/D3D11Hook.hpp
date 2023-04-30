@@ -56,19 +56,6 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 			return true;
 		}
 
-		// Allow closing the window when ImGui is open
-		if (uMsg == WM_CLOSE) {
-			g_ShowMenu = false;
-		}
-
-		// Allow resizing and moving the window when ImGui is open
-		if (uMsg == WM_ENTERSIZEMOVE) {
-			io.MouseDrawCursor = false;
-		}
-		if (uMsg == WM_EXITSIZEMOVE) {
-			io.MouseDrawCursor = true;
-		}
-		
 		if (uMsg == WM_SIZE) {
 			if (pDevice != NULL && wParam != SIZE_MINIMIZED)
 			{
@@ -120,7 +107,6 @@ void HookResizeBuffers(IDXGISwapChain* pSwapChain) {
 	DetourAttach(&(LPVOID&)OriginalResizeBuffersFn, HookedResizeBuffersFn);
 	DetourTransactionCommit();
 }
-
 
 HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext) {
 	HRESULT ret = pSwapChain->GetDevice(__uuidof(ID3D11Device), (PVOID*)ppDevice);
