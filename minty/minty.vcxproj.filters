@@ -13,6 +13,8 @@
     <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Utils\dllmain.cpp" />
     <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
+    <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
+    <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -49,5 +51,7 @@
     <ClInclude Include="DirectX\shadez.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
     <ClInclude Include="GUI\Sections.hpp" />
+    <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
+    <ClInclude Include="IL2CPP\Functions\timescale.h" />
   </ItemGroup>
 </Project>

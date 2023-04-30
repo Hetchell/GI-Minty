@@ -157,11 +157,15 @@
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
     <ClInclude Include="GUI\Sections.hpp" />
+    <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
+    <ClInclude Include="IL2CPP\Functions\timescale.h" />
     <ClInclude Include="IL2CPP\HookManager.h">
       <FileType>CppHeader</FileType>
     </ClInclude>
+    <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
     <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
+    <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_draw.cpp" />

@@ -6,6 +6,7 @@
 #include <commdlg.h>
 #define _CRT_SECURE_NO_WARNINGS
 #include "../minty/json/json.hpp"
+#include "D3D11Hook.hpp"
 
 
 //#include "../minty/gilua/util.h"
@@ -203,26 +204,29 @@ int main()
             return 1;
         }
 
-        exe_path = cfg["exec_path"];
-        PROCESS_INFORMATION proc_info{};
-        STARTUPINFOA startup_info{};
-        CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
+        GetPresent();
+        printValues();
+        detourDirectXPresent();
+        //exe_path = cfg["exec_path"];
+        //PROCESS_INFORMATION proc_info{};
+        //STARTUPINFOA startup_info{};
+        //CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
 
-        InjectStandard(proc_info.hProcess, dll_path.string().c_str());
-        ResumeThread(proc_info.hThread);
-        CloseHandle(proc_info.hThread);
-        CloseHandle(proc_info.hProcess);
+        //InjectStandard(proc_info.hProcess, dll_path.string().c_str());
+        //ResumeThread(proc_info.hThread);
+        //CloseHandle(proc_info.hThread);
+        //CloseHandle(proc_info.hProcess);
         return 0;
     }
 
-    PROCESS_INFORMATION proc_info{};
-    STARTUPINFOA startup_info{};
-    CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
+    //PROCESS_INFORMATION proc_info{};
+    //STARTUPINFOA startup_info{};
     //CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
+    ////CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
 
-    InjectStandard(proc_info.hProcess, dll_path.string().c_str());
-    ResumeThread(proc_info.hThread);
-    CloseHandle(proc_info.hThread);
-    CloseHandle(proc_info.hProcess);
+    //InjectStandard(proc_info.hProcess, dll_path.string().c_str());
+    //ResumeThread(proc_info.hThread);
+    //CloseHandle(proc_info.hThread);
+    //CloseHandle(proc_info.hProcess);
     return 0;
 }
