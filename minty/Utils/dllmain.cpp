@@ -11,9 +11,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 	util::log(2, "Starting", "");
 
 	GetPresent();
-	printValues();
-
-	detourDirectXPresent();
+	DetourDirectXPresent();
+	PrintValues();
 
 	init_il2cpp();
 

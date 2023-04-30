@@ -23,19 +23,16 @@ std::vector<std::string> ModuleOrder = {
     "World",
     "Minigames",
     "Themes",
+    "Debug",
     "About",
     "Settings",
-    "Testing",
     "AAAAAAAAA HELP ME"
 };
 
 namespace Sections {
+
     void Player() {
         ImGui::Text("Player Section");
-
-        if(ImGui::CollapsingHeader("## cock hack")) {
-            ImGui::Text("sob");
-        }
 
         if (ImGui::Button("MoleMole Message DEBUG")) {
             if (GetModuleHandle("UserAssembly.dll") != nullptr)
@@ -45,14 +42,11 @@ namespace Sections {
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
         }
 
-
         if (ImGui::Button("UA ptr debug")) {
-
-            if (baseAddress1 == (uint64_t)nullptr)
-            {
+            if (baseAddress1 == (uint64_t)nullptr) {
                 util::log(1, "UA is still very not real, wait pwease qwq uwu");
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "UA is still very not real, wait pwease qwq uwu" });
-                Sleep(1000);
+
                 baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
                 if (GetModuleHandle("UserAssembly.dll") != nullptr) {
                     util::log(2, "now ua ptr: %p", baseAddress1);
@@ -69,7 +63,7 @@ namespace Sections {
         }
     }
 
-    static float TimeScale = 1;
+    static float TimeScale = 1.0f;
     void World() {
         ImGui::Text("World section");
 
@@ -117,8 +111,23 @@ namespace Sections {
         ImGui::TextColored(ImVec4(255, 0, 0, 255), "IDK PLEASE HELP I HAVE EMOTION SWINGS AGAIN oh pizza");
     }
     
-    void Testing() {
-        ImGui::Button("AddCockHere");
+    void Debug() {
+        ImGuiIO& io = ImGui::GetIO();
+        ImGui::Text("Dear ImGui version: %s",ImGui::GetVersion());
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+        ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
+        ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
+
+    }
+
+    //this will be ran regardless of the tab
+    void Outer() {
+        if(show_debug_metrics)
+			ImGui::ShowMetricsWindow(&show_debug_metrics);
+        
+        if (show_debug_log) 
+            ShowDebugLog();
+
     }
 }
 
@@ -131,14 +140,14 @@ const std::unordered_map<std::string, DrawFunction> SectionMap = {
     {"About", &Sections::About},
     {"Themes", &Sections::Themes},
     {"Settings", &Sections::Settings},
-    {"Testing", &Sections::Testing},
+    {"Debug", &Sections::Debug},
     {"AAAAAAAAA HELP ME", &Sections::Booba}
 };
 
 void DrawSection(const std::string& sectionName) {
     auto it = SectionMap.find(sectionName);
     if (it != SectionMap.end()) {
-        //ImGui::Text("this should display for every section");
+        Sections::Outer();
         it->second();
     } else {
        ImGui::TextDisabled("No section matches name");

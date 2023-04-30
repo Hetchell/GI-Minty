@@ -14,11 +14,9 @@ namespace fs = std::filesystem;
 
 static ImGuiTextBuffer log_textbuf;
 
-namespace util
-{
+namespace util {
     template<typename... Args>
-    void log(int output_type, const char* fmt, Args... args)
-    {
+    void log(int output_type, const char* fmt, Args... args) {
         const char* info_type[] = {"Warning", "Error", "Info", "Debug"};
         printf("[Minty:%s] ", info_type[output_type]);
         printf(fmt, args...);

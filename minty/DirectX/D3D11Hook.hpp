@@ -22,6 +22,7 @@
 #include "../includes.h"
 #include "../ImGui/ImGui/imgui_internal.h"
 #include "../GUI/GuiDefinitions.h"
+//#include "../GUI/InitGui.hpp"
 //#include "../ImGui/ImGuiNotify/imgui_notify.h"
 #include "../ImGui/ImGuiNotify/tahoma.h"
 #include "../ImGui/ImGuiNotify/fa_solid_900.h"
@@ -42,6 +43,7 @@ static WNDPROC OriginalWndProcHandler = nullptr;
 HWND window = nullptr;
 IDXGISwapChainPresent fnIDXGISwapChainPresent;
 
+
 // Boolean
 BOOL g_bInitialised = false;
 bool g_ShowMenu = true;
@@ -57,63 +59,11 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 
-	if (uMsg == WM_SIZE) {
-		if (pDevice != NULL && wParam != SIZE_MINIMIZED)
-		{
-			ImGuiIO& io = ImGui::GetIO();
-			io.DisplaySize = ImVec2((float)LOWORD(lParam), (float)HIWORD(lParam));
-			io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-		}
-	}
-	
 	// Pass any unhandled messages to the original window procedure
 	// if(block_input)
 	// 	return true;
 
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
-}
-
-// Declare a function pointer for the original ResizeBuffers function
-typedef HRESULT(WINAPI* ResizeBuffersFn)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
-
-// Declare a global variable to hold the original ResizeBuffers function pointer
-ResizeBuffersFn OriginalResizeBuffersFn = nullptr;
-
-// Declare a hook for the ResizeBuffers function
-HRESULT WINAPI HookedResizeBuffersFn(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
-	// Call the original ResizeBuffers function
-	HRESULT hr = OriginalResizeBuffersFn(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
-
-	// Handle ImGui resizing
-	ImGuiIO& io = ImGui::GetIO();
-	io.DisplaySize = ImVec2((float)Width, (float)Height);
-	io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-
-	return hr;
-}
-
-VOID MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false)
-{
-	static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
-
-	ImFontConfig icons_config;
-	icons_config.MergeMode = true;
-	icons_config.PixelSnapH = true;
-	icons_config.FontDataOwnedByAtlas = FontDataOwnedByAtlas;
-
-	ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)fa_solid_900, sizeof(fa_solid_900), font_size, &icons_config, icons_ranges);
-}
-
-// Hook the ResizeBuffers function
-void HookResizeBuffers(IDXGISwapChain* pSwapChain) {
-	// Get the address of the original ResizeBuffers function
-	OriginalResizeBuffersFn = (ResizeBuffersFn)GetProcAddress(GetModuleHandleA("dxgi.dll"), "IDXGISwapChain_ResizeBuffers");
-
-	// Create a trampoline function to call the hooked ResizeBuffers function
-	DetourTransactionBegin();
-	DetourUpdateThread(GetCurrentThread());
-	DetourAttach(&(LPVOID&)OriginalResizeBuffersFn, HookedResizeBuffersFn);
-	DetourTransactionCommit();
 }
 
 HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext) {
@@ -125,6 +75,33 @@ HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** 
 	return ret;
 }
 
+void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false) {
+	static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+
+	ImFontConfig icons_config;
+	icons_config.MergeMode = true;
+	icons_config.PixelSnapH = true;
+	icons_config.FontDataOwnedByAtlas = FontDataOwnedByAtlas;
+
+	ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)fa_solid_900, sizeof(fa_solid_900), font_size, &icons_config, icons_ranges);
+}
+
+void InitImGui(HWND window) {
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	ImGui_ImplWin32_Init(window);
+	ImGui_ImplDX11_Init(pDevice, pContext);
+	ImGui::GetIO().ImeWindowHandle = window;
+
+	ImFontConfig font_cfg;
+	font_cfg.FontDataOwnedByAtlas = false;
+	ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &font_cfg);
+
+	// Initialize notify
+	MergeIconsWithLatestFont(16.f, false);
+}
+
 HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags) {
 	if (!g_bInitialised) {
 		g_PresentHooked = true;
@@ -134,27 +111,12 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 		pSwapChain = pChain;
 		DXGI_SWAP_CHAIN_DESC sd;
 		pChain->GetDesc(&sd);
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 		window = sd.OutputWindow;
-
+		//gui::InitImGui(window, pDevice, pContext);
+		InitImGui(window);
 		//Set OriginalWndProcHandler to the Address of the Original WndProc function
 		OriginalWndProcHandler = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)hWndProc);
-
-		ImGui_ImplWin32_Init(window);
-		ImGui_ImplDX11_Init(pDevice, pContext);
-		ImGui::GetIO().ImeWindowHandle = window;
-
 		ID3D11Texture2D* pBackBuffer;
-
-		ImFontConfig font_cfg;
-		font_cfg.FontDataOwnedByAtlas = false;
-		ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &font_cfg);
-
-		// Initialize notify
-		MergeIconsWithLatestFont(16.f, false);
-
 		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 		rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // Use the UNORM format to specify RGB88 color space
 		rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
@@ -178,6 +140,9 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 	}
 
 	//ImGuiIO& io = ImGui::GetIO();
+	if(ImGui::IsKeyPressed(ImGuiKey_F12, false))
+		g_ShowMenu = !g_ShowMenu;
+	
 	ImGui::Render();
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
@@ -186,7 +151,7 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 	return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
 }
 
-void detourDirectXPresent() {
+void DetourDirectXPresent() {
 	util::log(3, "Calling fnIDXGISwapChainPresent Detour", "");
 	DetourTransactionBegin();
 	util::log(3, "Detour Begin Transaction", "");
@@ -198,7 +163,7 @@ void detourDirectXPresent() {
 	DetourTransactionCommit();
 }
 
-void printValues() {
+void PrintValues() {
 	util::log(3, "ID3D11DeviceContext Address: %p", pContext);
 	util::log(3, "ID3D11Device Address: %p", pDevice);
 	util::log(3, "ID3D11RenderTargetView Address: %p", mainRenderTargetView);
