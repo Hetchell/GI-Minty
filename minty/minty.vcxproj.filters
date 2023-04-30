@@ -53,5 +53,9 @@
     <ClInclude Include="GUI\Sections.hpp" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
     <ClInclude Include="IL2CPP\Functions\timescale.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\fa_solid_900.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\font_awesome_5.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\imgui_notify.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\tahoma.h" />
   </ItemGroup>
 </Project>

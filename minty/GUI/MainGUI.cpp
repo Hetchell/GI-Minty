@@ -2,6 +2,7 @@
 #include "../Utils/ExtraGuiFuncs.hpp"
 #include "Sections.hpp"
 #include "GuiDefinitions.h"
+//#include "../ImGui/ImGuiNotify/imgui_notify.h"
 
 using namespace std;
 
@@ -43,6 +44,7 @@ namespace gui {
         DrawSection(ModuleOrder[SelectedSection]);
 
         ImGui::EndChild();
+        ImGui::RenderNotifications();
         ImGui::PopStyleVar();
 
         ImGui::EndGroup();

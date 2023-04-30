@@ -22,6 +22,10 @@
 #include "../includes.h"
 #include "../ImGui/ImGui/imgui_internal.h"
 #include "../GUI/GuiDefinitions.h"
+//#include "../ImGui/ImGuiNotify/imgui_notify.h"
+#include "../ImGui/ImGuiNotify/tahoma.h"
+#include "../ImGui/ImGuiNotify/fa_solid_900.h"
+#include "../ImGui/ImGuiNotify/font_awesome_5.h"
 
 // D3X HOOK DEFINITIONS
 typedef HRESULT(__fastcall* IDXGISwapChainPresent)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
@@ -88,6 +92,18 @@ HRESULT WINAPI HookedResizeBuffersFn(IDXGISwapChain* pSwapChain, UINT BufferCoun
 	return hr;
 }
 
+VOID MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false)
+{
+	static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+
+	ImFontConfig icons_config;
+	icons_config.MergeMode = true;
+	icons_config.PixelSnapH = true;
+	icons_config.FontDataOwnedByAtlas = FontDataOwnedByAtlas;
+
+	ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)fa_solid_900, sizeof(fa_solid_900), font_size, &icons_config, icons_ranges);
+}
+
 // Hook the ResizeBuffers function
 void HookResizeBuffers(IDXGISwapChain* pSwapChain) {
 	// Get the address of the original ResizeBuffers function
@@ -131,6 +147,13 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 		ImGui::GetIO().ImeWindowHandle = window;
 
 		ID3D11Texture2D* pBackBuffer;
+
+		ImFontConfig font_cfg;
+		font_cfg.FontDataOwnedByAtlas = false;
+		ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &font_cfg);
+
+		// Initialize notify
+		MergeIconsWithLatestFont(16.f, false);
 
 		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 		rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // Use the UNORM format to specify RGB88 color space

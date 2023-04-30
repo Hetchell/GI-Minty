@@ -12,6 +12,8 @@
 #include <unordered_map>
 //#include "../IL2CPP/il2cpp-init.hpp"
 #include "GuiDefinitions.h"
+#include "../ImGui/ImGuiNotify/imgui_notify.h"
+//#include "../ImGui/ImGuiNotify/tahoma.h"
 
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandle("UnityPlayer.dll");
@@ -36,25 +38,30 @@ namespace Sections {
         }
 
         if (ImGui::Button("MoleMole Message DEBUG")) {
-            il2fns::MoleMole__ActorUtils__ShowMessage("123");
+            if (GetModuleHandle("UserAssembly.dll") != nullptr)
+                il2fns::MoleMole__ActorUtils__ShowMessage("123");
+            else
+                //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
+                ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
         }
 
 
         if (ImGui::Button("UA ptr debug")) {
 
-            while (baseAddress1 == (uint64_t)nullptr)
+            if (baseAddress1 == (uint64_t)nullptr)
             {
-                util::log(1, "UA is still very not real");
+                util::log(1, "UA is still very not real, wait pwease qwq uwu");
                 Sleep(1000);
                 baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
                 if (GetModuleHandle("UserAssembly.dll") != nullptr) {
                     util::log(2, "now ua ptr: %p", baseAddress1);
                 }
             }
-
-            util::log(1, "first var of ptr is just getmodule: %p", GetModuleHandle("UserAssembly.dll"));
-            util::log(1, "second var of ptr is baseAddress from il2i: %p", baseAddress1);
-            util::log(1, "third var of ptr is just getmodule but goofy var: %p", GetModuleHandleW(L"UserAssembly.dll"));
+            else {
+                util::log(1, "first var of ptr is just getmodule: %p", GetModuleHandle("UserAssembly.dll"));
+                util::log(1, "second var of ptr is baseAddress from il2i: %p", baseAddress1);
+                util::log(1, "third var of ptr is just getmodule but goofy var: %p", GetModuleHandleW(L"UserAssembly.dll"));
+            }
         }
     }
 

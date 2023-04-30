@@ -190,6 +190,10 @@
     <ClInclude Include="IL2CPP\il2cpp-functions.h" />
     <ClInclude Include="IL2CPP\il2cpp-init.hpp" />
     <ClInclude Include="IL2CPP\il2cpp-unityplayer-functions.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\fa_solid_900.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\font_awesome_5.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\imgui_notify.h" />
+    <ClInclude Include="ImGui\ImGuiNotify\tahoma.h" />
     <ClInclude Include="ImGui\ImGui\imconfig.h" />
     <ClInclude Include="ImGui\ImGui\imgui.h" />
     <ClInclude Include="ImGui\ImGui\imgui_impl_dx11.h" />
