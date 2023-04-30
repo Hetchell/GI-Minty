@@ -11,6 +11,7 @@
 #include <string>
 #include <unordered_map>
 //#include "../IL2CPP/il2cpp-init.hpp"
+#include "GuiDefinitions.h"
 
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandle("UnityPlayer.dll");

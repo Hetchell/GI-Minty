@@ -21,6 +21,7 @@
 
 #include "../includes.h"
 #include "../ImGui/ImGui/imgui_internal.h"
+#include "../GUI/GuiDefinitions.h"
 
 // D3X HOOK DEFINITIONS
 typedef HRESULT(__fastcall* IDXGISwapChainPresent)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
@@ -50,30 +51,21 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	io.MousePos.x = static_cast<float>(mPos.x);
 	io.MousePos.y = static_cast<float>(mPos.y);
 
-	if (g_ShowMenu) {
-		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
-			// If ImGui handled the message, don't pass it on to the main window procedure
-			return true;
-		}
+	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 
-		if (uMsg == WM_SIZE) {
-			if (pDevice != NULL && wParam != SIZE_MINIMIZED)
-			{
-				ImGuiIO& io = ImGui::GetIO();
-				io.DisplaySize = ImVec2((float)LOWORD(lParam), (float)HIWORD(lParam));
-				io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-			}
+	if (uMsg == WM_SIZE) {
+		if (pDevice != NULL && wParam != SIZE_MINIMIZED)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			io.DisplaySize = ImVec2((float)LOWORD(lParam), (float)HIWORD(lParam));
+			io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
 		}
 	}
-	else {
-		// Allow closing the window when ImGui is closed
-		if (uMsg == WM_CLOSE) {
-			DestroyWindow(hWnd);
-			return 0;
-		}
-	}
-
+	
 	// Pass any unhandled messages to the original window procedure
+	// if(block_input)
+	// 	return true;
+
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
 

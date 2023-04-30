@@ -1,6 +1,7 @@
 #include "MainGUI.h"
 #include "../Utils/ExtraGuiFuncs.hpp"
 #include "Sections.hpp"
+#include "GuiDefinitions.h"
 
 using namespace std;
 
@@ -12,10 +13,8 @@ namespace gui {
         ImGui::Begin("Minty");
 
         ImGui::BeginGroup();
-        static bool block_key = false;
 
-        if (ImGui::Checkbox("Block key/mouse", &block_key)) {
-            //renderer::SetInputLock(this, m_IsBlockingInput);
+        if (ImGui::Checkbox("Block key/mouse", &block_input)) {
         }
 
         static int SelectedSection = 0;
