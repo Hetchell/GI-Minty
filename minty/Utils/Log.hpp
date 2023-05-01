@@ -27,4 +27,3 @@ namespace util {
         log_textbuf.appendf("\n");
     }
 }
-

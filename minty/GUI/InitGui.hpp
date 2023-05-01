@@ -24,7 +24,6 @@ void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false
 }
 
 namespace gui {
-
     void InitImGui(HWND window, ID3D11Device* pDevice, ID3D11DeviceContext* pContext) {
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO(); (void)io;

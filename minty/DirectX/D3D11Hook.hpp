@@ -44,7 +44,7 @@ IDXGISwapChainPresent fnIDXGISwapChainPresent;
 
 // Boolean
 BOOL g_bInitialised = false;
-//bool g_ShowMenu = true;
+//bool g_ShowMenu = true; -> defined in GUIDefinitions
 bool g_PresentHooked = false;
 
 LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -57,8 +57,7 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 
-	// Pass any unhandled messages to the original window procedure
-
+	//call any UMSG switch here. calling keypresses in gui::render is recommended for most cases
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
 
@@ -74,7 +73,7 @@ HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** 
 HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags) {
 	if (!g_bInitialised) {
 		g_PresentHooked = true;
-		util::log(3, "Present Hook called by first time", "");
+		util::log(3, "Present Hook called by first time");
 		if (FAILED(GetDeviceAndCtxFromSwapchain(pChain, &pDevice, &pContext)))
 			return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
 		pSwapChain = pChain;
@@ -108,14 +107,14 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 }
 
 void DetourDirectXPresent() {
-	util::log(3, "Calling fnIDXGISwapChainPresent Detour", "");
+	util::log(3, "Calling fnIDXGISwapChainPresent Detour");
 	DetourTransactionBegin();
-	util::log(3, "Detour Begin Transaction", "");
+	util::log(3, "Detour Begin Transaction");
 	DetourUpdateThread(GetCurrentThread());
-	util::log(3, "Detour Update Thread", "");
+	util::log(3, "Detour Update Thread");
 	// Detours the original fnIDXGISwapChainPresent with our Present
 	DetourAttach(&(LPVOID&)fnIDXGISwapChainPresent, (PBYTE)hkPresent);
-	util::log(3, "Detour Attach", "");
+	util::log(3, "Detour Attach");
 	DetourTransactionCommit();
 }
 
@@ -166,7 +165,7 @@ void GetPresent() {
 		&dev,
 		&FeatureLevelsSupported,
 		&devcon))) {
-		util::log(3, "Failed to hook Present with VT method.", "");
+		util::log(3, "Failed to hook Present with VT method.");
 		return;
 	}
 	DWORD_PTR* pSwapChainVtable = NULL;

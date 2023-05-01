@@ -127,10 +127,8 @@ namespace Sections {
         //ImGui::ShowStyleEditor();
     }
 
-    void Settings() {}
-
-    void Booba() {
-        ImGui::TextColored(ImVec4(255, 0, 0, 255), "IDK PLEASE HELP I HAVE EMOTION SWINGS AGAIN oh pizza");
+    void Settings() {
+        ImGui::Checkbox("Show ImGui's cursor", &ImGui::GetIO().MouseDrawCursor);
     }
     
     void Debug() {
@@ -147,6 +145,10 @@ namespace Sections {
 
     }
 
+    void Booba() {
+        ImGui::TextColored(ImVec4(255, 0, 0, 255), "IDK PLEASE HELP I HAVE EMOTION SWINGS AGAIN oh pizza");
+    }
+
     //this will be ran regardless of the tab
     void Outer() {
         if(show_debug_metrics)
@@ -155,6 +157,8 @@ namespace Sections {
         if (show_debug_log) 
             ShowDebugLog();
     }
+
+
 }
 
 using DrawFunction = void(*)();

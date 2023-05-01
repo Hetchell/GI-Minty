@@ -8,7 +8,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
 
-	util::log(2, "Starting", "");
+	util::log(2, "Starting");
 
 	GetPresent();
 	DetourDirectXPresent();
