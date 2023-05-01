@@ -32,7 +32,7 @@ std::vector<std::string> ModuleOrder = {
 namespace Sections {
 
     void Player() {
-        ImGui::Text("Player Section");
+        ImGui::SeparatorText("Add separator text for each category of cheat here");
 
         if (ImGui::Button("MoleMole Message DEBUG")) {
             if (GetModuleHandle("UserAssembly.dll") != nullptr)
@@ -65,7 +65,7 @@ namespace Sections {
 
     static float TimeScale = 1.0f;
     void World() {
-        ImGui::Text("World section");
+        ImGui::SeparatorText("Add separator text for each category of cheat here");
 
         if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
             il2fns::UnityEngine__set__Timescale(TimeScale);
@@ -135,7 +135,7 @@ namespace Sections {
         ImGui::SeparatorText("Debug");
 
         ImGuiIO& io = ImGui::GetIO();
-        ImGui::Text("Dear ImGui version: %s",ImGui::GetVersion());
+        ImGui::Text("Dear ImGui version: %s", ImGui::GetVersion());
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
         ImGui::SeparatorText("");
@@ -156,9 +156,12 @@ namespace Sections {
         
         if (show_debug_log) 
             ShowDebugLog();
+
+        if(ImGui::Button("debug call append with fmt pointer")) {
+		    util::log(2,"cock %s", get_ptr(show_debug_log));
+
+	    }
     }
-
-
 }
 
 using DrawFunction = void(*)();

@@ -133,7 +133,7 @@ HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** 
 HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags) {
 	if (!g_bInitialised) {
 		g_PresentHooked = true;
-		util::log(3, "Present Hook called by first time", "");
+		util::log(3, "Present Hook called by first time");
 		if (FAILED(GetDeviceAndCtxFromSwapchain(pChain, &pDevice, &pContext)))
 			return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
 		pSwapChain = pChain;
@@ -183,14 +183,14 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 }
 
 void detourDirectXPresent() {
-	util::log(3, "Calling fnIDXGISwapChainPresent Detour", "");
+	util::log(3, "Calling fnIDXGISwapChainPresent Detour");
 	DetourTransactionBegin();
-	util::log(3, "Detour Begin Transaction", "");
+	util::log(3, "Detour Begin Transaction");
 	DetourUpdateThread(GetCurrentThread());
-	util::log(3, "Detour Update Thread", "");
+	util::log(3, "Detour Update Thread");
 	// Detours the original fnIDXGISwapChainPresent with our Present
 	DetourAttach(&(LPVOID&)fnIDXGISwapChainPresent, (PBYTE)hkPresent);
-	util::log(3, "Detour Attach", "");
+	util::log(3, "Detour Attach");
 	DetourTransactionCommit();
 }
 
@@ -241,7 +241,7 @@ void GetPresent() {
 		&dev,
 		&FeatureLevelsSupported,
 		&devcon))) {
-		util::log(3, "Failed to hook Present with VT method.", "");
+		util::log(3, "Failed to hook Present with VT method.");
 		return;
 	}
 	DWORD_PTR* pSwapChainVtable = NULL;
@@ -251,7 +251,7 @@ void GetPresent() {
 	g_PresentHooked = true;
 
 	util::log(3, "Present Address: %p", fnIDXGISwapChainPresent);
-	Sleep(2000);
+	//Sleep(2000);
 }
 
 void* SwapChain[18];

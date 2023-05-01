@@ -15,7 +15,6 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 	PrintValues();
 
 	init_il2cpp();
-
 	return 0;
 }
 

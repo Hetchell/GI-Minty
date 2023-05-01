@@ -60,5 +60,6 @@
     <ClInclude Include="GUI\GuiDefinitions.h" />
     <ClInclude Include="GUI\InitGui.hpp" />
     <ClInclude Include="GUI\Translations.h" />
+    <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
 </Project>

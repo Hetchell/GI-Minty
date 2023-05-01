@@ -20,7 +20,7 @@
 #include "Themes/themes.h"
 //#include "Utils/ExtraGuiFuncs.hpp"
 #include "Utils/Log.hpp"
-
+#include "Utils/Utils.hpp"
 #include "Json/json.hpp"
 
 

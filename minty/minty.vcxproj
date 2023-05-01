@@ -179,6 +179,7 @@
     <ClCompile Include="ImGui\TextEditor\TextEditor.cpp" />
     <ClCompile Include="Themes\themes.cpp" />
     <ClCompile Include="Utils\dllmain.cpp" />
+    <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />

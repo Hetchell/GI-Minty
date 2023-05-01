@@ -52,6 +52,7 @@ void ShowDebugLog() {
 			counter++;
 		}
 	}
+
 	ImGui::SameLine();
 
 	if (ImGui::SmallButton("Clear")) { log_textbuf.clear(); }

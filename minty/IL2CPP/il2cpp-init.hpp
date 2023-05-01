@@ -26,7 +26,7 @@ namespace app {
 VOID init_il2cpp() {
 //#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
 	util::log(2, "isle too see pipi ready; loading ptrs.");
-	util::log(2, "ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
+	util::log(2, "ua ptr: %s; up ptr: %s", get_ptr(baseAddress), get_ptr(unityPlayerAddress));
 	while (baseAddress == (uint64_t)nullptr) {
 
 		static bool repeat = false;
