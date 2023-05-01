@@ -25,7 +25,6 @@
 
 //#include "../ImGui/ImGuiNotify/imgui_notify.h"
 
-
 #include "../GUI/InitGui.hpp"
 
 // D3X HOOK DEFINITIONS
@@ -59,8 +58,6 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 
 	// Pass any unhandled messages to the original window procedure
-	// if(block_input)
-	// 	return true;
 
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
@@ -179,7 +176,7 @@ void GetPresent() {
 	g_PresentHooked = true;
 
 	util::log(3, "Present Address: %p", fnIDXGISwapChainPresent);
-	Sleep(2000);
+	//Sleep(2000);
 }
 
 bool LoadTextureFromMemory(LPBYTE image_data, int image_width, int image_height, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height) {

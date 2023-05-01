@@ -53,13 +53,16 @@ void ShowDebugLog() {
 		}
 	}
 	ImGui::SameLine();
-	if (ImGui::SmallButton("Clear"))
-		log_textbuf.clear();
+
+	if (ImGui::SmallButton("Clear")) { log_textbuf.clear(); }
+
 	ImGui::SameLine();
-	if (ImGui::SmallButton("Copy")) 
-		ImGui::SetClipboardText(log_textbuf.begin());
+
+	if (ImGui::SmallButton("Copy")) { ImGui::SetClipboardText(log_textbuf.begin()); }
+
 	Filter.Draw("Filter");
 	ImGui::Separator();
+	
 	ImGui::BeginChild("LogScroll", ImVec2(0, 0), false, ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
 	if (Filter.IsActive()) {
@@ -80,9 +83,8 @@ void ShowDebugLog() {
 		ImGui::TextUnformatted(log_textbuf.begin(), log_textbuf.end());
 	}
 
-	if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) {
-		ImGui::SetScrollHereY(1.0f);
-	}
+	if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) { ImGui::SetScrollHereY(1.0f); }
+
 	ImGui::EndChild();	
 	ImGui::End();
 }

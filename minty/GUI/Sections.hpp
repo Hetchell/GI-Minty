@@ -79,7 +79,6 @@ namespace Sections {
             TimeScale = 1.0;
             il2fns::UnityEngine__set__Timescale(TimeScale);
         }
-
     }
 
     void Minigames() {
@@ -94,16 +93,39 @@ namespace Sections {
     }
 
     void About() {
+        ImGui::SeparatorText("About");
+
+        ImGui::Text("Minty version x.x.x");
+        ImGui::Text("ImGui version: %s", ImGui::GetVersion());
+
+        ImGui::SeparatorText("");
+
         ImGui::Text("Minty Github: ");
         TextURL("Link", "https://github.com/kindawindytoday/minty", true, false);
         ImGui::Text("Minty Discord: ");
         TextURL("Link", "https://discord.gg/kindawindytoday", true, false);
 
+        ImGui::SeparatorText("");
+
         ImGui::Text("asdasd add stuff");
-        ImGui::Text("ImGui version: %s", ImGui::GetVersion());
     }
 
-    void Themes() {}
+    void Themes() {
+        ImGui::SeparatorText("Themes");
+    
+        ImGui::TextDisabled("Add stuff here... theme customizer etc choose dropdwn");
+
+        ImGui::SeparatorText("Fonts");
+
+        ImGui::TextDisabled("Add font selector dropdown, & ttf loader");
+
+        // ImGui::BeginCombo(
+        //     "Font", //Label
+        //     NULL
+        //     );
+
+        //ImGui::ShowStyleEditor();
+    }
 
     void Settings() {}
 
@@ -112,9 +134,14 @@ namespace Sections {
     }
     
     void Debug() {
+        ImGui::SeparatorText("Debug");
+
         ImGuiIO& io = ImGui::GetIO();
         ImGui::Text("Dear ImGui version: %s",ImGui::GetVersion());
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+
+        ImGui::SeparatorText("");
+
         ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
         ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
 
@@ -127,7 +154,6 @@ namespace Sections {
         
         if (show_debug_log) 
             ShowDebugLog();
-
     }
 }
 

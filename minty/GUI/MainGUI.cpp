@@ -9,17 +9,15 @@ using namespace std;
 namespace gui {
     void FrameLoadGui() {
 
-        setlocale(LC_ALL, "C");
+        //setlocale(LC_ALL, "C");
 
         ImGui::Begin("Minty");
 
         ImGui::BeginGroup();
 
-        if (ImGui::Checkbox("Block key/mouse", &block_input)) {
-        }
+        ImGui::Checkbox("Block key/mouse", &block_input);
 
         static int SelectedSection = 0;
-
         if (ImGui::ListBoxHeader("##CategorySelect", ImVec2(175, -FLT_MIN))) {
             for (int i = 0; i < ModuleOrder.size(); i++) {
                 bool is_selected = (i == SelectedSection);
@@ -50,6 +48,5 @@ namespace gui {
         ImGui::EndGroup();
 
         ImGui::End();
-
     }
 }
