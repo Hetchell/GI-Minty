@@ -49,16 +49,16 @@ namespace Sections {
 
                 baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
                 if (GetModuleHandle("UserAssembly.dll") != nullptr) {
-                    util::log(2, "now ua ptr: %p", baseAddress1);
+                    util::log(2, "now ua ptr: %s", get_ptr(baseAddress1));
                 }
             }
             else {
-                util::log(1, "first var of ptr is just getmodule: %p", GetModuleHandle("UserAssembly.dll"));
-                util::log(1, "second var of ptr is baseAddress from il2i: %p", baseAddress1);
-                util::log(1, "third var of ptr is just getmodule but goofy var: %p", GetModuleHandleW(L"UserAssembly.dll"));
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %p", GetModuleHandle("UserAssembly.dll") });
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %p", baseAddress1 });
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %p", GetModuleHandleW(L"UserAssembly.dll") });
+                util::log(1, "first var of ptr is just getmodule: %s", get_ptr(GetModuleHandle("UserAssembly.dll")));
+                util::log(1, "second var of ptr is baseAddress from il2i: %s", get_ptr(baseAddress1));
+                util::log(1, "third var of ptr is just getmodule but goofy var: %s", get_ptr(GetModuleHandleW(L"UserAssembly.dll")));
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", get_ptr(GetModuleHandle("UserAssembly.dll") )});
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", get_ptr(baseAddress1) });
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", get_ptr(GetModuleHandleW(L"UserAssembly.dll")) });
             }
         }
     }
@@ -97,6 +97,10 @@ namespace Sections {
 
         ImGui::Text("Minty version x.x.x");
         ImGui::Text("ImGui version: %s", ImGui::GetVersion());
+
+        ImGui::Text("Game version: ???");
+        ImGui::SameLine();
+        ImGui::TextDisabled("maybe add version detector, compare and shit");
 
         ImGui::SeparatorText("");
 
@@ -143,6 +147,9 @@ namespace Sections {
         ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
         ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
 
+        if(ImGui::Button("ptr"))
+            util::log(2,"debug log ptr %s", get_ptr(show_debug_metrics) );
+
     }
 
     void Booba() {
@@ -157,10 +164,6 @@ namespace Sections {
         if (show_debug_log) 
             ShowDebugLog();
 
-        if(ImGui::Button("debug call append with fmt pointer")) {
-		    util::log(2,"cock %s", get_ptr(show_debug_log));
-
-	    }
     }
 }
 
