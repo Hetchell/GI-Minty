@@ -1,6 +1,8 @@
 #include "../includes.h"
 #include "../IL2CPP/il2cpp-init.hpp"
 #include "../DirectX/D3D11Hook.hpp"
+//#include "../Lua/luahook.hpp"
+#include "something.h"
 
 DWORD WINAPI MainThread(LPVOID lpReserved) {
 	AllocConsole();
@@ -20,6 +22,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 	if (fdwReason == DLL_PROCESS_ATTACH) {
+		CloseHandle(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
 		CreateThread(NULL, 0, &MainThread, NULL, NULL, NULL);
 	}
 	return TRUE;

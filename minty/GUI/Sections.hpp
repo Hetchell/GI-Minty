@@ -14,6 +14,9 @@
 #include "GuiDefinitions.h"
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
 //#include "../ImGui/ImGuiNotify/tahoma.h"
+//#include "../Lua/luahook.hpp"
+#include "../Utils/Log.hpp"
+#include "../Utils/something.h"
 
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandle("UnityPlayer.dll");
@@ -28,6 +31,14 @@ std::vector<std::string> ModuleOrder = {
     "Settings",
     "AAAAAAAAA HELP ME"
 };
+
+template <typename T>
+const char* get_ptr1(const T& value) {
+    std::stringstream ss;
+    ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
+    static std::string result = ss.str();
+    return result.c_str();
+}
 
 namespace Sections {
 
@@ -49,17 +60,26 @@ namespace Sections {
 
                 baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
                 if (GetModuleHandle("UserAssembly.dll") != nullptr) {
-                    util::log(2, "now ua ptr: %s", get_ptr(baseAddress1));
+                    util::log(2, "now ua ptr: %s", get_ptr1(baseAddress1));
                 }
             }
             else {
-                util::log(1, "first var of ptr is just getmodule: %s", get_ptr(GetModuleHandle("UserAssembly.dll")));
-                util::log(1, "second var of ptr is baseAddress from il2i: %s", get_ptr(baseAddress1));
-                util::log(1, "third var of ptr is just getmodule but goofy var: %s", get_ptr(GetModuleHandleW(L"UserAssembly.dll")));
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", get_ptr(GetModuleHandle("UserAssembly.dll") )});
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", get_ptr(baseAddress1) });
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", get_ptr(GetModuleHandleW(L"UserAssembly.dll")) });
+                util::log(1, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandle("UserAssembly.dll")));
+                util::log(1, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1));
+                util::log(1, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")));
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandle("UserAssembly.dll") )});
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1) });
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")) });
             }
+        }
+
+        if (ImGui::Button("Show MoleMole Avatar Pos")) {
+            //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"eksdee xlua alive mhy suck\")");
+            if (GetModuleHandle("UserAssembly.dll") != nullptr)
+                il2fns::MoleMole__ActorUtils__GetAvatarPos();
+            else
+                //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
+                ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
         }
     }
 
@@ -148,7 +168,7 @@ namespace Sections {
         ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
 
         if(ImGui::Button("ptr"))
-            util::log(2,"debug log ptr %s", get_ptr(show_debug_metrics) );
+            util::log(2,"debug log ptr %s", get_ptr1(show_debug_metrics) );
 
     }
 

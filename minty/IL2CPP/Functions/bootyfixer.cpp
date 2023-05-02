@@ -2,7 +2,7 @@
 
 namespace il2fns {
 	void MoleMole__ActorUtils__GetAvatarPos() {
-		//HookManager::install(app::MoleMole__ActorUtils__GetAvatarPos, MoleMole__ActorUtils__GetAvatarPos);
-		//return CALL_ORIGIN(MoleMole__ActorUtils__GetAvatarPos);
+		void* avatarpos = app::MoleMole__ActorUtils__GetAvatarPos();
+		app::MoleMole__ActorUtils__ShowMessage(avatarpos);
 	}
 }

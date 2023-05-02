@@ -37,6 +37,7 @@
 //#include "../minty/Games/minesweeper.hpp"
 //#include "../minty/Games/tictactoe.hpp"
 //#include "../minty/Games/wordle.hpp"
+//#include "../minty/Lua/luahook.h"
 
 typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);

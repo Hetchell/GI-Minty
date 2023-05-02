@@ -15,6 +15,8 @@
     <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
     <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
     <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
+    <ClCompile Include="Lua\lauxlib.c" />
+    <ClCompile Include="Lua\lua.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -61,5 +63,17 @@
     <ClInclude Include="GUI\InitGui.hpp" />
     <ClInclude Include="GUI\Translations.h" />
     <ClInclude Include="Utils\Utils.hpp" />
+    <ClInclude Include="Lua\scanner.h" />
+    <ClInclude Include="Lua\pe.h" />
+    <ClInclude Include="Lua\lualib.h" />
+    <ClInclude Include="Lua\lauxlib.h" />
+    <ClInclude Include="Lua\lua.h" />
+    <ClInclude Include="Lua\luahook.hpp" />
+    <ClInclude Include="Lua\luaconf.h" />
+    <ClInclude Include="Lua\lprefix.h" />
+    <ClInclude Include="Utils\something.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Lua\lua53.lib" />
   </ItemGroup>
 </Project>

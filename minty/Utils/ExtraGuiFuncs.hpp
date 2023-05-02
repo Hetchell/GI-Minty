@@ -38,6 +38,8 @@ void TextURL(const char* name_, const char* URL_, bool SameLineBefore_, bool Sam
 	if (SameLineAfter_) { ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x); }
 }
 
+static ImGuiTextBuffer log_textbuf1;
+
 void ShowDebugLog() {
 	ImGuiTextFilter Filter;
 	ImGui::Begin("Log", &show_debug_log);
@@ -48,18 +50,18 @@ void ShowDebugLog() {
 		for (int n = 0; n < 5; n++) {
 			const char* category = categories[counter % IM_ARRAYSIZE(categories)];
 			const char* word = words[counter % IM_ARRAYSIZE(words)];
-			log_textbuf.appendf("[Minty:%s] [%05d] Hello, current time is %.1f, here's a word: '%s'\n", category, ImGui::GetFrameCount(), ImGui::GetTime(), word);
+			log_textbuf1.appendf("[Minty:%s] [%05d] Hello, current time is %.1f, here's a word: '%s'\n", category, ImGui::GetFrameCount(), ImGui::GetTime(), word);
 			counter++;
 		}
 	}
 
 	ImGui::SameLine();
 
-	if (ImGui::SmallButton("Clear")) { log_textbuf.clear(); }
+	if (ImGui::SmallButton("Clear")) { log_textbuf1.clear(); }
 
 	ImGui::SameLine();
 
-	if (ImGui::SmallButton("Copy")) { ImGui::SetClipboardText(log_textbuf.begin()); }
+	if (ImGui::SmallButton("Copy")) { ImGui::SetClipboardText(log_textbuf1.begin()); }
 
 	Filter.Draw("Filter");
 	ImGui::Separator();
@@ -67,8 +69,8 @@ void ShowDebugLog() {
 	ImGui::BeginChild("LogScroll", ImVec2(0, 0), false, ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
 	if (Filter.IsActive()) {
-		const char* buf_begin = log_textbuf.begin();
-		const char* buf_end = log_textbuf.end();
+		const char* buf_begin = log_textbuf1.begin();
+		const char* buf_end = log_textbuf1.end();
 		ImGuiTextBuffer log_filtered;
 		while (buf_begin < buf_end) {
 			const char* line_end = strchr(buf_begin, '\n');
@@ -81,7 +83,7 @@ void ShowDebugLog() {
 		ImGui::TextUnformatted(log_filtered.begin(), log_filtered.end());
 	}
 	else {
-		ImGui::TextUnformatted(log_textbuf.begin(), log_textbuf.end());
+		ImGui::TextUnformatted(log_textbuf1.begin(), log_textbuf1.end());
 	}
 
 	if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) { ImGui::SetScrollHereY(1.0f); }
