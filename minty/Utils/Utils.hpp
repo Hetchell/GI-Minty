@@ -1,15 +1,11 @@
 #pragma once
-
 #include <sstream>
-#include <string>
+#include <iomanip>
 
-template<typename T>
+template <typename T>
 const char* get_ptr(const T& value) {
-    std::ostringstream oss;
-    oss << value;
-    std::string str = oss.str();
-    if (str.empty()) {
-        return "nullptr";
-    }
-    return str.c_str();
+    std::stringstream ss;
+    ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
+    static std::string result = ss.str();
+    return result.c_str();
 }
