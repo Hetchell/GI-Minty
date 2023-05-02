@@ -139,18 +139,18 @@ namespace {
         il2cpp_base = (uintptr_t)ua;
         g_xluaL_loadbuffer = PatternScan("UserAssembly.dll", "48 83 EC 38 4D 63 C0 48 C7 44 24 ? ? ? ? ? E8 ? ? ? ? 48 83 C4 38 C3");
         g_lua_pcall = PatternScan("UserAssembly.dll", "48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3");
-        printf("xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
-        printf("lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
+        util::log(2, "xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
+        util::log(2, "lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
 
         HookManager::install((loadbuffer_ftn)g_xluaL_loadbuffer, xluaL_loadbuffer_hook);
-        printf("Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
+        util::log(2, "Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
         //kiero::bind(99, (void**)&LoadBuffer, xluaL_loadbuffer_hook);
 
         while (!gi_L)
             Sleep(50);
 
         //kiero::unbind(99);
-        printf("L: %p\n", gi_L);
+        util::log(2, "L: %p\n", gi_L);
 
     }
 
