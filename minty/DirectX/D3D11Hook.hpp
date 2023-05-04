@@ -65,20 +65,17 @@ bool g_PresentHooked = false;
 
 LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	static bool blockInputInt = false;
-
-	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-
-	if (ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard)
-		blockInputInt = true;
-	else
-		blockInputInt = false;
-
-	if (blockInputInt)
-		return DefWindowProc(hWnd, uMsg, wParam, lParam);
-	else
-		return ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
+		return true; // input handled by ImGui, so return true
+	}
+	else if (ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard) {
+		return true; // ImGui wants to capture input, so return true
+	}
+	else {
+		return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam); // let the main app handle the input
+	}
 }
+
 
 HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext) {
 	HRESULT ret = pSwapChain->GetDevice(__uuidof(ID3D11Device), (PVOID*)ppDevice);
