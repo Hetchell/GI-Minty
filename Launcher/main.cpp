@@ -7,13 +7,13 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "../minty/json/json.hpp"
 //#include "D3D11Hook.hpp"
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_internal.h"
 #include "ImGui/imgui_impl_win32.h"
 #include "ImGui/imgui_impl_dx11.h"
 #include <d3d11.h>
 #include <tchar.h>
-#define IMGUI_DEFINE_MATH_OPERATORS
 #include "ImGui/imgui_internal.h"
 //#include "../minty/gilua/util.h"
 //#include "../minty/gilua/luahook.h"
@@ -21,6 +21,83 @@
 namespace fs = std::filesystem;
 
 //std::ifstream f("cfg.json");
+float ImLength(const ImVec2& lhs)
+{
+    return sqrtf(lhs.x * lhs.x + lhs.y * lhs.y);
+}
+
+float GetContentRegionAvailWidth()
+{
+    ImGuiWindow* window = ImGui::GetCurrentWindowRead();
+    const ImVec2& contentSize = window->ContentSize;
+    const float& scrollWidth = window->ScrollbarSizes.x;
+    const float& availWidth = contentSize.x - scrollWidth - window->WindowPadding.x - window->WindowBorderSize * 2.0f;
+    return availWidth > 0.0f ? availWidth : 0.0f;
+}
+
+float GetContentRegionAvailHeight()
+{
+    ImGuiWindow* window = ImGui::GetCurrentWindowRead();
+    const ImVec2& contentSize = window->ContentSize;
+    const float& scrollHeight = window->ScrollbarSizes.y;
+    const float& availHeight = contentSize.y - scrollHeight - window->WindowPadding.y - window->WindowBorderSize * 2.0f;
+    return availHeight > 0.0f ? availHeight : 0.0f;
+}
+
+ImVec4 lerp(const ImVec4& a, const ImVec4& b, float t)
+{
+    return ImVec4(
+        a.x + (b.x - a.x) * t,
+        a.y + (b.y - a.y) * t,
+        a.z + (b.z - a.z) * t,
+        a.w + (b.w - a.w) * t
+    );
+}
+
+
+namespace ImGui {
+    void drawGradientBackground(ImVec2 size, ImVec4 colorTop, ImVec4 colorBot) {
+        ImDrawList* draw_list = ImGui::GetWindowDrawList();
+        ImVec2 p = ImGui::GetCursorScreenPos();
+        ImVec2 p1 = p;
+        ImVec2 p2 = ImVec2(p.x + size.x, p.y + size.y);
+
+        draw_list->AddRectFilledMultiColor(p1, p2, ImColor(colorTop), ImColor(colorTop), ImColor(colorBot), ImColor(colorBot));
+    }
+
+    void drawRGradientBackground(const ImVec4& startColor, const ImVec4& endColor, float rotationAngleRadians, const ImVec2& startPos)
+    {
+        ImDrawList* drawList = ImGui::GetWindowDrawList();
+        const ImVec2& gradientStartPos = startPos;
+        const float& availWidth = GetContentRegionAvailWidth();
+        const float& availHeight = GetContentRegionAvailHeight();
+        const ImVec2& gradientEndPos = ImVec2(gradientStartPos.x + availWidth, gradientStartPos.y + availHeight);
+        const ImVec2& gradientCenter = ImVec2((gradientStartPos.x + gradientEndPos.x) / 2.0f, (gradientStartPos.y + gradientEndPos.y) / 2.0f);
+        const float& gradientLength = ImLength(gradientEndPos - gradientStartPos);
+        const float& gradientAngle = atan2f(gradientEndPos.y - gradientStartPos.y, gradientEndPos.x - gradientStartPos.x);
+
+        // Calculate the rotated start and end points
+        const ImVec2& startPoint = ImVec2(gradientCenter.x + gradientLength / 2 * cosf(rotationAngleRadians + gradientAngle), gradientCenter.y + gradientLength / 2 * sinf(rotationAngleRadians + gradientAngle));
+        const ImVec2& endPoint = ImVec2(gradientCenter.x + gradientLength / 2 * cosf(rotationAngleRadians - gradientAngle), gradientCenter.y + gradientLength / 2 * sinf(rotationAngleRadians - gradientAngle));
+
+        ImU32 gradientColors[4] = { ImGui::GetColorU32(startColor), ImGui::GetColorU32(endColor), ImGui::GetColorU32(endColor), ImGui::GetColorU32(startColor) };
+
+        // Calculate the transformed vertices of the rectangle
+        ImVec2 vertices[4] = {
+            startPoint,
+            ImVec2(endPoint.x, startPoint.y),
+            endPoint,
+            ImVec2(startPoint.x, endPoint.y)
+        };
+
+        // Add the transformed rectangle to the draw list
+        drawList->AddQuadFilled(vertices[0], vertices[1], vertices[2], vertices[3], gradientColors[3]);
+    }
+
+
+
+
+}
 
 namespace util
 {
@@ -254,9 +331,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 {
     // Create application window
     //ImGui_ImplWin32_EnableDpiAwareness();
-    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
+    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"Minty Launcher", nullptr };
     ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Minty Launcher", WS_OVERLAPPEDWINDOW, 100, 100, 800, 600, nullptr, nullptr, wc.hInstance, nullptr);
+    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Minty Launcher", WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX), 100, 100, 796, 500, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -289,7 +366,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     bool show_demo_window = true;
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
+    int chosenGame = 0; // 0 - empty, 1 - gi, 2 - hsr
     // Main loop
     bool done = false;
     while (!done)
@@ -323,14 +400,77 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
         {
             static float f = 0.0f;
             static int counter = 0;
-        
+            static float angleV = 0;
             ImGui::SetNextWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y));
             ImGui::SetNextWindowPos(ImVec2(0, 0));
             static bool open = true;
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+            //ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));
             ImGui::Begin("test window", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+            //ImGui::SliderFloat("slider", &angleV, 0.0f, 10.0f);
+            if (chosenGame == 0)
+                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f), ImVec4(141 / 255.0f, 141 / 255.0f, 141 / 255.0f, 1.0f));
+            if (chosenGame == 2)
+                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(35.0f / 255, 12.0f / 255, 67.5f / 255, 1.0f), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f));
+            if (chosenGame == 1)
+                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f), ImVec4(127.5f / 255.0f, 103 / 255.0f, 17.5f / 255.0f, 1.0f));
+            //ImGui::drawRotatedGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImVec4(0.0f, 1.0f, 0.0f, 1.0f), 80.0f);
+            //ImGui::drawGradientBackground(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImVec4(0.0f, 0.0f, 1.0f, 1.0f), angleV, ImVec2(300, 300));
 
-            if (ImGui::Button("Start"))
-                DoInjectStuff();
+            ImGui::SetCursorPos(ImVec2(10, 320));
+            ImGui::Button("Settings", ImVec2(250, 50));
+
+            ImGui::SetCursorPos(ImVec2(10, 10));
+            ImGui::BeginChild(4, ImVec2(250, 300), true);
+
+            ImGui::EndChild();
+
+            ImGui::SetCursorPos(ImVec2(270, 10));
+            ImGui::BeginChild(5, ImVec2(500, 360), true);
+
+            ImGui::EndChild();
+
+            ImGui::SetCursorPos(ImVec2(10, 380));
+            ImGui::BeginChild(7, ImVec2(760, 70), true);
+
+            ImGui::SetCursorPos(ImVec2(10, 10));
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(71.0f / 255, 24.0f / 255, 135.0f / 255, 1.0f));
+            if (ImGui::Button("HSR", ImVec2(210, 50))) {
+                chosenGame = 2;
+            }
+            ImGui::PopStyleColor();
+
+            ImGui::SetCursorPos(ImVec2(230, 10));
+            if (chosenGame == 0) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f));
+                if (ImGui::Button("Start", ImVec2(305, 50))) {
+                    DoInjectStuff();
+                }
+                ImGui::PopStyleColor();
+            }
+            if (chosenGame == 1) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(255 / 255.0f, 206 / 255.0f, 35 / 255.0f, 1.0f));
+                if (ImGui::Button("Start", ImVec2(305, 50))) {
+                    DoInjectStuff();
+                }
+                ImGui::PopStyleColor();
+            }
+            if (chosenGame == 2) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(71.0f / 255, 24.0f / 255, 135.0f / 255,  1.0f));
+                if (ImGui::Button("Start", ImVec2(305, 50))) {
+                    DoInjectStuff();
+                }
+                ImGui::PopStyleColor();
+            }
+
+            ImGui::SetCursorPos(ImVec2(545, 10));
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(255 / 255.0f, 206 / 255.0f, 35 / 255.0f, 1.0f));
+            if (ImGui::Button("Anime Game", ImVec2(206, 50))) {
+                chosenGame = 1;
+            }
+            ImGui::PopStyleColor();
+
+            ImGui::EndChild();
             //ImGui::SetWindowSize({ 800.00f, 600.00f });
 
             //draw->AddRect(ImVec2(pos.x + 270.f, pos.y + 88.f), ImVec2(pos.x + 278.f, pos.y + 110.f), ImColor(1.00f, 1.00f, 1.00f, 1.00f), 0.f, 256, 1.f);
