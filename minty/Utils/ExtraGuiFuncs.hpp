@@ -182,3 +182,41 @@ bool ImGui::ColoredButtonV1(const char* label, const ImVec2& size_arg, ImU32 tex
     IMGUI_TEST_ENGINE_ITEM_INFO(id, label, g.LastItemData.StatusFlags);
     return pressed;
 }
+
+//void CreateFuncWidget(const char* label_checkbox, static bool isChecked, const char* helpText, const char* label_slider, static float f_value, static float f_valueOrigin, float min_cap, float max_cap, void (*il2FN)(int32_t)) { // slider float -------  some c-+= bugs again, tons of errors
+//    f_value = f_valueOrigin;
+//    ImGui::Checkbox(label_checkbox, &isChecked);
+//    ImGui::SameLine();
+//    HelpMarker(helpText);
+//    if (isChecked) {
+//        ImGui::Indent();
+//        if (ImGui::SliderFloat(label_slider, &f_value, min_cap, max_cap, "%.3f")) {
+//            il2FN(f_value);
+//        }
+//        ImGui::Unindent();
+//    }
+//}
+//
+//void CreateFuncWidget(const char* label_checkbox, static bool isChecked, static bool isSameline, const char* label_execbutton, const char* helpText, const char* label_slider, static float f_value, static float f_valueOrigin, float min_cap, float max_cap, void (*il2FN)(int32_t)) { // slider float
+//    f_value = f_valueOrigin;
+//    ImGui::Checkbox(label_checkbox, &isChecked);
+//    ImGui::SameLine();
+//    HelpMarker(helpText);
+//    if (isChecked) {
+//        ImGui::Indent();
+//        ImGui::SliderFloat(label_slider, &f_value, min_cap, max_cap, "%.3f");
+//        if (isSameline)
+//            ImGui::SameLine();
+//        if (ImGui::Button(label_execbutton)) {
+//            il2FN(f_value);
+//        }
+//        ImGui::Unindent();
+//    }
+//}
+//
+//void CreateFuncWidget(const char* label) { // just button (idk how to realize it)
+//
+//}
+//void CreateFuncWidget(const char* label, static bool b_value) { // checkbox (same)
+//
+//}

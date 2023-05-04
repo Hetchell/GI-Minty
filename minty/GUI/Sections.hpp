@@ -25,12 +25,12 @@ uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandle("UnityPlayer.dll");
 std::vector<std::string> ModuleOrder = {
     "Player", 
     "World",
+    "Misc",
     "Minigames",
     "Themes",
     "Debug",
     "About",
-    "Settings",
-    "AAAAAAAAA HELP ME"
+    "Settings"
 };
 
 template <typename T>
@@ -83,35 +83,31 @@ namespace Sections {
                 //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
         }
-
-        static bool unlockfps = false;
-        static float targetfps = 60;
-        ImGui::Checkbox("Unlock FPS", &unlockfps);
-        ImGui::SameLine();
-        HelpMarker("Unlocks your framerate to defined target FPS.");
-        if (unlockfps) {
-            ImGui::Indent();
-            ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
-            il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
-            ImGui::Unindent();
-        }
     }
 
     static float TimeScale = 1.0f;
     void World() {
         ImGui::SeparatorText("Add separator text for each category of cheat here");
 
-        if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
-            il2fns::UnityEngine__set__Timescale(TimeScale);
-        }
-
+        static bool timescale = false;
+        ImGui::Checkbox("Change time speed", &timescale);
         ImGui::SameLine();
-        HelpMarker("Changes speed of game time. Applies to everything in game.");
+        HelpMarker("Unlocks your framerate to defined target FPS.");
+        if (timescale) {
+            ImGui::Indent();
+            if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
+                il2fns::UnityEngine__set__Timescale(TimeScale);
+            }
 
-        ImGui::SameLine();
-        if (ImGui::Button("Reset (F11)")) {
-            TimeScale = 1.0;
-            il2fns::UnityEngine__set__Timescale(TimeScale);
+            ImGui::SameLine();
+            HelpMarker("Changes speed of game time. Applies to everything in game.");
+
+            ImGui::SameLine();
+            if (ImGui::Button("Reset (F11)")) {
+                TimeScale = 1.0;
+                il2fns::UnityEngine__set__Timescale(TimeScale);
+            }
+            ImGui::Unindent();
         }
     }
 
@@ -186,10 +182,6 @@ namespace Sections {
 
     }
 
-    void Booba() {
-        ImGui::TextColored(ImVec4(255, 0, 0, 255), "IDK PLEASE HELP I HAVE EMOTION SWINGS AGAIN oh pizza");
-    }
-
     //this will be ran regardless of the tab
     void Outer() {
         if(show_debug_metrics)
@@ -199,6 +191,23 @@ namespace Sections {
             ShowDebugLog();
 
     }
+
+    void Misc() {
+        //bool misc1 = false;
+        //float misc1;
+        //CreateFuncWidget("It is label of checkbox, that shows/hides slider.", misc1, "It is HelpMarker text", "some slider name", misc1, 60, 10, 100, il2fns::UnityEngine__set__Timescale);
+        static bool unlockfps = false;
+        static float targetfps = 60;
+        ImGui::Checkbox("Unlock FPS", &unlockfps);
+        ImGui::SameLine();
+        HelpMarker("Unlocks your framerate to defined target FPS.");
+        if (unlockfps) {
+            ImGui::Indent();
+            ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
+            il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
+            ImGui::Unindent();
+        }
+    }
 }
 
 using DrawFunction = void(*)();
@@ -206,12 +215,12 @@ using DrawFunction = void(*)();
 const std::unordered_map<std::string, DrawFunction> SectionMap = {
     {"Player", &Sections::Player},
     {"World", &Sections::World},
+    {"Misc", &Sections::Misc},
     {"Minigames", &Sections::Minigames},
     {"About", &Sections::About},
     {"Themes", &Sections::Themes},
     {"Settings", &Sections::Settings},
-    {"Debug", &Sections::Debug},
-    {"AAAAAAAAA HELP ME", &Sections::Booba}
+    {"Debug", &Sections::Debug}
 };
 
 void DrawSection(const std::string& sectionName) {

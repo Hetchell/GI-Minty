@@ -4,3 +4,4 @@ DO_APP_FUNC(0x00CB8770, void*, MoleMole__ActorUtils__ShowMessage, (LPVOID messag
 DO_APP_FUNC(0x00CABB60, void*, MoleMole__DoSitOnChair, ());
 DO_APP_FUNC(0x00CAE150, void*, MoleMole__ActorUtils__GetAvatarPos, ());
 DO_APP_FUNC(0x07B81540, void*, UnityEngine__set__Timescale, (float time));
+DO_APP_FUNC(0x07B69AE0, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
