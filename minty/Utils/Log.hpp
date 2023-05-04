@@ -17,7 +17,7 @@ static ImGuiTextBuffer log_textbuf;
 namespace util {
 	template<typename... Args>
 	void log(int output_type, const char* fmt, Args... args) {
-		const char* info_type[] = { "Warning", "Error", "Info", "Debug" };
+		const char* info_type[] = { "Warning", "Error", "Info", "Debug", "Lua" };
 		printf("[Minty:%s] ", info_type[output_type]);
 		printf(fmt, args...);
 		printf("\n");

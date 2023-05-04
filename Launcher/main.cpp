@@ -13,7 +13,8 @@
 #include "ImGui/imgui_impl_dx11.h"
 #include <d3d11.h>
 #include <tchar.h>
-
+#define IMGUI_DEFINE_MATH_OPERATORS
+#include "ImGui/imgui_internal.h"
 //#include "../minty/gilua/util.h"
 //#include "../minty/gilua/luahook.h"
 
@@ -128,6 +129,125 @@ void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+int DoInjectStuff() {
+    nlohmann::json cfg;
+
+
+    auto current_dir = this_dir();
+    if (!current_dir)
+        return 0;
+
+    auto dll_path = current_dir.value() / "Minty.dll";
+    if (!fs::is_regular_file(dll_path))
+    {
+        printf("Minty.dll not found\n");
+        system("pause");
+        return 0;
+    }
+    std::string exe_path;
+    fs::path settings_path = fs::current_path() / "minty";
+
+    /*std::ifstream ifs("cfg.json");
+    ifs >> cfg;*/
+
+    //f >> cfg;
+    std::ifstream settings_file(settings_path);
+    // Check if the settings file exists
+    if (!fs::exists(settings_path)) {
+        std::ofstream settings_file(settings_path);
+        if (settings_file.is_open()) {
+            // Write the executable path to the settings file
+            cfg["exec_path"] = exe_path;
+            settings_file << cfg.dump(4) << std::endl;
+            settings_file.close();
+        }
+        else {
+            std::cout << "Error: Unable to create config file." << std::endl;
+            return 1;
+        }
+    }
+
+    settings_file >> cfg;
+
+    auto settings = read_whole_file(settings_path);
+    if (!settings)
+    {
+        printf("Failed reading config\n");
+        system("pause");
+        return 0;
+    }
+
+    //std::string exe_path;
+    //std::getline(std::stringstream(settings.value()), exe_path);
+    std::cout << exe_path << std::endl;
+    exe_path = cfg["exec_path"];
+    std::cout << exe_path << std::endl;
+    if (!fs::is_regular_file(exe_path))
+    {
+        std::cout << "File path in settings.exe invalid" << std::endl;
+        std::cout << "Please select your Game Executable" << std::endl;
+        /* printf("Target executable not found\n");
+         system("pause");*/
+        OPENFILENAMEA ofn{};
+        char szFile[260]{};
+        ZeroMemory(&ofn, sizeof(ofn));
+        ofn.lStructSize = sizeof(ofn);
+        ofn.lpstrFile = szFile;
+        ofn.lpstrFile[0] = '\0';
+        ofn.hwndOwner = NULL;
+        ofn.nMaxFile = sizeof(szFile);
+        ofn.lpstrFilter = "Executable Files (*.exe)\0*.exe\0All Files (*.*)\0*.*\0";
+        ofn.nFilterIndex = 1;
+        ofn.lpstrTitle = "Select Executable File";
+        ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+        if (GetOpenFileNameA(&ofn))
+        {
+            std::string(exe_path) = ofn.lpstrFile;
+            std::ofstream settings_file("minty", std::ios_base::out);
+            if (settings_file.is_open()) {
+                /*settings_file << exe_path << std::endl;
+                settings_file.close();*/
+                cfg["exec_path"] = exe_path;
+                settings_file << cfg.dump(4) << std::endl;
+                settings_file.close();
+            }
+            else {
+                std::cout << "Error: Unable to open settings file." << std::endl;
+                return 1;
+            }
+        }
+        else {
+            std::cout << "Error: Unable to open file dialog." << std::endl;
+            return 1;
+        }
+
+        /*GetPresent();
+        printValues();
+        detourDirectXPresent();*/
+        exe_path = cfg["exec_path"];
+        PROCESS_INFORMATION proc_info{};
+        STARTUPINFOA startup_info{};
+        CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
+
+        InjectStandard(proc_info.hProcess, dll_path.string().c_str());
+        ResumeThread(proc_info.hThread);
+        CloseHandle(proc_info.hThread);
+        CloseHandle(proc_info.hProcess);
+        return 0;
+    }
+
+    PROCESS_INFORMATION proc_info{};
+    STARTUPINFOA startup_info{};
+    CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
+    //CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
+
+    InjectStandard(proc_info.hProcess, dll_path.string().c_str());
+    ResumeThread(proc_info.hThread);
+    CloseHandle(proc_info.hThread);
+    CloseHandle(proc_info.hProcess);
+}
+
 // Main code
 //int WinMain(int, char**)
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
@@ -136,7 +256,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     //ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
     ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Minty Launcher", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Minty Launcher", WS_OVERLAPPEDWINDOW, 100, 100, 800, 600, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -158,28 +278,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
+    //ImGui::StyleColorsDark();
+    ImGui::StyleColorsLight();
 
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
-
-    // Load Fonts
-    // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-    // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-    // - If the file cannot be loaded, the function will return a nullptr. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
-    // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
-    // - Use '#define IMGUI_ENABLE_FREETYPE' in your imconfig file to use Freetype for higher quality font rendering.
-    // - Read 'docs/FONTS.md' for more instructions and details.
-    // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
-    //io.Fonts->AddFontDefault();
-    //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-    //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
-    //IM_ASSERT(font != nullptr);
 
     // Our state
     bool show_demo_window = true;
@@ -212,16 +316,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
             CreateRenderTarget();
         }
 
-        // Start the Dear ImGui frame
         ImGui_ImplDX11_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        /*if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);*/
-
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
             static float f = 0.0f;
             static int counter = 0;
@@ -229,128 +327,29 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
             ImGui::SetNextWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y));
             ImGui::SetNextWindowPos(ImVec2(0, 0));
             static bool open = true;
-            ImGui::Begin("test window", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);                       // Create a window called "Hello, world!" and append into it.
+            ImGui::Begin("test window", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 
-            if (ImGui::Button("Open Game")) {
-                nlohmann::json cfg;
+            if (ImGui::Button("Start"))
+                DoInjectStuff();
+            //ImGui::SetWindowSize({ 800.00f, 600.00f });
 
+            //draw->AddRect(ImVec2(pos.x + 270.f, pos.y + 88.f), ImVec2(pos.x + 278.f, pos.y + 110.f), ImColor(1.00f, 1.00f, 1.00f, 1.00f), 0.f, 256, 1.f);
+            //draw->AddRectFilled(ImVec2(pos.x + 62.f, pos.y + 8.f), ImVec2(pos.x + 790.f, pos.y + 590.f), ImColor(0.84f, 0.70f, 0.58f, 1.00f), 12.f, 240);
+            //draw->AddRect(ImVec2(pos.x + 76.f, pos.y + 17.f), ImVec2(pos.x + 332.f, pos.y + 383.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 11.f, 16, 5.f);
+            //draw->AddRect(ImVec2(pos.x + 345.f, pos.y + 18.f), ImVec2(pos.x + 781.f, pos.y + 472.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 11.f, 32, 5.f);
+            //draw->AddRectFilled(ImVec2(pos.x + 75.f, pos.y + 392.f ), ImVec2(pos.x + 332.f, pos.y + 473.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 0.f, 256);
+            //draw->AddRectFilled(ImVec2(pos.x + 283.f, pos.y + 482.f), ImVec2(pos.x + 576.f, pos.y + 577.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 0.f, 256);
+            //draw->AddRectFilled(ImVec2(pos.x + 76.f, pos.y + 484.f), ImVec2(pos.x + 273, pos.y + 574.f), ImColor(0.05f, 0.11f, 0.58f, 1.00f), 11.f, 64);
+            //if (ImGui::InvisibleButton("button1", ImVec2(196, 92))) {
+            //    DoInjectStuff();
+            //}
+            //draw->AddRectFilled(ImVec2(pos.x + 583.f, pos.y + 483.f), ImVec2(pos.x + 779.f, pos.y + 575.f), ImColor(0.75f, 0.00f, 0.00f, 1.00f), 11.f, 128);
+            ////draw->AddText(Fonts::bahnschrift55, 55, pos + ImVec2{ 376.f, 498.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Start");
+            ////draw->AddText(Fonts::bahnschrift41, 41, pos + ImVec2{ 124.f, 506.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "H: SR");
+            ////draw->AddText(Fonts::bahnschrift30, 30, pos + ImVec2{ 597.f, 516.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Anime Game");
+            ////draw->AddText(39, pos + ImVec2{ 128.f, 410.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Settings");
 
-                auto current_dir = this_dir();
-                if (!current_dir)
-                    return 0;
-
-                auto dll_path = current_dir.value() / "Minty.dll";
-                if (!fs::is_regular_file(dll_path))
-                {
-                    printf("Minty.dll not found\n");
-                    system("pause");
-                    return 0;
-                }
-                std::string exe_path;
-                fs::path settings_path = fs::current_path() / "minty";
-
-                /*std::ifstream ifs("cfg.json");
-                ifs >> cfg;*/
-
-                //f >> cfg;
-                std::ifstream settings_file(settings_path);
-                // Check if the settings file exists
-                if (!fs::exists(settings_path)) {
-                    std::ofstream settings_file(settings_path);
-                    if (settings_file.is_open()) {
-                        // Write the executable path to the settings file
-                        cfg["exec_path"] = exe_path;
-                        settings_file << cfg.dump(4) << std::endl;
-                        settings_file.close();
-                    }
-                    else {
-                        std::cout << "Error: Unable to create config file." << std::endl;
-                        return 1;
-                    }
-                }
-
-                settings_file >> cfg;
-
-                auto settings = read_whole_file(settings_path);
-                if (!settings)
-                {
-                    printf("Failed reading config\n");
-                    system("pause");
-                    return 0;
-                }
-
-                //std::string exe_path;
-                //std::getline(std::stringstream(settings.value()), exe_path);
-                std::cout << exe_path << std::endl;
-                exe_path = cfg["exec_path"];
-                std::cout << exe_path << std::endl;
-                if (!fs::is_regular_file(exe_path))
-                {
-                    std::cout << "File path in settings.exe invalid" << std::endl;
-                    std::cout << "Please select your Game Executable" << std::endl;
-                    /* printf("Target executable not found\n");
-                     system("pause");*/
-                    OPENFILENAMEA ofn{};
-                    char szFile[260]{};
-                    ZeroMemory(&ofn, sizeof(ofn));
-                    ofn.lStructSize = sizeof(ofn);
-                    ofn.lpstrFile = szFile;
-                    ofn.lpstrFile[0] = '\0';
-                    ofn.hwndOwner = NULL;
-                    ofn.nMaxFile = sizeof(szFile);
-                    ofn.lpstrFilter = "Executable Files (*.exe)\0*.exe\0All Files (*.*)\0*.*\0";
-                    ofn.nFilterIndex = 1;
-                    ofn.lpstrTitle = "Select Executable File";
-                    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
-
-                    if (GetOpenFileNameA(&ofn))
-                    {
-                        std::string(exe_path) = ofn.lpstrFile;
-                        std::ofstream settings_file("minty", std::ios_base::out);
-                        if (settings_file.is_open()) {
-                            /*settings_file << exe_path << std::endl;
-                            settings_file.close();*/
-                            cfg["exec_path"] = exe_path;
-                            settings_file << cfg.dump(4) << std::endl;
-                            settings_file.close();
-                        }
-                        else {
-                            std::cout << "Error: Unable to open settings file." << std::endl;
-                            return 1;
-                        }
-                    }
-                    else {
-                        std::cout << "Error: Unable to open file dialog." << std::endl;
-                        return 1;
-                    }
-
-                    /*GetPresent();
-                    printValues();
-                    detourDirectXPresent();*/
-                    exe_path = cfg["exec_path"];
-                    PROCESS_INFORMATION proc_info{};
-                    STARTUPINFOA startup_info{};
-                    CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
-
-                    InjectStandard(proc_info.hProcess, dll_path.string().c_str());
-                    ResumeThread(proc_info.hThread);
-                    CloseHandle(proc_info.hThread);
-                    CloseHandle(proc_info.hProcess);
-                    return 0;
-                }
-
-                PROCESS_INFORMATION proc_info{};
-                STARTUPINFOA startup_info{};
-                CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
-                //CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
-
-                InjectStandard(proc_info.hProcess, dll_path.string().c_str());
-                ResumeThread(proc_info.hThread);
-                CloseHandle(proc_info.hThread);
-                CloseHandle(proc_info.hProcess);
-            }
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+            ////ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
 

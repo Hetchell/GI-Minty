@@ -47,17 +47,26 @@ BOOL g_bInitialised = false;
 //bool g_ShowMenu = true; -> defined in GUIDefinitions
 bool g_PresentHooked = false;
 
-LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	ImGuiIO& io = ImGui::GetIO();
-	POINT mPos;
-	GetCursorPos(&mPos);
-	ScreenToClient(window, &mPos);
-	io.MousePos.x = static_cast<float>(mPos.x);
-	io.MousePos.y = static_cast<float>(mPos.y);
+LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	static bool block_input = false;
 
-	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
+		block_input = true;
+		return true;
+	}
 
-	//call any UMSG switch here. calling keypresses in gui::render is recommended for most cases
+	if (uMsg == WM_LBUTTONDOWN ||
+		uMsg == WM_RBUTTONDOWN ||
+		uMsg == WM_MBUTTONDOWN ||
+		uMsg == WM_XBUTTONDOWN ||
+		uMsg == WM_KEYDOWN) {
+		if (block_input && hWnd == GetForegroundWindow()) {
+			return 0;
+		}
+	}
+
+	block_input = false;
 	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
 

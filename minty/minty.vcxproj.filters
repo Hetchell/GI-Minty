@@ -17,6 +17,7 @@
     <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
     <ClCompile Include="Lua\lauxlib.c" />
     <ClCompile Include="Lua\lua.c" />
+    <ClCompile Include="IL2CPP\Functions\unlockfps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Lua\luaconf.h" />
     <ClInclude Include="Lua\lprefix.h" />
     <ClInclude Include="Utils\something.h" />
+    <ClInclude Include="IL2CPP\Functions\unlockfps.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

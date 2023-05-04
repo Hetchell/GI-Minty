@@ -63,7 +63,7 @@ namespace {
     {
         if (!gi_L) {
             gi_L = L;
-            util::log(2, "xluaL_loadbuffer_hook called. Lua ready!", "");
+            util::log(4, "xluaL_loadbuffer_hook called. Lua ready!", "");
             is_hook_success = true;
             main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
         }
@@ -106,7 +106,7 @@ namespace {
             std::string result = std::to_string(ret);
             //util::log(1,"compilation failed(%i)", result); // i dont think we need the err code :skull
             //util::log(1,"%s", lua_tolstring(L, 1, NULL));
-            util::log(1, "compilation failed: %s", lua_tolstring(L, 1, NULL));
+            util::log(4, "compilation failed: %s", lua_tolstring(L, 1, NULL));
             //util::logdialog(lua_tolstring(L, 1, NULL)); ---- look in util.h; kinda useful but idk how to realise it at loading or how to mek slep
             lua_pop(L, 1);
             return std::nullopt;
@@ -131,7 +131,7 @@ namespace {
         while ((ua = GetModuleHandleW(L"UserAssembly.dll")) == 0) {
             Sleep(50);
         }
-        util::log(2, "FOUND", "");
+        util::log(4, "FOUND", "");
         //pp_loadbuffer = scan_loadbuffer(ua);
         //printf("hook func addr: %p\n", xluaL_loadbuffer_hook);
         //*pp_loadbuffer = xluaL_loadbuffer_hook;
@@ -139,18 +139,18 @@ namespace {
         il2cpp_base = (uintptr_t)ua;
         g_xluaL_loadbuffer = PatternScan("UserAssembly.dll", "48 83 EC 38 4D 63 C0 48 C7 44 24 ? ? ? ? ? E8 ? ? ? ? 48 83 C4 38 C3");
         g_lua_pcall = PatternScan("UserAssembly.dll", "48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3");
-        util::log(2, "xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
-        util::log(2, "lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
+        util::log(4, "xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
+        util::log(4, "lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
 
         HookManager::install((loadbuffer_ftn)g_xluaL_loadbuffer, xluaL_loadbuffer_hook);
-        util::log(2, "Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
+        util::log(4, "Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
         //kiero::bind(99, (void**)&LoadBuffer, xluaL_loadbuffer_hook);
 
         while (!gi_L)
             Sleep(50);
 
         //kiero::unbind(99);
-        util::log(2, "L: %p\n", gi_L);
+        util::log(4, "L: %p\n", gi_L);
 
     }
 
@@ -175,7 +175,7 @@ namespace {
         freopen("CONOUT$", "w", stdout);
         freopen("CONOUT$", "w", stderr);
 
-        util::log(2, "Starting", "");
+        util::log(4, "Starting", "");
 
         while (!FindWindowA("UnityWndClass", nullptr))  Sleep(1000);
 

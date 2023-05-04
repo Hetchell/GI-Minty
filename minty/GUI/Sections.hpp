@@ -7,6 +7,7 @@
 #include "../IL2CPP/Functions/molemole.h"
 #include "../IL2CPP/Functions/bootyfixer.h"
 #include "../IL2CPP/Functions/timescale.h"
+#include "../IL2CPP/Functions/unlockfps.h"
 
 #include <string>
 #include <unordered_map>
@@ -54,6 +55,7 @@ namespace Sections {
         }
 
         if (ImGui::Button("UA ptr debug")) {
+            //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"Lua works btw\")");
             if (baseAddress1 == (uint64_t)nullptr) {
                 util::log(1, "UA is still very not real, wait pwease qwq uwu");
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "UA is still very not real, wait pwease qwq uwu" });
@@ -80,6 +82,18 @@ namespace Sections {
             else
                 //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
+        }
+
+        static bool unlockfps = false;
+        static float targetfps = 60;
+        ImGui::Checkbox("Unlock FPS", &unlockfps);
+        ImGui::SameLine();
+        HelpMarker("Unlocks your framerate to defined target FPS.");
+        if (unlockfps) {
+            ImGui::Indent();
+            ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
+            il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
+            ImGui::Unindent();
         }
     }
 
