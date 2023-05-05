@@ -1,10 +1,12 @@
 #include <Windows.h>
+#include <d3d11.h>
+#pragma comment(lib, "d3d11.lib")
+#include <sstream>
 #include <iostream>
 #include <filesystem>
 #include <optional>
 #include <fstream>
 #include <commdlg.h>
-#define _CRT_SECURE_NO_WARNINGS
 #include "../minty/json/json.hpp"
 //#include "D3D11Hook.hpp"
 #define IMGUI_DEFINE_MATH_OPERATORS
@@ -12,11 +14,9 @@
 #include "ImGui/imgui_internal.h"
 #include "ImGui/imgui_impl_win32.h"
 #include "ImGui/imgui_impl_dx11.h"
-#include <d3d11.h>
+
 #include <tchar.h>
 #include "ImGui/imgui_internal.h"
-//#include "../minty/gilua/util.h"
-//#include "../minty/gilua/luahook.h"
 
 namespace fs = std::filesystem;
 
