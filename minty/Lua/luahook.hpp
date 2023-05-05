@@ -19,6 +19,7 @@ extern "C" {
 #include "../lua/lauxlib.h"
 }
 #include "../Utils/LuaUtils.hpp"
+#include "../Utils/Utils.hpp"
 #include "../IL2CPP/HookManager.h"
 //#include "luaHook.h"
 
@@ -32,8 +33,7 @@ namespace {
     EXTERN_C NTSTATUS __stdcall NtQuerySection(HANDLE SectionHandle, SECTION_INFORMATION_CLASS InformationClass, PVOID InformationBuffer, ULONG InformationBufferSize, PULONG ResultLength);
     EXTERN_C NTSTATUS __stdcall NtProtectVirtualMemory(HANDLE ProcessHandle, PVOID* BaseAddress, PULONG  NumberOfBytesToProtect, ULONG NewAccessProtection, PULONG OldAccessProtection);
 
-    void DisableVMP()
-    {
+    void DisableVMP() {
         DWORD old;
         VirtualProtect(NtProtectVirtualMemory, 1, PAGE_EXECUTE_READWRITE, &old);
         *(uintptr_t*)NtProtectVirtualMemory = *(uintptr_t*)NtQuerySection & ~(0xFFui64 << 32) | (uintptr_t)(*(uint32_t*)((uintptr_t)NtQuerySection + 4) - 1) << 32;
@@ -49,7 +49,7 @@ namespace {
     uintptr_t g_lua_pcall;
     lua_State* gi_LL;
     //auto gi_LL = luaL_newstate();
-    static bool is_hook_success = false;
+    static bool lua_is_hooked = false;
     static int last_ret_code;
     const char* last_tolstr;
 
@@ -58,39 +58,33 @@ namespace {
     extern loadbuffer_ftn LoadBuffer;
     extern uintptr_t il2cpp_base = 0;
 
-    int xluaL_loadbuffer_hook(lua_State* L, const char* chunk, size_t sz, const char* chunkname)
-    {
+    int xluaL_loadbuffer_hook(lua_State* L, const char* chunk, size_t sz, const char* chunkname) {
         if (!gi_L) {
             gi_L = L;
-            util::log(4, "xluaL_loadbuffer_hook called. Lua ready!", "");
-            is_hook_success = true;
+            util::log(4, "xluaL_loadbuffer_hook called. Lua ready!");
+            lua_is_hooked = true;
             main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
         }
         return CALL_ORIGIN(xluaL_loadbuffer_hook, L, chunk, sz, chunkname);
     }
 
-    void exec(const std::string& compiled)
-    {
+    void exec(const std::string& compiled) {
         int ret = ((loadbuffer_ftn)g_xluaL_loadbuffer)(gi_L, compiled.c_str(), compiled.length(), "GILua");
-        if (ret != 0)
-        {
+        if (ret != 0) {
             lua_pop(gi_L, 1);
             return;
         }
 
         ret = ((pcall_ftn)g_lua_pcall)(gi_L, 0, 0, 0);
-        if (ret != 0)
-        {
+        if (ret != 0) {
             lua_pop(gi_L, 1);
         }
     }
 
-    std::optional<std::string> compile(lua_State* L, const char* script)
-    {
+    std::optional<std::string> compile(lua_State* L, const char* script) {
         std::ostringstream compiled_script;
 
-        auto writer = [](lua_State* L, const void* p, size_t sz, void* ud) -> int
-        {
+        auto writer = [](lua_State* L, const void* p, size_t sz, void* ud) -> int {
             auto out = (std::ostringstream*)ud;
             out->write((const char*)p, sz);
             return 0;
@@ -100,8 +94,7 @@ namespace {
         last_ret_code = ret;
         last_tolstr = lua_tolstring(L, 1, NULL);
 
-        if (ret != 0)
-        {
+        if (ret != 0) {
             std::string result = std::to_string(ret);
             //util::log(1,"compilation failed(%i)", result); // i dont think we need the err code :skull
             //util::log(1,"%s", lua_tolstring(L, 1, NULL));
@@ -111,11 +104,8 @@ namespace {
             return std::nullopt;
         }
 
-
-
         ret = lua_dump(L, writer, &compiled_script, 0);
-        if (ret != 0)
-        {
+        if (ret != 0) {
             return std::nullopt;
         }
 
@@ -123,14 +113,12 @@ namespace {
         return compiled_script.str();
     }
 
-
-    void get_gi_L()
-    {
+    void get_gi_L() {
         HMODULE ua = NULL;
         while ((ua = GetModuleHandleW(L"UserAssembly.dll")) == 0) {
             Sleep(50);
         }
-        util::log(4, "FOUND", "");
+        util::log(4, "FOUND");
         //pp_loadbuffer = scan_loadbuffer(ua);
         //printf("hook func addr: %p\n", xluaL_loadbuffer_hook);
         //*pp_loadbuffer = xluaL_loadbuffer_hook;
@@ -138,8 +126,8 @@ namespace {
         il2cpp_base = (uintptr_t)ua;
         g_xluaL_loadbuffer = PatternScan("UserAssembly.dll", "48 83 EC 38 4D 63 C0 48 C7 44 24 ? ? ? ? ? E8 ? ? ? ? 48 83 C4 38 C3");
         g_lua_pcall = PatternScan("UserAssembly.dll", "48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3");
-        util::log(4, "xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
-        util::log(4, "lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
+        util::log(4, "xluaL_loadbuffer: %s, rva: %p\n", util::get_ptr(g_xluaL_loadbuffer), g_xluaL_loadbuffer - il2cpp_base);
+        util::log(4, "lua_pcall: %p, rva: %p\n", util::get_ptr(g_lua_pcall), g_lua_pcall - il2cpp_base); //com bac to lator
 
         HookManager::install((loadbuffer_ftn)g_xluaL_loadbuffer, xluaL_loadbuffer_hook);
         util::log(4, "Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
@@ -153,14 +141,13 @@ namespace {
 
     }
 
-    void luahookfunc(const char* charLuaScript) {
+    void lua_runstr(const char* charLuaScript) {
 
         auto compiled = compile(gi_LL, charLuaScript);
         if (!compiled)
             return;
         auto copy = new std::string(compiled.value());
-        auto execute = [](ULONG_PTR compiled)
-        {
+        auto execute = [](ULONG_PTR compiled) {
             auto str = (const std::string*)compiled;
             exec(*str);
             delete str;
@@ -169,12 +156,8 @@ namespace {
     };
 
     DWORD initLua(LPVOID) {
-        AllocConsole();
-        freopen("CONIN$", "r", stdin);
-        freopen("CONOUT$", "w", stdout);
-        freopen("CONOUT$", "w", stderr);
 
-        util::log(4, "Starting", "");
+        util::log(4, "Starting");
 
         while (!FindWindowA("UnityWndClass", nullptr))  Sleep(1000);
 

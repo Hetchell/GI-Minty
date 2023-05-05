@@ -14,7 +14,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
 	GetPresent();
 	DetourDirectXPresent();
-	PrintValues();
+	//PrintValues(); // do we even need prntvalues, keep the comment here might be useful for later debug
 
 	init_il2cpp();
 	return 0;

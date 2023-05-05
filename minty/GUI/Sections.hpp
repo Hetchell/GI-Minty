@@ -173,13 +173,17 @@ namespace Sections {
         ImGui::Text("Dear ImGui version: %s", ImGui::GetVersion());
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
+        ImGui::SeparatorText("Status");
+        const char* hook_state_name[] = {"not hooked", "hooked"};
+        ImVec4 hooked_name_color[] = {ImVec4( 0.76078f, 0.219607f, 0.219607f, 1), ImVec4( 0.12156f, 0.8f, 0.2f, 1.0f)};
+        ImGui::Text("il2cpp: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[0], hook_state_name[0]); //placeholder values
+        ImGui::Text("Lua: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[1], hook_state_name[1]); //put std to string boolean here, it will give a 1 or a zero 
+
         ImGui::SeparatorText("");
 
         ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
         ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
 
-        if(ImGui::Button("ptr"))
-            util::log(2,"debug log ptr %s", get_ptr1(show_debug_metrics) );
 
     }
 

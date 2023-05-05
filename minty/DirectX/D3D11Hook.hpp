@@ -63,8 +63,7 @@ bool g_PresentHooked = false;
 //	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 //}
 
-LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
 		return true; // input handled by ImGui, so return true
 	}
@@ -75,7 +74,6 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam); // let the main app handle the input
 	}
 }
-
 
 HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext) {
 	HRESULT ret = pSwapChain->GetDevice(__uuidof(ID3D11Device), (PVOID*)ppDevice);
@@ -89,7 +87,7 @@ HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** 
 HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags) {
 	if (!g_bInitialised) {
 		g_PresentHooked = true;
-		util::log(3, "Present Hook called by first time");
+		util::log(3, "DirectX Present Hook called by first time");
 		if (FAILED(GetDeviceAndCtxFromSwapchain(pChain, &pDevice, &pContext)))
 			return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
 		pSwapChain = pChain;
@@ -123,14 +121,15 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 }
 
 void DetourDirectXPresent() {
-	util::log(3, "Calling fnIDXGISwapChainPresent Detour");
+	//util::log(3, "Calling fnIDXGISwapChainPresent Detour");
 	DetourTransactionBegin();
-	util::log(3, "Detour Begin Transaction");
+	//util::log(3, "Detour Begin Transaction");
 	DetourUpdateThread(GetCurrentThread());
-	util::log(3, "Detour Update Thread");
+	//util::log(3, "Detour Update Thread");
 	// Detours the original fnIDXGISwapChainPresent with our Present
+	util::log(3, "DX11 Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
 	DetourAttach(&(LPVOID&)fnIDXGISwapChainPresent, (PBYTE)hkPresent);
-	util::log(3, "Detour Attach");
+	util::log(3, "DX11 Detour Attach");
 	DetourTransactionCommit();
 }
 
