@@ -21,13 +21,11 @@
 namespace fs = std::filesystem;
 
 //std::ifstream f("cfg.json");
-float ImLength(const ImVec2& lhs)
-{
+float ImLength(const ImVec2& lhs) {
     return sqrtf(lhs.x * lhs.x + lhs.y * lhs.y);
 }
 
-float GetContentRegionAvailWidth()
-{
+float GetContentRegionAvailWidth() {
     ImGuiWindow* window = ImGui::GetCurrentWindowRead();
     const ImVec2& contentSize = window->ContentSize;
     const float& scrollWidth = window->ScrollbarSizes.x;
@@ -35,8 +33,7 @@ float GetContentRegionAvailWidth()
     return availWidth > 0.0f ? availWidth : 0.0f;
 }
 
-float GetContentRegionAvailHeight()
-{
+float GetContentRegionAvailHeight() {
     ImGuiWindow* window = ImGui::GetCurrentWindowRead();
     const ImVec2& contentSize = window->ContentSize;
     const float& scrollHeight = window->ScrollbarSizes.y;
@@ -44,8 +41,7 @@ float GetContentRegionAvailHeight()
     return availHeight > 0.0f ? availHeight : 0.0f;
 }
 
-ImVec4 lerp(const ImVec4& a, const ImVec4& b, float t)
-{
+ImVec4 lerp(const ImVec4& a, const ImVec4& b, float t) {
     return ImVec4(
         a.x + (b.x - a.x) * t,
         a.y + (b.y - a.y) * t,
@@ -53,7 +49,6 @@ ImVec4 lerp(const ImVec4& a, const ImVec4& b, float t)
         a.w + (b.w - a.w) * t
     );
 }
-
 
 namespace ImGui {
     void drawGradientBackground(ImVec2 size, ImVec4 colorTop, ImVec4 colorBot) {
@@ -65,8 +60,7 @@ namespace ImGui {
         draw_list->AddRectFilledMultiColor(p1, p2, ImColor(colorTop), ImColor(colorTop), ImColor(colorBot), ImColor(colorBot));
     }
 
-    void drawRGradientBackground(const ImVec4& startColor, const ImVec4& endColor, float rotationAngleRadians, const ImVec2& startPos)
-    {
+    void drawRGradientBackground(const ImVec4& startColor, const ImVec4& endColor, float rotationAngleRadians, const ImVec2& startPos) {
         ImDrawList* drawList = ImGui::GetWindowDrawList();
         const ImVec2& gradientStartPos = startPos;
         const float& availWidth = GetContentRegionAvailWidth();
@@ -93,23 +87,16 @@ namespace ImGui {
         // Add the transformed rectangle to the draw list
         drawList->AddQuadFilled(vertices[0], vertices[1], vertices[2], vertices[3], gradientColors[3]);
     }
-
-
-
-
 }
 
-namespace util
-{
+namespace util {
     //template<typename... Args>
-    void log(const char* fmt, std::string args)
-    {
+    void log(const char* fmt, std::string args) {
         printf("[Minty] ");
         printf(fmt, args);
     }
 
-    void logdialog(const char* fmt)
-    {
+    void logdialog(const char* fmt) {
         const char* errordialogformat = "CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"%s\",\"Minty\")";
         char errordialogtext[256];
         snprintf(errordialogtext, sizeof(errordialogtext), errordialogformat, fmt);
@@ -118,26 +105,22 @@ namespace util
     }
 }
 
-bool InjectStandard(HANDLE hTarget, const char* dllpath)
-{
+bool InjectStandard(HANDLE hTarget, const char* dllpath) {
     LPVOID loadlib = GetProcAddress(GetModuleHandle(L"kernel32"), "LoadLibraryA");
 
     LPVOID dllPathAddr = VirtualAllocEx(hTarget, NULL, strlen(dllpath) + 1, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-    if (dllPathAddr == NULL)
-    {
+    if (dllPathAddr == NULL) {
         std::cout << "Failed allocating memory in the target process. GetLastError(): " << GetLastError() << "\n";
         return false;
     }
 
-    if (!WriteProcessMemory(hTarget, dllPathAddr, dllpath, strlen(dllpath) + 1, NULL))
-    {
+    if (!WriteProcessMemory(hTarget, dllPathAddr, dllpath, strlen(dllpath) + 1, NULL)) {
         std::cout << "Failed writing to process. GetLastError(): " << GetLastError() << "\n";
         return false;
     }
 
     HANDLE hThread = CreateRemoteThread(hTarget, NULL, NULL, (LPTHREAD_START_ROUTINE)loadlib, dllPathAddr, NULL, NULL);
-    if (hThread == NULL)
-    {
+    if (hThread == NULL) {
         std::cout << "Failed to create a thread in the target process. GetLastError(): " << GetLastError() << "\n";
         return false;
     }
@@ -150,17 +133,15 @@ bool InjectStandard(HANDLE hTarget, const char* dllpath)
     VirtualFreeEx(hTarget, dllPathAddr, 0, MEM_RELEASE);
     CloseHandle(hThread);
 
-    if (exit_code == 0)
-    {
-        std::cout << "LoadLibrary failed.\n";
+    if (exit_code == 0) {
+        std::cout << "LoadLibrary failed with exit code 0.\n";
         return false;
     }
     return true;
 }
 
 std::optional<std::string> read_whole_file(const fs::path& file)
-try
-{
+try {
     std::stringstream buf;
     std::ifstream ifs(file);
     if (!ifs.is_open())
@@ -168,24 +149,19 @@ try
     ifs.exceptions(std::ios::failbit);
     buf << ifs.rdbuf();
     return buf.str();
-}
-catch (const std::ios::failure&)
-{
+} catch (const std::ios::failure&) {
     return std::nullopt;
 }
 
-std::optional<fs::path> this_dir()
-{
+std::optional<fs::path> this_dir() {
     HMODULE mod = NULL;
     TCHAR path[MAX_PATH]{};
-    if (!GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCTSTR)&this_dir, &mod))
-    {
+    if (!GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCTSTR)&this_dir, &mod)) {
         printf("GetModuleHandleEx failed (%i)\n", GetLastError());
         return std::nullopt;
     }
 
-    if (!GetModuleFileName(mod, path, MAX_PATH))
-    {
+    if (!GetModuleFileName(mod, path, MAX_PATH)) {
         printf("GetModuleFileName failed (%i)\n", GetLastError());
         return std::nullopt;
     }
@@ -209,14 +185,12 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 int DoInjectStuff() {
     nlohmann::json cfg;
 
-
     auto current_dir = this_dir();
     if (!current_dir)
         return 0;
 
     auto dll_path = current_dir.value() / "Minty.dll";
-    if (!fs::is_regular_file(dll_path))
-    {
+    if (!fs::is_regular_file(dll_path)) {
         printf("Minty.dll not found\n");
         system("pause");
         return 0;
@@ -247,8 +221,7 @@ int DoInjectStuff() {
     settings_file >> cfg;
 
     auto settings = read_whole_file(settings_path);
-    if (!settings)
-    {
+    if (!settings) {
         printf("Failed reading config\n");
         system("pause");
         return 0;
@@ -259,8 +232,7 @@ int DoInjectStuff() {
     std::cout << exe_path << std::endl;
     exe_path = cfg["exec_path"];
     std::cout << exe_path << std::endl;
-    if (!fs::is_regular_file(exe_path))
-    {
+    if (!fs::is_regular_file(exe_path)) {
         std::cout << "File path in settings.exe invalid" << std::endl;
         std::cout << "Please select your Game Executable" << std::endl;
         /* printf("Target executable not found\n");
@@ -278,8 +250,7 @@ int DoInjectStuff() {
         ofn.lpstrTitle = "Select Executable File";
         ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 
-        if (GetOpenFileNameA(&ofn))
-        {
+        if (GetOpenFileNameA(&ofn)) {
             std::string(exe_path) = ofn.lpstrFile;
             std::ofstream settings_file("minty", std::ios_base::out);
             if (settings_file.is_open()) {
@@ -288,13 +259,11 @@ int DoInjectStuff() {
                 cfg["exec_path"] = exe_path;
                 settings_file << cfg.dump(4) << std::endl;
                 settings_file.close();
-            }
-            else {
+            } else {
                 std::cout << "Error: Unable to open settings file." << std::endl;
                 return 1;
             }
-        }
-        else {
+        } else {
             std::cout << "Error: Unable to open file dialog." << std::endl;
             return 1;
         }
@@ -327,8 +296,7 @@ int DoInjectStuff() {
 
 // Main code
 //int WinMain(int, char**)
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
-{
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
     // Create application window
     //ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"Minty Launcher", nullptr };
@@ -336,8 +304,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Minty Launcher", WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX), 100, 100, 796, 500, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
-    if (!CreateDeviceD3D(hwnd))
-    {
+    if (!CreateDeviceD3D(hwnd)) {
         CleanupDeviceD3D();
         ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
         return 1;
@@ -369,24 +336,24 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     int chosenGame = 0; // 0 - empty, 1 - gi, 2 - hsr
     // Main loop
     bool done = false;
-    while (!done)
-    {
+    while (!done) {
         // Poll and handle messages (inputs, window resize, etc.)
         // See the WndProc() function below for our to dispatch events to the Win32 backend.
         MSG msg;
-        while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
-        {
+        while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
             ::TranslateMessage(&msg);
             ::DispatchMessage(&msg);
-            if (msg.message == WM_QUIT)
-                done = true;
+
+            switch (msg.message) {
+                case WM_QUIT:
+                done=true;
+            }
         }
         if (done)
             break;
 
         // Handle window resize (we don't resize directly in the WM_SIZE handler)
-        if (g_ResizeWidth != 0 && g_ResizeHeight != 0)
-        {
+        if (g_ResizeWidth != 0 && g_ResizeHeight != 0) {
             CleanupRenderTarget();
             g_pSwapChain->ResizeBuffers(0, g_ResizeWidth, g_ResizeHeight, DXGI_FORMAT_UNKNOWN, 0);
             g_ResizeWidth = g_ResizeHeight = 0;
@@ -494,8 +461,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
         }
 
         // 3. Show another simple window.
-        if (show_another_window)
-        {
+        if (show_another_window) {
             ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
             ImGui::Text("Hello from another window!");
             if (ImGui::Button("Close Me"))
@@ -528,8 +494,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 // Helper functions
 
-bool CreateDeviceD3D(HWND hWnd)
-{
+bool CreateDeviceD3D(HWND hWnd) {
     // Setup swap chain
     DXGI_SWAP_CHAIN_DESC sd;
     ZeroMemory(&sd, sizeof(sd));
@@ -561,24 +526,21 @@ bool CreateDeviceD3D(HWND hWnd)
     return true;
 }
 
-void CleanupDeviceD3D()
-{
+void CleanupDeviceD3D() {
     CleanupRenderTarget();
     if (g_pSwapChain) { g_pSwapChain->Release(); g_pSwapChain = nullptr; }
     if (g_pd3dDeviceContext) { g_pd3dDeviceContext->Release(); g_pd3dDeviceContext = nullptr; }
     if (g_pd3dDevice) { g_pd3dDevice->Release(); g_pd3dDevice = nullptr; }
 }
 
-void CreateRenderTarget()
-{
+void CreateRenderTarget() {
     ID3D11Texture2D* pBackBuffer;
     g_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
     g_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &g_mainRenderTargetView);
     pBackBuffer->Release();
 }
 
-void CleanupRenderTarget()
-{
+void CleanupRenderTarget() {
     if (g_mainRenderTargetView) { g_mainRenderTargetView->Release(); g_mainRenderTargetView = nullptr; }
 }
 
@@ -590,26 +552,24 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
 // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
 // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
+LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
         return true;
 
-    switch (msg)
-    {
-    case WM_SIZE:
-        if (wParam == SIZE_MINIMIZED)
+    switch (msg) {
+        case WM_SIZE:
+            if (wParam == SIZE_MINIMIZED)
+                return 0;
+            g_ResizeWidth = (UINT)LOWORD(lParam); // Queue resize
+            g_ResizeHeight = (UINT)HIWORD(lParam);
             return 0;
-        g_ResizeWidth = (UINT)LOWORD(lParam); // Queue resize
-        g_ResizeHeight = (UINT)HIWORD(lParam);
-        return 0;
-    case WM_SYSCOMMAND:
-        if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
+        case WM_SYSCOMMAND:
+            if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
+                return 0;
+            break;
+        case WM_DESTROY:
+            ::PostQuitMessage(0);
             return 0;
-        break;
-    case WM_DESTROY:
-        ::PostQuitMessage(0);
-        return 0;
     }
     return ::DefWindowProcW(hWnd, msg, wParam, lParam);
 }
