@@ -19,8 +19,8 @@
 #include "../Utils/Log.hpp"
 #include "../Utils/something.h"
 
-uintptr_t baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
-uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandle("UnityPlayer.dll");
+uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
+uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
 
 std::vector<std::string> ModuleOrder = {
     "Player", 
@@ -47,7 +47,7 @@ namespace Sections {
         ImGui::SeparatorText("Add separator text for each category of cheat here");
 
         if (ImGui::Button("MoleMole Message DEBUG")) {
-            if (GetModuleHandle("UserAssembly.dll") != nullptr)
+            if (GetModuleHandleA("UserAssembly.dll") != nullptr)
                 il2fns::MoleMole__ActorUtils__ShowMessage("123");
             else
                 //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
@@ -60,16 +60,16 @@ namespace Sections {
                 util::log(1, "UA is still very not real, wait pwease qwq uwu");
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "UA is still very not real, wait pwease qwq uwu" });
 
-                baseAddress1 = (uint64_t)GetModuleHandle("UserAssembly.dll");
-                if (GetModuleHandle("UserAssembly.dll") != nullptr) {
+                baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
+                if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
                     util::log(2, "now ua ptr: %s", get_ptr1(baseAddress1));
                 }
             }
             else {
-                util::log(1, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandle("UserAssembly.dll")));
+                util::log(1, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandleA("UserAssembly.dll")));
                 util::log(1, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1));
                 util::log(1, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")));
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandle("UserAssembly.dll") )});
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandleA("UserAssembly.dll") )});
                 ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1) });
                 ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")) });
             }
@@ -77,7 +77,7 @@ namespace Sections {
 
         if (ImGui::Button("Show MoleMole Avatar Pos")) {
             //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"eksdee xlua alive mhy suck\")");
-            if (GetModuleHandle("UserAssembly.dll") != nullptr)
+            if (GetModuleHandleA("UserAssembly.dll") != nullptr)
                 il2fns::MoleMole__ActorUtils__GetAvatarPos();
             else
                 //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
@@ -198,13 +198,22 @@ namespace Sections {
         //CreateFuncWidget("It is label of checkbox, that shows/hides slider.", misc1, "It is HelpMarker text", "some slider name", misc1, 60, 10, 100, il2fns::UnityEngine__set__Timescale);
         static bool unlockfps = false;
         static float targetfps = 60;
-        ImGui::Checkbox("Unlock FPS", &unlockfps);
+        if(ImGui::Checkbox("Unlock FPS", &unlockfps)) {
+            if (!unlockfps)
+                il2fns::UnityEngine__Application__set_targetFramerate(60);
+        }
         ImGui::SameLine();
         HelpMarker("Unlocks your framerate to defined target FPS.");
         if (unlockfps) {
             ImGui::Indent();
             ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
-            il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
+
+            static float fpsunlocktimer = 0.0f;
+            fpsunlocktimer += ImGui::GetIO().DeltaTime;
+            if (fpsunlocktimer > 1.0f) {
+                il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
+                fpsunlocktimer = 0;
+            }
             ImGui::Unindent();
         }
     }
