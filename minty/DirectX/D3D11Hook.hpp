@@ -135,11 +135,11 @@ void DetourDirectXPresent() {
 }
 
 void PrintValues() {
-	util::log(3, "Present Address: %s", get_ptr(fnIDXGISwapChainPresent));
-	util::log(3, "ID3D11DeviceContext Address: %s", get_ptr(pContext));
-	util::log(3, "ID3D11Device Address: %s", get_ptr(pDevice));
-	util::log(3, "ID3D11RenderTargetView Address: %s", get_ptr(mainRenderTargetView));
-	util::log(3, "IDXGISwapChain Address: %s", get_ptr(pSwapChain));
+	util::log(3, "Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
+	util::log(3, "ID3D11DeviceContext Address: %s", util::get_ptr(pContext));
+	util::log(3, "ID3D11Device Address: %s", util::get_ptr(pDevice));
+	util::log(3, "ID3D11RenderTargetView Address: %s", util::get_ptr(mainRenderTargetView));
+	util::log(3, "IDXGISwapChain Address: %s", util::get_ptr(pSwapChain));
 }
 
 LRESULT CALLBACK DXGIMsgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) { return DefWindowProc(hwnd, uMsg, wParam, lParam); }

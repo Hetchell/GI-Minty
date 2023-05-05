@@ -1,9 +1,8 @@
 #include <Windows.h>
-#include "../Utils/Log.hpp"
 #include "../Utils/Utils.hpp"
 
-uintptr_t baseAddress = (uint64_t)GetModuleHandle("UserAssembly.dll");
-uintptr_t unityPlayerAddress = (uint64_t)GetModuleHandle("UnityPlayer.dll");
+uintptr_t baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
+uintptr_t unityPlayerAddress = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
 
 // Define IL2CPP API function addresses
 #define DO_API(a, r, n, p) r(*n) p
@@ -26,9 +25,8 @@ namespace app {
 
 VOID init_il2cpp() {
 //#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
-	util::log(2, "isle too see pipi ready; loading ptrs.");
-	util::log(2, "UserAssembly ptr: %s", get_ptr(baseAddress));
-	util::log(2, "UnityPlayer ptr: %s", get_ptr(unityPlayerAddress));
+	util::log(2, "Initializing isle too see pipi");
+
 	while (baseAddress == (uint64_t)nullptr) {
 
 		static bool repeat = false;
@@ -39,8 +37,8 @@ VOID init_il2cpp() {
 		}
 
 		Sleep(1000);
-		baseAddress = (uint64_t)GetModuleHandle("UserAssembly.dll");
-		if (GetModuleHandle("UserAssembly.dll") != nullptr) {
+		baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
+		if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
 			util::log(2, "now ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
 
 		#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + a)
@@ -57,4 +55,7 @@ VOID init_il2cpp() {
 
 		}
 	}
+
+	util::log(3, "UserAssembly ptr: %s", util::get_ptr(baseAddress));
+	util::log(3, "UnityPlayer ptr: %s", util::get_ptr(unityPlayerAddress));
 }

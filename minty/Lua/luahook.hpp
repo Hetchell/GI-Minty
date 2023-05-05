@@ -18,7 +18,7 @@ extern "C" {
 #include "../lua/lualib.h"
 #include "../lua/lauxlib.h"
 }
-#include "../Utils/Log.hpp"
+#include "../Utils/LuaUtils.hpp"
 #include "../IL2CPP/HookManager.h"
 //#include "luaHook.h"
 
@@ -39,7 +39,6 @@ namespace {
         *(uintptr_t*)NtProtectVirtualMemory = *(uintptr_t*)NtQuerySection & ~(0xFFui64 << 32) | (uintptr_t)(*(uint32_t*)((uintptr_t)NtQuerySection + 4) - 1) << 32;
         VirtualProtect(NtProtectVirtualMemory, 1, old, &old);
     }
-
 
     namespace fs = std::filesystem;
     lua_State* gi_L;

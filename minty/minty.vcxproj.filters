@@ -40,7 +40,6 @@
     <ClInclude Include="ImGui\ImGui\imstb_truetype.h" />
     <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
-    <ClInclude Include="Utils\Log.hpp" />
     <ClInclude Include="Themes\Themeloader.hpp" />
     <ClInclude Include="Json\json.hpp" />
     <ClInclude Include="IL2CPP\detours.h" />
@@ -72,8 +71,8 @@
     <ClInclude Include="Lua\luahook.hpp" />
     <ClInclude Include="Lua\luaconf.h" />
     <ClInclude Include="Lua\lprefix.h" />
-    <ClInclude Include="Utils\something.h" />
     <ClInclude Include="IL2CPP\Functions\unlockfps.h" />
+    <ClInclude Include="Utils\LuaUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

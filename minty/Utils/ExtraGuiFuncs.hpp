@@ -17,8 +17,7 @@ static void HelpMarker(const char* desc) {
 }
 
 // Header
-namespace ImGui
-{
+namespace ImGui {
     bool ColoredButtonV1(const char* label, const ImVec2& size, ImU32 text_color, ImU32 bg_color_1, ImU32 bg_color_2);
 }
 
@@ -36,7 +35,7 @@ void TextURL(const char* name_, const char* URL_, bool SameLineBefore_, bool Sam
 	ImGui::PopStyleColor();
 	if (ImGui::IsItemHovered()) {
 		if (ImGui::IsMouseClicked(0)) {
-			ShellExecute(0, 0, URL_, 0, 0, SW_SHOW);
+			ShellExecuteA(0, 0, URL_, 0, 0, SW_SHOW);
 		}
 		AddUnderLine(ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered]);
 		ImGui::SetTooltip("Open in browser\n%s", URL_);

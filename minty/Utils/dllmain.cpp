@@ -2,7 +2,7 @@
 #include "../IL2CPP/il2cpp-init.hpp"
 #include "../DirectX/D3D11Hook.hpp"
 //#include "../Lua/luahook.hpp"
-#include "something.h"
+#include "../Lua/luahook.hpp"
 
 DWORD WINAPI MainThread(LPVOID lpReserved) {
 	AllocConsole();

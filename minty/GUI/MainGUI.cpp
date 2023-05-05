@@ -16,8 +16,8 @@ namespace gui {
 
         ImGui::BeginGroup();
 
-       /* if (ImGui::Checkbox("Block key/mouse", &block_input)) --- its automatic now, no point in this
-            util::log(2, "state is: %d", block_input);*/
+        if (ImGui::Checkbox("Block key/mouse", &block_input)) // --- its automatic now, no point in this
+            util::log(2, "state is: %d", block_input);
 
         static int SelectedSection = 0;
         if (ImGui::ListBoxHeader("##CategorySelect", ImVec2(175, -FLT_MIN))) {

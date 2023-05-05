@@ -16,8 +16,9 @@
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
 //#include "../ImGui/ImGuiNotify/tahoma.h"
 //#include "../Lua/luahook.hpp"
-#include "../Utils/Log.hpp"
-#include "../Utils/something.h"
+#include "../Utils/LuaUtils.hpp"
+#include "../Utils/Utils.hpp"
+#include "../Lua/luahook.hpp"
 
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
@@ -197,7 +198,7 @@ namespace Sections {
         //float misc1;
         //CreateFuncWidget("It is label of checkbox, that shows/hides slider.", misc1, "It is HelpMarker text", "some slider name", misc1, 60, 10, 100, il2fns::UnityEngine__set__Timescale);
         static bool unlockfps = false;
-        static float targetfps = 60;
+        static int targetfps = 60;
         if(ImGui::Checkbox("Unlock FPS", &unlockfps)) {
             if (!unlockfps)
                 il2fns::UnityEngine__Application__set_targetFramerate(60);
@@ -206,7 +207,9 @@ namespace Sections {
         HelpMarker("Unlocks your framerate to defined target FPS.");
         if (unlockfps) {
             ImGui::Indent();
-            ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
+            // ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
+
+            ImGui::SliderInt("Target FPS",&targetfps, 1, 360);
 
             static float fpsunlocktimer = 0.0f;
             fpsunlocktimer += ImGui::GetIO().DeltaTime;

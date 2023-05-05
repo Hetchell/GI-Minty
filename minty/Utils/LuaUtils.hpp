@@ -12,39 +12,20 @@
 
 namespace fs = std::filesystem;
 
-static ImGuiTextBuffer log_textbuf;
-
-namespace util {
-	template<typename... Args>
-	void log(int output_type, const char* fmt, Args... args) {
-		const char* info_type[] = { "Warning", "Error", "Info", "Debug", "Lua" };
-		printf("[Minty:%s] ", info_type[output_type]);
-		printf(fmt, args...);
-		printf("\n");
-
-		log_textbuf.appendf("[Minty:%s] ", info_type[output_type]);
-		log_textbuf.appendf(fmt, args...);
-		log_textbuf.appendf("\n");
-	}
-}
 namespace {
-	const PIMAGE_SECTION_HEADER get_section_by_name(HMODULE base, const char* name)
-	{
+	const PIMAGE_SECTION_HEADER get_section_by_name(HMODULE base, const char* name) {
 		const PIMAGE_DOS_HEADER hdos = (PIMAGE_DOS_HEADER)base;
 		const PIMAGE_NT_HEADERS hpe = (PIMAGE_NT_HEADERS)((PBYTE)hdos + hdos->e_lfanew);
 		const PIMAGE_SECTION_HEADER sections = IMAGE_FIRST_SECTION(hpe);
-		for (int i = 0; i < hpe->FileHeader.NumberOfSections; i++)
-		{
-			if (strcmp((const char*)sections[i].Name, name) == 0)
-			{
+		for (int i = 0; i < hpe->FileHeader.NumberOfSections; i++) {
+			if (strcmp((const char*)sections[i].Name, name) == 0) {
 				return &sections[i];
 			}
 		}
 		return NULL;
 	}
 
-	uintptr_t PatternScan(LPCSTR module, LPCSTR pattern)
-	{
+	uintptr_t PatternScan(LPCSTR module, LPCSTR pattern) {
 		static auto pattern_to_byte = [](const char* pattern) {
 
 			auto bytes = std::vector<int>{};
@@ -59,8 +40,7 @@ namespace {
 					if (*current == '?')
 						++current;
 					bytes.push_back(-1);
-				}
-				else {
+				} else {
 					bytes.push_back(strtoul(current, &current, 16));
 				}
 			}
@@ -96,8 +76,7 @@ namespace {
 		return 0;
 	}
 
-	bool cmp_pat(const uint8_t* pat, const char* mask, size_t pattern_len, const uint8_t* ptr)
-	{
+	bool cmp_pat(const uint8_t* pat, const char* mask, size_t pattern_len, const uint8_t* ptr) {
 		for (int i = 0; i < pattern_len; i++)
 			if (mask[i] == 'x' && pat[i] != ptr[i])
 				return false;
@@ -105,19 +84,15 @@ namespace {
 		return true;
 	}
 
-	const uint8_t* find_pat(const uint8_t* pat, const char* mask, const uint8_t* start, size_t size, bool reverse = false)
-	{
+	const uint8_t* find_pat(const uint8_t* pat, const char* mask, const uint8_t* start, size_t size, bool reverse = false) {
 		auto pattern_len = strlen(mask);
 		auto end = start + size - pattern_len;
 
-		if (reverse)
-		{
+		if (reverse) {
 			for (auto ptr = end; ptr >= start; ptr--)
 				if (cmp_pat(pat, mask, pattern_len, ptr) == true)
 					return ptr;
-		}
-		else
-		{
+		} else {
 			for (auto ptr = start; ptr <= end; ptr++)
 				if (cmp_pat(pat, mask, pattern_len, ptr) == true)
 					return ptr;
@@ -126,18 +101,14 @@ namespace {
 		return 0;
 	}
 
-	const uint8_t* find_ref_relative(const uint8_t* addr, const uint8_t* start, size_t size, bool reverse = false)
-	{
+	const uint8_t* find_ref_relative(const uint8_t* addr, const uint8_t* start, size_t size, bool reverse = false) {
 		auto end = start + size - 4;
 
-		if (reverse)
-		{
+		if (reverse) {
 			for (auto ptr = end; ptr >= start; ptr--)
 				if (*(uint32_t*)(ptr)+ptr + 4 == addr)
 					return ptr;
-		}
-		else
-		{
+		} else {
 			for (auto ptr = start; ptr <= end; ptr++)
 				if (*(uint32_t*)(ptr)+ptr + 4 == addr)
 					return ptr;
