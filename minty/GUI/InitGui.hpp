@@ -11,7 +11,7 @@
 #include "../ImGui/ImGuiNotify/tahoma.h"
 #include "../ImGui/ImGuiNotify/fa_solid_900.h"
 #include "../ImGui/ImGuiNotify/font_awesome_5.h"
-
+bool g_ShowMenu = true;
 void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false) {
 	static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
 

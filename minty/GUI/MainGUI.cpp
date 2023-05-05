@@ -16,7 +16,7 @@ namespace gui {
 
         ImGui::BeginGroup();
 
-        ImGui::Checkbox("Block key/mouse", &block_input);
+        //ImGui::Checkbox("Block key/mouse", &block_input);
            //util::log(2, "state is: %d", block_input);
 
         static int SelectedSection = 0;

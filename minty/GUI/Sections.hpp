@@ -19,7 +19,9 @@
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
 #include "../Lua/luahook.hpp"
-
+bool block_input = true;
+bool show_debug_metrics = false;
+bool show_debug_log = false;
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
 
@@ -161,9 +163,10 @@ namespace Sections {
 
         //ImGui::ShowStyleEditor();
     }
-
     void Settings() {
         ImGui::Checkbox("Show ImGui's cursor", &ImGui::GetIO().MouseDrawCursor);
+       
+        ImGui::Checkbox("Block input", &block_input);
     }
     
     void Debug() {
@@ -180,7 +183,7 @@ namespace Sections {
         ImGui::Text("Lua: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[1], hook_state_name[1]); //put std to string boolean here, it will give a 1 or a zero 
 
         ImGui::SeparatorText("");
-
+   
         ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
         ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
 

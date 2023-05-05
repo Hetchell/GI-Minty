@@ -21,7 +21,7 @@
 
 #include "../includes.h"
 #include "../ImGui/ImGui/imgui_internal.h"
-#include "../GUI/GuiDefinitions.h"
+//#include "../GUI/GuiDefinitions.h"
 
 //#include "../ImGui/ImGuiNotify/imgui_notify.h"
 
@@ -47,31 +47,32 @@ BOOL g_bInitialised = false;
 //bool g_ShowMenu = true; -> defined in GUIDefinitions
 bool g_PresentHooked = false;
 
-//LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-//{
-//	static bool block_input = false;
-//	bool blockInputInt = false;
+//std::thread log_thread([]() {
+//	while (true) {
+//		// log the state of block_input to the console or a log file
+//		if (block_input)
+//			util::log(2, "blockinput is true");
+//		else
+//			util::log(2, "blockinput is false");
 //
-//	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-//
-//	if (ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard)
-//		blockInputInt = true; else blockInputInt = false;
-//
-//	if (blockInputInt)
-//		return ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-//
-//	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
-//}
+//		std::this_thread::sleep_for(std::chrono::milliseconds(2000)); // wait for 2 seconds
+//	}
+//});
 
 LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
-		return true; // input handled by ImGui, so return true
+	if (block_input) {
+		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam) && ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard) {
+			return true; // ImGui wants to capture input, so return true
+		}
+		else {
+			return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam); // let the main app handle the input
+		}
 	}
-	else if (ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard) {
-		return true; // ImGui wants to capture input, so return true
-	}
-	else {
-		return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam); // let the main app handle the input
+	else if (block_input == false) {
+		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+			return true;
+
+		return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 	}
 }
 

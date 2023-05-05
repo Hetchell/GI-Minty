@@ -49,6 +49,7 @@ static ImGuiTextBuffer log_textbuf1;
 
 void ShowDebugLog() {
 	ImGuiTextFilter Filter;
+    static bool show_debug_log;
 	ImGui::Begin("Log", &show_debug_log);
 	if (ImGui::SmallButton("[Debug] Add 5 entries")) {
 		static int counter = 0;

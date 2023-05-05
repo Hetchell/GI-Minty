@@ -1,7 +1,7 @@
-#pragma once
+//#pragma once
 
-static bool g_ShowMenu = true;
-static bool block_input = false;
-static bool show_debug_metrics = false;
-static bool show_style_editor = false;
-static bool show_debug_log = false;
+extern bool g_ShowMenu;
+extern bool block_input;
+extern bool show_debug_metrics;
+extern bool show_style_editor;
+extern bool show_debug_log;
