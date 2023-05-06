@@ -12,6 +12,7 @@ uintptr_t unityPlayerAddress = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
 // Define function addresses
 #define DO_APP_FUNC(a, r, n, p) r(*n) p
 namespace app {
+#include "../IL2CPP/il2cpp-types.h"
 #include "il2cpp-functions.h"
 }
 #undef DO_APP_FUNC

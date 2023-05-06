@@ -8,6 +8,7 @@
 #include "../IL2CPP/Functions/bootyfixer.h"
 #include "../IL2CPP/Functions/timescale.h"
 #include "../IL2CPP/Functions/unlockfps.h"
+#include "../IL2CPP/Functions/resizeavatar.h"
 
 #include <string>
 #include <unordered_map>
@@ -85,6 +86,30 @@ namespace Sections {
             else
                 //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
+        }
+
+        static bool show_avatarresizer = false;
+        ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
+        ImGui::SameLine();
+        HelpMarker("Resizes your current character's size. Just move slider. ");
+
+        if (show_avatarresizer) {
+            static float avatarsize = 1.0f;
+            ImGui::Indent();
+
+            if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f"))
+            {
+                il2fns::Resize__Avatar(avatarsize);
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("reset"))
+            {
+                il2fns::Resize__Avatar(1.0f);
+            }
+
+            ImGui::Unindent();
         }
     }
 
@@ -226,6 +251,19 @@ namespace Sections {
             }
             ImGui::Unindent();
         }
+
+        static bool hideui = false;
+
+        if (ImGui::Checkbox("Hide UI", &hideui)) {
+            if (hideui) {
+                
+            }
+            else {
+                
+            }
+        }
+        ImGui::SameLine();
+        HelpMarker("Hides all game UI.");
     }
 }
 
