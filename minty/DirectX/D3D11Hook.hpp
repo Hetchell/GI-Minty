@@ -42,6 +42,60 @@ static WNDPROC OriginalWndProcHandler = nullptr;
 HWND window = nullptr;
 IDXGISwapChainPresent fnIDXGISwapChainPresent;
 
+bool LoadTextureFromResource(HINSTANCE hInstance, LPCTSTR resource_name, ID3D11Device* pDevice, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height) {
+	if (pDevice == nullptr)
+		return false;
+
+	// Load resource
+	HRSRC hResource = FindResource(hInstance, resource_name, RT_RCDATA);
+	if (hResource == NULL)
+		return false;
+
+	HGLOBAL hResourceData = LoadResource(hInstance, hResource);
+	if (hResourceData == NULL)
+		return false;
+
+	LPBYTE image_data = static_cast<LPBYTE>(LockResource(hResourceData));
+	DWORD image_size = SizeofResource(hInstance, hResource);
+
+	// Create texture
+	D3D11_TEXTURE2D_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+	desc.Width = 200;  // Set the desired image width
+	desc.Height = 200; // Set the desired image height
+	desc.MipLevels = 1;
+	desc.ArraySize = 1;
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.SampleDesc.Count = 1;
+	desc.Usage = D3D11_USAGE_DEFAULT;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	desc.CPUAccessFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA subResource;
+	ZeroMemory(&subResource, sizeof(subResource));
+	subResource.pSysMem = image_data;
+	subResource.SysMemPitch = desc.Width * 4;
+	subResource.SysMemSlicePitch = 0;
+
+	ID3D11Texture2D* pTexture = NULL;
+	pDevice->CreateTexture2D(&desc, &subResource, &pTexture);
+
+	// Create texture view
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	ZeroMemory(&srvDesc, sizeof(srvDesc));
+	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MipLevels = desc.MipLevels;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	pDevice->CreateShaderResourceView(pTexture, &srvDesc, out_srv);
+	pTexture->Release();
+
+	*out_width = desc.Width;
+	*out_height = desc.Height;
+
+	return true;
+}
+
 // Boolean
 BOOL g_bInitialised = false;
 //bool g_ShowMenu = true; -> defined in GUIDefinitions
@@ -114,6 +168,8 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 	}
 
 	gui::Render();
+
+
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -192,46 +248,6 @@ void GetPresent() {
 	g_PresentHooked = true;
 
 	//Sleep(2000);
-}
-
-bool LoadTextureFromMemory(LPBYTE image_data, int image_width, int image_height, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height) {
-	if (pDevice == nullptr)
-		return false;
-
-	// Create texture
-	D3D11_TEXTURE2D_DESC desc;
-	ZeroMemory(&desc, sizeof(desc));
-	desc.Width = image_width;
-	desc.Height = image_height;
-	desc.MipLevels = 1;
-	desc.ArraySize = 1;
-	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	desc.SampleDesc.Count = 1;
-	desc.Usage = D3D11_USAGE_DEFAULT;
-	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	desc.CPUAccessFlags = 0;
-
-	ID3D11Texture2D* pTexture = NULL;
-	D3D11_SUBRESOURCE_DATA subResource;
-	subResource.pSysMem = image_data;
-	subResource.SysMemPitch = desc.Width * 4;
-	subResource.SysMemSlicePitch = 0;
-	pDevice->CreateTexture2D(&desc, &subResource, &pTexture);
-
-	// Create texture view
-	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-	ZeroMemory(&srvDesc, sizeof(srvDesc));
-	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	srvDesc.Texture2D.MipLevels = desc.MipLevels;
-	srvDesc.Texture2D.MostDetailedMip = 0;
-	pDevice->CreateShaderResourceView(pTexture, &srvDesc, out_srv);
-	pTexture->Release();
-
-	*out_width = image_width;
-	*out_height = image_height;
-
-	return true;
 }
 
 void* SwapChain[18];

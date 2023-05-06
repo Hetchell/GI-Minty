@@ -76,8 +76,15 @@
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="IL2CPP\Functions\resizeavatar.h" />
     <ClInclude Include="IL2CPP\il2cpp-types.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="minty.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Users\Chak\Downloads\virus.png" />
   </ItemGroup>
 </Project>
