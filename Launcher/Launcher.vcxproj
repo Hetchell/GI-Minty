@@ -168,9 +168,14 @@
     <ResourceCompile Include="Launcher.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Users\Chak\Downloads\virus.ico" />
     <Image Include="..\..\..\Users\Chak\Downloads\virus.png" />
-    <Image Include="icon1.ico" />
+    <Image Include="Res\virus.ico" />
+    <Image Include="virus.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="kts-b.ttf" />
+    <Font Include="kts-t.ttf" />
+    <Font Include="m-n.otf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

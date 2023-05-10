@@ -294,6 +294,45 @@ int DoInjectStuff() {
     CloseHandle(proc_info.hProcess);
 }
 
+
+// Declare the external resources
+
+// Function to load font from DLL resources
+void LoadFontFromResources(HMODULE hModuleF, const wchar_t* fontName, float fontSize)
+{
+    //HMODULE hModuleF;
+    // Find the resource handle within the DLL
+    HRSRC hResource = FindResource(hModuleF, fontName, RT_RCDATA);
+    if (!hResource)
+    {
+        // Resource not found
+        //return nullptr;
+    }
+
+    // Load the resource data
+    HGLOBAL hMemory = LoadResource(hModuleF, hResource);
+    if (!hMemory)
+    {
+        // Failed to load resource
+        //return nullptr;
+    }
+
+    // Get the resource data pointer and size
+    LPVOID pData = LockResource(hMemory);
+    DWORD dataSize = SizeofResource(hModuleF, hResource);
+
+    // Create a memory buffer for the font data
+    ImFontConfig fontConfig;
+    fontConfig.FontDataOwnedByAtlas = false; // We'll keep the memory until ImGui is shut down
+    ImGui::GetIO().Fonts->AddFontFromMemoryTTF(pData, dataSize, fontSize, &fontConfig);
+
+    // Clean up the resource handles
+    UnlockResource(hMemory);
+    FreeResource(hMemory);
+
+    //return pFont;
+}
+
 // Main code
 //int WinMain(int, char**)
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
@@ -328,6 +367,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
+
+    HMODULE hModule = GetModuleHandle(nullptr);
+
+    // Load font from resources
+    ImFontConfig fontConfig;
+    //ImFont* pFont;
+    //ImFont* pFont = LoadFontFromResources(hModule, MAKEINTRESOURCEW(106), 18.0f);
+    if (true)
+    {
+        // Set the font for ImGui to use
+        //fontConfig.MergeMode = true;
+        //ImGui::GetIO().Fonts->AddFont(&fontConfig);
+    }
+    LoadFontFromResources(hModule, MAKEINTRESOURCEW(108), 18.0f);
 
     // Our state
     bool show_demo_window = true;

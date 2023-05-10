@@ -87,4 +87,7 @@
   <ItemGroup>
     <Image Include="..\..\..\Users\Chak\Downloads\virus.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Themes\Fonts\m-n.otf" />
+  </ItemGroup>
 </Project>

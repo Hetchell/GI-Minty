@@ -81,14 +81,19 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon1.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="..\..\..\Users\Chak\Downloads\virus.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\Users\Chak\Downloads\virus.ico">
+    <Image Include="Res\virus.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="virus.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="kts-b.ttf" />
+    <Font Include="kts-t.ttf" />
+    <Font Include="m-n.otf" />
   </ItemGroup>
 </Project>

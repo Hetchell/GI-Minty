@@ -232,10 +232,12 @@ public:
 
 	ImGuiToast(ImGuiToastType type, int dismiss_time, const char* format, ...) : ImGuiToast(type, dismiss_time) { NOTIFY_FORMAT(this->set_content, format); }
 };
-
+namespace {
+	extern auto iconno = "null_icon";
+}
 namespace ImGui
 {
-	auto iconno = "null_icon";
+	//extern auto iconno = "null_icon";
 	NOTIFY_INLINE std::vector<ImGuiToast> notifications;
 
 	/// <summary>

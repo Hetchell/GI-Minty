@@ -54,7 +54,6 @@ namespace Sections {
             if (GetModuleHandleA("UserAssembly.dll") != nullptr)
                 il2fns::MoleMole__ActorUtils__ShowMessage("123");
             else
-                //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
         }
 

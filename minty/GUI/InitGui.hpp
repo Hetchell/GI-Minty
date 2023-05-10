@@ -11,6 +11,7 @@
 #include "../ImGui/ImGuiNotify/tahoma.h"
 #include "../ImGui/ImGuiNotify/fa_solid_900.h"
 #include "../ImGui/ImGuiNotify/font_awesome_5.h"
+#include "../Themes/Fonts/fontsloader.h"
 bool g_ShowMenu = true;
 void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false) {
 	static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
@@ -33,8 +34,12 @@ namespace gui {
         ImGui::GetIO().ImeWindowHandle = window;
 
         ImFontConfig font_cfg;
+
+        LoadFontFromResources(font_cfg, MAKEINTRESOURCEW(102), 20.f);
+
         font_cfg.FontDataOwnedByAtlas = false;
         ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &font_cfg);
+
         //init notify
         MergeIconsWithLatestFont(16.f, false);
     }
