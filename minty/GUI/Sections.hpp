@@ -1,4 +1,5 @@
 #pragma once
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include "MainGUI.h"
 #include "../Utils/ExtraGuiFuncs.hpp"
 
@@ -25,6 +26,8 @@ bool show_debug_metrics = false;
 bool show_debug_log = false;
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
+
+ImGuiID textureID = 0;
 
 std::vector<std::string> ModuleOrder = {
     "Player", 
@@ -86,7 +89,7 @@ namespace Sections {
                 //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
                 ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
         }
-
+        
         static bool show_avatarresizer = false;
         ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
         ImGui::SameLine();
@@ -179,6 +182,13 @@ namespace Sections {
         ImGui::SeparatorText("Fonts");
 
         ImGui::TextDisabled("Add font selector dropdown, & ttf loader");
+
+        static bool ifEditor;
+        ImGui::Checkbox("show theme editor", &ifEditor);
+
+        if (ifEditor) {
+            ImGui::ShowStyleEditor();
+        }
 
         // ImGui::BeginCombo(
         //     "Font", //Label

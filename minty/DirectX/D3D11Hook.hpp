@@ -21,7 +21,7 @@
 
 #include "../includes.h"
 #include "../ImGui/ImGui/imgui_internal.h"
-//#include "../GUI/GuiDefinitions.h"
+#include "../GUI/GuiDefinitions.h"
 
 //#include "../ImGui/ImGuiNotify/imgui_notify.h"
 
@@ -35,34 +35,46 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 
 // Main D3D11 Objects
 ID3D11DeviceContext* pContext = NULL;
-ID3D11Device* pDevice = NULL;
+namespace {
+	ID3D11Device* pDevice = NULL;
+}
 ID3D11RenderTargetView* mainRenderTargetView;
 static IDXGISwapChain* pSwapChain = NULL;
 static WNDPROC OriginalWndProcHandler = nullptr;
 HWND window = nullptr;
 IDXGISwapChainPresent fnIDXGISwapChainPresent;
 
-bool LoadTextureFromResource(HINSTANCE hInstance, LPCTSTR resource_name, ID3D11Device* pDevice, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height) {
+bool LoadTextureFromResources(LPCTSTR resource_name, LPCTSTR resource_type, ID3D11Device* pDevice, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height) {
 	if (pDevice == nullptr)
 		return false;
 
-	// Load resource
-	HRSRC hResource = FindResource(hInstance, resource_name, RT_RCDATA);
-	if (hResource == NULL)
+	HMODULE hModuleF = GetModuleHandle("minty.dll");
+	//HMODULE hModuleF;
+	// Find the resource handle within the DLL
+	HRSRC hResource = FindResource(hModuleF, resource_name, resource_type);
+	if (!hResource)
+	{
+		// Resource not found
 		return false;
+	}
 
-	HGLOBAL hResourceData = LoadResource(hInstance, hResource);
-	if (hResourceData == NULL)
+	// Load the resource data
+	HGLOBAL hMemory = LoadResource(hModuleF, hResource);
+	if (!hMemory)
+	{
+		// Failed to load resource
 		return false;
+	}
 
-	LPBYTE image_data = static_cast<LPBYTE>(LockResource(hResourceData));
-	DWORD image_size = SizeofResource(hInstance, hResource);
+	// Get the resource data pointer and size
+	LPVOID pData = LockResource(hMemory);
+	DWORD dataSize = SizeofResource(hModuleF, hResource);
 
 	// Create texture
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
-	desc.Width = 200;  // Set the desired image width
-	desc.Height = 200; // Set the desired image height
+	desc.Width = *out_width;
+	desc.Height = *out_height;
 	desc.MipLevels = 1;
 	desc.ArraySize = 1;
 	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -73,12 +85,14 @@ bool LoadTextureFromResource(HINSTANCE hInstance, LPCTSTR resource_name, ID3D11D
 
 	D3D11_SUBRESOURCE_DATA subResource;
 	ZeroMemory(&subResource, sizeof(subResource));
-	subResource.pSysMem = image_data;
+	subResource.pSysMem = pData;
 	subResource.SysMemPitch = desc.Width * 4;
 	subResource.SysMemSlicePitch = 0;
 
-	ID3D11Texture2D* pTexture = NULL;
+	ID3D11Texture2D* pTexture = nullptr;
 	pDevice->CreateTexture2D(&desc, &subResource, &pTexture);
+	if (pTexture == nullptr)
+		return false;
 
 	// Create texture view
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
@@ -87,6 +101,7 @@ bool LoadTextureFromResource(HINSTANCE hInstance, LPCTSTR resource_name, ID3D11D
 	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MipLevels = desc.MipLevels;
 	srvDesc.Texture2D.MostDetailedMip = 0;
+
 	pDevice->CreateShaderResourceView(pTexture, &srvDesc, out_srv);
 	pTexture->Release();
 
@@ -169,7 +184,23 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 
 	gui::Render();
 
-
+	//// Load texture from resources
+	//int imageWidth = 512;  // Specify the desired image width
+	//int imageHeight = 512; // Specify the desired image height
+	//ID3D11ShaderResourceView* textureSRV = nullptr;
+	//if (LoadTextureFromResources(MAKEINTRESOURCE(103), LPCSTR("PNG"), pDevice, &textureSRV, &imageWidth, &imageHeight)) {
+	//	// Draw the texture
+	//	ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground;
+	//	//ImGui::SetNextWindowPos(ImVec2(about.width / 2, about.height * 0.063f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+	//	if (ImGui::Begin("Gato", nullptr, flags)) {
+	//		ImGui::Image(textureSRV, ImVec2(static_cast<float>(imageWidth), static_cast<float>(imageHeight)));
+	//		ImGui::End();
+	//	}
+	//	textureSRV->Release();
+	//}
+	//else {
+	//	util::log(2, "loadtex err");
+	//}
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

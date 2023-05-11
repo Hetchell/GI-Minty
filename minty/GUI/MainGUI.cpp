@@ -5,6 +5,7 @@
 //#include "../Themes/Fonts/fontsloader.h"
 //#include "../Lua/luahook.hpp"
 //#include "../ImGui/ImGuiNotify/imgui_notify.h"
+#include "../Utils/ImageLoader/imageloader.h"
 
 using namespace std;
 
@@ -14,6 +15,16 @@ namespace gui {
         //setlocale(LC_ALL, "C");
 
         ImGui::Begin("Minty");
+
+        //ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground;
+        ////ImGui::SetNextWindowPos(ImVec2(about.width / 2, about.height * 0.063f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+        //if (ImGui::Begin("Warning", nullptr, flags))
+        //{
+        //    auto image = ImageLoader::GetImage("IDB_PNG1");
+        //    if (image)
+        //        ImGui::Image(image->textureID, ImVec2(512, 512));
+        //    ImGui::End();
+        //}
 
         ImGui::GetCurrentWindow()->DrawList->AddLine(ImVec2(0, 0), ImVec2(250, 250), ImGui::GetColorU32({255,0,0,255}), 3.0f);
 

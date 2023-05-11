@@ -24,6 +24,27 @@ namespace app {
 }
 #undef DO_UP_FUNC
 
+//// Helper function to convert Il2CppString to std::string
+//std::string il2cppi_to_string(app::Il2CppString* str) {
+//	std::u16string u16(reinterpret_cast<const char16_t*>(str->chars));
+//	return std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.to_bytes(u16);
+//}
+//
+//template<typename... Args>
+//VOID il2cpp_run(void(*il2FN)(Args... argsFN)) {
+//	if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
+//		try {
+//			&il2FN(argsFN...);
+//		}
+//		catch (app::Il2CppExceptionWrapper ex) {
+//			if (ex.ex->message)
+//				util::log(2, "%s\n", il2cppi_to_string(ex.ex->message).c_str());
+//			if (ex.ex->stack_trace)
+//				util::log(2, "%s\n", il2cppi_to_string(ex.ex->stack_trace).c_str());
+//		}
+//	}
+//}
+
 VOID init_il2cpp() {
 //#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
 	util::log(2, "Initializing isle too see pipi");

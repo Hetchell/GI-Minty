@@ -236,13 +236,15 @@
     <Library Include="Lua\lua53.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="minty.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\..\..\Users\Chak\Downloads\virus.png" />
+    <Image Include="gato.png" />
+    <Image Include="virus.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Themes\Fonts\m-n.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="minty.rc" />
   </ItemGroup>
   <!-- <ItemGroup>
     <Library Include="IL2CPP\detours.lib" />

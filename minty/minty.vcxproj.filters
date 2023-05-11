@@ -82,12 +82,14 @@
     <Library Include="Lua\lua53.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="minty.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\..\..\Users\Chak\Downloads\virus.png" />
+    <Image Include="virus.png" />
+    <Image Include="gato.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Themes\Fonts\m-n.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="minty.rc" />
   </ItemGroup>
 </Project>
