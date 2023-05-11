@@ -28,3 +28,45 @@ namespace app
 #include <string>
 }
 #undef DO_UP_FUNC
+
+#define DO_MD1_FUNC(a, r, n, p) extern r(*n) p
+namespace app
+{
+#include "mDumper-funcs.h"
+	//#include "il2cpp-types.h"
+#include <Windows.h>
+#include <string>
+}
+#undef DO_MD1_FUNC
+
+//#define DO_MD2_FUNC(a, r, n, p) extern r(*n) p
+//namespace app
+//{
+//#include "mDumper-funcs.h"
+//	//#include "il2cpp-types.h"
+//#include <Windows.h>
+//#include <string>
+//}
+//#undef DO_MD2_FUNC
+//
+//#define DO_MD3_FUNC(a, r, n, p) extern r(*n) p
+//namespace app
+//{
+//#include "mDumper-funcs.h"
+//	//#include "il2cpp-types.h"
+//#include <Windows.h>
+//#include <string>
+//}
+//#undef DO_MD3_FUNC
+//
+//#define DO_MD4_FUNC(a, r, n, p) extern r(*n) p
+//namespace app
+//{
+//#include "mDumper-funcs.h"
+//	//#include "il2cpp-types.h"
+//#include <Windows.h>
+//#include <string>
+//}
+//#undef DO_MD4_FUNC
+
+

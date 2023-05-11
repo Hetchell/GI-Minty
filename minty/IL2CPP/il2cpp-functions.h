@@ -10,3 +10,4 @@ DO_APP_FUNC(0x07BA2190, void*, UnityEngine__QualitySettings__set__vSyncCount, (i
 DO_APP_FUNC(0x07AB0190, void*, UnityEngine__Transform__set__localScale, (app::Transform* transformComponent, app::Vector3 vectorScale));
 DO_APP_FUNC(0x07B7F9C0, app::Transform*, UnityEngine__Component__get__Transform, (app::GameObject* object));
 DO_APP_FUNC(0x07B7F430, app::GameObject*, UnityEngine__GameObject__Find, (void* nameFind));
+DO_APP_FUNC(0x07B7F7E0, void, UnityEngine__GameObject__SetActive, (app::GameObject* object, bool value));

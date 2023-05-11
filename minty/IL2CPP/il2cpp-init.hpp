@@ -24,6 +24,34 @@ namespace app {
 }
 #undef DO_UP_FUNC
 
+//#define DO_MD1_FUNC(a, r, n, p) r(*n) p
+//namespace app
+//{
+//#include "mDumper-funcs.h"
+//}
+//#undef DO_MD1_FUNC
+
+//#define DO_MD2_FUNC(a, r, n, p) r(*n) p
+//namespace app
+//{
+//#include "mDumper-funcs.h"
+//}
+//#undef DO_MD2_FUNC
+//
+//#define DO_MD3_FUNC(a, r, n, p) r(*n) p
+//namespace app
+//{
+//#include "mDumper-funcs.h"
+//}
+//#undef DO_MD3_FUNC
+//
+//#define DO_MD4_FUNC(a, r, n, p) r(*n) p
+//namespace app
+//{
+//#include "mDumper-funcs.h"
+//}
+//#undef DO_MD4_FUNC
+
 //// Helper function to convert Il2CppString to std::string
 //std::string il2cppi_to_string(app::Il2CppString* str) {
 //	std::u16string u16(reinterpret_cast<const char16_t*>(str->chars));
@@ -80,4 +108,44 @@ VOID init_il2cpp() {
 
 	util::log(3, "UserAssembly ptr: %s", util::get_ptr(baseAddress));
 	util::log(3, "UnityPlayer ptr: %s", util::get_ptr(unityPlayerAddress));
+}
+
+VOID init_mD(int defind, int getnam, int getmed, int gentyp) {
+	util::log(2, "Initializing isle too see pipi");
+
+	while (baseAddress == (uint64_t)nullptr) {
+
+		static bool repeat = false;
+
+		if (!repeat) {
+			repeat = true;
+			util::log(1, "UA is still very not real. wawiting..");
+		}
+
+		Sleep(1000);
+		baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
+		if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
+			util::log(2, "now ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
+
+		//#define DO_MD1_FUNC(a, r, n, p) n = (r (*) p)(baseAddress + defind)
+		//#include "mDumper-funcs.h"
+		//#undef DO_MD1_FUNC
+		//	util::log(2, "defind defd: %s", util::int_to_hex(defind));
+
+		//#define DO_MD2_FUNC(a, r, n, p) n = (r (*) p)(baseAddress + getnam)
+		//#include "mDumper-funcs.h"
+		//#undef DO_MD2_FUNC
+		//	util::log(2, "getnam defd: %s", util::int_to_hex(getnam));
+
+		//#define DO_MD3_FUNC(a, r, n, p) n = (r (*) p)(baseAddress + getmed)
+		//#include "mDumper-funcs.h"
+		//#undef DO_MD3_FUNC
+		//	util::log(2, "getmed defd: %s", util::int_to_hex(getmed));
+
+		//#define DO_MD4_FUNC(a, r, n, p) n = (r (*) p)(baseAddress + gentyp)
+		//#include "mDumper-funcs.h"
+		//#undef DO_MD4_FUNC
+		//	util::log(2, "gentyp defd: %s", util::int_to_hex(gentyp));
+		}
+	}
 }

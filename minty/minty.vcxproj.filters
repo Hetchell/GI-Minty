@@ -19,6 +19,7 @@
     <ClCompile Include="Lua\lua.c" />
     <ClCompile Include="IL2CPP\Functions\unlockfps.cpp" />
     <ClCompile Include="IL2CPP\Functions\resizeavatar.cpp" />
+    <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -77,6 +78,8 @@
     <ClInclude Include="IL2CPP\Functions\resizeavatar.h" />
     <ClInclude Include="IL2CPP\il2cpp-types.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="IL2CPP\Functions\hideui.h" />
+    <ClInclude Include="IL2CPP\mDumper-funcs.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

@@ -161,6 +161,7 @@
     <ClInclude Include="GUI\Sections.hpp" />
     <ClInclude Include="GUI\Translations.h" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
+    <ClInclude Include="IL2CPP\Functions\hideui.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
     <ClInclude Include="IL2CPP\Functions\resizeavatar.h" />
     <ClInclude Include="IL2CPP\Functions\timescale.h" />
@@ -169,6 +170,7 @@
       <FileType>CppHeader</FileType>
     </ClInclude>
     <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
+    <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
     <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
     <ClCompile Include="IL2CPP\Functions\resizeavatar.cpp" />
     <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
@@ -186,6 +188,7 @@
     <ClCompile Include="Themes\themes.cpp" />
     <ClCompile Include="Utils\dllmain.cpp" />
     <ClInclude Include="IL2CPP\il2cpp-types.h" />
+    <ClInclude Include="IL2CPP\mDumper-funcs.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\Utils.hpp" />

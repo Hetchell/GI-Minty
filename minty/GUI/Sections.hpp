@@ -10,6 +10,7 @@
 #include "../IL2CPP/Functions/timescale.h"
 #include "../IL2CPP/Functions/unlockfps.h"
 #include "../IL2CPP/Functions/resizeavatar.h"
+#include "../IL2CPP/Functions/hideui.h"
 
 #include <string>
 #include <unordered_map>
@@ -221,6 +222,27 @@ namespace Sections {
         ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
         ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
 
+        ImGui::SeparatorText("mDumper");
+
+        static char defind[256] = "";
+        static char getnam[256] = "";
+        static char getmed[256] = "";
+        static char gentyp[256] = "";
+        ImGui::InputText("defind", defind, 256);
+        ImGui::InputText("getnam", getnam, 256);
+        ImGui::InputText("getmed", getmed, 256);
+        ImGui::InputText("gentyp", gentyp, 256);
+
+        if (ImGui::Button("scan patterns")) {
+            //util::log(2, "defind is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)defind)));
+            //util::log(2, "getnam is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getnam)));
+            //util::log(2, "getmed is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getmed)));
+            //util::log(2, "gentyp is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)gentyp)));
+        }
+
+        if (ImGui::Button("init mdumper ptrs")) {
+            //init_mD(defind, getnam, getmed, gentyp);
+        }
 
     }
 
@@ -262,13 +284,12 @@ namespace Sections {
         }
 
         static bool hideui = false;
-
         if (ImGui::Checkbox("Hide UI", &hideui)) {
             if (hideui) {
-                
+                il2fns::Hide__UI(false);
             }
             else {
-                
+                il2fns::Hide__UI(true);
             }
         }
         ImGui::SameLine();
