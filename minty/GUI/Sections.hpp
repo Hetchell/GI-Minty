@@ -11,6 +11,8 @@
 #include "../IL2CPP/Functions/unlockfps.h"
 #include "../IL2CPP/Functions/resizeavatar.h"
 #include "../IL2CPP/Functions/hideui.h"
+#include "../IL2CPP/Functions/infinityenergy.h"
+#include "../IL2CPP/Functions/nocd.h"
 
 #include <string>
 #include <unordered_map>
@@ -113,6 +115,22 @@ namespace Sections {
             }
 
             ImGui::Unindent();
+        }
+
+        static bool ifEnergy = false;
+        if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
+            if (ifEnergy)
+                il2fns::Infinity__Energy(true);
+            else
+                il2fns::Infinity__Energy(false);
+        }
+
+        static bool ifNOCD = false;
+        if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
+            if (ifNOCD)
+                il2fns::LCAvatarCombat_NoCD(true);
+            else
+                il2fns::LCAvatarCombat_NoCD(false);
         }
     }
 

@@ -20,6 +20,8 @@
     <ClCompile Include="IL2CPP\Functions\unlockfps.cpp" />
     <ClCompile Include="IL2CPP\Functions\resizeavatar.cpp" />
     <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
+    <ClCompile Include="IL2CPP\Functions\infinityenergy.cpp" />
+    <ClCompile Include="IL2CPP\Functions\nocd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -80,6 +82,8 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="IL2CPP\Functions\hideui.h" />
     <ClInclude Include="IL2CPP\mDumper-funcs.h" />
+    <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
+    <ClInclude Include="IL2CPP\Functions\nocd.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
