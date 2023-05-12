@@ -163,6 +163,7 @@
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
     <ClInclude Include="IL2CPP\Functions\hideui.h" />
     <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
+    <ClInclude Include="IL2CPP\Functions\infinitystamina.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
     <ClInclude Include="IL2CPP\Functions\nocd.h" />
     <ClInclude Include="IL2CPP\Functions\resizeavatar.h" />
@@ -174,6 +175,7 @@
     </ClInclude>
     <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
     <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
+    <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
     <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
     <ClCompile Include="IL2CPP\Functions\nocd.cpp" />
     <ClCompile Include="IL2CPP\Functions\resizeavatar.cpp" />

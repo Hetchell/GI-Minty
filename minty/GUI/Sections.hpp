@@ -14,6 +14,7 @@
 #include "../IL2CPP/Functions/infinityenergy.h"
 #include "../IL2CPP/Functions/nocd.h"
 #include "../IL2CPP/Functions/uimisc.h"
+#include "../IL2CPP/Functions/infinitystamina.h"
 
 #include <string>
 #include <unordered_map>
@@ -123,6 +124,14 @@ namespace Sections {
                 il2fns::LCAvatarCombat_NoCD(true);
             else
                 il2fns::LCAvatarCombat_NoCD(false);
+        }
+
+        static bool ifInfStamina = false;
+        if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
+            if (ifInfStamina)
+                il2fns::Infinity_Stamina(true);
+            else
+                il2fns::Infinity_Stamina(false);
         }
     }
 

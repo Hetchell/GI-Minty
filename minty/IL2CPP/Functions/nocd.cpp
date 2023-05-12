@@ -27,6 +27,7 @@ namespace il2fns {
 		if (value)
 			HookManager::install(app::MoleMole_LCAvatarCombat_IsSkillInCD_1, LCAvatarCombat_IsSkillInCD_1On);
 		else
+			HookManager::detach(LCAvatarCombat_IsSkillInCD_1On);
 			HookManager::install(app::MoleMole_LCAvatarCombat_IsSkillInCD_1, LCAvatarCombat_IsSkillInCD_1Off);
 	}
 }

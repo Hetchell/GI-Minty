@@ -23,6 +23,7 @@
     <ClCompile Include="IL2CPP\Functions\infinityenergy.cpp" />
     <ClCompile Include="IL2CPP\Functions\nocd.cpp" />
     <ClCompile Include="IL2CPP\Functions\uimisc.cpp" />
+    <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
     <ClInclude Include="IL2CPP\Functions\nocd.h" />
     <ClInclude Include="IL2CPP\Functions\uimisc.h" />
+    <ClInclude Include="IL2CPP\Functions\infinitystamina.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
