@@ -18,3 +18,4 @@ DO_APP_FUNC(0x0340D750, SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloa
 DO_APP_FUNC(0x00C6C700, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
 DO_APP_FUNC(0x07B7F490, app::Component_1*, UnityEngine_GameObject_GetComponent, (app::GameObject* __this, void* type));
 DO_APP_FUNC(0x07AB7BC0, void, UnityEngine_Text_setText, (app::Text* __this, void* value));
+DO_APP_FUNC(0x013BCAE0, void, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, (MoleMole_VCBaseSetDitherValue* __this, float value));

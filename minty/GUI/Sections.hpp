@@ -84,15 +84,6 @@ namespace Sections {
                 ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")) });
             }
         }
-
-        if (ImGui::Button("Show MoleMole Avatar Pos")) {
-            //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"eksdee xlua alive mhy suck\")");
-            if (GetModuleHandleA("UserAssembly.dll") != nullptr)
-                il2fns::MoleMole__ActorUtils__GetAvatarPos();
-            else
-                //ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Hello World! This is an error! 0x%X", 0xDEADBEEF });
-                ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
-        }
         
         static bool show_avatarresizer = false;
         ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
@@ -322,6 +313,18 @@ namespace Sections {
         }
         ImGui::SameLine();
         HelpMarker("Changes your game UID to any defined text. HTML/Rich Text tags can be applied.");
+
+        static bool ifpeeking = false;
+        if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
+            if (ifpeeking) {
+                il2fns::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(true);
+            }
+            else {
+                il2fns::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(false);
+            }
+        }
+        ImGui::SameLine();
+        HelpMarker(":3");
     }
 }
 
