@@ -13,6 +13,7 @@
 #include "../IL2CPP/Functions/hideui.h"
 #include "../IL2CPP/Functions/infinityenergy.h"
 #include "../IL2CPP/Functions/nocd.h"
+#include "../IL2CPP/Functions/uimisc.h"
 
 #include <string>
 #include <unordered_map>
@@ -312,6 +313,15 @@ namespace Sections {
         }
         ImGui::SameLine();
         HelpMarker("Hides all game UI.");
+
+        static char UID_inputTextBuffer[512] = "";
+        ImGui::InputTextWithHint("##input", "Enter custom UID text here...", UID_inputTextBuffer, sizeof(UID_inputTextBuffer));
+        ImGui::SameLine();
+        if (ImGui::Button("Update custom UID")) {
+            il2fns::Change_UID(UID_inputTextBuffer);
+        }
+        ImGui::SameLine();
+        HelpMarker("Changes your game UID to any defined text. HTML/Rich Text tags can be applied.");
     }
 }
 

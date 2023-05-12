@@ -16,3 +16,5 @@ DO_APP_FUNC(0x00C6D9F0, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
 DO_APP_FUNC(0x0340D810, float, MoleMole_SafeFloat_get_Value, (SafeFloat safeFloat)); //found with op implicit
 DO_APP_FUNC(0x0340D750, SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloat)); // same
 DO_APP_FUNC(0x00C6C700, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
+DO_APP_FUNC(0x07B7F490, app::Component_1*, UnityEngine_GameObject_GetComponent, (app::GameObject* __this, void* type));
+DO_APP_FUNC(0x07AB7BC0, void, UnityEngine_Text_setText, (app::Text* __this, void* value));

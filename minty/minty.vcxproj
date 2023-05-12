@@ -167,6 +167,7 @@
     <ClInclude Include="IL2CPP\Functions\nocd.h" />
     <ClInclude Include="IL2CPP\Functions\resizeavatar.h" />
     <ClInclude Include="IL2CPP\Functions\timescale.h" />
+    <ClInclude Include="IL2CPP\Functions\uimisc.h" />
     <ClInclude Include="IL2CPP\Functions\unlockfps.h" />
     <ClInclude Include="IL2CPP\HookManager.h">
       <FileType>CppHeader</FileType>
@@ -177,6 +178,7 @@
     <ClCompile Include="IL2CPP\Functions\nocd.cpp" />
     <ClCompile Include="IL2CPP\Functions\resizeavatar.cpp" />
     <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
+    <ClCompile Include="IL2CPP\Functions\uimisc.cpp" />
     <ClCompile Include="IL2CPP\Functions\unlockfps.cpp" />
     <ClCompile Include="IL2CPP\Functions\infinityenergy.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui.cpp" />
