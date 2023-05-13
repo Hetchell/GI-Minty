@@ -12381,4 +12381,6 @@ typedef union Il2CppSingle_float
         struct Proto_SceneEntityInfo__Fields fields;
     };
 
+
+
 #endif // IL2CPP_TYPES_H

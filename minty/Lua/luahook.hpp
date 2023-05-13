@@ -84,7 +84,7 @@ namespace {
     std::optional<std::string> compile(lua_State* L, const char* script) {
         std::ostringstream compiled_script;
 
-        auto writer = [](lua_State* L, const void* p, size_t sz, void* ud) -> int {
+        auto writer = [](lua_State* gi_l, const void* p, size_t sz, void* ud) -> int {
             auto out = (std::ostringstream*)ud;
             out->write((const char*)p, sz);
             return 0;
@@ -143,16 +143,16 @@ namespace {
 
     void lua_runstr(const char* charLuaScript) {
 
-        auto compiled = compile(gi_LL, charLuaScript);
-        if (!compiled)
-            return;
-        auto copy = new std::string(compiled.value());
-        auto execute = [](ULONG_PTR compiled) {
-            auto str = (const std::string*)compiled;
-            exec(*str);
-            delete str;
-        };
-        QueueUserAPC(execute, main_thread, (ULONG_PTR)copy);
+        std::optional<std::string> compiled = compile(gi_LL, charLuaScript);
+        //if (!compiled)
+        //    return;
+        //auto copy = new std::string(compiled.value());
+        //auto execute = [](ULONG_PTR compiled) {
+        //    auto str = (const std::string*)compiled;
+        //    exec(*str);
+        //    delete str;
+        //};
+        //QueueUserAPC(execute, main_thread, (ULONG_PTR)copy);
     };
 
     DWORD initLua(LPVOID) {

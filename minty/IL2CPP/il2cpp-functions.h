@@ -20,3 +20,7 @@ DO_APP_FUNC(0x07B7F490, app::Component_1*, UnityEngine_GameObject_GetComponent, 
 DO_APP_FUNC(0x07AB7BC0, void, UnityEngine_Text_setText, (app::Text* __this, void* value));
 DO_APP_FUNC(0x013BCAE0, void, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, (MoleMole_VCBaseSetDitherValue* __this, float value));
 DO_APP_FUNC(0x036A60B0, void, MoleMole_DataItem_HandleNormalProp, (DataItem* __this, uint32_t type, int64_t value, DataPropOp__Enum state));
+DO_APP_FUNC(0x07AAEA10, app::Transform*, UnityEngine_Transform_GetChild, (Transform* __this, int32_t index));
+DO_APP_FUNC(0x07AAEA00, int32_t, UnityEngine_Transform_GetChildCount, (Transform* __this));
+DO_APP_FUNC(0x01093750, void, VCHumanoidMove_NotifyLandVelocity, (VCHumanoidMove* __this, Vector3 velocity, float reachMaxDownVelocityTime));
+DO_APP_FUNC(0x03A0B350, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (ActorAbilityPlugin* __this, float delay, Object* arg));

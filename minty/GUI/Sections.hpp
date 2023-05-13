@@ -15,6 +15,9 @@
 #include "../IL2CPP/Functions/nocd.h"
 #include "../IL2CPP/Functions/uimisc.h"
 #include "../IL2CPP/Functions/infinitystamina.h"
+#include "../IL2CPP/Functions/godmode.h"
+
+#include "../Lua/function.h"
 
 #include <string>
 #include <unordered_map>
@@ -132,6 +135,14 @@ namespace Sections {
                 il2fns::Infinity_Stamina(true);
             else
                 il2fns::Infinity_Stamina(false);
+        }
+
+        static bool ifGodmode = false;
+        if (ImGui::Checkbox("Godmode", &ifGodmode)) {
+            if (ifGodmode)
+                il2fns::GodMode(true);
+            else
+                il2fns::GodMode(false);
         }
     }
 
@@ -334,6 +345,36 @@ namespace Sections {
         }
         ImGui::SameLine();
         HelpMarker(":3");
+
+        static bool show_colorator3000 = false;
+        static float cc_r = 1.0f;
+        static float cc_g = 1.0f;
+        static float cc_b = 1.0f;
+        static float cc_a = 1.0f;
+        static ImVec4 infusion_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+        ImGui::Checkbox("Infusion changer", &show_colorator3000);
+        ImGui::SameLine();
+        HelpMarker("Changes color of Elemental Infusion/Blade trail of your current character. Adjust color either with sliders or with color picker. Works perfectly on swords, greatswords, polearms.");
+        if (show_colorator3000)
+        {
+            ImGui::Indent();
+
+            if (ImGui::Button("Change")) {
+                std::string result = char_eleminf + std::to_string(cc_r) + "," + std::to_string(cc_g) + "," + std::to_string(cc_b) + "," + std::to_string(cc_a) + char_eleminf_end;
+                //lua_runstr(result.c_str());
+            }
+            ImGui::SameLine();
+
+            ImGui::ColorEdit4("Infusion Color", &infusion_col.x, ImGuiColorEditFlags_AlphaBar);
+
+            cc_r = infusion_col.x;
+            cc_g = infusion_col.y;
+            cc_b = infusion_col.z;
+            cc_a = infusion_col.w;
+
+            ImGui::Unindent();
+        }
     }
 }
 
