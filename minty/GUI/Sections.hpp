@@ -16,6 +16,7 @@
 #include "../IL2CPP/Functions/uimisc.h"
 #include "../IL2CPP/Functions/infinitystamina.h"
 #include "../IL2CPP/Functions/godmode.h"
+#include "../IL2CPP/Functions/browser.h"
 
 #include "../Lua/function.h"
 
@@ -167,6 +168,32 @@ namespace Sections {
             if (ImGui::Button("Reset (F11)")) {
                 TimeScale = 1.0;
                 il2fns::UnityEngine__set__Timescale(TimeScale);
+            }
+            ImGui::Unindent();
+        }
+
+        static bool isbrowser = false;
+        static char browserUrlBuf[256] = "";
+        static float browserSize = 1;
+        if (ImGui::Checkbox("Browser", &isbrowser)) {
+            if (!isbrowser)
+                il2fns::TurnBrowser(false, 1, "");
+        }
+        ImGui::SameLine();
+        HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
+        if (isbrowser) {
+            ImGui::Indent();
+
+            ImGui::SliderFloat("Browser scale", &browserSize, 0.1f, 20.0f, "%.3f");
+            ImGui::SameLine();
+            HelpMarker("Set scale ratio of Browser. 1.0 - 1920x1080.");
+
+            ImGui::InputTextWithHint("Browser URL", "Input Browser URL", browserUrlBuf, 256);
+
+            if (ImGui::Button("Create")) {
+                if (browserSize != 0 && browserUrlBuf != "") {
+                    il2fns::TurnBrowser(true, browserSize, browserUrlBuf);
+                }
             }
             ImGui::Unindent();
         }

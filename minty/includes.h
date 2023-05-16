@@ -8,9 +8,9 @@
 #include <ShObjIdl.h>
 #include <ObjBase.h>
 
-#include <Windows.h>
 #include <d3d11.h>
 #include <dxgi.h>
+#include <Windows.h>
 
 #include "ImGui/ImGui/imgui.h"
 #include "ImGui/ImGui/imgui_impl_win32.h"

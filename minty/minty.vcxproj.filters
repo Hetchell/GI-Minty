@@ -26,6 +26,7 @@
     <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
     <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
+    <ClCompile Include="IL2CPP\Functions\browser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -94,6 +95,8 @@
     <ClInclude Include="Lua\function.h" />
     <ClInclude Include="IL2CPP\Functions\godmode.h" />
     <ClInclude Include="IL2CPP\il2cppUtils.h" />
+    <ClInclude Include="IL2CPP\Functions\noclip.h" />
+    <ClInclude Include="IL2CPP\Functions\browser.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

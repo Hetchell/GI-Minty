@@ -1,4 +1,4 @@
-#include <Windows.h>
+
 
 #include "../GUI/MainGUI.h"
 // Check windows
@@ -18,6 +18,8 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "detours.lib")
+
+#include <Windows.h>
 
 #include "../includes.h"
 #include "../ImGui/ImGui/imgui_internal.h"

@@ -9434,7 +9434,7 @@ typedef union Il2CppSingle_float
     };
 
     struct CameraEntity__Fields {
-        struct BaseEntity__Fields _;
+        struct BaseEntity__Fields bef;
         bool _KHMCIEEKOKE_k__BackingField;
         struct Camera* _AOBHHGONMME_k__BackingField;
         struct MoleMole_VCStackCamera* _vcStackCamera;
@@ -11730,7 +11730,8 @@ typedef union Il2CppSingle_float
         bool offScreen;
         struct IBrowserUI* _uiHandler;
         bool uiHandlerAssigned;
-        struct String* _url;
+        void* _url;
+        //struct String* _url
         int32_t _width;
         int32_t _height;
         bool generateMipmap;

@@ -1,9 +1,9 @@
 #include "il2cpp-types.h"
 using namespace app;
 
-DO_APP_FUNC(0x00CB8770, void*, MoleMole__ActorUtils__ShowMessage, (LPVOID message));
+DO_APP_FUNC(0x00CB8770, void*, MoleMole__ActorUtils__ShowMessage, (void* message));
 DO_APP_FUNC(0x00CABB60, void*, MoleMole__DoSitOnChair, ());
-DO_APP_FUNC(0x00CAE150, void*, MoleMole__ActorUtils__GetAvatarPos, ());
+DO_APP_FUNC(0x00CAE150, app::Vector3, MoleMole__ActorUtils__GetAvatarPos, ());
 DO_APP_FUNC(0x07B81540, void*, UnityEngine__set__Timescale, (float time));
 DO_APP_FUNC(0x07B69AE0, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
 DO_APP_FUNC(0x07BA2190, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
@@ -24,3 +24,11 @@ DO_APP_FUNC(0x07AAEA10, app::Transform*, UnityEngine_Transform_GetChild, (Transf
 DO_APP_FUNC(0x07AAEA00, int32_t, UnityEngine_Transform_GetChildCount, (Transform* __this));
 DO_APP_FUNC(0x01093750, void, VCHumanoidMove_NotifyLandVelocity, (VCHumanoidMove* __this, Vector3 velocity, float reachMaxDownVelocityTime));
 DO_APP_FUNC(0x03A0B350, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (ActorAbilityPlugin* __this, float delay, Object* arg));
+DO_APP_FUNC(0x07B7F910, bool, UnityEngine_GameObject_get_active, (app::GameObject* __this));
+DO_APP_FUNC(0x07B7F400, app::GameObject*, UnityEngine_GameObject_CreatePrimitive, (app::PrimitiveType__Enum type));
+DO_APP_FUNC(0x06F50AC0, app::Vector3, GetRelativePosition, (app::Vector3 __this));
+DO_APP_FUNC(0x07AB0170, void, set_localPosition, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x07AB0190, void, set_localScale, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x07AB0180, void, set_localRotation, (app::Transform* __this, app::Quaternion value));
+DO_APP_FUNC(0x07B7F390, app::Component_1*, AddComponentInternal, (GameObject* __this, void* className));
+DO_APP_FUNC(0x07AAAE80, void, Object_1_DestroyImmediate_1, (app::Object_1* obj)); // -- check another one rva!!!

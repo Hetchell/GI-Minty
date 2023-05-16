@@ -1,5 +1,5 @@
-#include <Windows.h>
 #include <d3d11.h>
+#include <Windows.h>
 #pragma comment(lib, "d3d11.lib")
 #include <sstream>
 #include <iostream>
