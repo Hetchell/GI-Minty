@@ -40,7 +40,9 @@ bool Miscs_CheckTargetAttackableOff(app::BaseEntity* attacker, app::BaseEntity* 
 namespace il2fns {
 	void GodMode(bool value) {
 		if (value) {
+			HookManager::detach(VCHumanoidMove_NotifyLandVelocity_HookOff);
 			HookManager::install(app::VCHumanoidMove_NotifyLandVelocity, VCHumanoidMove_NotifyLandVelocity_HookOn);
+			HookManager::detach(MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUpOff);
 			HookManager::install(app::MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUpOn);
 		}
 		else {

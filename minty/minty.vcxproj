@@ -142,7 +142,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +162,7 @@
     <ClInclude Include="GUI\Sections.hpp" />
     <ClInclude Include="GUI\Translations.h" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
+    <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
     <ClInclude Include="IL2CPP\Functions\browser.h" />
     <ClInclude Include="IL2CPP\Functions\eleminf.h" />
     <ClInclude Include="IL2CPP\Functions\godmode.h" />
@@ -178,6 +180,7 @@
       <FileType>CppHeader</FileType>
     </ClInclude>
     <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
+    <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />

@@ -17,6 +17,7 @@
 #include "../IL2CPP/Functions/infinitystamina.h"
 #include "../IL2CPP/Functions/godmode.h"
 #include "../IL2CPP/Functions/browser.h"
+#include "../IL2CPP/Functions/breastsizer.h"
 
 #include "../Lua/function.h"
 
@@ -144,6 +145,33 @@ namespace Sections {
                 il2fns::GodMode(true);
             else
                 il2fns::GodMode(false);
+        }
+
+        static bool ifBreast = false;
+        static float breastSize = 1;
+        ImGui::Checkbox("Resize breast", &ifBreast);
+        ImGui::SameLine();
+        HelpMarker("Unlocks your framerate to defined target FPS.");
+        if (ifBreast) {
+            ImGui::Indent();
+            if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
+                __try {
+                    il2fns::ScaleBreast();
+                }
+                __except (EXCEPTION_EXECUTE_HANDLER) {
+                    util::log(2, "err 0x%08x", GetExceptionCode());
+                }
+            }
+
+            ImGui::SameLine();
+            HelpMarker("Changes size of avatar's breasts. Doesn't work on characters, that have no breasts. You understood me.");
+
+            ImGui::SameLine();
+            if (ImGui::Button("Reset")) {
+                breastSize = 1.0;
+                il2fns::ScaleBreast();
+            }
+            ImGui::Unindent();
         }
     }
 

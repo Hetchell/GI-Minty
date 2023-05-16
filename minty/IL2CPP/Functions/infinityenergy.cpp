@@ -16,9 +16,13 @@ static bool LCAvatarCombat_IsEnergyMaxOff(void* __this) {
 
 namespace il2fns {
 	void Infinity__Energy(bool value) {
-		if (value)
+		if (value) {
+			HookManager::detach(LCAvatarCombat_IsEnergyMaxOff);
 			HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMaxOn);
-		else
+		}
+		else {
+			HookManager::detach(LCAvatarCombat_IsEnergyMaxOn);
 			HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMaxOff);
+		}
 	}
 }

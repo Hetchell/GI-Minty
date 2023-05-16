@@ -32,3 +32,15 @@ DO_APP_FUNC(0x07AB0190, void, set_localScale, (app::Transform* __this, app::Vect
 DO_APP_FUNC(0x07AB0180, void, set_localRotation, (app::Transform* __this, app::Quaternion value));
 DO_APP_FUNC(0x07B7F390, app::Component_1*, AddComponentInternal, (GameObject* __this, void* className));
 DO_APP_FUNC(0x07AAAE80, void, Object_1_DestroyImmediate_1, (app::Object_1* obj)); // -- check another one rva!!!
+DO_APP_FUNC(0x07A8EDE0, app::GameObject*, Component_1_get_gameObject, (app::Component_1* __this));
+DO_APP_FUNC(0x07AAEA10, app::Transform*, Transform_GetChild, (app::Transform* __this, int32_t index));
+DO_APP_FUNC(0x07B7F910, bool, GameObject_get_active, (app::GameObject* __this));
+DO_APP_FUNC(0x07AAFE10, app::Transform*, Transform_get_parent, (app::Transform* __this));
+DO_APP_FUNC(0x07AAFD20, app::Vector3, Transform_get_localScale, (app::Transform* __this));
+DO_APP_FUNC(0x07AAB5C0, app::String*, Object_1_get_name, (app::Object_1* __this));
+DO_APP_FUNC(0x07AAFEF0, app::Quaternion, Transform_get_rotation, (app::Transform* __this));
+DO_APP_FUNC(0x07AAFE20, app::Vector3, Transform_get_position, (app::Transform* __this));
+DO_APP_FUNC(0x07AB01B0, void, Transform_set_parent, (app::Transform* __this, app::Transform* value));
+DO_APP_FUNC(0x07AAEBD0, void, Transform_set_rotation, (app::Transform* __this, app::Quaternion value));
+DO_APP_FUNC(0x07AAEBC0, void, Transform_set_position, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x07B7F8C0, void, GameObject__ctor, (app::GameObject* __this, void* name)); // -- check another 2 rvas!!!

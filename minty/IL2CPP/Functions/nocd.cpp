@@ -24,10 +24,13 @@ static bool LCAvatarCombat_IsSkillInCD_1Off(app::LCAvatarCombat* __this, app::LC
 
 namespace il2fns {
 	void LCAvatarCombat_NoCD(bool value) {
-		if (value)
+		if (value) {
+			HookManager::detach(LCAvatarCombat_IsSkillInCD_1Off);
 			HookManager::install(app::MoleMole_LCAvatarCombat_IsSkillInCD_1, LCAvatarCombat_IsSkillInCD_1On);
-		else
+		}
+		else {
 			HookManager::detach(LCAvatarCombat_IsSkillInCD_1On);
 			HookManager::install(app::MoleMole_LCAvatarCombat_IsSkillInCD_1, LCAvatarCombat_IsSkillInCD_1Off);
+		}
 	}
 }

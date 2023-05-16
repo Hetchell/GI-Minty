@@ -27,6 +27,7 @@
     <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
+    <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="IL2CPP\il2cppUtils.h" />
     <ClInclude Include="IL2CPP\Functions\noclip.h" />
     <ClInclude Include="IL2CPP\Functions\browser.h" />
+    <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

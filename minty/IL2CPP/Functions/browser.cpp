@@ -37,13 +37,6 @@ void CreateBrowser(float planeWidth, float planeHeight, std::string url, bool va
     }
 }
 
-//if (planeObject != nullptr && BrowserComponents != nullptr) {
-//    app::Object_1_DestroyImmediate_1(reinterpret_cast<app::Object_1*>(planeObject), nullptr);
-//    app::Object_1_DestroyImmediate_1(reinterpret_cast<app::Object_1*>(BrowserComponents), nullptr);
-//    planeObject = nullptr;
-//    BrowserComponents = nullptr;
-//}
-
 namespace il2fns {
 	void TurnBrowser(bool value, float scale, std::string url) {
         if (value)

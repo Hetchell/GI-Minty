@@ -14,9 +14,13 @@ static void MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValueOff(app::Mo
 
 namespace il2fns {
     void MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(bool value) {
-        if (value)
+        if (value) {
+            HookManager::detach(MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValueOff);
             HookManager::install(app::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValueOn);
-        else
+        }
+        else {
+            HookManager::detach(MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValueOn);
             HookManager::install(app::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValueOff);
+        }
     }
 }
