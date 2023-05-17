@@ -19,6 +19,7 @@
 #include "../IL2CPP/Functions/browser.h"
 #include "../IL2CPP/Functions/breastsizer.h"
 #include "../IL2CPP/Functions/fovchanger.h"
+#include "../IL2CPP/Functions/dumbenemies.h"
 
 #include "../Lua/function.h"
 
@@ -152,7 +153,7 @@ namespace Sections {
         static float breastSize = 1;
         ImGui::Checkbox("Resize breast", &ifBreast);
         ImGui::SameLine();
-        HelpMarker("Unlocks your framerate to defined target FPS.");
+        HelpMarker("Changes size of avatar's breasts.");
         if (ifBreast) {
             ImGui::Indent();
             if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
@@ -225,6 +226,14 @@ namespace Sections {
                 }
             }
             ImGui::Unindent();
+        }
+
+        static bool ifDumbAI = false;
+        if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
+            if (ifDumbAI)
+                il2fns::DumbEnemies(true);
+            else
+                il2fns::DumbEnemies(false);
         }
     }
 

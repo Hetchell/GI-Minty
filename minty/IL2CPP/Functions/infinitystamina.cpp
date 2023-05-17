@@ -29,14 +29,14 @@ namespace il2fns {
 			//if (ifvalue = false)
 				//HookManager::detach(DataItem_HandleNormalProp_HookOff);
 			HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_HookOn);
-			HookManager::install(app::VCHumanoidMove_MNKKEGMDFFO, VCHumanoidMove_Scara_HookOn);
+			HookManager::install(app::VCHumanoidMove_Scara, VCHumanoidMove_Scara_HookOn);
 		}
 		else {
 			//if (ifvalue = true)
 			HookManager::detach(DataItem_HandleNormalProp_HookOn);
 			HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_HookOff);
 			HookManager::detach(VCHumanoidMove_Scara_HookOn);
-			HookManager::install(app::VCHumanoidMove_MNKKEGMDFFO, VCHumanoidMove_Scara_HookOff);
+			HookManager::install(app::VCHumanoidMove_Scara, VCHumanoidMove_Scara_HookOff);
 		}
 	}
 }
