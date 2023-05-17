@@ -165,6 +165,7 @@
     <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
     <ClInclude Include="IL2CPP\Functions\browser.h" />
     <ClInclude Include="IL2CPP\Functions\eleminf.h" />
+    <ClInclude Include="IL2CPP\Functions\fovchanger.h" />
     <ClInclude Include="IL2CPP\Functions\godmode.h" />
     <ClInclude Include="IL2CPP\Functions\hideui.h" />
     <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
+    <ClCompile Include="IL2CPP\Functions\fovchanger.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
     <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
     <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />

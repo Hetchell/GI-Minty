@@ -28,6 +28,7 @@
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
+    <ClCompile Include="IL2CPP\Functions\fovchanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="IL2CPP\Functions\noclip.h" />
     <ClInclude Include="IL2CPP\Functions\browser.h" />
     <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
+    <ClInclude Include="IL2CPP\Functions\fovchanger.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

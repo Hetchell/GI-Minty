@@ -18,6 +18,7 @@
 #include "../IL2CPP/Functions/godmode.h"
 #include "../IL2CPP/Functions/browser.h"
 #include "../IL2CPP/Functions/breastsizer.h"
+#include "../IL2CPP/Functions/fovchanger.h"
 
 #include "../Lua/function.h"
 
@@ -428,6 +429,21 @@ namespace Sections {
             cc_b = infusion_col.z;
             cc_a = infusion_col.w;
 
+            ImGui::Unindent();
+        }
+
+        static bool iffov = false;
+        static float targetfov = 45;
+        if (ImGui::Checkbox("Change FOV", &iffov)) {
+            if (!iffov)
+                il2fns::ChangeFov(45.0f);
+        }
+        ImGui::SameLine();
+        HelpMarker("Changes camera Field Of View. (Default = 45.)");
+        if (iffov) {
+            ImGui::Indent();
+            if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
+                il2fns::ChangeFov(targetfov);                
             ImGui::Unindent();
         }
     }

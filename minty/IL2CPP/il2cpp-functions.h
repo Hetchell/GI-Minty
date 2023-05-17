@@ -44,3 +44,5 @@ DO_APP_FUNC(0x07AB01B0, void, Transform_set_parent, (app::Transform* __this, app
 DO_APP_FUNC(0x07AAEBD0, void, Transform_set_rotation, (app::Transform* __this, app::Quaternion value));
 DO_APP_FUNC(0x07AAEBC0, void, Transform_set_position, (app::Transform* __this, app::Vector3 value));
 DO_APP_FUNC(0x07B7F8C0, void, GameObject__ctor, (app::GameObject* __this, void* name)); // -- check another 2 rvas!!!
+DO_APP_FUNC(0x07ADBBA0, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
+DO_APP_FUNC(0x01097C70, void, VCHumanoidMove_MNKKEGMDFFO, (app::VCHumanoidMove* __this, float JJJEOEHLNGP));
