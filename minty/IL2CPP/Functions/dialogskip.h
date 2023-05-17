@@ -3,7 +3,6 @@
 #include "../HookManager.h"
 
 namespace il2fns {
-	void Change_UID(const char* uidText);
-	void ElemSight(bool value);
-	void ChestIndicator(bool value);
+	void CutsceneSkip(bool val);
+	void DialogSkip(bool val);
 }

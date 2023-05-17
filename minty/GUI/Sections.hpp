@@ -20,6 +20,7 @@
 #include "../IL2CPP/Functions/breastsizer.h"
 #include "../IL2CPP/Functions/fovchanger.h"
 #include "../IL2CPP/Functions/dumbenemies.h"
+#include "../IL2CPP/Functions/dialogskip.h"
 
 #include "../Lua/function.h"
 
@@ -464,6 +465,29 @@ namespace Sections {
             else
                 il2fns::ElemSight(false);
         }
+
+        static bool ifDialog = false;
+        if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
+            if (ifDialog)
+                il2fns::DialogSkip(true);
+            else
+                il2fns::DialogSkip(false);
+        }
+
+        static bool ifCSC = false;
+        if (ImGui::Checkbox("Skip cutscene", &ifCSC)) {
+            if (ifCSC)
+                il2fns::CutsceneSkip(true);
+            else
+                il2fns::CutsceneSkip(false);
+        }
+        //static bool ifChest = false;
+        //if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
+        //    if (ifElem)
+        //        il2fns::ChestIndicator(true);
+        //    else
+        //        il2fns::ChestIndicator(false);
+        //}
     }
 }
 

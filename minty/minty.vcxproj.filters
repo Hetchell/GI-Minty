@@ -29,6 +29,8 @@
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
     <ClCompile Include="IL2CPP\Functions\fovchanger.cpp" />
+    <ClCompile Include="IL2CPP\Functions\dumbenemies.cpp" />
+    <ClCompile Include="IL2CPP\Functions\dialogskip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -101,6 +103,8 @@
     <ClInclude Include="IL2CPP\Functions\browser.h" />
     <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
     <ClInclude Include="IL2CPP\Functions\fovchanger.h" />
+    <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
+    <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

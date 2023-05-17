@@ -48,3 +48,10 @@ DO_APP_FUNC(0x07ADBBA0, void, Camera_set_fieldOfView, (app::Camera* __this, floa
 DO_APP_FUNC(0x01097C70, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
 DO_APP_FUNC(0x037409D0, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
 DO_APP_FUNC(0x02AE9380, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
+DO_APP_FUNC(0x02505C20, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this)); // -- cant find
+DO_APP_FUNC(0x02504850, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this)); // -- cant find
+DO_APP_FUNC(0x01C69F10, void, MoleMole_InLevelCutScenePageContext_UpdateView, (app::InLevelCutScenePageContext* __this));
+DO_APP_FUNC(0x01C66CB0, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
+DO_APP_FUNC(0x03E9B900, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
+DO_APP_FUNC(0x03E9B7C0, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
+DO_APP_FUNC(0x01D226C0, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
