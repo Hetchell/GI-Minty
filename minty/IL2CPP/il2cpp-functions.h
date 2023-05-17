@@ -47,3 +47,4 @@ DO_APP_FUNC(0x07B7F8C0, void, GameObject__ctor, (app::GameObject* __this, void* 
 DO_APP_FUNC(0x07ADBBA0, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
 DO_APP_FUNC(0x01097C70, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
 DO_APP_FUNC(0x037409D0, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
+DO_APP_FUNC(0x02AE9380, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));

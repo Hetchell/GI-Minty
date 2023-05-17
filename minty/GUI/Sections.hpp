@@ -235,6 +235,7 @@ namespace Sections {
             else
                 il2fns::DumbEnemies(false);
         }
+
     }
 
     void Minigames() {
@@ -454,6 +455,14 @@ namespace Sections {
             if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
                 il2fns::ChangeFov(targetfov);                
             ImGui::Unindent();
+        }
+
+        static bool ifElem = false;
+        if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
+            if (ifElem)
+                il2fns::ElemSight(true);
+            else
+                il2fns::ElemSight(false);
         }
     }
 }
