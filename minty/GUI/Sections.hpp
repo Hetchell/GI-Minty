@@ -65,7 +65,7 @@ const char* get_ptr1(const T& value) {
 namespace Sections {
 
     void Player() {
-        ImGui::SeparatorText("Add separator text for each category of cheat here");
+        ImGui::SeparatorText("Debug");
 
         if (ImGui::Button("MoleMole Message DEBUG")) {
             if (GetModuleHandleA("UserAssembly.dll") != nullptr)
@@ -104,15 +104,13 @@ namespace Sections {
             static float avatarsize = 1.0f;
             ImGui::Indent();
 
-            if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f"))
-            {
+            if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f")) {
                 il2fns::Resize__Avatar(avatarsize);
             }
 
             ImGui::SameLine();
 
-            if (ImGui::Button("reset"))
-            {
+            if (ImGui::Button("reset")) {
                 il2fns::Resize__Avatar(1.0f);
             }
 
