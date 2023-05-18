@@ -12355,6 +12355,29 @@ typedef union Il2CppSingle_float
         Gadget = 0x0000000d,
     };
 
+    enum class Proto_VisionType__Enum : int32_t {
+        VisionNone = 0x00000000,
+        VisionMeet = 0x00000001,
+        VisionReborn = 0x00000002,
+        VisionReplace = 0x00000003,
+        VisionWaypointReborn = 0x00000004,
+        VisionMiss = 0x00000005,
+        VisionDie = 0x00000006,
+        VisionGatherEscape = 0x00000007,
+        VisionRefresh = 0x00000008,
+        VisionTransport = 0x00000009,
+        VisionReplaceDie = 0x0000000a,
+        VisionReplaceNoNotify = 0x0000000b,
+        VisionBorn = 0x0000000c,
+        VisionPickup = 0x0000000d,
+        VisionRemove = 0x0000000e,
+        VisionChangeCostume = 0x0000000f,
+        VisionFishRefresh = 0x00000010,
+        VisionFishBigShock = 0x00000011,
+        VisionFishQteSucc = 0x00000012,
+        CHECIGAOMEO = 0x00000013
+    };
+
     struct Proto_SceneEntityInfo__Fields {
         struct MessageBase_1__Fields _;
         Proto_ProtEntityType__Enum entityType_;
@@ -12376,12 +12399,61 @@ typedef union Il2CppSingle_float
         Proto_SceneEntityInfo_Proto_SceneEntityInfo_EntityOneofCase__Enum entityCase_;
     };
 
+    struct Proto_SceneEntityInfo__Array {
+        struct Proto_SceneEntityInfo__Array__Class* klass;
+        MonitorData* monitor;
+        Il2CppArrayBounds* bounds;
+        il2cpp_array_size_t max_length;
+        struct Proto_SceneEntityInfo* vector[32];
+    };
+
+    struct __declspec(align(8)) Google_Protobuf_MessageBase__Fields {
+        int32_t count;
+        uint8_t _flag;
+        int32_t recycleVersionStamp;
+    };
+
+    struct __declspec(align(8)) List_1_Proto_SceneEntityInfo___Fields {
+        struct Proto_SceneEntityInfo__Array* _items;
+        int32_t _size;
+        int32_t _version;
+    };
+
+    struct List_1_Proto_SceneEntityInfo_ {
+        struct List_1_Proto_SceneEntityInfo___Class* klass;
+        MonitorData* monitor;
+        struct List_1_Proto_SceneEntityInfo___Fields fields;
+    };
+
     struct Proto_SceneEntityInfo {
         struct Proto_SceneEntityInfo__Class* klass;
         MonitorData* monitor;
         struct Proto_SceneEntityInfo__Fields fields;
     };
 
+    struct __declspec(align(8)) Google_Protobuf_Collections_RepeatedMessageField_1_Proto_SceneEntityInfo___Fields {
+        struct List_1_Proto_SceneEntityInfo_* values;
+        bool _isInPool;
+        int32_t _count;
+    };
 
+    struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_SceneEntityInfo_ {
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_SceneEntityInfo___Class* klass;
+        MonitorData* monitor;
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_SceneEntityInfo___Fields fields;
+    };
+
+    struct Proto_SceneEntityAppearNotify__Fields {
+        struct Google_Protobuf_MessageBase__Fields f_;
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_SceneEntityInfo_* entityList_;
+        Proto_VisionType__Enum appearType_;
+        uint32_t param_;
+    };
+
+    struct Proto_SceneEntityAppearNotify {
+        struct Proto_SceneEntityAppearNotify__Class* klass;
+        MonitorData* monitor;
+        struct Proto_SceneEntityAppearNotify__Fields fields;
+    };
 
 #endif // IL2CPP_TYPES_H

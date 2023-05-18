@@ -55,3 +55,4 @@ DO_APP_FUNC(0x01C66CB0, void, MoleMole_InLevelCutScenePageContext_ClearView, (ap
 DO_APP_FUNC(0x03E9B900, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
 DO_APP_FUNC(0x03E9B7C0, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
 DO_APP_FUNC(0x01D226C0, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
+DO_APP_FUNC(0x014614E0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));

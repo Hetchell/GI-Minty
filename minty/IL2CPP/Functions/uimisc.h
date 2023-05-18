@@ -6,4 +6,5 @@ namespace il2fns {
 	void Change_UID(const char* uidText);
 	void ElemSight(bool value);
 	void ChestIndicator(bool value);
+	void OpenTeamImm(bool value);
 }

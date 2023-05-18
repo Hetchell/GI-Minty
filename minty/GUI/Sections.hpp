@@ -488,6 +488,10 @@ namespace Sections {
         //    else
         //        il2fns::ChestIndicator(false);
         //}
+       /* static bool ifOTI = false;
+        if (ImGui::Checkbox("Open team immediately", &ifOTI)) {
+            il2fns::OpenTeamImm(ifOTI);
+        }*/
     }
 }
 
