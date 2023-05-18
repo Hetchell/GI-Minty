@@ -1,28 +1,18 @@
 #include "infinityenergy.h"
 
-static bool LCAvatarCombat_IsEnergyMaxOn(void* __this) {
-	if (true)
+static bool ifenergy;
+static bool ifinit;
+static bool LCAvatarCombat_IsEnergyMax(void* __this) {
+	if (ifenergy)
 		return true;
 
-	return CALL_ORIGIN(LCAvatarCombat_IsEnergyMaxOn, __this);
-}
-
-static bool LCAvatarCombat_IsEnergyMaxOff(void* __this) {
-	if (true)
-		return false;
-
-	return CALL_ORIGIN(LCAvatarCombat_IsEnergyMaxOff, __this);
+	return CALL_ORIGIN(LCAvatarCombat_IsEnergyMax, __this);
 }
 
 namespace il2fns {
 	void Infinity__Energy(bool value) {
-		if (value) {
-			//HookManager::detach(LCAvatarCombat_IsEnergyMaxOff);
-			HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMaxOn);
-		}
-		else {
-			HookManager::detach(LCAvatarCombat_IsEnergyMaxOn);
-			HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMaxOff);
-		}
+		if (!ifinit)
+			HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMax); ifinit = true;
+		ifenergy = value;
 	}
 }

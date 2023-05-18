@@ -144,7 +144,7 @@ namespace Sections {
         }
 
         static bool ifGodmode = false;
-        if (ImGui::Checkbox("Godmode", &ifGodmode)) {
+        if (ImGui::Checkbox("No fall damage", &ifGodmode)) {
             if (ifGodmode)
                 il2fns::GodMode(true);
             else
@@ -404,12 +404,7 @@ namespace Sections {
 
         static bool ifpeeking = false;
         if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
-            if (ifpeeking) {
-                il2fns::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(true);
-            }
-            else {
-                il2fns::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(false);
-            }
+            il2fns::BootyFixer(ifpeeking);
         }
         ImGui::SameLine();
         HelpMarker(":3");
@@ -461,10 +456,7 @@ namespace Sections {
 
         static bool ifElem = false;
         if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
-            if (ifElem)
-                il2fns::ElemSight(true);
-            else
-                il2fns::ElemSight(false);
+            il2fns::ElemSight(ifElem);
         }
 
         static bool ifDialog = false;

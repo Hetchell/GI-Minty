@@ -1,10 +1,14 @@
 #include "dialogskip.h"
 
 static bool ifdia;
-static void CriwareMediaPlayer_UpdateOn(app::CriwareMediaPlayer* __this)
+static bool ifcsc;
+static bool ifdiainit;
+static bool ifcscinit;
+static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this)
 {
-    app::CriwareMediaPlayer_Skip(__this);
-    return CALL_ORIGIN(CriwareMediaPlayer_UpdateOn, __this);
+    if (ifcsc)
+        app::CriwareMediaPlayer_Skip(__this);
+    return CALL_ORIGIN(CriwareMediaPlayer_Update, __this);
 }
 
 void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
@@ -16,19 +20,13 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
     app::UnityEngine__set__Timescale(value);
 
     //if (!talkDialog->fields._inSelect)
-        //app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
+        //app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context); --- requires offset
 }
 
-static void InLevelCutScenePageContext_UpdateView_HookOn(app::InLevelCutScenePageContext* __this)
+static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)
 {
-    CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_HookOn, __this);
-    OnCutScenePageUpdate(__this, 5);
-}
-
-static void InLevelCutScenePageContext_UpdateView_HookOff(app::InLevelCutScenePageContext* __this)
-{
-    CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_HookOff, __this);
-    OnCutScenePageUpdate(__this, 1);
+    CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
+    OnCutScenePageUpdate(__this, ifcsc ? 5 : 0);
 }
 
 static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this)
@@ -38,30 +36,16 @@ static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageCo
 }
 
 namespace il2fns {
-    void DialogSkip(bool val) {
-        if (val) {
-            if (ifdia) {
-                HookManager::detach(InLevelCutScenePageContext_UpdateView_HookOff);
-                HookManager::detach(InLevelCutScenePageContext_ClearView_Hook);
-                ifdia = false;
-            }
-            HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_HookOn);
-            HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
-        }
-        else {
-            HookManager::detach(InLevelCutScenePageContext_UpdateView_HookOn);
-            HookManager::detach(InLevelCutScenePageContext_ClearView_Hook);
-            HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_HookOff);
-            ifdia = true;
-        }
+    void DialogSkip(bool value) {
+        if (!ifdiainit) {
+            HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
+            HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook); ifdiainit = true; }
+        ifdia = value;
     }
 
-    void CutsceneSkip(bool val) {
-        if (val) {
-            HookManager::install(app::CriwareMediaPlayer_Update, CriwareMediaPlayer_UpdateOn);
-        }
-        else {
-            HookManager::detach(CriwareMediaPlayer_UpdateOn);
-        }
+    void CutsceneSkip(bool value) {
+        if (!ifcscinit)
+            HookManager::install(app::CriwareMediaPlayer_Update, CriwareMediaPlayer_Update); ifcscinit = true;
+        ifcsc = value;
     }
 }

@@ -1,14 +1,9 @@
 #include "uimisc.h"
 
 static bool ifElem;
-static void LevelSceneElementViewPlugin_Tick_HookOn(app::LevelSceneElementViewPlugin* __this, float inDeltaTime) {
-     __this->fields._triggerElementView = true;
-    CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_HookOn, __this, inDeltaTime);
-}
-
-static void LevelSceneElementViewPlugin_Tick_HookOff(app::LevelSceneElementViewPlugin* __this, float inDeltaTime) {
-    __this->fields._triggerElementView = false;
-    CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_HookOff, __this, inDeltaTime);
+static void LevelSceneElementViewPlugin_Tick_Hook(app::LevelSceneElementViewPlugin* __this, float inDeltaTime) {
+     __this->fields._triggerElementView = ifElem;
+    CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_Hook, __this, inDeltaTime);
 }
 
 static bool ifChest;
@@ -62,18 +57,10 @@ namespace il2fns {
     }
 
     void ElemSight(bool value) {
-        if (value) {
-            if (ifElem) {
-                HookManager::detach(LevelSceneElementViewPlugin_Tick_HookOff);
-                ifElem = false;
-            }
-            HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_HookOn);
-        }
-        else {
-            HookManager::detach(LevelSceneElementViewPlugin_Tick_HookOn);
-            HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_HookOff);
-            ifElem = true;
-        }
+        static bool ifinit = false;
+        if (!ifinit)
+            HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook); ifinit = true;
+        ifElem = value;
     }
 
     void OpenTeamImm(bool value) {
@@ -85,7 +72,7 @@ namespace il2fns {
             HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOn);
         }
         else {
-            HookManager::detach(LevelSceneElementViewPlugin_Tick_HookOn);
+            HookManager::detach(LevelSceneElementViewPlugin_Tick_Hook);
             HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff);
             ifoti = true;
         }

@@ -3,5 +3,5 @@
 #include "../il2cpp-types.h"
 
 namespace il2fns {
-    void MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(bool value);
+    void BootyFixer(bool value);
 }
