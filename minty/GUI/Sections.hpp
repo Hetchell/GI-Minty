@@ -33,7 +33,7 @@
 //#include "../Lua/luahook.hpp"
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
-#include "../Lua/luahook.hpp"
+#include "../Lua/luahook.h"
 bool block_input = true;
 bool show_debug_metrics = false;
 bool show_debug_log = false;
@@ -46,6 +46,7 @@ std::vector<std::string> ModuleOrder = {
     "Player", 
     "World",
     "Misc",
+    "Lua Console",
     "Minigames",
     "Themes",
     "Debug",
@@ -429,7 +430,7 @@ namespace Sections {
 
             if (ImGui::Button("Change")) {
                 std::string result = char_eleminf + std::to_string(cc_r) + "," + std::to_string(cc_g) + "," + std::to_string(cc_b) + "," + std::to_string(cc_a) + char_eleminf_end;
-                //lua_runstr(result.c_str());
+                lua_runstr(result.c_str());
             }
             ImGui::SameLine();
 
@@ -493,6 +494,133 @@ namespace Sections {
             il2fns::OpenTeamImm(ifOTI);
         }*/
     }
+
+    void LuaConsole() {
+
+        static TextEditor editor;
+        static bool initialized = false;
+
+        if (!initialized)
+        {
+            editor.SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
+            editor.SetPalette(TextEditor::GetDarkPalette());
+
+            editor.SetTabSize(4);
+            editor.SetShowWhitespaces(false);
+            editor.SetColorizerEnable(true);
+
+            initialized = true;
+        }
+
+        if (ImGui::Button("Run"))
+        {
+            std::string code = editor.GetText();
+            if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != std::string::npos)
+            {
+                if (true) {
+                    lua_runstr(code.c_str());
+                    if (last_ret_code == 0) {
+                        util::log(2, "compilation success: %s", last_tolstr);
+                    }
+                }
+                else {
+                    util::log(0, "Lua is not hooked", "");
+                }
+            }
+        }
+        ImGui::SameLine();
+        //saver to button below.
+
+        //static vector<pair<std::string, function<void()>>> buttonFuncs;
+        static char buttonLabel[256] = "";
+
+        if (ImGui::Button("Create new button")) {
+            ImGui::OpenPopup("New button");
+        }
+        ImGui::SameLine();
+        ImGui::Checkbox("Show log", &show_debug_log);
+
+        if (ImGui::BeginPopup("New button")) {
+            ImGui::InputText("Label", buttonLabel, 256);
+            if (ImGui::Button("Create")) {
+                std::string functionText = editor.GetText();
+                std::function<void()> buttonFunc = [functionText]() {
+                    lua_runstr(functionText.c_str());
+                };
+                //buttonFuncs.emplace_back(string(buttonLabel), buttonFunc);
+                memset(buttonLabel, 0, sizeof(buttonLabel));
+                ImGui::CloseCurrentPopup();
+            }
+            ImGui::EndPopup();
+        }
+
+        //ImGui::Begin("Minty");
+        //for (const auto& button : buttonFuncs) {
+        //    if (ImGui::Button(button.first.c_str())) {
+        //        button.second();
+        //    }
+        //}
+        //ImGui::End();
+
+        if (ImGui::BeginMenuBar())
+        {
+            //ImGui::InputText("##path3", path3, sizeof(path3));
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Load .lua file"))
+                {
+                }
+                ImGui::EndMenu();
+            }
+            /*if (FileDialog::file_dialog_open) {
+                FileDialog::ShowFileDialog(&FileDialog::file_dialog_open, file_dialog_buffer, sizeof(file_dialog_buffer), FileDialog::file_dialog_open_type);
+            }*/
+            if (ImGui::BeginMenu("Edit"))
+            {
+                bool ro = editor.IsReadOnly();
+                if (ImGui::MenuItem("Read-only mode", nullptr, &ro))
+                    editor.SetReadOnly(ro);
+                ImGui::Separator();
+
+                if (ImGui::MenuItem("Undo", "ALT-Backspace", nullptr, !ro && editor.CanUndo()))
+                    editor.Undo();
+                if (ImGui::MenuItem("Redo", "Ctrl-Y", nullptr, !ro && editor.CanRedo()))
+                    editor.Redo();
+
+                ImGui::Separator();
+
+                if (ImGui::MenuItem("Copy", "Ctrl-C", nullptr, editor.HasSelection()))
+                    editor.Copy();
+                if (ImGui::MenuItem("Cut", "Ctrl-X", nullptr, !ro && editor.HasSelection()))
+                    editor.Cut();
+                if (ImGui::MenuItem("Delete", "Del", nullptr, !ro && editor.HasSelection()))
+                    editor.Delete();
+                if (ImGui::MenuItem("Paste", "Ctrl-V", nullptr, !ro && ImGui::GetClipboardText() != nullptr))
+                    editor.Paste();
+
+                ImGui::Separator();
+
+                if (ImGui::MenuItem("Select all", nullptr, nullptr))
+                    editor.SetSelection(TextEditor::Coordinates(), TextEditor::Coordinates(editor.GetTotalLines(), 0));
+
+                ImGui::EndMenu();
+            }
+
+            if (ImGui::BeginMenu("View"))
+            {
+                if (ImGui::MenuItem("Dark palette"))
+                    editor.SetPalette(TextEditor::GetDarkPalette());
+                if (ImGui::MenuItem("Light palette"))
+                    editor.SetPalette(TextEditor::GetLightPalette());
+                if (ImGui::MenuItem("Retro blue palette"))
+                    editor.SetPalette(TextEditor::GetRetroBluePalette());
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenuBar();
+        }
+
+        editor.Render("TextEditor");
+    }
 }
 
 using DrawFunction = void(*)();
@@ -501,6 +629,7 @@ const std::unordered_map<std::string, DrawFunction> SectionMap = {
     {"Player", &Sections::Player},
     {"World", &Sections::World},
     {"Misc", &Sections::Misc},
+    {"Lua Console", &Sections::LuaConsole},
     {"Minigames", &Sections::Minigames},
     {"About", &Sections::About},
     {"Themes", &Sections::Themes},

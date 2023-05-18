@@ -10,7 +10,8 @@
 namespace {
     std::string il2cppi_to_string(app::Il2CppString* str) {
         std::u16string u16(reinterpret_cast<const char16_t*>(str->chars));
-        return std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.to_bytes(u16);
+        //return std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.to_bytes(u16);
+        return "1";
     }
 //std::string il2cppi_to_string(app::Il2CppString* str) {
 //    const char16_t* u16 = reinterpret_cast<const char16_t*>(str->chars);

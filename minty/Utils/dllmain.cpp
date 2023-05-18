@@ -2,7 +2,7 @@
 #include "../IL2CPP/il2cpp-init.hpp"
 #include "../DirectX/D3D11Hook.hpp"
 //#include "../Lua/luahook.hpp"
-#include "../Lua/luahook.hpp"
+#include "../Lua/luahook.h"
 
 DWORD WINAPI MainThread(LPVOID lpReserved) {
 	AllocConsole();
@@ -18,19 +18,12 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
 	init_il2cpp();
 
-	util::log(4, "Starting");
-
-	while (!FindWindowA("UnityWndClass", nullptr))  Sleep(1000);
-
-	DisableVMP();
-	get_gi_L();
-
 	return 0;
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 	if (fdwReason == DLL_PROCESS_ATTACH) {
-		//(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
+		(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
 		CreateThread(NULL, 0, &MainThread, NULL, NULL, NULL);
 	}
 	return TRUE;
