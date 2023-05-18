@@ -37,9 +37,7 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 
 // Main D3D11 Objects
 ID3D11DeviceContext* pContext = NULL;
-namespace {
-	ID3D11Device* pDevice = NULL;
-}
+namespace { ID3D11Device* pDevice = NULL; }
 ID3D11RenderTargetView* mainRenderTargetView;
 static IDXGISwapChain* pSwapChain = NULL;
 static WNDPROC OriginalWndProcHandler = nullptr;
@@ -50,20 +48,18 @@ bool LoadTextureFromResources(LPCTSTR resource_name, LPCTSTR resource_type, ID3D
 	if (pDevice == nullptr)
 		return false;
 
-	HMODULE hModuleF = GetModuleHandle("minty.dll");
+	HMODULE hModuleF = GetModuleHandleA("minty.dll");
 	//HMODULE hModuleF;
 	// Find the resource handle within the DLL
 	HRSRC hResource = FindResource(hModuleF, resource_name, resource_type);
-	if (!hResource)
-	{
+	if (!hResource) {
 		// Resource not found
 		return false;
 	}
 
 	// Load the resource data
 	HGLOBAL hMemory = LoadResource(hModuleF, hResource);
-	if (!hMemory)
-	{
+	if (!hMemory) {
 		// Failed to load resource
 		return false;
 	}

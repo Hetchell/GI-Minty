@@ -7,11 +7,12 @@
 
 static ImGuiTextBuffer log_textbuf;
 
+
 namespace util {
     
     template <typename T>
     const char* get_ptr(const T& value) {
-        std::stringstream ss;
+		std::stringstream ss;
         ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
         static std::string result = ss.str();
         return result.c_str();
