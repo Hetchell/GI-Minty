@@ -1,5 +1,2 @@
 # M
-TODO: Add a detailed description here.
-
-## Current high-priority issues
-- https://github.com/kindawindytoday/M/issues/1
+new dynamically-loading tool for "园什“ 
