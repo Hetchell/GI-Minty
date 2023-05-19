@@ -35,51 +35,54 @@
 #include "../Utils/Utils.hpp"
 #include "../Lua/luahook.h"
 #include "../Json/json.hpp"
-bool block_input = true;
-bool show_debug_metrics = false;
-bool show_debug_log = false;
+
+#include "../Config/ConfigManager.hpp"
+// bool block_input = true;
+// bool show_debug_metrics = false;
+// bool show_debug_log = false;
+
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
-nlohmann::json cfgjsonobj;
+//nlohmann::json cfgjsonobj;
 
-void saveFuncStateToJson(std::string funcName, bool state) {
-    std::ifstream config_file("minty");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
+// void saveFuncStateToJson(std::string funcName, bool state) {
+//     std::ifstream config_file("minty");
+//     nlohmann::json config_json;
+//     config_file >> config_json;
+//     config_file.close();
 
-    cfgjsonobj["functions"][funcName] = state;
-    config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
-    merged_file << config_json.dump(4);
-    merged_file.close();
-}
+//     cfgjsonobj["functions"][funcName] = state;
+//     config_json.merge_patch(cfgjsonobj);
+//     std::ofstream merged_file("minty");
+//     merged_file << config_json.dump(4);
+//     merged_file.close();
+// }
 
-void saveFuncStateToJson(std::string funcName, float state) {
-    std::ifstream config_file("minty");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
+// void saveFuncStateToJson(std::string funcName, float state) {
+//     std::ifstream config_file("minty");
+//     nlohmann::json config_json;
+//     config_file >> config_json;
+//     config_file.close();
 
-    cfgjsonobj["functions"][funcName] = state;
-    config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
-    merged_file << config_json.dump(4);
-    merged_file.close();
-}
+//     cfgjsonobj["functions"][funcName] = state;
+//     config_json.merge_patch(cfgjsonobj);
+//     std::ofstream merged_file("minty");
+//     merged_file << config_json.dump(4);
+//     merged_file.close();
+// }
 
-void saveFuncStateToJson(std::string funcName, int state) {
-    std::ifstream config_file("minty");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
+// void saveFuncStateToJson(std::string funcName, int state) {
+//     std::ifstream config_file("minty");
+//     nlohmann::json config_json;
+//     config_file >> config_json;
+//     config_file.close();
 
-    cfgjsonobj["functions"][funcName] = state;
-    config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
-    merged_file << config_json.dump(4);
-    merged_file.close();
-}
+//     cfgjsonobj["functions"][funcName] = state;
+//     config_json.merge_patch(cfgjsonobj);
+//     std::ofstream merged_file("minty");
+//     merged_file << config_json.dump(4);
+//     merged_file.close();
+// }
 
 ImGuiID textureID = 0;
 
@@ -95,13 +98,13 @@ std::vector<std::string> ModuleOrder = {
     "Settings"
 };
 
-template <typename T>
-const char* get_ptr1(const T& value) {
-    std::stringstream ss;
-    ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
-    static std::string result = ss.str();
-    return result.c_str();
-}
+// template <typename T>
+// const char* util::get_ptr(const T& value) {
+//     std::stringstream ss;
+//     ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
+//     static std::string result = ss.str();
+//     return result.c_str();
+// }
 
 namespace Sections {
 
@@ -123,16 +126,16 @@ namespace Sections {
 
                 baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
                 if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
-                    util::log(2, "now ua ptr: %s", get_ptr1(baseAddress1));
+                    util::log(2, "now ua ptr: %s", util::get_ptr(baseAddress1));
                 }
             }
             else {
-                util::log(1, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandleA("UserAssembly.dll")));
-                util::log(1, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1));
-                util::log(1, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")));
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandleA("UserAssembly.dll") )});
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1) });
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")) });
+                util::log(1, "first var of ptr is just getmodule: %s", util::get_ptr(GetModuleHandleA("UserAssembly.dll")));
+                util::log(1, "second var of ptr is baseAddress from il2i: %s", util::get_ptr(baseAddress1));
+                util::log(1, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")));
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", util::get_ptr(GetModuleHandleA("UserAssembly.dll") )});
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", util::get_ptr(baseAddress1) });
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")) });
             }
         }
         

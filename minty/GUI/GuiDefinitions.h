@@ -1,12 +1,7 @@
-//#pragma once
-//#include <D3D11.h>
-//#pragma comment(lib, "d3d11.lib")
-//#pragma comment(lib, "winmm.lib")
-//#pragma comment(lib, "detours.lib")
+#pragma once
 
-extern bool g_ShowMenu;
-extern bool block_input;
-extern bool show_debug_metrics;
-extern bool show_style_editor;
-extern bool show_debug_log;
-//extern ID3D11Device* pDevice;
+static bool g_ShowMenu = true;
+static bool block_input = true;
+static bool show_debug_metrics;
+static bool show_style_editor;
+static bool show_debug_log;
