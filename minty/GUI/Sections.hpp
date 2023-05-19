@@ -21,6 +21,7 @@
 #include "../IL2CPP/Functions/fovchanger.h"
 #include "../IL2CPP/Functions/dumbenemies.h"
 #include "../IL2CPP/Functions/dialogskip.h"
+#include "../IL2CPP/Functions/noclip.h"
 
 #include "../Lua/function.h"
 
@@ -206,6 +207,12 @@ namespace Sections {
             }
             ImGui::Unindent();
         }
+
+        //static bool ifnoclip = false;
+        //if (ImGui::Checkbox("Noclip", &ifnoclip)) {
+        //    saveFuncStateToJson("Noclip", ifnoclip);
+        //    il2fns::OnNoclip(ifnoclip);
+        //}
     }
 
     static float TimeScale = 1.0f;
@@ -359,7 +366,9 @@ namespace Sections {
         ImGui::InputText("gentyp", gentyp, 256);
 
         if (ImGui::Button("scan patterns")) {
-            //util::log(2, "defind is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)defind)));
+            util::log(2, "defind is: %p", PatternScan("UserAssembly.dll", (LPCSTR)defind));
+            util::log(2, "defind is: %s", PatternScan("UserAssembly.dll", (LPCSTR)defind));
+            util::log(2, "defind is: %i", PatternScan("UserAssembly.dll", (LPCSTR)defind));
             //util::log(2, "getnam is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getnam)));
             //util::log(2, "getmed is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getmed)));
             //util::log(2, "gentyp is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)gentyp)));

@@ -57,3 +57,11 @@ DO_APP_FUNC(0x03E9B7C0, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer*
 DO_APP_FUNC(0x01D226C0, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x014614E0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x03943830, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
+DO_APP_FUNC(0x07A11690, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
+DO_APP_FUNC(0x07A11670, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, CollisionDetectionMode__Enum value));
+DO_APP_FUNC(0x07AAF810, void, Transform_Translate, (app::Transform* __this, app::Vector3));
+DO_APP_FUNC(0x041956C0, app::Vector3, MoleMole_BaseEntity_GetForward, (app::BaseEntity* __this));
+DO_APP_FUNC(0x04173F80, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEntity* __this));
+DO_APP_FUNC(0x01EC83D0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
+DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
+DO_APP_FUNC(0x07B813B0, float, Time_get_deltaTime, ());
