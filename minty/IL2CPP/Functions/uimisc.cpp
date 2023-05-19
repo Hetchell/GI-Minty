@@ -32,6 +32,13 @@ static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNex
     return CALL_ORIGIN(MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff, __this);
 }
 
+static float zoomval;
+void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data)
+{
+    data->currentWarningLocateRatio = static_cast<double>(zoomval);
+    CALL_ORIGIN(SCameraModuleInitialize_SetWarningLocateRatio_Hook, __this, deltaTime, data);
+}
+
 namespace il2fns {
 	void Change_UID(const char* uidText) {
         app::GameObject* uidTextObj = app::UnityEngine__GameObject__Find(il2cpp_string_new("/BetaWatermarkCanvas(Clone)/Panel/TxtUID"));
@@ -76,5 +83,12 @@ namespace il2fns {
             HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff);
             ifoti = true;
         }
+    }
+
+    void CameraZoom(float value) {
+        static bool ifinit;
+        if (!ifinit)
+            HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook); ifinit = true;
+        zoomval = value;
     }
 }

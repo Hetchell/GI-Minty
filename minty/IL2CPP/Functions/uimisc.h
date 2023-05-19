@@ -7,4 +7,5 @@ namespace il2fns {
 	void ElemSight(bool value);
 	void ChestIndicator(bool value);
 	void OpenTeamImm(bool value);
+	void CameraZoom(float value);
 }
