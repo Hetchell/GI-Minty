@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClCompile Include="Utils\TelemetryBlocker.cpp" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
     <ClInclude Include="GUI\GuiDefinitions.h" />
@@ -272,6 +273,7 @@
     <ClInclude Include="Lua\lzio.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
+    <ClInclude Include="Utils\TelemetryBlocker.h" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>
