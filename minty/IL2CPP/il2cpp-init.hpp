@@ -89,7 +89,7 @@ VOID init_il2cpp() {
 		Sleep(1000);
 		baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 		if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
-			util::log(2, "now ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
+			util::log(2, "now ua ptr: %s; up ptr: %s", util::get_ptr(baseAddress), util::get_ptr(unityPlayerAddress));
 
 		#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + a)
 		#include "il2cpp-api-functions.h"

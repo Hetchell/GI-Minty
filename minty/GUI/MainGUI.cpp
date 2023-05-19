@@ -1,5 +1,5 @@
 #include "MainGUI.h"
-#include "../Utils/ExtraGuiFuncs.hpp"
+#include "../Utils/GuiUtils.hpp"
 #include "Sections.hpp"
 #include "GuiDefinitions.h"
 //#include "../Themes/Fonts/fontsloader.h"

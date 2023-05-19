@@ -7,7 +7,6 @@
 
 static ImGuiTextBuffer log_textbuf;
 
-
 namespace util {
     
     template <typename T>

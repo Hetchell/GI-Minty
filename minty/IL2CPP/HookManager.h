@@ -1,6 +1,6 @@
 #include <windows.h>
 #pragma once
-#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
+//#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #define WIN32_LEAN_AND_MEAN
 #include <filesystem>
 #include <fstream>

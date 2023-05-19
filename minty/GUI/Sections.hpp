@@ -1,7 +1,7 @@
 #pragma once
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+//#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include "MainGUI.h"
-#include "../Utils/ExtraGuiFuncs.hpp"
+#include "../Utils/GuiUtils.hpp"
 
 #include "../Games/games.h"
 
@@ -221,7 +221,7 @@ namespace Sections {
             ImGui::InputTextWithHint("Browser URL", "Input Browser URL", browserUrlBuf, 256);
 
             if (ImGui::Button("Create")) {
-                if (browserSize != 0 && browserUrlBuf != "") {
+                if (browserSize != 0 && strcmp(browserUrlBuf, "")) {
                     il2fns::TurnBrowser(true, browserSize, browserUrlBuf);
                 }
             }

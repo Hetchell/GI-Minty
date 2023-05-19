@@ -273,7 +273,7 @@ namespace {
         freopen("CONOUT$", "w", stdout);
         freopen("CONOUT$", "w", stderr);
 
-        util::log(2, "Starting", "");
+        util::log(2, "Initializing Lua", "");
         //auto dir = get_scripts_folder();
 
         while (!FindWindowA("UnityWndClass", nullptr))  Sleep(1000);
