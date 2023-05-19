@@ -26,7 +26,7 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)
 {
     CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
-    OnCutScenePageUpdate(__this, ifcsc ? 5 : 0);
+    OnCutScenePageUpdate(__this, ifcsc ? 5.0f : 0.0f);
 }
 
 static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this)

@@ -1,5 +1,3 @@
-
-
 #include "../GUI/MainGUI.h"
 // Check windows
 #if _WIN32 || _WIN64
@@ -135,7 +133,7 @@ LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 			return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam); // let the main app handle the input
 		}
 	}
-	else if (block_input == false) {
+	else {
 		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
 			return true;
 
