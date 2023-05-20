@@ -65,9 +65,9 @@ void LoadThemes() {
         colors[ImGuiCol_ResizeGripActive] = ImVec4(0.04f, 0.58f, 0.06f, 0.88f);
         colors[ImGuiCol_TabHovered] = ImVec4(0.42f, 0.94f, 0.43f, 0.61f);
         colors[ImGuiCol_TabActive] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
-        colors[ImGuiCol_NavHighlight] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
-        util::log(2, "Themes initialized.");
+        colors[ImGuiCol_NavHighlight] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f); //test thing i wont hardcode i will load from themes.cpp
+        util::log(2, "Loading theme (name here)");
 }
 void LoadFonts() {
-    util::log(2, "Fonts initialized (fake, debug :screm)");
+    util::log(2, "Loading font (name here)");
 }

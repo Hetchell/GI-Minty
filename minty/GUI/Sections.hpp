@@ -1,7 +1,7 @@
 #pragma once
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+//#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include "MainGUI.h"
-#include "../Utils/ExtraGuiFuncs.hpp"
+#include "../Utils/GuiUtils.hpp"
 
 #include "../Games/games.h"
 
@@ -34,11 +34,55 @@
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
 #include "../Lua/luahook.h"
-bool block_input = true;
-bool show_debug_metrics = false;
-bool show_debug_log = false;
+#include "../Json/json.hpp"
+
+#include "../Config/ConfigManager.hpp"
+// bool block_input = true;
+// bool show_debug_metrics = false;
+// bool show_debug_log = false;
+
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
+//nlohmann::json cfgjsonobj;
+
+// void saveFuncStateToJson(std::string funcName, bool state) {
+//     std::ifstream config_file("minty");
+//     nlohmann::json config_json;
+//     config_file >> config_json;
+//     config_file.close();
+
+//     cfgjsonobj["functions"][funcName] = state;
+//     config_json.merge_patch(cfgjsonobj);
+//     std::ofstream merged_file("minty");
+//     merged_file << config_json.dump(4);
+//     merged_file.close();
+// }
+
+// void saveFuncStateToJson(std::string funcName, float state) {
+//     std::ifstream config_file("minty");
+//     nlohmann::json config_json;
+//     config_file >> config_json;
+//     config_file.close();
+
+//     cfgjsonobj["functions"][funcName] = state;
+//     config_json.merge_patch(cfgjsonobj);
+//     std::ofstream merged_file("minty");
+//     merged_file << config_json.dump(4);
+//     merged_file.close();
+// }
+
+// void saveFuncStateToJson(std::string funcName, int state) {
+//     std::ifstream config_file("minty");
+//     nlohmann::json config_json;
+//     config_file >> config_json;
+//     config_file.close();
+
+//     cfgjsonobj["functions"][funcName] = state;
+//     config_json.merge_patch(cfgjsonobj);
+//     std::ofstream merged_file("minty");
+//     merged_file << config_json.dump(4);
+//     merged_file.close();
+// }
 
 ImGuiID textureID = 0;
 
@@ -54,13 +98,13 @@ std::vector<std::string> ModuleOrder = {
     "Settings"
 };
 
-template <typename T>
-const char* get_ptr1(const T& value) {
-    std::stringstream ss;
-    ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
-    static std::string result = ss.str();
-    return result.c_str();
-}
+// template <typename T>
+// const char* util::get_ptr(const T& value) {
+//     std::stringstream ss;
+//     ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
+//     static std::string result = ss.str();
+//     return result.c_str();
+// }
 
 namespace Sections {
 
@@ -82,16 +126,16 @@ namespace Sections {
 
                 baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
                 if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
-                    util::log(2, "now ua ptr: %s", get_ptr1(baseAddress1));
+                    util::log(2, "now ua ptr: %s", util::get_ptr(baseAddress1));
                 }
             }
             else {
-                util::log(1, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandleA("UserAssembly.dll")));
-                util::log(1, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1));
-                util::log(1, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")));
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", get_ptr1(GetModuleHandleA("UserAssembly.dll") )});
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", get_ptr1(baseAddress1) });
-                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", get_ptr1(GetModuleHandleW(L"UserAssembly.dll")) });
+                util::log(1, "first var of ptr is just getmodule: %s", util::get_ptr(GetModuleHandleA("UserAssembly.dll")));
+                util::log(1, "second var of ptr is baseAddress from il2i: %s", util::get_ptr(baseAddress1));
+                util::log(1, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")));
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", util::get_ptr(GetModuleHandleA("UserAssembly.dll") )});
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", util::get_ptr(baseAddress1) });
+                ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")) });
             }
         }
         
@@ -119,34 +163,26 @@ namespace Sections {
 
         static bool ifEnergy = false;
         if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
-            if (ifEnergy)
-                il2fns::Infinity__Energy(true);
-            else
-                il2fns::Infinity__Energy(false);
+            saveFuncStateToJson("InfBurst", ifEnergy);
+            il2fns::Infinity__Energy(ifEnergy);
         }
 
         static bool ifNOCD = false;
         if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
-            if (ifNOCD)
-                il2fns::LCAvatarCombat_NoCD(true);
-            else
-                il2fns::LCAvatarCombat_NoCD(false);
+            saveFuncStateToJson("NoCD", ifNOCD);
+            il2fns::LCAvatarCombat_NoCD(ifNOCD);
         }
 
         static bool ifInfStamina = false;
         if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
-            if (ifInfStamina)
-                il2fns::Infinity_Stamina(true);
-            else
-                il2fns::Infinity_Stamina(false);
+            saveFuncStateToJson("InfStamina", ifInfStamina);
+            il2fns::Infinity_Stamina(ifInfStamina);
         }
 
         static bool ifGodmode = false;
         if (ImGui::Checkbox("No fall damage", &ifGodmode)) {
-            if (ifGodmode)
-                il2fns::GodMode(true);
-            else
-                il2fns::GodMode(false);
+            saveFuncStateToJson("NoFallDmg", ifGodmode);
+            il2fns::GodMode(ifGodmode);
         }
 
         static bool ifBreast = false;
@@ -157,12 +193,7 @@ namespace Sections {
         if (ifBreast) {
             ImGui::Indent();
             if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
-                __try {
-                    il2fns::ScaleBreast();
-                }
-                __except (EXCEPTION_EXECUTE_HANDLER) {
-                    util::log(2, "err 0x%08x", GetExceptionCode());
-                }
+                il2fns::ScaleBreast();
             }
 
             ImGui::SameLine();
@@ -221,7 +252,7 @@ namespace Sections {
             ImGui::InputTextWithHint("Browser URL", "Input Browser URL", browserUrlBuf, 256);
 
             if (ImGui::Button("Create")) {
-                if (browserSize != 0 && browserUrlBuf != "") {
+                if (browserSize != 0 && strcmp(browserUrlBuf, "")) {
                     il2fns::TurnBrowser(true, browserSize, browserUrlBuf);
                 }
             }
@@ -230,10 +261,8 @@ namespace Sections {
 
         static bool ifDumbAI = false;
         if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
-            if (ifDumbAI)
-                il2fns::DumbEnemies(true);
-            else
-                il2fns::DumbEnemies(false);
+            saveFuncStateToJson("DumbEnemy", ifDumbAI);
+            il2fns::DumbEnemies(ifDumbAI);
         }
 
     }
@@ -368,7 +397,8 @@ namespace Sections {
             ImGui::Indent();
             // ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
 
-            ImGui::SliderInt("Target FPS",&targetfps, 1, 360);
+            if (ImGui::SliderInt("Target FPS", &targetfps, 1, 360))
+                saveFuncStateToJson("FPS", targetfps);
 
             static float fpsunlocktimer = 0.0f;
             fpsunlocktimer += ImGui::GetIO().DeltaTime;
@@ -381,12 +411,8 @@ namespace Sections {
 
         static bool hideui = false;
         if (ImGui::Checkbox("Hide UI", &hideui)) {
-            if (hideui) {
-                il2fns::Hide__UI(false);
-            }
-            else {
-                il2fns::Hide__UI(true);
-            }
+            saveFuncStateToJson("HideUI", hideui);
+            il2fns::Hide__UI(hideui);
         }
         ImGui::SameLine();
         HelpMarker("Hides all game UI.");
@@ -402,6 +428,7 @@ namespace Sections {
 
         static bool ifpeeking = false;
         if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
+            saveFuncStateToJson("Booty", ifpeeking);
             il2fns::BootyFixer(ifpeeking);
         }
         ImGui::SameLine();
@@ -448,29 +475,26 @@ namespace Sections {
         if (iffov) {
             ImGui::Indent();
             if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
-                il2fns::ChangeFov(targetfov);                
+                il2fns::ChangeFov(targetfov); saveFuncStateToJson("FOV", targetfov);
             ImGui::Unindent();
         }
 
         static bool ifElem = false;
         if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
+            saveFuncStateToJson("ElemSight", ifElem);
             il2fns::ElemSight(ifElem);
         }
 
         static bool ifDialog = false;
         if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
-            if (ifDialog)
-                il2fns::DialogSkip(true);
-            else
-                il2fns::DialogSkip(false);
+            saveFuncStateToJson("AutoTalk", ifDialog);
+            il2fns::DialogSkip(ifDialog);
         }
 
         static bool ifCSC = false;
         if (ImGui::Checkbox("Skip cutscene", &ifCSC)) {
-            if (ifCSC)
-                il2fns::CutsceneSkip(true);
-            else
-                il2fns::CutsceneSkip(false);
+            saveFuncStateToJson("CutsceneSkip", ifCSC);
+            il2fns::CutsceneSkip(ifCSC);
         }
         //static bool ifChest = false;
         //if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
@@ -483,6 +507,21 @@ namespace Sections {
         if (ImGui::Checkbox("Open team immediately", &ifOTI)) {
             il2fns::OpenTeamImm(ifOTI);
         }*/
+
+        static bool ifzoom = false;
+        static float targetzoom = 1;
+        if (ImGui::Checkbox("Change Camera Zoom", &ifzoom)) {
+            if (!ifzoom)
+                il2fns::CameraZoom(1.0);
+        }
+        ImGui::SameLine();
+        HelpMarker("Changes camera Field Of View. (Default = 45.)");
+        if (ifzoom) {
+            ImGui::Indent();
+            if (ImGui::SliderFloat("Target Zoom", &targetzoom, -10, 500))
+                il2fns::CameraZoom(targetzoom); saveFuncStateToJson("CameraZoom", targetzoom);
+            ImGui::Unindent();
+        }
     }
 
     void LuaConsole() {

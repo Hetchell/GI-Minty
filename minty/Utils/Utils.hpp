@@ -7,7 +7,6 @@
 
 static ImGuiTextBuffer log_textbuf;
 
-
 namespace util {
     
     template <typename T>
@@ -86,15 +85,14 @@ namespace util {
 	//	return 0;
 	//}
 
-	template< typename T >
-	std::string int_to_hex(T i)
-	{
-		std::stringstream stream;
-		stream << "0x"
-			<< std::setfill('0') << std::setw(sizeof(T) * 2)
-			<< std::hex << i;
-		return stream.str();
-	}
+	// template< typename T >
+	// std::string int_to_hex(T i) {
+	// 	std::stringstream stream;
+	// 	stream << "0x"
+	// 		<< std::setfill('0') << std::setw(sizeof(T) * 2)
+	// 		<< std::hex << i;
+	// 	return stream.str();
+	// }
 
 	//void DumpAddress(uint32_t start, long magic_a, long magic_b)
 	//{

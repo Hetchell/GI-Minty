@@ -56,3 +56,4 @@ DO_APP_FUNC(0x03E9B900, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlaye
 DO_APP_FUNC(0x03E9B7C0, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
 DO_APP_FUNC(0x01D226C0, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x014614E0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
+DO_APP_FUNC(0x03943830, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));

@@ -15,7 +15,6 @@
 
 #include "../Themes/Themeloader.hpp"
 
-bool g_ShowMenu = true;
 void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false) {
 	static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
 
@@ -45,6 +44,7 @@ namespace gui {
 
         //init notify
         MergeIconsWithLatestFont(16.f, false);
+
         LoadThemes();
         LoadFonts();
     }
@@ -56,7 +56,7 @@ namespace gui {
         ImGui::NewFrame();
 
         if (g_ShowMenu) {
-            bool bShow = true;
+            // bool bShow = true;
             gui::FrameLoadGui();
         }
 

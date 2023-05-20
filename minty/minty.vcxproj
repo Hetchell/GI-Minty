@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClCompile Include="Utils\TelemetryBlocker.cpp" />
+    <ClInclude Include="Config\ConfigManager.hpp" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
     <ClInclude Include="GUI\GuiDefinitions.h" />

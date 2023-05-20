@@ -161,6 +161,7 @@
     <ClInclude Include="Lua\lundump.h" />
     <ClInclude Include="Lua\lvm.h" />
     <ClInclude Include="Utils\TelemetryBlocker.h" />
+    <ClInclude Include="Config\ConfigManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

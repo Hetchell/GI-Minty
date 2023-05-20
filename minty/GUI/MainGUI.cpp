@@ -1,5 +1,5 @@
 #include "MainGUI.h"
-#include "../Utils/ExtraGuiFuncs.hpp"
+#include "../Utils/GuiUtils.hpp"
 #include "Sections.hpp"
 #include "GuiDefinitions.h"
 //#include "../Themes/Fonts/fontsloader.h"
@@ -28,8 +28,8 @@ namespace gui {
 
         ImGui::BeginGroup();
 
-        //ImGui::Checkbox("Block key/mouse", &block_input);
-           //util::log(2, "state is: %d", block_input);
+        // if(ImGui::Checkbox("Block key/mouse", &block_input))
+        //    util::log(2, "state is: %d", block_input);
 
         static int SelectedSection = 0;
         if (ImGui::ListBoxHeader("##CategorySelect", ImVec2(175, -FLT_MIN))) {

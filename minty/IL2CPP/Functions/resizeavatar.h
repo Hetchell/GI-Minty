@@ -1,7 +1,7 @@
 #include "../il2cpp-appdata.h"
 #include "../il2cpp-types.h"
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
+// #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+// #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #include <codecvt>
 
 namespace il2fns {
