@@ -234,7 +234,10 @@ namespace Sections {
 
     void Minigames() {
         ImGui::SeparatorText("Wordle");
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 1.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(6.00f, 6.00f));
         wordle_main();
+        ImGui::PopStyleVar(2);
 
         // ImGui::SeparatorText("Minesweeper");
 
@@ -267,29 +270,7 @@ namespace Sections {
 
     void Themes() {
         ImGui::SeparatorText("Theme colors");
-        //ImGui::TextDisabled("To do...");
-
-        // ImGui::TextDisabled("Add stuff here... theme customizer etc choose dropdwn");
-
-        // ImGui::SeparatorText("Fonts");
-
-        // ImGui::TextDisabled("Add font selector dropdown, & ttf loader");
-
-        // static bool ifEditor;
-        // ImGui::Checkbox("show theme editor", &ifEditor);
-
-        // if (ifEditor) {
-        //     ImGui::ShowStyleEditor();
-        // }
-
-        // ImGui::BeginCombo(
-        //     "Font", //Label
-        //     NULL
-        //     );
-
-        // ImGui::ShowStyleEditor();
-        //ImGui::Text("Theme colors");
-//////////////////////////////////////////////////////////////////////////
+        /*----------PLACEHOLDER----------*/
         static int themeIndex = 0;
 
         if (ImGui::RadioButton("Default dark", &themeIndex, 0)) {
@@ -324,7 +305,7 @@ namespace Sections {
 
         static int themestyleindex = 0;
 
-        if (ImGui::RadioButton("Rounded compact", &themestyleindex, 0)) {
+        if (ImGui::RadioButton("Minty", &themestyleindex, 0)) {
             setstyle(1);
         }
         
@@ -340,7 +321,7 @@ namespace Sections {
             setstyle(4);
         }
 
-        if (ImGui::RadioButton("Minty", &themestyleindex, 4)) {
+        if (ImGui::RadioButton("Rounded Compact", &themestyleindex, 4)) {
             setstyle(5);
         }
 
@@ -355,6 +336,10 @@ namespace Sections {
         	setfont(2);
         }
 
+        ImGui::SeparatorText("Custom styles");
+        ImGui::TextDisabled("DEBUG");
+        ImGui::Checkbox("Show Style Editor", &show_style_editor);
+        /*----------PLACEHOLDER----------*/
     }
     void Settings() {
         ImGui::Checkbox("Show ImGui's cursor", &ImGui::GetIO().MouseDrawCursor);
@@ -370,17 +355,11 @@ namespace Sections {
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
         ImGui::SeparatorText("Status");
+
         const char* hook_state_name[] = {"not hooked", "hooked"};
         ImVec4 hooked_name_color[] = {ImVec4(0.76078f, 0.219607f, 0.219607f, 1), ImVec4(0.12156f, 0.8f, 0.2f, 1.0f)};
-        ImGui::Text("il2cpp: ");
-        ImGui::SameLine();
-        ImGui::TextColored(hooked_name_color[static_cast<int>(is_il2cpp_hooked)], hook_state_name[static_cast<int>(is_il2cpp_hooked)]);
-        ImGui::Text("Lua: ");
-        ImGui::SameLine();
-        ImGui::TextColored(hooked_name_color[static_cast<int>(is_lua_hooked)], hook_state_name[static_cast<int>(is_lua_hooked)]);
-        ImGui::Text("il2cpp: ");
-        ImGui::SameLine();
-        ImGui::Text("state %i", static_cast<int>(is_lua_hooked));
+        ImGui::Text("il2cpp: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[static_cast<int>(is_il2cpp_hooked)], hook_state_name[static_cast<int>(is_il2cpp_hooked)]);
+        ImGui::Text("Lua: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[static_cast<int>(is_lua_hooked)], hook_state_name[static_cast<int>(is_lua_hooked)]);
 
         ImGui::SeparatorText("");
 
@@ -501,21 +480,21 @@ namespace Sections {
 
         ImGui::SeparatorText("Camera");
 
-        static bool iffov = false;
-        static float targetfov = 45;
-        if (ImGui::Checkbox("Change FOV", &iffov)) {
-            if (!iffov)
-                il2fns::ChangeFov(45.0f);
-        }
-        ImGui::SameLine();
-        HelpMarker("Changes camera Field Of View. (Default = 45.)");
-        if (iffov) {
-            ImGui::Indent();
-            if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
-                il2fns::ChangeFov(targetfov);
-            saveFuncStateToJson("FOV", targetfov);
-            ImGui::Unindent();
-        }
+        // static bool iffov = false;
+        // static float targetfov = 45;
+        // if (ImGui::Checkbox("Change FOV", &iffov)) {
+        //     if (!iffov)
+        //         il2fns::ChangeFov(45.0f);
+        // }
+        // ImGui::SameLine();
+        // HelpMarker("Changes camera Field Of View. (Default = 45.)");
+        // if (iffov) {
+        //     ImGui::Indent();
+        //     if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
+        //         il2fns::ChangeFov(targetfov);
+        //     saveFuncStateToJson("FOV", targetfov);
+        //     ImGui::Unindent();
+        // }
 
         static bool ifElem = false;
         if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
@@ -534,6 +513,7 @@ namespace Sections {
             saveFuncStateToJson("CutsceneSkip", ifCSC);
             il2fns::CutsceneSkip(ifCSC);
         }
+
         // static bool ifChest = false;
         // if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
         //     if (ifElem)
@@ -552,6 +532,7 @@ namespace Sections {
             if (!ifzoom)
                 il2fns::CameraZoom(1.0);
         }
+
         ImGui::SameLine();
         HelpMarker("Changes camera Field Of View. (Default = 45.)");
         if (ifzoom) {
@@ -567,7 +548,6 @@ namespace Sections {
         ImGui::SeparatorText("Editor");
         ImGui::Checkbox("Show Lua editor", &show_lua_editor);
 
- 
     }
 
     void Outer() {
@@ -576,6 +556,14 @@ namespace Sections {
 
         if (show_debug_log)
             ShowDebugLog();
+
+        /*----------PLACEHOLDER----------*/
+        if (show_style_editor){
+            ImGui::Begin("Style Editor", &show_style_editor);
+            ImGui::ShowStyleEditor();
+            ImGui::End();
+        }
+        /*----------PLACEHOLDER----------*/
 
         if(show_lua_editor) {
             ImGui::Begin("Lua editor", &show_lua_editor, ImGuiWindowFlags_MenuBar);

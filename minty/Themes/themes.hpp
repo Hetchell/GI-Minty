@@ -67,8 +67,8 @@ void dark_theme() {
     colors[ImGuiCol_DragDropTarget] = ImVec4(0.33f, 0.67f, 0.86f, 1.00f);
     colors[ImGuiCol_NavHighlight] = ImVec4(1.00f, 0.00f, 0.00f, 1.00f);
     colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 0.00f, 0.00f, 0.70f);
-    colors[ImGuiCol_NavWindowingDimBg] = ImVec4(1.00f, 0.00f, 0.00f, 0.20f);
-    colors[ImGuiCol_ModalWindowDimBg] = ImVec4(1.00f, 0.00f, 0.00f, 0.35f);
+    colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.20f);
+    colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
 }
 
 void mint_theme() {
@@ -102,8 +102,8 @@ void mint_theme_light() {
     ImGui::StyleColorsLight();
     colors[ImGuiCol_CheckMark] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
     colors[ImGuiCol_SliderGrab] = ImVec4(0.10f, 0.85f, 0.12f, 0.61f);
-    colors[ImGuiCol_Button] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
-    colors[ImGuiCol_ButtonHovered] = ImVec4(0.52f, 0.99f, 0.54f, 0.61f);
+    colors[ImGuiCol_Button] = ImVec4(0.52f, 0.99f, 0.54f, 0.61f); 
+    colors[ImGuiCol_ButtonHovered] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
     colors[ImGuiCol_ButtonActive] = ImVec4(0.16f, 0.64f, 0.18f, 0.84f);
     colors[ImGuiCol_Header] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
     colors[ImGuiCol_HeaderHovered] = ImVec4(0.41f, 1.00f, 0.42f, 0.61f);
@@ -175,32 +175,6 @@ void minty_red_theme() {
     colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
     colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
     colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
-}
-
-void round_compact_style() {
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.WindowPadding = ImVec2(8.00f, 8.00f);
-    style.FramePadding = ImVec2(5.00f, 2.00f);
-    style.CellPadding = ImVec2(6.00f, 6.00f);
-    style.ItemSpacing = ImVec2(6.00f, 6.00f);
-    style.ItemInnerSpacing = ImVec2(6.00f, 6.00f);
-    style.TouchExtraPadding = ImVec2(0.00f, 0.00f);
-    style.IndentSpacing = 25;
-    style.ScrollbarSize = 15;
-    style.GrabMinSize = 10;
-    style.WindowBorderSize = 1;
-    style.ChildBorderSize = 1;
-    style.PopupBorderSize = 0;
-    style.FrameBorderSize = 1;
-    style.TabBorderSize = 1;
-    style.WindowRounding = 7;
-    style.ChildRounding = 4;
-    style.FrameRounding = 3;
-    style.PopupRounding = 4;
-    style.ScrollbarRounding = 9;
-    style.GrabRounding = 3;
-    style.LogSliderDeadzone = 4;
-    style.TabRounding = 4;
 }
 
 void big_style() {
@@ -281,12 +255,38 @@ void default_style() {
     style.CircleTessellationMaxError = 0.30f;
 }
 
+void round_compact_style() {
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.WindowPadding = ImVec2(8.00f, 8.00f);
+    //style.FramePadding = ImVec2(5.00f, 2.00f);
+    style.CellPadding = ImVec2(6.00f, 6.00f);
+    style.ItemSpacing = ImVec2(6.00f, 6.00f);
+    style.ItemInnerSpacing = ImVec2(6.00f, 6.00f);
+    style.TouchExtraPadding = ImVec2(0.00f, 0.00f);
+    style.IndentSpacing = 25;
+    style.ScrollbarSize = 15;
+    style.GrabMinSize = 10;
+    style.WindowBorderSize = 1;
+    style.ChildBorderSize = 1;
+    style.PopupBorderSize = 0;
+    style.FrameBorderSize = 1;
+    style.TabBorderSize = 1;
+    style.WindowRounding = 7;
+    style.ChildRounding = 4;
+    style.FrameRounding = 3;
+    style.PopupRounding = 4;
+    style.ScrollbarRounding = 9;
+    style.GrabRounding = 3;
+    style.LogSliderDeadzone = 4;
+    style.TabRounding = 4;
+}
+
 void minty_style() {
     ImGuiStyle& style = ImGui::GetStyle();
     style.Alpha = 1.0f;
     style.DisabledAlpha = 0.60f;
     style.WindowPadding = ImVec2(8, 8);
-    style.WindowRounding = 4.0f;
+    style.WindowRounding = 6.0f;
     style.WindowBorderSize = 1.0f;
     style.WindowMinSize = ImVec2(32, 32);
     style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
@@ -367,7 +367,7 @@ void setstyle(int stylefunc_index) {
     switch (stylefunc_index) {
         case 1:
             style_index = 1;
-            round_compact_style();
+            minty_style();
             break;
         case 2:
             style_index = 2;
@@ -383,7 +383,7 @@ void setstyle(int stylefunc_index) {
             break;
         case 5:
             style_index = 5;
-            minty_style();
+            round_compact_style();
             break;
         default:
             break;
