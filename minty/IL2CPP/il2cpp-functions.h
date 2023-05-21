@@ -65,3 +65,4 @@ DO_APP_FUNC(0x04173F80, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEn
 DO_APP_FUNC(0x01EC83D0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
 DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
 DO_APP_FUNC(0x07B813B0, float, Time_get_deltaTime, ());
+DO_APP_FUNC(0x03A33B10, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float min, float max, bool forceDoAtRemote));

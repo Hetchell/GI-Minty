@@ -164,7 +164,6 @@
     <ClInclude Include="GUI\Sections.hpp" />
     <ClInclude Include="GUI\Translations.h" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
-    <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
     <ClInclude Include="IL2CPP\Functions\browser.h" />
     <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
     <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
@@ -185,7 +184,6 @@
       <FileType>CppHeader</FileType>
     </ClInclude>
     <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
-    <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\dialogskip.cpp" />
     <ClCompile Include="IL2CPP\Functions\dumbenemies.cpp" />

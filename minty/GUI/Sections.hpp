@@ -186,26 +186,32 @@ namespace Sections {
             il2fns::GodMode(ifGodmode);
         }
 
-        static bool ifBreast = false;
-        static float breastSize = 1;
-        ImGui::Checkbox("Resize breast", &ifBreast);
-        ImGui::SameLine();
-        HelpMarker("Changes size of avatar's breasts.");
-        if (ifBreast) {
-            ImGui::Indent();
-            if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
-                il2fns::ScaleBreast();
-            }
+        //static bool ifBreast = false;
+        //static float breastSize = 1;
+        //ImGui::Checkbox("Resize breast", &ifBreast);
+        //ImGui::SameLine();
+        //HelpMarker("Changes size of avatar's breasts.");
+        //if (ifBreast) {
+        //    ImGui::Indent();
+        //    if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
+        //        il2fns::ScaleBreast();
+        //    }
 
-            ImGui::SameLine();
-            HelpMarker("Changes size of avatar's breasts. Doesn't work on characters, that have no breasts. You understood me.");
+        //    ImGui::SameLine();
+        //    HelpMarker("Changes size of avatar's breasts. Doesn't work on characters, that have no breasts. You understood me.");
 
-            ImGui::SameLine();
-            if (ImGui::Button("Reset")) {
-                breastSize = 1.0;
-                il2fns::ScaleBreast();
-            }
-            ImGui::Unindent();
+        //    ImGui::SameLine();
+        //    if (ImGui::Button("Reset")) {
+        //        breastSize = 1.0;
+        //        il2fns::ScaleBreast();
+        //    }
+        //    ImGui::Unindent();
+        //}
+
+        static bool ifnobowcd;
+        if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
+            saveFuncStateToJson("InstantBow", ifnobowcd);
+            il2fns::NoBowCD(ifnobowcd);
         }
 
         //static bool ifnoclip = false;
@@ -346,7 +352,7 @@ namespace Sections {
         ImGui::SeparatorText("Status");
         const char* hook_state_name[] = {"not hooked", "hooked"};
         ImVec4 hooked_name_color[] = {ImVec4( 0.76078f, 0.219607f, 0.219607f, 1), ImVec4( 0.12156f, 0.8f, 0.2f, 1.0f)};
-        ImGui::Text("il2cpp: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[0], hook_state_name[0]); //placeholder values
+        ImGui::Text("il2cpp: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[0], hook_state_name[1]); //placeholder values
         ImGui::Text("Lua: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[1], hook_state_name[1]); //put std to string boolean here, it will give a 1 or a zero 
 
         ImGui::SeparatorText("");
