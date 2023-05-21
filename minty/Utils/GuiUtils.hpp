@@ -100,8 +100,7 @@ void ShowDebugLog() {
 }
 
 // Implementation
-bool ImGui::ColoredButtonV1(const char* label, const ImVec2& size_arg, ImU32 text_color, ImU32 bg_color_1, ImU32 bg_color_2)
-{
+bool ImGui::ColoredButtonV1(const char* label, const ImVec2& size_arg, ImU32 text_color, ImU32 bg_color_1, ImU32 bg_color_2) {
     ImGuiWindow* window = GetCurrentWindow();
     if (window->SkipItems)
         return false;

@@ -241,7 +241,6 @@
     <ClCompile Include="Lua\lutf8lib.c" />
     <ClCompile Include="Lua\lvm.c" />
     <ClCompile Include="Lua\lzio.c" />
-    <ClCompile Include="Themes\themes.cpp" />
     <ClCompile Include="Utils\dllmain.cpp" />
     <ClInclude Include="IL2CPP\il2cpp-types.h" />
     <ClInclude Include="IL2CPP\il2cppUtils.h" />
@@ -270,6 +269,7 @@
     <ClInclude Include="Lua\lvm.h" />
     <ClInclude Include="Lua\lzio.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Themes\themes.hpp" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
@@ -312,7 +312,6 @@
     <ClInclude Include="Lua\scanner.h" />
     <ClInclude Include="Themes\Fonts\fontsloader.h" />
     <ClInclude Include="Themes\Themeloader.hpp" />
-    <ClInclude Include="Themes\themes.h" />
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
   </ItemGroup>
   <ItemGroup>

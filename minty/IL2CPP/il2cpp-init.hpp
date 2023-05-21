@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "../Utils/Utils.hpp"
+#include "../GUI/GuiDefinitions.h"
 
 uintptr_t baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
@@ -102,6 +103,7 @@ VOID init_il2cpp() {
 		#define DO_UP_FUNC(a, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
 		#include "il2cpp-unityplayer-functions.h"
 		#undef DO_UP_FUNC
+		is_il2cpp_hooked = true;
 
 		}
 	}

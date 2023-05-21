@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="GUI\MainGUI.cpp" />
-    <ClCompile Include="Themes\themes.cpp" />
     <ClCompile Include="ImGui\TextEditor\TextEditor.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_demo.cpp" />
@@ -72,7 +71,6 @@
     <ClInclude Include="includes.h" />
     <ClInclude Include="Json\prejson.hpp" />
     <ClInclude Include="Themes\Fonts\fontsloader.h" />
-    <ClInclude Include="Themes\themes.h" />
     <ClInclude Include="ImGui\TextEditor\TextEditor.h" />
     <ClInclude Include="ImGui\ImGui\imconfig.h" />
     <ClInclude Include="ImGui\ImGui\imgui.h" />
@@ -158,6 +156,7 @@
     <ClInclude Include="Lua\lundump.h" />
     <ClInclude Include="Lua\lvm.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
+    <ClInclude Include="Themes\themes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

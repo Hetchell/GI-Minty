@@ -19,6 +19,7 @@ extern "C" {
 #include "../Utils/LuaUtils.hpp"
 #include "../IL2CPP/HookManager.h"
 #include "../Utils/Utils.hpp"
+#include "../GUI/GuiDefinitions.h"
 //#include "luaHook.h"
 
 #pragma comment(lib, "detours.lib")
@@ -48,7 +49,7 @@ namespace {
     uintptr_t g_xluaL_loadbuffer;
     uintptr_t g_lua_pcall;
     auto gi_LL = luaL_newstate();
-    static bool Lua_is_hooked = false;
+    //static bool is_lua_hooked = false;
     static int last_ret_code;
     const char* last_tolstr;
 
@@ -65,7 +66,7 @@ namespace {
     {
         gi_L = L;
         util::log(2,"xluaL_loadbuffer_hook called. Lua ready!","");
-        Lua_is_hooked = true;
+        is_lua_hooked = true;
         util::logdialog("Succesfully hooked. Happy hacking!");
         main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
         xlua = GetModuleHandleW(L"xlua");
@@ -81,7 +82,7 @@ namespace {
         if (!gi_L) {
             gi_L = L;
             util::log(2, "xluaL_loadbuffer_hook called. Lua ready!");
-            Lua_is_hooked = true;
+            is_lua_hooked = true;
             //util::logdialog("Succesfully hooked. Happy hacking!");
             main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
         }
@@ -94,7 +95,7 @@ namespace {
         if (!gi_L) {
             gi_L = L;
             util::log(2, "xluaL_loadbuffer_hook called. Lua ready!", "");
-            Lua_is_hooked = true;
+            is_lua_hooked = true;
             util::logdialog("Succesfully hooked. Happy hacking!");
             main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
         }
@@ -265,6 +266,7 @@ namespace {
         //printf("Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
         util::log(2, "Hooked xluaL_loadbuffer, org: at %s", util::get_ptr(HookManager::getOrigin(xluaL_loadbuffer_hook)));
         //kiero::bind(99, (void**)&LoadBuffer, xluaL_loadbuffer_hook);
+        is_lua_hooked = true;
 
         while (!gi_L)
             Sleep(50);

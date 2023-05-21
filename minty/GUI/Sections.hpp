@@ -1,116 +1,65 @@
 #pragma once
-//#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#include "MainGUI.h"
-#include "../Utils/GuiUtils.hpp"
-
-#include "../Games/games.h"
-
-#include "../IL2CPP/Functions/molemole.h"
-#include "../IL2CPP/Functions/bootyfixer.h"
-#include "../IL2CPP/Functions/timescale.h"
-#include "../IL2CPP/Functions/unlockfps.h"
-#include "../IL2CPP/Functions/resizeavatar.h"
-#include "../IL2CPP/Functions/hideui.h"
-#include "../IL2CPP/Functions/infinityenergy.h"
-#include "../IL2CPP/Functions/nocd.h"
-#include "../IL2CPP/Functions/uimisc.h"
-#include "../IL2CPP/Functions/infinitystamina.h"
-#include "../IL2CPP/Functions/godmode.h"
-#include "../IL2CPP/Functions/browser.h"
-#include "../IL2CPP/Functions/breastsizer.h"
-#include "../IL2CPP/Functions/fovchanger.h"
-#include "../IL2CPP/Functions/dumbenemies.h"
-#include "../IL2CPP/Functions/dialogskip.h"
-#include "../IL2CPP/Functions/noclip.h"
-
-#include "../Lua/function.h"
-
+// #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include <string>
 #include <unordered_map>
-//#include "../IL2CPP/il2cpp-init.hpp"
-#include "GuiDefinitions.h"
+
+#include "../Games/games.h"
+#include "../IL2CPP/Functions/bootyfixer.h"
+#include "../IL2CPP/Functions/breastsizer.h"
+#include "../IL2CPP/Functions/browser.h"
+#include "../IL2CPP/Functions/dialogskip.h"
+#include "../IL2CPP/Functions/dumbenemies.h"
+#include "../IL2CPP/Functions/fovchanger.h"
+#include "../IL2CPP/Functions/godmode.h"
+#include "../IL2CPP/Functions/hideui.h"
+#include "../IL2CPP/Functions/infinityenergy.h"
+#include "../IL2CPP/Functions/infinitystamina.h"
+#include "../IL2CPP/Functions/molemole.h"
+#include "../IL2CPP/Functions/nocd.h"
+#include "../IL2CPP/Functions/noclip.h"
+#include "../IL2CPP/Functions/resizeavatar.h"
+#include "../IL2CPP/Functions/timescale.h"
+#include "../IL2CPP/Functions/uimisc.h"
+#include "../IL2CPP/Functions/unlockfps.h"
+#include "../Lua/function.h"
+#include "../Utils/GuiUtils.hpp"
+#include "MainGUI.h"
+// #include "../IL2CPP/il2cpp-init.hpp"
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
-//#include "../ImGui/ImGuiNotify/tahoma.h"
-//#include "../Lua/luahook.hpp"
+#include "GuiDefinitions.h"
+// #include "../ImGui/ImGuiNotify/tahoma.h"
+// #include "../Lua/luahook.hpp"
+#include "../Config/ConfigManager.hpp"
+#include "../Json/json.hpp"
+#include "../Lua/luahook.h"
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
-#include "../Lua/luahook.h"
-#include "../Json/json.hpp"
-
-#include "../Config/ConfigManager.hpp"
 // bool block_input = true;
 // bool show_debug_metrics = false;
 // bool show_debug_log = false;
 
+#include "../Themes/themes.hpp"
+
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
-//nlohmann::json cfgjsonobj;
-
-// void saveFuncStateToJson(std::string funcName, bool state) {
-//     std::ifstream config_file("minty");
-//     nlohmann::json config_json;
-//     config_file >> config_json;
-//     config_file.close();
-
-//     cfgjsonobj["functions"][funcName] = state;
-//     config_json.merge_patch(cfgjsonobj);
-//     std::ofstream merged_file("minty");
-//     merged_file << config_json.dump(4);
-//     merged_file.close();
-// }
-
-// void saveFuncStateToJson(std::string funcName, float state) {
-//     std::ifstream config_file("minty");
-//     nlohmann::json config_json;
-//     config_file >> config_json;
-//     config_file.close();
-
-//     cfgjsonobj["functions"][funcName] = state;
-//     config_json.merge_patch(cfgjsonobj);
-//     std::ofstream merged_file("minty");
-//     merged_file << config_json.dump(4);
-//     merged_file.close();
-// }
-
-// void saveFuncStateToJson(std::string funcName, int state) {
-//     std::ifstream config_file("minty");
-//     nlohmann::json config_json;
-//     config_file >> config_json;
-//     config_file.close();
-
-//     cfgjsonobj["functions"][funcName] = state;
-//     config_json.merge_patch(cfgjsonobj);
-//     std::ofstream merged_file("minty");
-//     merged_file << config_json.dump(4);
-//     merged_file.close();
-// }
 
 ImGuiID textureID = 0;
 
 std::vector<std::string> ModuleOrder = {
-    "Player", 
+    "Player",
     "World",
     "Misc",
-    "Lua Console",
+    "Lua",
     "Minigames",
     "Themes",
     "Debug",
     "About",
-    "Settings"
-};
-
-// template <typename T>
-// const char* util::get_ptr(const T& value) {
-//     std::stringstream ss;
-//     ss << std::hex << std::showbase << reinterpret_cast<const void*>(value);
-//     static std::string result = ss.str();
-//     return result.c_str();
-// }
+    "Settings"};
 
 namespace Sections {
 
     void Player() {
-        ImGui::SeparatorText("Debug");
+        ImGui::SeparatorText("Avatar");
 
         if (ImGui::Button("MoleMole Message DEBUG")) {
             if (GetModuleHandleA("UserAssembly.dll") != nullptr)
@@ -139,11 +88,11 @@ namespace Sections {
                 ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")) });
             }
         }
-        
+
         static bool show_avatarresizer = false;
         ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
         ImGui::SameLine();
-        HelpMarker("Resizes your current character's size. Just move slider. ");
+        HelpMarker("Resizes your current character's size.");
 
         if (show_avatarresizer) {
             static float avatarsize = 1.0f;
@@ -161,6 +110,8 @@ namespace Sections {
 
             ImGui::Unindent();
         }
+
+        ImGui::SeparatorText("Skills");
 
         static bool ifEnergy = false;
         if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
@@ -186,16 +137,16 @@ namespace Sections {
             il2fns::GodMode(ifGodmode);
         }
 
-        //static bool ifBreast = false;
-        //static float breastSize = 1;
-        //ImGui::Checkbox("Resize breast", &ifBreast);
-        //ImGui::SameLine();
-        //HelpMarker("Changes size of avatar's breasts.");
-        //if (ifBreast) {
-        //    ImGui::Indent();
-        //    if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
-        //        il2fns::ScaleBreast();
-        //    }
+        // static bool ifBreast = false;
+        // static float breastSize = 1;
+        // ImGui::Checkbox("Resize breast", &ifBreast);
+        // ImGui::SameLine();
+        // HelpMarker("Changes size of avatar's breasts.");
+        // if (ifBreast) {
+        //     ImGui::Indent();
+        //     if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
+        //         il2fns::ScaleBreast();
+        //     }
 
         //    ImGui::SameLine();
         //    HelpMarker("Changes size of avatar's breasts. Doesn't work on characters, that have no breasts. You understood me.");
@@ -214,16 +165,16 @@ namespace Sections {
             il2fns::NoBowCD(ifnobowcd);
         }
 
-        //static bool ifnoclip = false;
-        //if (ImGui::Checkbox("Noclip", &ifnoclip)) {
-        //    saveFuncStateToJson("Noclip", ifnoclip);
-        //    il2fns::OnNoclip(ifnoclip);
-        //}
+        // static bool ifnoclip = false;
+        // if (ImGui::Checkbox("Noclip", &ifnoclip)) {
+        //     saveFuncStateToJson("Noclip", ifnoclip);
+        //     il2fns::OnNoclip(ifnoclip);
+        // }
     }
 
     static float TimeScale = 1.0f;
     void World() {
-        ImGui::SeparatorText("Add separator text for each category of cheat here");
+        ImGui::SeparatorText("World");
 
         static bool timescale = false;
         ImGui::Checkbox("Change time speed", &timescale);
@@ -277,29 +228,28 @@ namespace Sections {
             saveFuncStateToJson("DumbEnemy", ifDumbAI);
             il2fns::DumbEnemies(ifDumbAI);
         }
-
     }
 
     void Minigames() {
         ImGui::SeparatorText("Wordle");
         wordle_main();
 
-        ImGui::SeparatorText("Minesweeper");
+        // ImGui::SeparatorText("Minesweeper");
 
-        ImGui::SeparatorText("Tic-tac-toe");
+        // ImGui::SeparatorText("Tic-tac-toe");
 
-        ImGui::SeparatorText("Lights out");
+        // ImGui::SeparatorText("Lights out");
     }
 
     void About() {
         ImGui::SeparatorText("About");
 
-        ImGui::Text("Minty version x.x.x");
+        ImGui::Text("Minty version 1.0.0");
         ImGui::Text("ImGui version: %s", ImGui::GetVersion());
 
-        ImGui::Text("Game version: ???");
-        ImGui::SameLine();
-        ImGui::TextDisabled("maybe add version detector, compare and shit");
+        // ImGui::Text("Game version: ???");
+        // ImGui::SameLine();
+        // ImGui::TextDisabled("maybe add version detector, compare and shit");
 
         ImGui::SeparatorText("");
 
@@ -310,38 +260,106 @@ namespace Sections {
 
         ImGui::SeparatorText("");
 
-        ImGui::Text("asdasd add stuff");
+        // ImGui::Text("asdasd add stuff");
     }
 
     void Themes() {
-        ImGui::SeparatorText("Themes");
-    
-        ImGui::TextDisabled("Add stuff here... theme customizer etc choose dropdwn");
+        ImGui::SeparatorText("Theme colors");
+        //ImGui::TextDisabled("To do...");
 
-        ImGui::SeparatorText("Fonts");
+        // ImGui::TextDisabled("Add stuff here... theme customizer etc choose dropdwn");
 
-        ImGui::TextDisabled("Add font selector dropdown, & ttf loader");
+        // ImGui::SeparatorText("Fonts");
 
-        static bool ifEditor;
-        ImGui::Checkbox("show theme editor", &ifEditor);
+        // ImGui::TextDisabled("Add font selector dropdown, & ttf loader");
 
-        if (ifEditor) {
-            ImGui::ShowStyleEditor();
-        }
+        // static bool ifEditor;
+        // ImGui::Checkbox("show theme editor", &ifEditor);
+
+        // if (ifEditor) {
+        //     ImGui::ShowStyleEditor();
+        // }
 
         // ImGui::BeginCombo(
         //     "Font", //Label
         //     NULL
         //     );
 
-        //ImGui::ShowStyleEditor();
+        // ImGui::ShowStyleEditor();
+        //ImGui::Text("Theme colors");
+//////////////////////////////////////////////////////////////////////////
+        static int themeIndex = 0;
+
+        if (ImGui::RadioButton("Default dark", &themeIndex, 0)) {
+            settheme(1);
+        }
+
+        if (ImGui::RadioButton("Default light", &themeIndex, 1)) {
+            settheme(2);
+        }
+
+        if (ImGui::RadioButton("Default classic", &themeIndex, 2)) {
+            settheme(3);
+        }
+
+        if (ImGui::RadioButton("Dark theme", &themeIndex, 3)) {
+            settheme(4);
+        }
+
+        if (ImGui::RadioButton("Minty Red", &themeIndex, 4)) {
+            settheme(5);
+        }
+        
+        if (ImGui::RadioButton("Minty Mint", &themeIndex, 5)) {
+            settheme(6);
+        }
+
+        if (ImGui::RadioButton("Minty Mint Light", &themeIndex, 6)) {
+            settheme(7);
+        }
+
+        ImGui::SeparatorText("Theme styles");
+
+        static int themestyleindex = 0;
+
+        if (ImGui::RadioButton("Rounded compact", &themestyleindex, 0)) {
+            setstyle(1);
+        }
+        
+        if (ImGui::RadioButton("Big", &themestyleindex, 1)) {
+            setstyle(2);
+        }
+
+        if (ImGui::RadioButton("ImGui Default", &themestyleindex, 2)) {
+            setstyle(3);
+        }
+
+        if (ImGui::RadioButton("Big Squared", &themestyleindex, 3)) {
+            setstyle(4);
+        }
+
+        if (ImGui::RadioButton("Minty", &themestyleindex, 4)) {
+            setstyle(5);
+        }
+
+        ImGui::SeparatorText("Fonts");
+
+        static int fontSelectionIndex = 0;
+        if (ImGui::RadioButton("idk", &fontSelectionIndex, 0)) {
+        	setfont(1);
+        }
+
+        if (ImGui::RadioButton("idk2", &fontSelectionIndex, 1)) {
+        	setfont(2);
+        }
+
     }
     void Settings() {
         ImGui::Checkbox("Show ImGui's cursor", &ImGui::GetIO().MouseDrawCursor);
-       
+
         ImGui::Checkbox("Block input", &block_input);
     }
-    
+
     void Debug() {
         ImGui::SeparatorText("Debug");
 
@@ -351,12 +369,19 @@ namespace Sections {
 
         ImGui::SeparatorText("Status");
         const char* hook_state_name[] = {"not hooked", "hooked"};
-        ImVec4 hooked_name_color[] = {ImVec4( 0.76078f, 0.219607f, 0.219607f, 1), ImVec4( 0.12156f, 0.8f, 0.2f, 1.0f)};
-        ImGui::Text("il2cpp: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[0], hook_state_name[1]); //placeholder values
-        ImGui::Text("Lua: "); ImGui::SameLine(); ImGui::TextColored(hooked_name_color[1], hook_state_name[1]); //put std to string boolean here, it will give a 1 or a zero 
+        ImVec4 hooked_name_color[] = {ImVec4(0.76078f, 0.219607f, 0.219607f, 1), ImVec4(0.12156f, 0.8f, 0.2f, 1.0f)};
+        ImGui::Text("il2cpp: ");
+        ImGui::SameLine();
+        ImGui::TextColored(hooked_name_color[static_cast<int>(is_il2cpp_hooked)], hook_state_name[static_cast<int>(is_il2cpp_hooked)]);
+        ImGui::Text("Lua: ");
+        ImGui::SameLine();
+        ImGui::TextColored(hooked_name_color[static_cast<int>(is_lua_hooked)], hook_state_name[static_cast<int>(is_lua_hooked)]);
+        ImGui::Text("il2cpp: ");
+        ImGui::SameLine();
+        ImGui::Text("state %i", static_cast<int>(is_lua_hooked));
 
         ImGui::SeparatorText("");
-   
+
         ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
         ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
 
@@ -375,34 +400,28 @@ namespace Sections {
             util::log(2, "defind is: %p", PatternScan("UserAssembly.dll", (LPCSTR)defind));
             util::log(2, "defind is: %s", PatternScan("UserAssembly.dll", (LPCSTR)defind));
             util::log(2, "defind is: %i", PatternScan("UserAssembly.dll", (LPCSTR)defind));
-            //util::log(2, "getnam is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getnam)));
-            //util::log(2, "getmed is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getmed)));
-            //util::log(2, "gentyp is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)gentyp)));
+            // util::log(2, "getnam is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getnam)));
+            // util::log(2, "getmed is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getmed)));
+            // util::log(2, "gentyp is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)gentyp)));
         }
 
         if (ImGui::Button("init mdumper ptrs")) {
-            //init_mD(defind, getnam, getmed, gentyp);
+            // init_mD(defind, getnam, getmed, gentyp);
         }
-
     }
 
-    //this will be ran regardless of the tab
-    void Outer() {
-        if(show_debug_metrics)
-			ImGui::ShowMetricsWindow(&show_debug_metrics);
-        
-        if (show_debug_log) 
-            ShowDebugLog();
+    // this will be ran regardless of the tab
 
-    }
 
     void Misc() {
-        //bool misc1 = false;
-        //float misc1;
-        //CreateFuncWidget("It is label of checkbox, that shows/hides slider.", misc1, "It is HelpMarker text", "some slider name", misc1, 60, 10, 100, il2fns::UnityEngine__set__Timescale);
+        // bool misc1 = false;
+        // float misc1;
+        // CreateFuncWidget("It is label of checkbox, that shows/hides slider.", misc1, "It is HelpMarker text", "some slider name", misc1, 60, 10, 100, il2fns::UnityEngine__set__Timescale);
+        ImGui::SeparatorText("Rendering");
+
         static bool unlockfps = false;
         static int targetfps = 60;
-        if(ImGui::Checkbox("Unlock FPS", &unlockfps)) {
+        if (ImGui::Checkbox("Unlock FPS", &unlockfps)) {
             if (!unlockfps)
                 il2fns::UnityEngine__Application__set_targetFramerate(60);
         }
@@ -459,8 +478,7 @@ namespace Sections {
         ImGui::Checkbox("Infusion changer", &show_colorator3000);
         ImGui::SameLine();
         HelpMarker("Changes color of Elemental Infusion/Blade trail of your current character. Adjust color either with sliders or with color picker. Works perfectly on swords, greatswords, polearms.");
-        if (show_colorator3000)
-        {
+        if (show_colorator3000) {
             ImGui::Indent();
 
             if (ImGui::Button("Change")) {
@@ -479,6 +497,8 @@ namespace Sections {
             ImGui::Unindent();
         }
 
+        ImGui::SeparatorText("Camera");
+
         static bool iffov = false;
         static float targetfov = 45;
         if (ImGui::Checkbox("Change FOV", &iffov)) {
@@ -490,7 +510,8 @@ namespace Sections {
         if (iffov) {
             ImGui::Indent();
             if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
-                il2fns::ChangeFov(targetfov); saveFuncStateToJson("FOV", targetfov);
+                il2fns::ChangeFov(targetfov);
+            saveFuncStateToJson("FOV", targetfov);
             ImGui::Unindent();
         }
 
@@ -511,14 +532,14 @@ namespace Sections {
             saveFuncStateToJson("CutsceneSkip", ifCSC);
             il2fns::CutsceneSkip(ifCSC);
         }
-        //static bool ifChest = false;
-        //if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
-        //    if (ifElem)
-        //        il2fns::ChestIndicator(true);
-        //    else
-        //        il2fns::ChestIndicator(false);
-        //}
-       /* static bool ifOTI = false;
+        // static bool ifChest = false;
+        // if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
+        //     if (ifElem)
+        //         il2fns::ChestIndicator(true);
+        //     else
+        //         il2fns::ChestIndicator(false);
+        // }
+        /* static bool ifOTI = false;
         if (ImGui::Checkbox("Open team immediately", &ifOTI)) {
             il2fns::OpenTeamImm(ifOTI);
         }*/
@@ -534,152 +555,147 @@ namespace Sections {
         if (ifzoom) {
             ImGui::Indent();
             if (ImGui::SliderFloat("Target Zoom", &targetzoom, -10, 500))
-                il2fns::CameraZoom(targetzoom); saveFuncStateToJson("CameraZoom", targetzoom);
+                il2fns::CameraZoom(targetzoom);
+            saveFuncStateToJson("CameraZoom", targetzoom);
             ImGui::Unindent();
         }
     }
 
-    void LuaConsole() {
+    void Lua() {
+        ImGui::SeparatorText("Editor");
+        ImGui::Checkbox("Show Lua editor", &show_lua_editor);
 
-        static TextEditor editor;
-        static bool initialized = false;
+ 
+    }
 
-        if (!initialized)
-        {
-            editor.SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
-            editor.SetPalette(TextEditor::GetDarkPalette());
+    void Outer() {
+        if (show_debug_metrics)
+            ImGui::ShowMetricsWindow(&show_debug_metrics);
 
-            editor.SetTabSize(4);
-            editor.SetShowWhitespaces(false);
-            editor.SetColorizerEnable(true);
+        if (show_debug_log)
+            ShowDebugLog();
 
-            initialized = true;
-        }
+        if(show_lua_editor) {
+            ImGui::Begin("Lua editor", &show_lua_editor, ImGuiWindowFlags_MenuBar);
+            static TextEditor editor;
+            static bool initialized = false;
 
-        if (ImGui::Button("Run"))
-        {
-            std::string code = editor.GetText();
-            if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != std::string::npos)
-            {
-                if (true) {
-                    lua_runstr(code.c_str());
-                    if (last_ret_code == 0) {
-                        util::log(2, "compilation success: %s", last_tolstr);
+            if (!initialized) {
+                editor.SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
+                editor.SetPalette(TextEditor::GetDarkPalette());
+
+                editor.SetTabSize(4);
+                editor.SetShowWhitespaces(false);
+                editor.SetColorizerEnable(true);
+
+                initialized = true;
+            }
+
+            if (ImGui::Button("Run")) {
+                std::string code = editor.GetText();
+                if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != std::string::npos) {
+                    if (is_lua_hooked) {
+                        lua_runstr(code.c_str());
+                        if (last_ret_code == 0) {
+                            util::log(2, "compilation success: %s", last_tolstr);
+                        }
+                    } else {
+                        util::log(0, "Lua is not hooked");
                     }
                 }
-                else {
-                    util::log(0, "Lua is not hooked", "");
+            }
+            ImGui::SameLine();
+            // saver to button below.
+            static char buttonLabel[256] = "";
+
+            // if (ImGui::Button("Create new button")) {
+            //     ImGui::OpenPopup("New button");
+            // }
+            ImGui::SameLine();
+            ImGui::Checkbox("Show log", &show_debug_log);
+
+            // if (ImGui::BeginPopup("New button")) {
+            //     ImGui::InputText("Label", buttonLabel, 256);
+            //     if (ImGui::Button("Create")) {
+            //         std::string functionText = editor.GetText();
+            //         std::function<void()> buttonFunc = [functionText]() {
+            //             lua_runstr(functionText.c_str());
+            //         };
+            //         //buttonFuncs.emplace_back(string(buttonLabel), buttonFunc);
+            //         memset(buttonLabel, 0, sizeof(buttonLabel));
+            //         ImGui::CloseCurrentPopup();
+            //     }
+            //     ImGui::EndPopup();
+            // }
+
+            // ImGui::Begin("Minty");
+            // for (const auto& button : buttonFuncs) {
+            //     if (ImGui::Button(button.first.c_str())) {
+            //         button.second();
+            //     }
+            // }
+            // ImGui::End();
+
+            if (ImGui::BeginMenuBar()) {
+                // ImGui::InputText("##path3", path3, sizeof(path3));
+                if (ImGui::BeginMenu("File")) {
+                    // if (ImGui::MenuItem("Load .lua file")) {
+                    // }
+                    ImGui::TextDisabled("Nothing here...");
+                    ImGui::EndMenu();
                 }
-            }
-        }
-        ImGui::SameLine();
-        //saver to button below.
+                /*if (FileDialog::file_dialog_open) {
+                    FileDialog::ShowFileDialog(&FileDialog::file_dialog_open, file_dialog_buffer, sizeof(file_dialog_buffer), FileDialog::file_dialog_open_type);
+                }*/
+                if (ImGui::BeginMenu("Edit")) {
+                    bool ro = editor.IsReadOnly();
+                    if (ImGui::MenuItem("Read-only mode", nullptr, &ro)) editor.SetReadOnly(ro);
+                    ImGui::Separator();
 
-        //static vector<pair<std::string, function<void()>>> buttonFuncs;
-        static char buttonLabel[256] = "";
+                    if (ImGui::MenuItem("Undo", "ALT-Backspace", nullptr, !ro && editor.CanUndo())) editor.Undo();
+                    if (ImGui::MenuItem("Redo", "Ctrl-Y", nullptr, !ro && editor.CanRedo())) editor.Redo();
 
-        if (ImGui::Button("Create new button")) {
-            ImGui::OpenPopup("New button");
-        }
-        ImGui::SameLine();
-        ImGui::Checkbox("Show log", &show_debug_log);
+                    ImGui::Separator();
 
-        if (ImGui::BeginPopup("New button")) {
-            ImGui::InputText("Label", buttonLabel, 256);
-            if (ImGui::Button("Create")) {
-                std::string functionText = editor.GetText();
-                std::function<void()> buttonFunc = [functionText]() {
-                    lua_runstr(functionText.c_str());
-                };
-                //buttonFuncs.emplace_back(string(buttonLabel), buttonFunc);
-                memset(buttonLabel, 0, sizeof(buttonLabel));
-                ImGui::CloseCurrentPopup();
-            }
-            ImGui::EndPopup();
-        }
+                    if (ImGui::MenuItem("Copy", "Ctrl-C", nullptr, editor.HasSelection())) editor.Copy();
+                    if (ImGui::MenuItem("Cut", "Ctrl-X", nullptr, !ro && editor.HasSelection())) editor.Cut();
+                    if (ImGui::MenuItem("Delete", "Del", nullptr, !ro && editor.HasSelection())) editor.Delete();
+                    if (ImGui::MenuItem("Paste", "Ctrl-V", nullptr, !ro && ImGui::GetClipboardText() != nullptr)) editor.Paste();
 
-        //ImGui::Begin("Minty");
-        //for (const auto& button : buttonFuncs) {
-        //    if (ImGui::Button(button.first.c_str())) {
-        //        button.second();
-        //    }
-        //}
-        //ImGui::End();
+                    ImGui::Separator();
 
-        if (ImGui::BeginMenuBar())
-        {
-            //ImGui::InputText("##path3", path3, sizeof(path3));
-            if (ImGui::BeginMenu("File"))
-            {
-                if (ImGui::MenuItem("Load .lua file"))
-                {
+                    if (ImGui::MenuItem("Select all", nullptr, nullptr)) editor.SetSelection(TextEditor::Coordinates(), TextEditor::Coordinates(editor.GetTotalLines(), 0));
+
+                    ImGui::EndMenu();
                 }
-                ImGui::EndMenu();
-            }
-            /*if (FileDialog::file_dialog_open) {
-                FileDialog::ShowFileDialog(&FileDialog::file_dialog_open, file_dialog_buffer, sizeof(file_dialog_buffer), FileDialog::file_dialog_open_type);
-            }*/
-            if (ImGui::BeginMenu("Edit"))
-            {
-                bool ro = editor.IsReadOnly();
-                if (ImGui::MenuItem("Read-only mode", nullptr, &ro))
-                    editor.SetReadOnly(ro);
-                ImGui::Separator();
 
-                if (ImGui::MenuItem("Undo", "ALT-Backspace", nullptr, !ro && editor.CanUndo()))
-                    editor.Undo();
-                if (ImGui::MenuItem("Redo", "Ctrl-Y", nullptr, !ro && editor.CanRedo()))
-                    editor.Redo();
-
-                ImGui::Separator();
-
-                if (ImGui::MenuItem("Copy", "Ctrl-C", nullptr, editor.HasSelection()))
-                    editor.Copy();
-                if (ImGui::MenuItem("Cut", "Ctrl-X", nullptr, !ro && editor.HasSelection()))
-                    editor.Cut();
-                if (ImGui::MenuItem("Delete", "Del", nullptr, !ro && editor.HasSelection()))
-                    editor.Delete();
-                if (ImGui::MenuItem("Paste", "Ctrl-V", nullptr, !ro && ImGui::GetClipboardText() != nullptr))
-                    editor.Paste();
-
-                ImGui::Separator();
-
-                if (ImGui::MenuItem("Select all", nullptr, nullptr))
-                    editor.SetSelection(TextEditor::Coordinates(), TextEditor::Coordinates(editor.GetTotalLines(), 0));
-
-                ImGui::EndMenu();
+                if (ImGui::BeginMenu("View")) {
+                    if (ImGui::MenuItem("Dark palette")) editor.SetPalette(TextEditor::GetDarkPalette());
+                    if (ImGui::MenuItem("Light palette")) editor.SetPalette(TextEditor::GetLightPalette());
+                    if (ImGui::MenuItem("Retro blue palette")) editor.SetPalette(TextEditor::GetRetroBluePalette());
+                    ImGui::EndMenu();
+                }
+                ImGui::EndMenuBar();
             }
 
-            if (ImGui::BeginMenu("View"))
-            {
-                if (ImGui::MenuItem("Dark palette"))
-                    editor.SetPalette(TextEditor::GetDarkPalette());
-                if (ImGui::MenuItem("Light palette"))
-                    editor.SetPalette(TextEditor::GetLightPalette());
-                if (ImGui::MenuItem("Retro blue palette"))
-                    editor.SetPalette(TextEditor::GetRetroBluePalette());
-                ImGui::EndMenu();
-            }
-            ImGui::EndMenuBar();
+            editor.Render("TextEditor");
+            ImGui::End();
         }
-
-        editor.Render("TextEditor");
     }
-}
+}  // namespace Sections
 
-using DrawFunction = void(*)();
+using DrawFunction = void (*)();
 
 const std::unordered_map<std::string, DrawFunction> SectionMap = {
     {"Player", &Sections::Player},
     {"World", &Sections::World},
     {"Misc", &Sections::Misc},
-    {"Lua Console", &Sections::LuaConsole},
+    {"Lua", &Sections::Lua},
     {"Minigames", &Sections::Minigames},
     {"About", &Sections::About},
     {"Themes", &Sections::Themes},
     {"Settings", &Sections::Settings},
-    {"Debug", &Sections::Debug}
-};
+    {"Debug", &Sections::Debug}};
 
 void DrawSection(const std::string& sectionName) {
     auto it = SectionMap.find(sectionName);
@@ -687,6 +703,6 @@ void DrawSection(const std::string& sectionName) {
         Sections::Outer();
         it->second();
     } else {
-       ImGui::TextDisabled("No section matches name");
+        ImGui::TextDisabled("No section matches name");
     }
 }

@@ -7,10 +7,12 @@
 //#include "../ImGui/ImGuiNotify/imgui_notify.h"
 #include "../Utils/ImageLoader/imageloader.h"
 
+#include "../Themes/themes.hpp"
 using namespace std;
 
 namespace gui {
     void FrameLoadGui() {
+        ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[fontindex_menu]);
 
         //setlocale(LC_ALL, "C");
 
@@ -62,5 +64,7 @@ namespace gui {
 
         ImGui::EndGroup();
         ImGui::End();
+
+        ImGui::PopFont();
     }
 }
