@@ -61,6 +61,7 @@ namespace Sections {
     void Player() {
         ImGui::SeparatorText("Avatar");
 
+        /*
         if (ImGui::Button("MoleMole Message DEBUG")) {
             if (GetModuleHandleA("UserAssembly.dll") != nullptr)
                 il2fns::MoleMole__ActorUtils__ShowMessage("123");
@@ -87,7 +88,8 @@ namespace Sections {
                 ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", util::get_ptr(baseAddress1) });
                 ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")) });
             }
-        }
+        } 
+        */
 
         static bool show_avatarresizer = false;
         ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
