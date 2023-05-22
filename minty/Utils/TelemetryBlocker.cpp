@@ -9,11 +9,15 @@
 std::string unindent(const char* p)
 {
     std::string result;
+
     if (*p == '\n') ++p;
     const char* p_leading = p;
+
     while (std::isspace(*p) && *p != '\n')
         ++p;
+
     size_t leading_len = p - p_leading;
+
     while (*p)
     {
         result += *p;
@@ -26,6 +30,7 @@ std::string unindent(const char* p)
         }
         dont_skip_leading:;
     }
+
     return result;
 }
 
@@ -113,7 +118,6 @@ void TelemetryBlocker::BlockTelemetry() {
     {
         // If this block is reached, the hosts file does not exist
         util::log(M_Debug, "You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. M will create one to block miHoYo telemetry and prevent bans.");
-        //appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::trunc);
         appendFileToWorkWith << hostsText;
         appendFileToWorkWith.close();
     }
@@ -124,15 +128,15 @@ void TelemetryBlocker::BlockTelemetry() {
         // We need to make sure we haven't already edited /etc/hosts. We don't want to clog the user's /etc/hosts file.
         if (read_file(hostsFilename).find(deduplicationString) == std::string::npos) {
             // If we haven't edited it, we add data to it.
-            //appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::trunc);
             util::log(M_Debug,"You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it.");
             appendFileToWorkWith << hostsText;
         }
         else {
+            // Otherwise, we log some debug information and continue.
             util::log(M_Debug, "It looks like you have a C:\\Windows\\System32\\drivers\\etc\\hosts file and it has the necessary lines needed to block miHoYo telemetry - good to go!");
         }
 
-        // Close file regardless of what operations took place (leaving files open unnecessarily can cause security and performance issues iirc)
+        // Close file regardless of what operations took place (see https://stackoverflow.com/q/11095474)
         appendFileToWorkWith.close();
     }
 }
