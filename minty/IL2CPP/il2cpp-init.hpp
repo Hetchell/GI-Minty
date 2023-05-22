@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "../Utils/Utils.hpp"
+#include "../GUI/GuiDefinitions.h"
 
 uintptr_t baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
@@ -75,7 +76,7 @@ namespace app {
 
 VOID init_il2cpp() {
 //#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
-	util::log(2, "Initializing isle too see pipi");
+	util::log(M_Info, "Initializing isle too see pipi");
 
 	while (baseAddress == (uint64_t)nullptr) {
 
@@ -83,13 +84,13 @@ VOID init_il2cpp() {
 
 		if(!repeat) {
 			repeat = true;
-			util::log(1, "UA is still very not real. wawiting..");
+			util::log(M_Warning, "UA is still very not real. wawiting..");
 		}
 
 		Sleep(1000);
 		baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 		if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
-			util::log(2, "now ua ptr: %s; up ptr: %s", util::get_ptr(baseAddress), util::get_ptr(unityPlayerAddress));
+			util::log(M_Debug, "now ua ptr: %s; up ptr: %s", util::get_ptr(baseAddress), util::get_ptr(unityPlayerAddress));
 
 		#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + a)
 		#include "il2cpp-api-functions.h"
@@ -102,16 +103,17 @@ VOID init_il2cpp() {
 		#define DO_UP_FUNC(a, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
 		#include "il2cpp-unityplayer-functions.h"
 		#undef DO_UP_FUNC
+		is_il2cpp_hooked = true;
 
 		}
 	}
 
-	util::log(3, "UserAssembly ptr: %s", util::get_ptr(baseAddress));
-	util::log(3, "UnityPlayer ptr: %s", util::get_ptr(unityPlayerAddress));
+	util::log(M_Debug, "UserAssembly ptr: %s", util::get_ptr(baseAddress));
+	util::log(M_Debug, "UnityPlayer ptr: %s", util::get_ptr(unityPlayerAddress));
 }
 
 VOID init_mD(int defind, int getnam, int getmed, int gentyp) {
-	util::log(2, "Initializing isle too see pipi");
+	util::log(M_Debug, "Initializing isle too see pipi");
 
 	while (baseAddress == (uint64_t)nullptr) {
 
@@ -119,13 +121,13 @@ VOID init_mD(int defind, int getnam, int getmed, int gentyp) {
 
 		if (!repeat) {
 			repeat = true;
-			util::log(1, "UA is still very not real. wawiting..");
+			util::log(M_Warning, "UA is still very not real. wawiting..");
 		}
 
 		Sleep(1000);
 		baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 		if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
-			util::log(2, "now ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
+			util::log(M_Debug, "now ua ptr: %p; up ptr: %p", baseAddress, unityPlayerAddress);
 
 		//#define DO_MD1_FUNC(a, r, n, p) n = (r (*) p)(baseAddress + defind)
 		//#include "mDumper-funcs.h"
