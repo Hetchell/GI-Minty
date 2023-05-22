@@ -433,6 +433,9 @@ void Misc() {
         ImGui::Unindent();
     }
 
+    if (ImGui::Button("lua molmol"))
+        lua_runstr("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
+
     static bool hideui = false;
     if (ImGui::Checkbox("Hide UI", &hideui)) {
         saveFuncStateToJson("HideUI", hideui);
@@ -593,7 +596,12 @@ void Outer() {
             std::string code = editor.GetText();
             if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != std::string::npos) {
                 if (true) { //if (is_lua_hooked) {
-                    lua_runstr(code.c_str());
+                    try {
+                        lua_runstr(code.c_str());
+                    }
+                    catch (...) {
+                        util::log(M_Error, "lua excep");
+                    }
                     if (last_ret_code == 0) {
                         util::log(M_Info, "compilation success: %s", last_tolstr);
                     }
