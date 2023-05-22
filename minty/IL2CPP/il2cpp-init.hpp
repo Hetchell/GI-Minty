@@ -74,6 +74,8 @@ namespace app {
 //	}
 //}
 
+// bool is_il2cpp_hooked = false;
+
 VOID init_il2cpp() {
 //#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
 	util::log(M_Info, "Initializing isle too see pipi");
@@ -103,7 +105,7 @@ VOID init_il2cpp() {
 		#define DO_UP_FUNC(a, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
 		#include "il2cpp-unityplayer-functions.h"
 		#undef DO_UP_FUNC
-		is_il2cpp_hooked = true;
+		// is_il2cpp_hooked = true;
 
 		}
 	}

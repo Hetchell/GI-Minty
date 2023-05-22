@@ -21,10 +21,14 @@ extern "C" {
 #include "../IL2CPP/HookManager.h"
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
+
 // #include "luaHook.h"
+
+static bool is_lua_hooked = false;
 
 #pragma comment(lib, "detours.lib")
 #pragma comment(lib, "ntdll.lib")
+
 namespace {
 typedef enum _SECTION_INFORMATION_CLASS {
     SectionBasicInformation,
