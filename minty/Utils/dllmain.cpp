@@ -13,7 +13,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
     util::log(M_Info, "Starting");
 
-  	TelemetryBlocker::BlockTelemetry();
+    TelemetryBlocker::BlockTelemetry();
 
     GetPresent();
     DetourDirectXPresent();

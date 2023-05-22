@@ -52,6 +52,7 @@ auto read_file(std::string_view path) -> std::string {
 void TelemetryBlocker::BlockTelemetry() {
     // Blocks miHoYo telemetry domains in /etc/hosts to avoid detection.
     std::string hostsText = unindent(R"(
+    
     # These domains have been added to your /etc/hosts file by the M cheat to prevent miHoYo from recording telemetry data about you.
     # Aside from being an egregious privacy violation, telemetry data can be used for bans.
     # Please *do not* modify or remove this text.
@@ -98,20 +99,19 @@ void TelemetryBlocker::BlockTelemetry() {
     // If this string already exists in /etc/hosts, we aren't going to edit /etc/hosts again.
     // If we really need to add/remove domains to this list in a new version (unlikely), we can implement the necessary code to do that then.
     // I don't want to plan for hypothetical issues when we have a finite amount of time.
-    std::string deduplicationString = "cheat to prevent miHoYo from recording telemetry data about you.";
+    std::string deduplicationString = "cheat to prevent miHoYo from recording telemetry data about you";
 
     // https://stackoverflow.com/a/23967977
     // https://stackoverflow.com/a/9740368
     std::string hostsFilename = "C:\\Windows\\System32\\drivers\\etc\\hosts";
     std::fstream appendFileToWorkWith;
-
     appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::app);
 
     if (!appendFileToWorkWith)
     {
         // If this block is reached, the hosts file does not exist
         util::log(M_Debug, "You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. M will create one to block miHoYo telemetry and prevent bans.");
-        appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::trunc);
+        //appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::trunc);
         appendFileToWorkWith << hostsText;
         appendFileToWorkWith.close();
     }
@@ -120,10 +120,14 @@ void TelemetryBlocker::BlockTelemetry() {
         // If this block is reached, the hosts file exists
 
         // We need to make sure we haven't already edited /etc/hosts. We don't want to clog the user's /etc/hosts file.
-        // If we haven't edited it, we addd data to it.
-        if (read_file(hostsFilename).find(deduplicationString) != std::string::npos) {
+        if (read_file(hostsFilename).find(deduplicationString) == std::string::npos) {
+            // If we haven't edited it, we add data to it.
+            //appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::trunc);
             util::log(M_Debug,"You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it.");
             appendFileToWorkWith << hostsText;
+        }
+        else {
+            util::log(M_Debug, "It looks like you have a C:\\Windows\\System32\\drivers\\etc\\hosts file and it has the necessary lines needed to block miHoYo telemetry - good to go!");
         }
 
         // Close file regardless of what operations took place (leaving files open unnecessarily can cause security and performance issues iirc)
