@@ -26,8 +26,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     if (fdwReason == DLL_PROCESS_ATTACH) {
+        CloseHandle(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
         CreateThread(NULL, 0, &MainThread, NULL, NULL, NULL);
-        CreateThread(NULL, 0, &initLua, NULL, NULL, NULL);
     }
     return TRUE;
 }

@@ -45,6 +45,9 @@ uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
 
 ImGuiID textureID = 0;
 
+extern bool is_lua_hooked;
+// extern bool is_il2cpp_hooked;
+
 std::vector<std::string> ModuleOrder = {
     "Player",
     "World",
@@ -358,12 +361,15 @@ void Debug() {
 
     const char* hook_state_name[] = {"not hooked", "hooked"};
     ImVec4 hooked_name_color[] = {ImVec4(0.76078f, 0.219607f, 0.219607f, 1), ImVec4(0.12156f, 0.8f, 0.2f, 1.0f)};
-    ImGui::Text("il2cpp: ");
-    ImGui::SameLine();
-    ImGui::TextColored(hooked_name_color[static_cast<int>(is_il2cpp_hooked)], hook_state_name[static_cast<int>(is_il2cpp_hooked)]);
-    ImGui::Text("Lua: ");
-    ImGui::SameLine();
-    ImGui::TextColored(hooked_name_color[static_cast<int>(is_lua_hooked)], hook_state_name[static_cast<int>(is_lua_hooked)]);
+    
+    // ImGui::Text("il2cpp: ");
+    // ImGui::SameLine();
+    // ImGui::TextColored(hooked_name_color[static_cast<int>(is_il2cpp_hooked)], hook_state_name[static_cast<int>(is_il2cpp_hooked)]);
+    // ImGui::Text("Lua: ");
+    // ImGui::SameLine();
+    // ImGui::TextColored(hooked_name_color[static_cast<int>(is_lua_hooked)], hook_state_name[static_cast<int>(is_lua_hooked)]);
+
+    /*----------TEMP----------*/
 
     ImGui::SeparatorText("");
 
@@ -426,6 +432,9 @@ void Misc() {
         }
         ImGui::Unindent();
     }
+
+    if (ImGui::Button("lua molmol"))
+        lua_runstr("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
 
     static bool hideui = false;
     if (ImGui::Checkbox("Hide UI", &hideui)) {
@@ -586,8 +595,13 @@ void Outer() {
         if (ImGui::Button("Run")) {
             std::string code = editor.GetText();
             if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != std::string::npos) {
-                if (is_lua_hooked) {
-                    lua_runstr(code.c_str());
+                if (true) { //if (is_lua_hooked) {
+                    try {
+                        lua_runstr(code.c_str());
+                    }
+                    catch (...) {
+                        util::log(M_Error, "lua excep");
+                    }
                     if (last_ret_code == 0) {
                         util::log(M_Info, "compilation success: %s", last_tolstr);
                     }

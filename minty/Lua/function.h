@@ -28,16 +28,3 @@ const char* char_eleminf_end = R"MY_DELIMITER(
         end
         xpcall(normalattack, onError)
 )MY_DELIMITER";
-
-void lua_runstr(const char* charLuaScript) {
-    auto compiled = compile(gi_LL, charLuaScript);
-    if (!compiled)
-        return;
-    auto copy = new std::string(compiled.value());
-    auto execute = [](ULONG_PTR compiled) {
-        auto str = (const std::string*)compiled;
-        exec(*str);
-        delete str;
-    };
-    QueueUserAPC(execute, main_thread, (ULONG_PTR)copy);
-};

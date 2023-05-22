@@ -182,7 +182,7 @@ void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-int DoInjectStuff() {
+int main() {
     nlohmann::json cfg;
 
     auto current_dir = this_dir();
@@ -292,6 +292,8 @@ int DoInjectStuff() {
     ResumeThread(proc_info.hThread);
     CloseHandle(proc_info.hThread);
     CloseHandle(proc_info.hProcess);
+
+    return 0;
 }
 
 
@@ -335,215 +337,215 @@ void LoadFontFromResources(HMODULE hModuleF, const wchar_t* fontName, float font
 
 // Main code
 //int WinMain(int, char**)
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
-    // Create application window
-    //ImGui_ImplWin32_EnableDpiAwareness();
-    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"Minty Launcher", nullptr };
-    ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Minty Launcher", WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX), 100, 100, 796, 500, nullptr, nullptr, wc.hInstance, nullptr);
-
-    // Initialize Direct3D
-    if (!CreateDeviceD3D(hwnd)) {
-        CleanupDeviceD3D();
-        ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
-        return 1;
-    }
-
-    // Show the window
-    ::ShowWindow(hwnd, SW_SHOWDEFAULT);
-    ::UpdateWindow(hwnd);
-
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-    // Setup Dear ImGui style
-    //ImGui::StyleColorsDark();
-    ImGui::StyleColorsLight();
-
-    // Setup Platform/Renderer backends
-    ImGui_ImplWin32_Init(hwnd);
-    ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
-
-    HMODULE hModule = GetModuleHandle(nullptr);
-
-    // Load font from resources
-    ImFontConfig fontConfig;
-    //ImFont* pFont;
-    //ImFont* pFont = LoadFontFromResources(hModule, MAKEINTRESOURCEW(106), 18.0f);
-    if (true)
-    {
-        // Set the font for ImGui to use
-        //fontConfig.MergeMode = true;
-        //ImGui::GetIO().Fonts->AddFont(&fontConfig);
-    }
-    LoadFontFromResources(hModule, MAKEINTRESOURCEW(108), 18.0f);
-
-    // Our state
-    bool show_demo_window = true;
-    bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-    int chosenGame = 0; // 0 - empty, 1 - gi, 2 - hsr
-    // Main loop
-    bool done = false;
-    while (!done) {
-        // Poll and handle messages (inputs, window resize, etc.)
-        // See the WndProc() function below for our to dispatch events to the Win32 backend.
-        MSG msg;
-        while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
-            ::TranslateMessage(&msg);
-            ::DispatchMessage(&msg);
-
-            switch (msg.message) {
-                case WM_QUIT:
-                done=true;
-            }
-        }
-        if (done)
-            break;
-
-        // Handle window resize (we don't resize directly in the WM_SIZE handler)
-        if (g_ResizeWidth != 0 && g_ResizeHeight != 0) {
-            CleanupRenderTarget();
-            g_pSwapChain->ResizeBuffers(0, g_ResizeWidth, g_ResizeHeight, DXGI_FORMAT_UNKNOWN, 0);
-            g_ResizeWidth = g_ResizeHeight = 0;
-            CreateRenderTarget();
-        }
-
-        ImGui_ImplDX11_NewFrame();
-        ImGui_ImplWin32_NewFrame();
-        ImGui::NewFrame();
-
-        {
-            static float f = 0.0f;
-            static int counter = 0;
-            static float angleV = 0;
-            ImGui::SetNextWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y));
-            ImGui::SetNextWindowPos(ImVec2(0, 0));
-            static bool open = true;
-//            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-            //ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));
-            ImGui::Begin("test window", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-            //ImGui::SliderFloat("slider", &angleV, 0.0f, 10.0f);
-            if (chosenGame == 0)
-                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f), ImVec4(141 / 255.0f, 141 / 255.0f, 141 / 255.0f, 1.0f));
-            if (chosenGame == 2)
-                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(35.0f / 255, 12.0f / 255, 67.5f / 255, 1.0f), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f));
-            if (chosenGame == 1)
-                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f), ImVec4(127.5f / 255.0f, 103 / 255.0f, 17.5f / 255.0f, 1.0f));
-            //ImGui::drawRotatedGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImVec4(0.0f, 1.0f, 0.0f, 1.0f), 80.0f);
-            //ImGui::drawGradientBackground(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImVec4(0.0f, 0.0f, 1.0f, 1.0f), angleV, ImVec2(300, 300));
-
-            ImGui::SetCursorPos(ImVec2(10, 320));
-            ImGui::Button("Settings", ImVec2(250, 50));
-
-            ImGui::SetCursorPos(ImVec2(10, 10));
-            ImGui::BeginChild(4, ImVec2(250, 300), true);
-
-            ImGui::EndChild();
-
-            ImGui::SetCursorPos(ImVec2(270, 10));
-            ImGui::BeginChild(5, ImVec2(500, 360), true);
-
-            ImGui::EndChild();
-
-            ImGui::SetCursorPos(ImVec2(10, 380));
-            ImGui::BeginChild(7, ImVec2(760, 70), true);
-
-            ImGui::SetCursorPos(ImVec2(10, 10));
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(71.0f / 255, 24.0f / 255, 135.0f / 255, 1.0f));
-            if (ImGui::Button("HSR", ImVec2(210, 50))) {
-                chosenGame = 2;
-            }
-            ImGui::PopStyleColor();
-
-            ImGui::SetCursorPos(ImVec2(230, 10));
-            if (chosenGame == 0) {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f));
-                if (ImGui::Button("Start", ImVec2(305, 50))) {
-                    DoInjectStuff();
-                }
-                ImGui::PopStyleColor();
-            }
-            if (chosenGame == 1) {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(255 / 255.0f, 206 / 255.0f, 35 / 255.0f, 1.0f));
-                if (ImGui::Button("Start", ImVec2(305, 50))) {
-                    DoInjectStuff();
-                }
-                ImGui::PopStyleColor();
-            }
-            if (chosenGame == 2) {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(71.0f / 255, 24.0f / 255, 135.0f / 255,  1.0f));
-                if (ImGui::Button("Start", ImVec2(305, 50))) {
-                    DoInjectStuff();
-                }
-                ImGui::PopStyleColor();
-            }
-
-            ImGui::SetCursorPos(ImVec2(545, 10));
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(255 / 255.0f, 206 / 255.0f, 35 / 255.0f, 1.0f));
-            if (ImGui::Button("Anime Game", ImVec2(206, 50))) {
-                chosenGame = 1;
-            }
-            ImGui::PopStyleColor();
-
-            ImGui::EndChild();
-            //ImGui::SetWindowSize({ 800.00f, 600.00f });
-
-            //draw->AddRect(ImVec2(pos.x + 270.f, pos.y + 88.f), ImVec2(pos.x + 278.f, pos.y + 110.f), ImColor(1.00f, 1.00f, 1.00f, 1.00f), 0.f, 256, 1.f);
-            //draw->AddRectFilled(ImVec2(pos.x + 62.f, pos.y + 8.f), ImVec2(pos.x + 790.f, pos.y + 590.f), ImColor(0.84f, 0.70f, 0.58f, 1.00f), 12.f, 240);
-            //draw->AddRect(ImVec2(pos.x + 76.f, pos.y + 17.f), ImVec2(pos.x + 332.f, pos.y + 383.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 11.f, 16, 5.f);
-            //draw->AddRect(ImVec2(pos.x + 345.f, pos.y + 18.f), ImVec2(pos.x + 781.f, pos.y + 472.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 11.f, 32, 5.f);
-            //draw->AddRectFilled(ImVec2(pos.x + 75.f, pos.y + 392.f ), ImVec2(pos.x + 332.f, pos.y + 473.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 0.f, 256);
-            //draw->AddRectFilled(ImVec2(pos.x + 283.f, pos.y + 482.f), ImVec2(pos.x + 576.f, pos.y + 577.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 0.f, 256);
-            //draw->AddRectFilled(ImVec2(pos.x + 76.f, pos.y + 484.f), ImVec2(pos.x + 273, pos.y + 574.f), ImColor(0.05f, 0.11f, 0.58f, 1.00f), 11.f, 64);
-            //if (ImGui::InvisibleButton("button1", ImVec2(196, 92))) {
-            //    DoInjectStuff();
-            //}
-            //draw->AddRectFilled(ImVec2(pos.x + 583.f, pos.y + 483.f), ImVec2(pos.x + 779.f, pos.y + 575.f), ImColor(0.75f, 0.00f, 0.00f, 1.00f), 11.f, 128);
-            ////draw->AddText(Fonts::bahnschrift55, 55, pos + ImVec2{ 376.f, 498.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Start");
-            ////draw->AddText(Fonts::bahnschrift41, 41, pos + ImVec2{ 124.f, 506.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "H: SR");
-            ////draw->AddText(Fonts::bahnschrift30, 30, pos + ImVec2{ 597.f, 516.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Anime Game");
-            ////draw->AddText(39, pos + ImVec2{ 128.f, 410.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Settings");
-
-            ////ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            ImGui::End();
-        }
-
-        // 3. Show another simple window.
-        if (show_another_window) {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
-            ImGui::End();
-        }
-
-        // Rendering
-        ImGui::Render();
-        const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
-        g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
-        g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
-        ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-        g_pSwapChain->Present(1, 0); // Present with vsync
-        //g_pSwapChain->Present(0, 0); // Present without vsync
-    }
-
-    // Cleanup
-    ImGui_ImplDX11_Shutdown();
-    ImGui_ImplWin32_Shutdown();
-    ImGui::DestroyContext();
-
-    CleanupDeviceD3D();
-    ::DestroyWindow(hwnd);
-    ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
-
-    return 0;
-}
+//int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+//    // Create application window
+//    //ImGui_ImplWin32_EnableDpiAwareness();
+//    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"Minty Launcher", nullptr };
+//    ::RegisterClassExW(&wc);
+//    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Minty Launcher", WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX), 100, 100, 796, 500, nullptr, nullptr, wc.hInstance, nullptr);
+//
+//    // Initialize Direct3D
+//    if (!CreateDeviceD3D(hwnd)) {
+//        CleanupDeviceD3D();
+//        ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
+//        return 1;
+//    }
+//
+//    // Show the window
+//    ::ShowWindow(hwnd, SW_SHOWDEFAULT);
+//    ::UpdateWindow(hwnd);
+//
+//    // Setup Dear ImGui context
+//    IMGUI_CHECKVERSION();
+//    ImGui::CreateContext();
+//    ImGuiIO& io = ImGui::GetIO(); (void)io;
+//    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+//    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+//
+//    // Setup Dear ImGui style
+//    //ImGui::StyleColorsDark();
+//    ImGui::StyleColorsLight();
+//
+//    // Setup Platform/Renderer backends
+//    ImGui_ImplWin32_Init(hwnd);
+//    ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
+//
+//    HMODULE hModule = GetModuleHandle(nullptr);
+//
+//    // Load font from resources
+//    ImFontConfig fontConfig;
+//    //ImFont* pFont;
+//    //ImFont* pFont = LoadFontFromResources(hModule, MAKEINTRESOURCEW(106), 18.0f);
+//    if (true)
+//    {
+//        // Set the font for ImGui to use
+//        //fontConfig.MergeMode = true;
+//        //ImGui::GetIO().Fonts->AddFont(&fontConfig);
+//    }
+//    LoadFontFromResources(hModule, MAKEINTRESOURCEW(108), 18.0f);
+//
+//    // Our state
+//    bool show_demo_window = true;
+//    bool show_another_window = false;
+//    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+//    int chosenGame = 0; // 0 - empty, 1 - gi, 2 - hsr
+//    // Main loop
+//    bool done = false;
+//    while (!done) {
+//        // Poll and handle messages (inputs, window resize, etc.)
+//        // See the WndProc() function below for our to dispatch events to the Win32 backend.
+//        MSG msg;
+//        while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
+//            ::TranslateMessage(&msg);
+//            ::DispatchMessage(&msg);
+//
+//            switch (msg.message) {
+//                case WM_QUIT:
+//                done=true;
+//            }
+//        }
+//        if (done)
+//            break;
+//
+//        // Handle window resize (we don't resize directly in the WM_SIZE handler)
+//        if (g_ResizeWidth != 0 && g_ResizeHeight != 0) {
+//            CleanupRenderTarget();
+//            g_pSwapChain->ResizeBuffers(0, g_ResizeWidth, g_ResizeHeight, DXGI_FORMAT_UNKNOWN, 0);
+//            g_ResizeWidth = g_ResizeHeight = 0;
+//            CreateRenderTarget();
+//        }
+//
+//        ImGui_ImplDX11_NewFrame();
+//        ImGui_ImplWin32_NewFrame();
+//        ImGui::NewFrame();
+//
+//        {
+//            static float f = 0.0f;
+//            static int counter = 0;
+//            static float angleV = 0;
+//            ImGui::SetNextWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y));
+//            ImGui::SetNextWindowPos(ImVec2(0, 0));
+//            static bool open = true;
+////            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+//            //ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));
+//            ImGui::Begin("test window", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+//            //ImGui::SliderFloat("slider", &angleV, 0.0f, 10.0f);
+//            if (chosenGame == 0)
+//                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f), ImVec4(141 / 255.0f, 141 / 255.0f, 141 / 255.0f, 1.0f));
+//            if (chosenGame == 2)
+//                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(35.0f / 255, 12.0f / 255, 67.5f / 255, 1.0f), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f));
+//            if (chosenGame == 1)
+//                ImGui::drawGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f), ImVec4(127.5f / 255.0f, 103 / 255.0f, 17.5f / 255.0f, 1.0f));
+//            //ImGui::drawRotatedGradientBackground(ImGui::GetContentRegionAvail(), ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImVec4(0.0f, 1.0f, 0.0f, 1.0f), 80.0f);
+//            //ImGui::drawGradientBackground(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImVec4(0.0f, 0.0f, 1.0f, 1.0f), angleV, ImVec2(300, 300));
+//
+//            ImGui::SetCursorPos(ImVec2(10, 320));
+//            ImGui::Button("Settings", ImVec2(250, 50));
+//
+//            ImGui::SetCursorPos(ImVec2(10, 10));
+//            ImGui::BeginChild(4, ImVec2(250, 300), true);
+//
+//            ImGui::EndChild();
+//
+//            ImGui::SetCursorPos(ImVec2(270, 10));
+//            ImGui::BeginChild(5, ImVec2(500, 360), true);
+//
+//            ImGui::EndChild();
+//
+//            ImGui::SetCursorPos(ImVec2(10, 380));
+//            ImGui::BeginChild(7, ImVec2(760, 70), true);
+//
+//            ImGui::SetCursorPos(ImVec2(10, 10));
+//            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(71.0f / 255, 24.0f / 255, 135.0f / 255, 1.0f));
+//            if (ImGui::Button("HSR", ImVec2(210, 50))) {
+//                chosenGame = 2;
+//            }
+//            ImGui::PopStyleColor();
+//
+//            ImGui::SetCursorPos(ImVec2(230, 10));
+//            if (chosenGame == 0) {
+//                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(181 / 255.0f, 181 / 255.0f, 181 / 255.0f, 1.0f));
+//                if (ImGui::Button("Start", ImVec2(305, 50))) {
+//                    //DoInjectStuff();
+//                }
+//                ImGui::PopStyleColor();
+//            }
+//            if (chosenGame == 1) {
+//                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(255 / 255.0f, 206 / 255.0f, 35 / 255.0f, 1.0f));
+//                if (ImGui::Button("Start", ImVec2(305, 50))) {
+//                    //DoInjectStuff();
+//                }
+//                ImGui::PopStyleColor();
+//            }
+//            if (chosenGame == 2) {
+//                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(71.0f / 255, 24.0f / 255, 135.0f / 255,  1.0f));
+//                if (ImGui::Button("Start", ImVec2(305, 50))) {
+//                    //DoInjectStuff();
+//                }
+//                ImGui::PopStyleColor();
+//            }
+//
+//            ImGui::SetCursorPos(ImVec2(545, 10));
+//            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(255 / 255.0f, 206 / 255.0f, 35 / 255.0f, 1.0f));
+//            if (ImGui::Button("Anime Game", ImVec2(206, 50))) {
+//                chosenGame = 1;
+//            }
+//            ImGui::PopStyleColor();
+//
+//            ImGui::EndChild();
+//            //ImGui::SetWindowSize({ 800.00f, 600.00f });
+//
+//            //draw->AddRect(ImVec2(pos.x + 270.f, pos.y + 88.f), ImVec2(pos.x + 278.f, pos.y + 110.f), ImColor(1.00f, 1.00f, 1.00f, 1.00f), 0.f, 256, 1.f);
+//            //draw->AddRectFilled(ImVec2(pos.x + 62.f, pos.y + 8.f), ImVec2(pos.x + 790.f, pos.y + 590.f), ImColor(0.84f, 0.70f, 0.58f, 1.00f), 12.f, 240);
+//            //draw->AddRect(ImVec2(pos.x + 76.f, pos.y + 17.f), ImVec2(pos.x + 332.f, pos.y + 383.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 11.f, 16, 5.f);
+//            //draw->AddRect(ImVec2(pos.x + 345.f, pos.y + 18.f), ImVec2(pos.x + 781.f, pos.y + 472.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 11.f, 32, 5.f);
+//            //draw->AddRectFilled(ImVec2(pos.x + 75.f, pos.y + 392.f ), ImVec2(pos.x + 332.f, pos.y + 473.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 0.f, 256);
+//            //draw->AddRectFilled(ImVec2(pos.x + 283.f, pos.y + 482.f), ImVec2(pos.x + 576.f, pos.y + 577.f), ImColor(0.00f, 0.00f, 0.00f, 1.00f), 0.f, 256);
+//            //draw->AddRectFilled(ImVec2(pos.x + 76.f, pos.y + 484.f), ImVec2(pos.x + 273, pos.y + 574.f), ImColor(0.05f, 0.11f, 0.58f, 1.00f), 11.f, 64);
+//            //if (ImGui::InvisibleButton("button1", ImVec2(196, 92))) {
+//            //    DoInjectStuff();
+//            //}
+//            //draw->AddRectFilled(ImVec2(pos.x + 583.f, pos.y + 483.f), ImVec2(pos.x + 779.f, pos.y + 575.f), ImColor(0.75f, 0.00f, 0.00f, 1.00f), 11.f, 128);
+//            ////draw->AddText(Fonts::bahnschrift55, 55, pos + ImVec2{ 376.f, 498.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Start");
+//            ////draw->AddText(Fonts::bahnschrift41, 41, pos + ImVec2{ 124.f, 506.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "H: SR");
+//            ////draw->AddText(Fonts::bahnschrift30, 30, pos + ImVec2{ 597.f, 516.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Anime Game");
+//            ////draw->AddText(39, pos + ImVec2{ 128.f, 410.f }, ImColor(1.00f, 1.00f, 1.00f, 1.00f), "Settings");
+//
+//            ////ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+//            ImGui::End();
+//        }
+//
+//        // 3. Show another simple window.
+//        if (show_another_window) {
+//            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+//            ImGui::Text("Hello from another window!");
+//            if (ImGui::Button("Close Me"))
+//                show_another_window = false;
+//            ImGui::End();
+//        }
+//
+//        // Rendering
+//        ImGui::Render();
+//        const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
+//        g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
+//        g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
+//        ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+//
+//        g_pSwapChain->Present(1, 0); // Present with vsync
+//        //g_pSwapChain->Present(0, 0); // Present without vsync
+//    }
+//
+//    // Cleanup
+//    ImGui_ImplDX11_Shutdown();
+//    ImGui_ImplWin32_Shutdown();
+//    ImGui::DestroyContext();
+//
+//    CleanupDeviceD3D();
+//    ::DestroyWindow(hwnd);
+//    ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
+//
+//    return 0;
+//}
 
 // Helper functions
 
