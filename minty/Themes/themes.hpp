@@ -102,7 +102,7 @@ void mint_theme_light() {
     ImGui::StyleColorsLight();
     colors[ImGuiCol_CheckMark] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
     colors[ImGuiCol_SliderGrab] = ImVec4(0.10f, 0.85f, 0.12f, 0.61f);
-    colors[ImGuiCol_Button] = ImVec4(0.52f, 0.99f, 0.54f, 0.61f); 
+    colors[ImGuiCol_Button] = ImVec4(0.52f, 0.99f, 0.54f, 0.61f);
     colors[ImGuiCol_ButtonHovered] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
     colors[ImGuiCol_ButtonActive] = ImVec4(0.16f, 0.64f, 0.18f, 0.84f);
     colors[ImGuiCol_Header] = ImVec4(0.09f, 0.85f, 0.12f, 0.61f);
@@ -258,7 +258,7 @@ void default_style() {
 void round_compact_style() {
     ImGuiStyle& style = ImGui::GetStyle();
     style.WindowPadding = ImVec2(8.00f, 8.00f);
-    //style.FramePadding = ImVec2(5.00f, 2.00f);
+    // style.FramePadding = ImVec2(5.00f, 2.00f);
     style.CellPadding = ImVec2(6.00f, 6.00f);
     style.ItemSpacing = ImVec2(6.00f, 6.00f);
     style.ItemInnerSpacing = ImVec2(6.00f, 6.00f);
