@@ -97,6 +97,7 @@ namespace util {
     }
 
     void logdialog(const char* fmt) {
+        // LAMLMFNDPHJ.HAFGEFPIKFK is the Beebyte (more info: https://www.beebyte.co.uk/) obfuscated text for the game's error dialog.
         const char* errordialogformat = "CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"%s\",\"Minty\")";
         char errordialogtext[256];
         snprintf(errordialogtext, sizeof(errordialogtext), errordialogformat, fmt);

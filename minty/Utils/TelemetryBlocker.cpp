@@ -24,7 +24,7 @@ std::string unindent(const char* p)
                     goto dont_skip_leading;
             p += leading_len;
         }
-    dont_skip_leading:;
+        dont_skip_leading:;
     }
     return result;
 }
@@ -42,9 +42,11 @@ auto read_file(std::string_view path) -> std::string {
 
     auto out = std::string();
     auto buf = std::string(read_size, '\0');
+
     while (stream.read(&buf[0], read_size)) {
         out.append(buf, 0, stream.gcount());
     }
+
     out.append(buf, 0, stream.gcount());
     return out;
 }
