@@ -80,7 +80,7 @@ int xluaL_loadbuffer_hook(lua_State* L, const char* chunk, size_t sz, const char
 int xluaL_loadbuffer_hook(lua_State* L, const char* chunk, size_t sz, const char* chunkname) {
     if (!gi_L) {
         gi_L = L;
-        util::log(2, "xluaL_loadbuffer_hook called. Lua ready!");
+        util::log(M_Debug, "xluaL_loadbuffer_hook called. Lua ready!");
         is_lua_hooked = true;
         // util::logdialog("Succesfully hooked. Happy hacking!");
         main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
@@ -210,7 +210,7 @@ std::optional<std::string> compile(lua_State* L, const char* script) {
         std::string result = std::to_string(ret);
         // util::log(1,"compilation failed(%i)", result); // i dont think we need the err code :skull
         // util::log(1,"%s", lua_tolstring(L, 1, NULL));
-        util::log(1, "Lua compile failed: %s", lua_tolstring(L, 1, NULL));
+        util::log(M_Error, "Lua compile failed: %s", lua_tolstring(L, 1, NULL));
         // util::logdialog(lua_tolstring(L, 1, NULL)); ---- look in util.h; kinda useful but idk how to realise it at loading or how to mek slep
         lua_pop(L, 1);
         return std::nullopt;
@@ -230,7 +230,7 @@ void get_gi_L() {
     while ((ua = GetModuleHandleW(L"UserAssembly.dll")) == 0) {
         Sleep(50);
     }
-    util::log(2, "FOUND");
+    util::log(M_Debug, "UserAssembly for Lua Found");
     // pp_loadbuffer = scan_loadbuffer(ua);
     // printf("hook func addr: %p\n", xluaL_loadbuffer_hook);
     //*pp_loadbuffer = xluaL_loadbuffer_hook;
@@ -241,15 +241,15 @@ void get_gi_L() {
 
     // printf("xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
 
-    util::log(2, "xluaL_loadbuffer: %s, rva: %s", util::get_ptr(g_xluaL_loadbuffer), util::get_ptr(g_xluaL_loadbuffer - il2cpp_base));
+    util::log(M_Debug, "xluaL_loadbuffer: %s, rva: %s", util::get_ptr(g_xluaL_loadbuffer), util::get_ptr(g_xluaL_loadbuffer - il2cpp_base));
 
     // printf("lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
 
-    util::log(2, "lua_pcall: %s, rva: %s", util::get_ptr(g_lua_pcall), util::get_ptr(g_lua_pcall - il2cpp_base));
+    util::log(M_Debug, "lua_pcall: %s, rva: %s", util::get_ptr(g_lua_pcall), util::get_ptr(g_lua_pcall - il2cpp_base));
 
     HookManager::install((loadbuffer_ftn)g_xluaL_loadbuffer, xluaL_loadbuffer_hook);
     // printf("Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
-    util::log(2, "Hooked xluaL_loadbuffer, org: at %s", util::get_ptr(HookManager::getOrigin(xluaL_loadbuffer_hook)));
+    util::log(M_Debug, "Hooked xluaL_loadbuffer, org: at %s", util::get_ptr(HookManager::getOrigin(xluaL_loadbuffer_hook)));
     // kiero::bind(99, (void**)&LoadBuffer, xluaL_loadbuffer_hook);
     is_lua_hooked = true;
 
@@ -258,7 +258,7 @@ void get_gi_L() {
 
     // kiero::unbind(99);
     // printf("L: %p\n", gi_L);
-    util::log(2, "L: %s", util::get_ptr(gi_L));
+    util::log(M_Debug, "L: %s", util::get_ptr(gi_L));
 }
 
 DWORD initLua(LPVOID) {
@@ -267,7 +267,7 @@ DWORD initLua(LPVOID) {
     freopen("CONOUT$", "w", stdout);
     freopen("CONOUT$", "w", stderr);
 
-    util::log(2, "Initializing Lua");
+    util::log(M_Debug, "Initializing Lua");
     // auto dir = get_scripts_folder();
 
     while (!FindWindowA("UnityWndClass", nullptr)) Sleep(1000);

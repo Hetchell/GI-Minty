@@ -382,9 +382,9 @@ void Debug() {
     ImGui::InputText("gentyp", gentyp, 256);
 
     if (ImGui::Button("scan patterns")) {
-        util::log(2, "defind is: %p", PatternScan("UserAssembly.dll", (LPCSTR)defind));
-        util::log(2, "defind is: %s", PatternScan("UserAssembly.dll", (LPCSTR)defind));
-        util::log(2, "defind is: %i", PatternScan("UserAssembly.dll", (LPCSTR)defind));
+        util::log(M_Debug, "defind is: %p", PatternScan("UserAssembly.dll", (LPCSTR)defind));
+        util::log(M_Debug, "defind is: %s", PatternScan("UserAssembly.dll", (LPCSTR)defind));
+        util::log(M_Debug, "defind is: %i", PatternScan("UserAssembly.dll", (LPCSTR)defind));
         // util::log(2, "getnam is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getnam)));
         // util::log(2, "getmed is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)getmed)));
         // util::log(2, "gentyp is: %s", util::int_to_hex(util::PatternScan("UserAssembly.dll", (LPCSTR)gentyp)));
@@ -589,12 +589,13 @@ void Outer() {
                 if (is_lua_hooked) {
                     lua_runstr(code.c_str());
                     if (last_ret_code == 0) {
-                        util::log(2, "compilation success: %s", last_tolstr);
+                        util::log(M_Info, "compilation success: %s", last_tolstr);
                     }
                 } else {
-                    util::log(0, "Lua is not hooked");
+                    ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Lua is not hooked."});
+                    util::log(M_Error, "Lua is not hooked");
                 }
-            }
+            } 
         }
         ImGui::SameLine();
         // saver to button below.
@@ -619,14 +620,6 @@ void Outer() {
         //     }
         //     ImGui::EndPopup();
         // }
-
-        // ImGui::Begin("Minty");
-        // for (const auto& button : buttonFuncs) {
-        //     if (ImGui::Button(button.first.c_str())) {
-        //         button.second();
-        //     }
-        // }
-        // ImGui::End();
 
         if (ImGui::BeginMenuBar()) {
             // ImGui::InputText("##path3", path3, sizeof(path3));

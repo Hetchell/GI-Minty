@@ -8,6 +8,13 @@
 
 static ImGuiTextBuffer log_textbuf;
 
+enum MLogType {
+    M_Debug,
+    M_Info,
+    M_Warning,
+    M_Error,
+};
+
 namespace util {
 
 template <typename T>
@@ -19,13 +26,14 @@ const char* get_ptr(const T& value) {
 }
 
 template <typename... Args>
-void log(int output_type, const char* fmt, Args... args) {
-    const char* info_type[] = {"Warning", "Error", "Info", "Debug", "Lua"};
-    printf("[Minty:%s] ", info_type[output_type]);
+void log(MLogType output_type, const char* fmt, Args... args) {
+    const char* info_type[] = {"Debug", "Info", "Warning", "Error"};
+
+    printf("[Minty:%s] ", info_type[static_cast<int>(output_type)]);
     printf(fmt, args...);
     printf("\n");
 
-    log_textbuf.appendf("[Minty:%s] ", info_type[output_type]);
+    log_textbuf.appendf("[Minty:%s] ", info_type[static_cast<int>(output_type)]);
     log_textbuf.appendf(fmt, args...);
     log_textbuf.appendf("\n");
 }

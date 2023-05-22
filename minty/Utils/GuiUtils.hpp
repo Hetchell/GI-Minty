@@ -54,17 +54,17 @@ void TextURL(const char* name_, const char* URL_, bool SameLineBefore_, bool Sam
 void ShowDebugLog() {
     ImGuiTextFilter Filter;
     ImGui::Begin("Log", &show_debug_log);
-    if (ImGui::SmallButton("[Debug] Add 5 entries")) {
-        static int counter = 0;
-        const char* categories[3] = {"Info", "Warning", "Error"};
-        const char* words[] = {"virus", "sob", "leak", "plead", "windsensinden", "windy", "ril", "cnuy"};
-        for (int n = 0; n < 5; n++) {
-            const char* category = categories[counter % IM_ARRAYSIZE(categories)];
-            const char* word = words[counter % IM_ARRAYSIZE(words)];
-            log_textbuf.appendf("[Minty:%s] [%05d] Hello, current time is %.1f, here's a word: '%s'\n", category, ImGui::GetFrameCount(), ImGui::GetTime(), word);
-            counter++;
-        }
-    }
+    // if (ImGui::SmallButton("[Debug] Add 5 entries")) {
+    //     static int counter = 0;
+    //     const char* categories[3] = {"Info", "Warning", "Error"};
+    //     const char* words[] = {"virus", "sob", "leak", "plead", "windsensinden", "windy", "ril", "cnuy"};
+    //     for (int n = 0; n < 5; n++) {
+    //         const char* category = categories[counter % IM_ARRAYSIZE(categories)];
+    //         const char* word = words[counter % IM_ARRAYSIZE(words)];
+    //         log_textbuf.appendf("[Minty:%s] [%05d] Hello, current time is %.1f, here's a word: '%s'\n", category, ImGui::GetFrameCount(), ImGui::GetTime(), word);
+    //         counter++;
+    //     }
+    // }
 
     ImGui::SameLine();
 

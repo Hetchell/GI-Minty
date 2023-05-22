@@ -10,7 +10,7 @@ namespace il2fns {
 			}
 		}
 		else {
-			util::log(2, "cam not found");
+			util::log(M_Error, "cam not found");
 		}
 	}
 }

@@ -153,7 +153,7 @@ HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** 
 HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags) {
 	if (!g_bInitialised) {
 		g_PresentHooked = true;
-		util::log(3, "DirectX Present Hook called by first time");
+		util::log(M_Debug, "DirectX Present Hook called by first time");
 		if (FAILED(GetDeviceAndCtxFromSwapchain(pChain, &pDevice, &pContext)))
 			return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
 		pSwapChain = pChain;
@@ -211,18 +211,18 @@ void DetourDirectXPresent() {
 	DetourUpdateThread(GetCurrentThread());
 	//util::log(3, "Detour Update Thread");
 	// Detours the original fnIDXGISwapChainPresent with our Present
-	util::log(3, "DX11 Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
+	util::log(M_Debug, "DX11 Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
 	DetourAttach(&(LPVOID&)fnIDXGISwapChainPresent, (PBYTE)hkPresent);
-	util::log(3, "DX11 Detour Attach");
+	util::log(M_Debug, "DX11 Detour Attach");
 	DetourTransactionCommit();
 }
 
 void PrintValues() {
-	util::log(3, "Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
-	util::log(3, "ID3D11DeviceContext Address: %s", util::get_ptr(pContext));
-	util::log(3, "ID3D11Device Address: %s", util::get_ptr(pDevice));
-	util::log(3, "ID3D11RenderTargetView Address: %s", util::get_ptr(mainRenderTargetView));
-	util::log(3, "IDXGISwapChain Address: %s", util::get_ptr(pSwapChain));
+	util::log(M_Debug, "Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
+	util::log(M_Debug, "ID3D11DeviceContext Address: %s", util::get_ptr(pContext));
+	util::log(M_Debug, "ID3D11Device Address: %s", util::get_ptr(pDevice));
+	util::log(M_Debug, "ID3D11RenderTargetView Address: %s", util::get_ptr(mainRenderTargetView));
+	util::log(M_Debug, "IDXGISwapChain Address: %s", util::get_ptr(pSwapChain));
 }
 
 LRESULT CALLBACK DXGIMsgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) { return DefWindowProc(hwnd, uMsg, wParam, lParam); }
@@ -265,7 +265,7 @@ void GetPresent() {
 		&dev,
 		&FeatureLevelsSupported,
 		&devcon))) {
-		util::log(3, "Failed to hook Present with VT method.");
+		util::log(M_Error, "Failed to hook Present with VT method.");
 		return;
 	}
 	DWORD_PTR* pSwapChainVtable = NULL;
