@@ -49,20 +49,25 @@ extern bool is_lua_hooked;
 // extern bool is_il2cpp_hooked;
 
 std::vector<std::string> ModuleOrder = {
-    "Player",
-    "World",
-    "Misc",
-    "Lua",
-    "Minigames",
-    "Themes",
-    "Debug",
-    "About",
-    "Settings"};
+    /*
+    Text will generally be obfuscated with xorstr with the intent of making it harder for miHoYo to reverse engineer, and to prevent clout chasers,
+    malware developers, etc. from modifying this app and distributing a malicious/rebranded version
+    */
+    xorstr_("Player"),
+    xorstr_("World"),
+    xorstr_("Misc"),
+    xorstr_("Lua"),
+    xorstr_("Minigames"),
+    xorstr_("Themes"),
+    xorstr_("Debug"),
+    xorstr_("About"),
+    xorstr_("Settings")
+};
 
 namespace Sections {
 
 void Player() {
-    ImGui::SeparatorText("Avatar");
+    ImGui::SeparatorText(xorstr_("Avatar"));
 
     /*
     if (ImGui::Button("MoleMole Message DEBUG")) {
@@ -95,9 +100,9 @@ void Player() {
     */
 
     static bool show_avatarresizer = false;
-    ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
+    ImGui::Checkbox(xorstr_("Avatar resizer"), &show_avatarresizer);
     ImGui::SameLine();
-    HelpMarker("Resizes your current character's size.");
+    HelpMarker(xorstr_("Resizes your current character's size."));
 
     if (show_avatarresizer) {
         static float avatarsize = 1.0f;
@@ -205,12 +210,15 @@ void World() {
     static bool isbrowser = false;
     static char browserUrlBuf[256] = "";
     static float browserSize = 1;
+
     if (ImGui::Checkbox("Browser", &isbrowser)) {
         if (!isbrowser)
             il2fns::TurnBrowser(false, 1, "");
     }
+
     ImGui::SameLine();
     HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
+
     if (isbrowser) {
         ImGui::Indent();
 
@@ -225,10 +233,12 @@ void World() {
                 il2fns::TurnBrowser(true, browserSize, browserUrlBuf);
             }
         }
+
         ImGui::Unindent();
     }
 
     static bool ifDumbAI = false;
+
     if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
         saveFuncStateToJson("DumbEnemy", ifDumbAI);
         il2fns::DumbEnemies(ifDumbAI);
@@ -261,10 +271,11 @@ void About() {
 
     ImGui::SeparatorText("");
 
-    ImGui::Text("Minty Github: ");
-    TextURL("Link", "https://github.com/kindawindytoday/minty", true, false);
-    ImGui::Text("Minty Discord: ");
-    TextURL("Link", "https://discord.gg/kindawindytoday", true, false);
+    ImGui::Text(xorstr_("Minty Github: "));
+    TextURL(xorstr_("Link"), xorstr_("https://github.com/kindawindytoday/minty"), true, false);
+
+    ImGui::Text(xorstr_("Minty Discord: "));
+    TextURL(xorstr_("Link"), xorstr_("https://discord.gg/kindawindytoday"), true, false);
 
     ImGui::SeparatorText("");
 
@@ -272,35 +283,35 @@ void About() {
 }
 
 void Themes() {
-    ImGui::SeparatorText("Theme colors");
+    ImGui::SeparatorText(xorstr_("Theme colors"));
     /*----------PLACEHOLDER----------*/
     static int themeIndex = 0;
 
-    if (ImGui::RadioButton("Default dark", &themeIndex, 0)) {
+    if (ImGui::RadioButton(xorstr_("Default dark"), &themeIndex, 0)) {
         settheme(1);
     }
 
-    if (ImGui::RadioButton("Default light", &themeIndex, 1)) {
+    if (ImGui::RadioButton(xorstr_("Default light"), &themeIndex, 1)) {
         settheme(2);
     }
 
-    if (ImGui::RadioButton("Default classic", &themeIndex, 2)) {
+    if (ImGui::RadioButton(xorstr_("Default classic"), &themeIndex, 2)) {
         settheme(3);
     }
 
-    if (ImGui::RadioButton("Dark theme", &themeIndex, 3)) {
+    if (ImGui::RadioButton(xorstr_("Dark theme"), &themeIndex, 3)) {
         settheme(4);
     }
 
-    if (ImGui::RadioButton("Minty Red", &themeIndex, 4)) {
+    if (ImGui::RadioButton(xorstr_("Minty Red"), &themeIndex, 4)) {
         settheme(5);
     }
 
-    if (ImGui::RadioButton("Minty Mint", &themeIndex, 5)) {
+    if (ImGui::RadioButton(xorstr_("Minty Mint"), &themeIndex, 5)) {
         settheme(6);
     }
 
-    if (ImGui::RadioButton("Minty Mint Light", &themeIndex, 6)) {
+    if (ImGui::RadioButton(xorstr_("Minty Mint Light"), &themeIndex, 6)) {
         settheme(7);
     }
 
@@ -308,7 +319,7 @@ void Themes() {
 
     static int themestyleindex = 0;
 
-    if (ImGui::RadioButton("Minty", &themestyleindex, 0)) {
+    if (ImGui::RadioButton(xorstr_("Minty"), &themestyleindex, 0)) {
         setstyle(1);
     }
 
@@ -374,7 +385,7 @@ void Debug() {
     ImGui::SeparatorText("");
 
     ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
-    ImGui::Checkbox("Show Minty Debug Log", &show_debug_log);
+    ImGui::Checkbox(xorstr_("Show Minty Debug Log"), &show_debug_log);
 
     ImGui::SeparatorText("mDumper");
 
@@ -686,15 +697,16 @@ void Outer() {
 using DrawFunction = void (*)();
 
 const std::unordered_map<std::string, DrawFunction> SectionMap = {
-    {"Player", &Sections::Player},
-    {"World", &Sections::World},
-    {"Misc", &Sections::Misc},
-    {"Lua", &Sections::Lua},
-    {"Minigames", &Sections::Minigames},
-    {"About", &Sections::About},
-    {"Themes", &Sections::Themes},
-    {"Settings", &Sections::Settings},
-    {"Debug", &Sections::Debug}};
+    {xorstr_("Player"), &Sections::Player},
+    {xorstr_("World"), &Sections::World},
+    {xorstr_("Misc"), &Sections::Misc},
+    {xorstr_("Lua"), &Sections::Lua},
+    {xorstr_("Minigames"), &Sections::Minigames},
+    {xorstr_("About"), &Sections::About},
+    {xorstr_("Themes"), &Sections::Themes},
+    {xorstr_("Settings"), &Sections::Settings},
+    {xorstr_("Debug"), &Sections::Debug}
+};
 
 void DrawSection(const std::string& sectionName) {
     auto it = SectionMap.find(sectionName);
@@ -702,6 +714,6 @@ void DrawSection(const std::string& sectionName) {
         Sections::Outer();
         it->second();
     } else {
-        ImGui::TextDisabled("No section matches name");
+        ImGui::TextDisabled(xorstr_("No section matches name"));
     }
 }
