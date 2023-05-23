@@ -154,3 +154,4 @@ void log(MLogType output_type, const char* fmt, Args... args) {
 //	}
 // }
 }  // namespace util
+

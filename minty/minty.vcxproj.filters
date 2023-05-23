@@ -110,7 +110,6 @@
     <ClInclude Include="Lua\lualib.h" />
     <ClInclude Include="Lua\lauxlib.h" />
     <ClInclude Include="Lua\lua.h" />
-    <ClInclude Include="Lua\luahook.h" />
     <ClInclude Include="Lua\luaconf.h" />
     <ClInclude Include="Lua\lprefix.h" />
     <ClInclude Include="IL2CPP\Functions\unlockfps.h" />
@@ -157,6 +156,8 @@
     <ClInclude Include="Lua\lvm.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClInclude Include="Themes\themes.hpp" />
+    <ClInclude Include="Lua\luahookutil.hpp" />
+    <ClInclude Include="Lua\luahook.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

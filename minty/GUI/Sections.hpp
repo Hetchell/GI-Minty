@@ -28,16 +28,16 @@
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
 #include "GuiDefinitions.h"
 // #include "../ImGui/ImGuiNotify/tahoma.h"
-// #include "../Lua/luahook.hpp"
+#include "../Lua/luahook.hpp"
 #include "../Config/ConfigManager.hpp"
 #include "../Json/json.hpp"
-#include "../Lua/luahook.h"
+//#include "../Lua/luahook.h"
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
 // bool block_input = true;
 // bool show_debug_metrics = false;
 // bool show_debug_log = false;
-
+//#include "../Lua/luavars.h"
 #include "../Themes/themes.hpp"
 
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
@@ -47,6 +47,7 @@ ImGuiID textureID = 0;
 
 extern bool is_lua_hooked;
 // extern bool is_il2cpp_hooked;
+std::vector<std::string> lua_list;
 
 std::vector<std::string> ModuleOrder = {
     "Player",
@@ -433,8 +434,26 @@ void Misc() {
         ImGui::Unindent();
     }
 
-    if (ImGui::Button("lua molmol"))
-        lua_runstr("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
+    auto state = luaL_newstate();
+    static int threthr = 1;
+    if (ImGui::Button("lua molmol L")) {
+        get_gi_L();
+        util::log(M_Info, "thread is: %i", GetCurrentThreadId());
+        //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_L);
+    }
+    if (ImGui::Button("lua molmol LL")) {
+        util::log(M_Info, "thread is: %i", GetCurrentThreadId());
+        //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_LL);
+    }
+    ImGui::SliderInt("Target ID", &threthr, 1, 50000);
+    if (ImGui::Button("lua molmol STATE")) {
+        //util::log(M_Info, "main_thread is: %i", GetThreadId(mainluathread));
+        auto thrthr = OpenThread(THREAD_ALL_ACCESS, false, threthr);
+        util::log(M_Info, "main_thread is: %i", GetThreadId(thrthr));
+        luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
+    }
+    if (ImGui::Button("PUSHDFDBNFYDHFGEUIRHUIEGH"))
+       lua_list.push_back("CS.MoleMole.ActorUtils.ShowMessage(\"Lua pulled from lua_list vector\")");
 
     static bool hideui = false;
     if (ImGui::Checkbox("Hide UI", &hideui)) {
@@ -476,7 +495,7 @@ void Misc() {
 
         if (ImGui::Button("Change")) {
             std::string result = char_eleminf + std::to_string(cc_r) + "," + std::to_string(cc_g) + "," + std::to_string(cc_b) + "," + std::to_string(cc_a) + char_eleminf_end;
-            lua_runstr(result.c_str());
+            //luahookfunc(result.c_str());
         }
         ImGui::SameLine();
 
@@ -597,14 +616,15 @@ void Outer() {
             if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != std::string::npos) {
                 if (true) { //if (is_lua_hooked) {
                     try {
-                        lua_runstr(code.c_str());
+                        auto thred = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
+                        //luahookfunc(code.c_str(), state);
                     }
                     catch (...) {
                         util::log(M_Error, "lua excep");
                     }
-                    if (last_ret_code == 0) {
+                    /*if (last_ret_code == 0) {
                         util::log(M_Info, "compilation success: %s", last_tolstr);
-                    }
+                    }*/
                 } else {
                     ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Lua is not hooked."});
                     util::log(M_Error, "Lua is not hooked");

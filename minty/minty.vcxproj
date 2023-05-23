@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -107,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -265,6 +266,8 @@
     <ClInclude Include="Lua\ltable.h" />
     <ClInclude Include="Lua\ltm.h" />
     <ClInclude Include="Lua\lua.hpp" />
+    <ClInclude Include="Lua\luahook.hpp" />
+    <ClInclude Include="Lua\luahookutil.hpp" />
     <ClInclude Include="Lua\lundump.h" />
     <ClInclude Include="Lua\lvm.h" />
     <ClInclude Include="Lua\lzio.h" />
@@ -306,7 +309,6 @@
     <ClInclude Include="Lua\lprefix.h" />
     <ClInclude Include="Lua\lua.h" />
     <ClInclude Include="Lua\luaconf.h" />
-    <ClInclude Include="Lua\luahook.h" />
     <ClInclude Include="Lua\lualib.h" />
     <ClInclude Include="Lua\pe.h" />
     <ClInclude Include="Lua\scanner.h" />
@@ -336,5 +338,6 @@
   </ItemGroup> -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>
