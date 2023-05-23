@@ -15,10 +15,10 @@ bool f_BoobR = false;
 
 namespace il2fns {
     void ScaleBreast() {
-        auto AvatarRoot = app::UnityEngine__GameObject__Find(il2cpp_string_new("/EntityRoot/AvatarRoot"));
+        auto AvatarRoot = app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
 
         if (AvatarRoot != nullptr) {
-            auto Transform = app::UnityEngine_GameObject_GetComponent(AvatarRoot, il2cpp_string_new("Transform"));
+            auto Transform = app::UnityEngine_GameObject_GetComponent(AvatarRoot, string_to_il2cppi("Transform"));
             auto HeroCount = app::UnityEngine_Transform_GetChildCount(reinterpret_cast<app::Transform*>(Transform));
 
             for (int i = 0; i <= HeroCount - 1; i++)
@@ -37,8 +37,8 @@ namespace il2fns {
                     std::string nameL = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str() + "/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Spine2/+Breast L A01";
                     std::string nameR = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str() + "/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Spine2/+Breast R A01";
 
-                    auto GameObjectBreastL = app::UnityEngine__GameObject__Find(il2cpp_string_new(nameL.c_str()));
-                    auto GameObjectBreastR = app::UnityEngine__GameObject__Find(il2cpp_string_new(nameR.c_str()));
+                    auto GameObjectBreastL = app::UnityEngine__GameObject__Find(string_to_il2cppi(nameL.c_str()));
+                    auto GameObjectBreastR = app::UnityEngine__GameObject__Find(string_to_il2cppi(nameR.c_str()));
                     if (app::GameObject_get_active(GameObjectBreastL) && app::GameObject_get_active(GameObjectBreastR))
                     {
                         avatarBoobL = GameObjectBreastL;
@@ -62,8 +62,8 @@ namespace il2fns {
                         auto position_R = app::Transform_get_position(transform_R);
 
                         if (!f_BoobL && !f_BoobR) {
-                            app::GameObject__ctor(pathBoob, il2cpp_string_new("Boobs"));
-                            auto obj_pathBoob = app::UnityEngine__GameObject__Find(il2cpp_string_new("Boobs"));
+                            app::GameObject__ctor(pathBoob, string_to_il2cppi("Boobs"));
+                            auto obj_pathBoob = app::UnityEngine__GameObject__Find(string_to_il2cppi("Boobs"));
                             if (obj_pathBoob != nullptr)
                             {
                                 auto transform_pathBoob = app::UnityEngine__Component__get__Transform(pathBoob);

@@ -2,7 +2,7 @@
 
 namespace il2fns {
 	void Infusion_Color(int color) {
-		app::GameObject* effectPoolObj = app::UnityEngine__GameObject__Find(il2cpp_string_new("/EffectPool"));
+		app::GameObject* effectPoolObj = app::UnityEngine__GameObject__Find((app::String*)il2cpp_string_new("/EffectPool"));
 
 		int cEf = app::UnityEngine_Transform_GetChildCount(app::UnityEngine__Component__get__Transform(effectPoolObj));
 

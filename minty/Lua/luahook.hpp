@@ -180,7 +180,6 @@ namespace {
         Sleep(10000);
         util::log(M_Info, "should call now!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"Lua initialized!\")");
-
         while (true) {
             if (!last_lua_string.empty()) {
                 luahookfunc(last_lua_string.c_str());
@@ -188,7 +187,7 @@ namespace {
                 last_lua_string.clear();
                 util::log(M_Info, "Lua deleted from s.");
             }
-            Sleep(1000);
+            Sleep(100);
             util::log(M_Info, "checked");
         }
         return TRUE;

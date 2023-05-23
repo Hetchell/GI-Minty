@@ -4,7 +4,7 @@ void CreateBrowser(float planeWidth, float planeHeight, std::string url, bool va
     app::GameObject* planeObject = nullptr;
     app::Component_1* BrowserComponents = nullptr;
     if (value) {
-        auto entityRoot = app::UnityEngine__GameObject__Find(il2cpp_string_new("EntityRoot/AvatarRoot/"));
+        auto entityRoot = app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot/"));
         if (!app::UnityEngine_GameObject_get_active(entityRoot))
             return;
 
@@ -22,8 +22,8 @@ void CreateBrowser(float planeWidth, float planeHeight, std::string url, bool va
         app::set_localRotation(planeObject_Transform, planeObject_Transform_Quaternion);
 
         std::string custom_url = url;
-        BrowserComponents = app::AddComponentInternal(planeObject, il2cpp_string_new("Browser"));
-        reinterpret_cast<app::Browser*>(BrowserComponents)->fields._url = il2cpp_string_new(custom_url.c_str());
+        BrowserComponents = app::AddComponentInternal(planeObject, string_to_il2cppi("Browser"));
+        reinterpret_cast<app::Browser*>(BrowserComponents)->fields._url = string_to_il2cppi(custom_url.c_str());
         reinterpret_cast<app::Browser*>(BrowserComponents)->fields._width = 1920;
         reinterpret_cast<app::Browser*>(BrowserComponents)->fields._height = 1080;
         reinterpret_cast<app::Browser*>(BrowserComponents)->fields.forceNextRender = true;

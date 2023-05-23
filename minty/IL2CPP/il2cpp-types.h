@@ -11730,8 +11730,8 @@ typedef union Il2CppSingle_float
         bool offScreen;
         struct IBrowserUI* _uiHandler;
         bool uiHandlerAssigned;
-        void* _url;
-        //struct String* _url
+        //String* _url;
+        struct String* _url;
         int32_t _width;
         int32_t _height;
         bool generateMipmap;

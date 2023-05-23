@@ -61,7 +61,7 @@ std::vector<std::string> ModuleOrder = {
     /*xorstr_*/("Lua"),
     /*xorstr_*/("Minigames"),
     /*xorstr_*/("Themes"),
-    /*xorstr_*/("Debug"),
+    ///*xorstr_*/("Debug"),
     /*xorstr_*/("About"),
     /*xorstr_*/("Settings")
 };
@@ -101,27 +101,27 @@ void Player() {
     }
     */
 
-    static bool show_avatarresizer = false;
-    ImGui::Checkbox(/*xorstr_*/("Avatar resizer"), &show_avatarresizer);
-    ImGui::SameLine();
-    HelpMarker(/*xorstr_*/("Resizes your current character's size."));
+    //static bool show_avatarresizer = false;
+    //ImGui::Checkbox(/*xorstr_*/("Avatar resizer"), &show_avatarresizer);
+    //ImGui::SameLine();
+    //HelpMarker(/*xorstr_*/("Resizes your current character's size."));
 
-    if (show_avatarresizer) {
-        static float avatarsize = 1.0f;
-        ImGui::Indent();
+    //if (show_avatarresizer) {
+    //    static float avatarsize = 1.0f;
+    //    ImGui::Indent();
 
-        if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f")) {
-            il2fns::Resize__Avatar(avatarsize);
-        }
+    //    if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f")) {
+    //        il2fns::Resize__Avatar(avatarsize);
+    //    }
 
-        ImGui::SameLine();
+    //    ImGui::SameLine();
 
-        if (ImGui::Button("reset")) {
-            il2fns::Resize__Avatar(1.0f);
-        }
+    //    if (ImGui::Button("reset")) {
+    //        il2fns::Resize__Avatar(1.0f);
+    //    }
 
-        ImGui::Unindent();
-    }
+    //    ImGui::Unindent();
+    //}
 
     ImGui::SeparatorText("Skills");
 
@@ -182,6 +182,113 @@ void Player() {
     //     saveFuncStateToJson("Noclip", ifnoclip);
     //     il2fns::OnNoclip(ifnoclip);
     // }
+
+    static bool show_modelswap = false;
+    if (ImGui::Checkbox("Model swapper", &show_modelswap)) {}
+    ImGui::SameLine();
+    HelpMarker("Swaps your avatars' models. Switch to character which model you want to set on another, press Clone; Switch to character, which model you want to replace with copied, press Paste.");
+    if (show_modelswap)
+    {
+        ImGui::Indent();
+
+        if (ImGui::Button("Clone model")) {
+            last_lua_string = char_modelswap_clone;
+        }
+        if (ImGui::Button("Paste model")) {
+            last_lua_string = char_modelswap_paste;
+        }
+        ImGui::Unindent();
+    }
+
+    static bool show_resizer = false;
+    static float boob_size = 1.0f;
+    ImGui::Checkbox("Booba resizer", &show_resizer);
+    ImGui::SameLine();
+    HelpMarker("Changes size of character breasts. Press Initiate and move slider.");
+    if (show_resizer)
+    {
+        ImGui::Indent();
+        if (ImGui::Button("Initiate resize")) {
+            boob_size = 1.0f;
+            last_lua_string = char_bub_initiate;
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::SliderFloat("Booba scale", &boob_size, 0.0f, 4.0f, "%.3f"))
+        {
+            std::string result = char_bub_resize + std::to_string(boob_size) + "," + std::to_string(boob_size) + "," + std::to_string(boob_size) + ")";
+            last_lua_string = result;
+        }
+        ImGui::Unindent();
+    }
+
+    static bool animcheng = false;
+    static int anim_select_index = 0;
+    ImGui::Checkbox("Animation Changer", &animcheng);
+    ImGui::SameLine();
+    HelpMarker("Change current avatar's animation.");
+    if (animcheng) {
+        ImGui::Indent();
+        if (ImGui::Combo("Animations", &anim_select_index, animation_options, IM_ARRAYSIZE(animation_options))) {}
+
+        if (ImGui::Button("Change"))
+        {
+            std::string result = animchanger + std::string(animation_options[anim_select_index]) + animchanger2;
+            last_lua_string = result;
+        }
+        if (ImGui::Button("Reset"))
+        {
+            last_lua_string = animchangerreturn;
+        }
+        ImGui::Unindent();
+    }
+
+    static bool emocheng = false;
+    static int emo_select_index = 0;
+    static int pho_select_index = 0;
+    ImGui::Checkbox("Emotion Changer", &emocheng);
+    ImGui::SameLine();
+    HelpMarker("Change current avatar's emotion.");
+    if (emocheng) {
+        ImGui::Indent();
+        if (ImGui::Combo("Face expression", &emo_select_index, emo_options, IM_ARRAYSIZE(emo_options))) {}
+        if (ImGui::Combo("Mouth expression", &pho_select_index, pho_options, IM_ARRAYSIZE(pho_options))) {}
+
+        if (ImGui::Button("Change"))
+        {
+            std::string result = emochengemo1 + std::string(emo_options[emo_select_index]) + emochengemo2 + std::string(pho_options[emo_select_index]) + emochengpho2;
+            last_lua_string = result;
+        }
+
+    }
+
+    static bool show_avatarresizer = false;
+    ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
+    ImGui::SameLine();
+    HelpMarker("Resizes your current character's size. Just move slider. ");
+
+    if (show_avatarresizer) {
+        static float avatarsize = 1.0f;
+        ImGui::Indent();
+        std::string result = char_avatarresize + std::to_string(avatarsize) + "," + std::to_string(avatarsize) + "," + std::to_string(avatarsize) + ")";
+
+        if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f"))
+        {
+            last_lua_string = result;
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("reset"))
+        {
+            std::string result = std::string(char_avatarresize) + "1 , 1, 1)";
+            avatarsize = 1.0f;
+            last_lua_string = result;
+        }
+
+        ImGui::Unindent();
+    }
 }
 
 static float TimeScale = 1.0f;
@@ -208,6 +315,36 @@ void World() {
         }
         ImGui::Unindent();
     }
+
+    //static bool isbrowser = false;
+    //static char browserUrlBuf[256] = "";
+    //static float browserSize = 1;
+
+    //if (ImGui::Checkbox("Browser", &isbrowser)) {
+    //    if (!isbrowser)
+    //        il2fns::TurnBrowser(false, 1, "");
+    //}
+
+    //ImGui::SameLine();
+    //HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
+
+    //if (isbrowser) {
+    //    ImGui::Indent();
+
+    //    ImGui::SliderFloat("Browser scale", &browserSize, 0.1f, 20.0f, "%.3f");
+    //    ImGui::SameLine();
+    //    HelpMarker("Set scale ratio of Browser. 1.0 - 1920x1080.");
+
+    //    ImGui::InputTextWithHint("Browser URL", "Input Browser URL", browserUrlBuf, 256);
+
+    //    if (ImGui::Button("Create")) {
+    //        if (browserSize != 0 && strcmp(browserUrlBuf, "")) {
+    //            il2fns::TurnBrowser(true, browserSize, browserUrlBuf);
+    //        }
+    //    }
+
+    //    ImGui::Unindent();
+    //}
 
     static bool isbrowser = false;
     static char browserUrlBuf[256] = "";
@@ -446,44 +583,54 @@ void Misc() {
         ImGui::Unindent();
     }
 
-    auto state = luaL_newstate();
-    static int threthr = 1;
-    if (ImGui::Button("lua molmol L")) {
-        get_gi_L();
-        util::log(M_Info, "thread is: %i", GetCurrentThreadId());
-        //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_L);
-    }
-    if (ImGui::Button("lua molmol LL")) {
-        util::log(M_Info, "thread is: %i", GetCurrentThreadId());
-        //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_LL);
-    }
-    ImGui::SliderInt("Target ID", &threthr, 1, 50000);
-    if (ImGui::Button("lua molmol STATE")) {
-        //util::log(M_Info, "main_thread is: %i", GetThreadId(mainluathread));
-        auto thrthr = OpenThread(THREAD_ALL_ACCESS, false, threthr);
-        util::log(M_Info, "main_thread is: %i", GetThreadId(thrthr));
-        luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
-    }
-    if (ImGui::Button("PUSHDFDBNFYDHFGEUIRHUIEGH"))
-        last_lua_string = "CS.MoleMole.ActorUtils.ShowMessage(\"11111Lua pulled from lua_list vector\")";
-       //lua_list.push_back("CS.MoleMole.ActorUtils.ShowMessage(\"Lua pulled from lua_list vector\")");
+    //auto state = luaL_newstate();
+    //static int threthr = 1;
+    //if (ImGui::Button("lua molmol L")) {
+    //    get_gi_L();
+    //    util::log(M_Info, "thread is: %i", GetCurrentThreadId());
+    //    //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_L);
+    //}
+    //if (ImGui::Button("lua molmol LL")) {
+    //    util::log(M_Info, "thread is: %i", GetCurrentThreadId());
+    //    //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_LL);
+    //}
+    //ImGui::SliderInt("Target ID", &threthr, 1, 50000);
+    //if (ImGui::Button("lua molmol STATE")) {
+    //    //util::log(M_Info, "main_thread is: %i", GetThreadId(mainluathread));
+    //    auto thrthr = OpenThread(THREAD_ALL_ACCESS, false, threthr);
+    //    util::log(M_Info, "main_thread is: %i", GetThreadId(thrthr));
+    //    luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
+    //}
+    //if (ImGui::Button("PUSHDFDBNFYDHFGEUIRHUIEGH"))
+    //    last_lua_string = "CS.MoleMole.ActorUtils.ShowMessage(\"11111Lua pulled from lua_list vector\")";
+    //   //lua_list.push_back("CS.MoleMole.ActorUtils.ShowMessage(\"Lua pulled from lua_list vector\")");
 
     static bool hideui = false;
+
     if (ImGui::Checkbox("Hide UI", &hideui)) {
-        saveFuncStateToJson("HideUI", hideui);
-        il2fns::Hide__UI(hideui);
+        if (hideui) {
+            last_lua_string = char_uicamera_off;
+        }
+        else {
+            last_lua_string = char_uicamera_on;
+        }
     }
     ImGui::SameLine();
     HelpMarker("Hides all game UI.");
 
     static char UID_inputTextBuffer[512] = "";
-    ImGui::InputTextWithHint("##input", "Enter custom UID text here...", UID_inputTextBuffer, sizeof(UID_inputTextBuffer));
-    ImGui::SameLine();
-    if (ImGui::Button("Update custom UID")) {
-        il2fns::Change_UID(UID_inputTextBuffer);
-    }
+    static bool ifUid;
+    ImGui::Checkbox("Custom UID", &ifUid);
     ImGui::SameLine();
     HelpMarker("Changes your game UID to any defined text. HTML/Rich Text tags can be applied.");
+    if (ifUid) {
+        ImGui::InputTextWithHint("##input", "Enter custom UID text here...", UID_inputTextBuffer, sizeof(UID_inputTextBuffer));
+        ImGui::SameLine();
+        if (ImGui::Button("Update custom UID")) {
+            std::string result = R"MY_DELIMITER(CS.UnityEngine.GameObject.Find("/BetaWatermarkCanvas(Clone)/Panel/TxtUID"):GetComponent("Text").text = ")MY_DELIMITER" + std::string(UID_inputTextBuffer) + "\"";
+            last_lua_string = result;
+        }
+    }
 
     static bool ifpeeking = false;
     if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
@@ -508,7 +655,7 @@ void Misc() {
 
         if (ImGui::Button("Change")) {
             std::string result = char_eleminf + std::to_string(cc_r) + "," + std::to_string(cc_g) + "," + std::to_string(cc_b) + "," + std::to_string(cc_a) + char_eleminf_end;
-            //luahookfunc(result.c_str());
+            last_lua_string = result;
         }
         ImGui::SameLine();
 
@@ -591,6 +738,10 @@ void Misc() {
 void Lua() {
     ImGui::SeparatorText("Editor");
     ImGui::Checkbox("Show Lua editor", &show_lua_editor);
+
+    if (ImGui::Button("XLua Hotfix")) {
+        last_lua_string = xluaHotFix;
+    }
 }
 
 void Outer() {
@@ -630,7 +781,7 @@ void Outer() {
                 if (true) { //if (is_lua_hooked) {
                     try {
                         auto thred = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
-                        //luahookfunc(code.c_str(), state);
+                        last_lua_string = code;
                     }
                     catch (...) {
                         util::log(M_Error, "lua excep");

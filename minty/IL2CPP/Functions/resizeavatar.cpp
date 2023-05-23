@@ -3,7 +3,7 @@
 namespace il2fns {
 	void Resize__Avatar(float scale) {
 		app::Vector3 ResizingScale;
-		app::GameObject* Avatar__Object = app::UnityEngine__GameObject__Find(il2cpp_string_new("/EntityRoot/AvatarRoot"));
+		app::GameObject* Avatar__Object = app::UnityEngine__GameObject__Find((app::String*)il2cpp_string_new("/EntityRoot/AvatarRoot"));
 		if (Avatar__Object == nullptr) {
 			ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "No avatar found" });
 		}
