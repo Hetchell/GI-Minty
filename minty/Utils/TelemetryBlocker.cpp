@@ -9,11 +9,15 @@
 std::string unindent(const char* p)
 {
     std::string result;
+
     if (*p == '\n') ++p;
     const char* p_leading = p;
+
     while (std::isspace(*p) && *p != '\n')
         ++p;
+
     size_t leading_len = p - p_leading;
+
     while (*p)
     {
         result += *p;
@@ -24,8 +28,9 @@ std::string unindent(const char* p)
                     goto dont_skip_leading;
             p += leading_len;
         }
-    dont_skip_leading:;
+        dont_skip_leading:;
     }
+
     return result;
 }
 
@@ -42,9 +47,11 @@ auto read_file(std::string_view path) -> std::string {
 
     auto out = std::string();
     auto buf = std::string(read_size, '\0');
+
     while (stream.read(&buf[0], read_size)) {
         out.append(buf, 0, stream.gcount());
     }
+
     out.append(buf, 0, stream.gcount());
     return out;
 }
@@ -53,7 +60,7 @@ void TelemetryBlocker::BlockTelemetry() {
     // Blocks miHoYo telemetry domains in /etc/hosts to avoid detection.
     std::string hostsText = unindent(R"(
     
-    # These domains have been added to your /etc/hosts file by the M cheat to prevent miHoYo from recording telemetry data about you.
+    # These domains have been added to your /etc/hosts file by Minty to prevent miHoYo from recording telemetry data about you.
     # Aside from being an egregious privacy violation, telemetry data can be used for bans.
     # Please *do not* modify or remove this text.
 
@@ -99,7 +106,7 @@ void TelemetryBlocker::BlockTelemetry() {
     // If this string already exists in /etc/hosts, we aren't going to edit /etc/hosts again.
     // If we really need to add/remove domains to this list in a new version (unlikely), we can implement the necessary code to do that then.
     // I don't want to plan for hypothetical issues when we have a finite amount of time.
-    std::string deduplicationString = "cheat to prevent miHoYo from recording telemetry data about you";
+    std::string deduplicationString = "to prevent miHoYo from recording telemetry data about you";
 
     // https://stackoverflow.com/a/23967977
     // https://stackoverflow.com/a/9740368
@@ -111,7 +118,6 @@ void TelemetryBlocker::BlockTelemetry() {
     {
         // If this block is reached, the hosts file does not exist
         util::log(M_Debug, "You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. M will create one to block miHoYo telemetry and prevent bans.");
-        //appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::trunc);
         appendFileToWorkWith << hostsText;
         appendFileToWorkWith.close();
     }
@@ -122,15 +128,15 @@ void TelemetryBlocker::BlockTelemetry() {
         // We need to make sure we haven't already edited /etc/hosts. We don't want to clog the user's /etc/hosts file.
         if (read_file(hostsFilename).find(deduplicationString) == std::string::npos) {
             // If we haven't edited it, we add data to it.
-            //appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::trunc);
-            util::log(M_Debug,"You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it.");
+            util::log(M_Debug, "You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it.");
             appendFileToWorkWith << hostsText;
         }
         else {
+            // Otherwise, we log some debug information and continue.
             util::log(M_Debug, "It looks like you have a C:\\Windows\\System32\\drivers\\etc\\hosts file and it has the necessary lines needed to block miHoYo telemetry - good to go!");
         }
 
-        // Close file regardless of what operations took place (leaving files open unnecessarily can cause security and performance issues iirc)
+        // Close file regardless of what operations took place (see https://stackoverflow.com/q/11095474)
         appendFileToWorkWith.close();
     }
 }
