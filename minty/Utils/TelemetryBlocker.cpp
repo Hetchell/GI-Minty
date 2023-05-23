@@ -60,7 +60,7 @@ void TelemetryBlocker::BlockTelemetry() {
     // Blocks miHoYo telemetry domains in /etc/hosts to avoid detection.
     std::string hostsText = unindent(R"(
     
-    # These domains have been added to your /etc/hosts file by the M cheat to prevent miHoYo from recording telemetry data about you.
+    # These domains have been added to your /etc/hosts file by Minty to prevent miHoYo from recording telemetry data about you.
     # Aside from being an egregious privacy violation, telemetry data can be used for bans.
     # Please *do not* modify or remove this text.
 
@@ -106,7 +106,7 @@ void TelemetryBlocker::BlockTelemetry() {
     // If this string already exists in /etc/hosts, we aren't going to edit /etc/hosts again.
     // If we really need to add/remove domains to this list in a new version (unlikely), we can implement the necessary code to do that then.
     // I don't want to plan for hypothetical issues when we have a finite amount of time.
-    std::string deduplicationString = "cheat to prevent miHoYo from recording telemetry data about you";
+    std::string deduplicationString = "to prevent miHoYo from recording telemetry data about you";
 
     // https://stackoverflow.com/a/23967977
     // https://stackoverflow.com/a/9740368
@@ -128,7 +128,7 @@ void TelemetryBlocker::BlockTelemetry() {
         // We need to make sure we haven't already edited /etc/hosts. We don't want to clog the user's /etc/hosts file.
         if (read_file(hostsFilename).find(deduplicationString) == std::string::npos) {
             // If we haven't edited it, we add data to it.
-            util::log(M_Debug,"You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it.");
+            util::log(M_Debug, "You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it.");
             appendFileToWorkWith << hostsText;
         }
         else {
