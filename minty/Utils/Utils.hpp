@@ -6,6 +6,8 @@
 // #include "../IL2CPP/il2cpp-init.hpp"
 // #include "../IL2CPP/il2cpp-appdata.h"
 
+#include "xorstr.hpp"
+
 static ImGuiTextBuffer log_textbuf;
 
 enum MLogType {
@@ -27,15 +29,20 @@ const char* get_ptr(const T& value) {
 
 template <typename... Args>
 void log(MLogType output_type, const char* fmt, Args... args) {
-    const char* info_type[] = {"Debug", "Info", "Warning", "Error"};
+    const char* info_type[] = {
+		xorstr_("Debug"),
+		xorstr_("Info"),
+		xorstr_("Warning"),
+		xorstr_("Error")
+	};
 
-    printf("[Minty:%s] ", info_type[static_cast<int>(output_type)]);
+    printf(xorstr_("[Minty:%s] "), info_type[static_cast<int>(output_type)]);
     printf(fmt, args...);
-    printf("\n");
+    printf(xorstr_("\n"));
 
-    log_textbuf.appendf("[Minty:%s] ", info_type[static_cast<int>(output_type)]);
+    log_textbuf.appendf(xorstr_("[Minty:%s] "), info_type[static_cast<int>(output_type)]);
     log_textbuf.appendf(fmt, args...);
-    log_textbuf.appendf("\n");
+    log_textbuf.appendf(xorstr_("\n"));
 }
 /*
  uintptr_t PatternScan(LPCSTR module, LPCSTR pattern)

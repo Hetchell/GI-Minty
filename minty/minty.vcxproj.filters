@@ -159,6 +159,7 @@
     <ClInclude Include="Utils\TelemetryBlocker.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClInclude Include="Themes\themes.hpp" />
+    <ClInclude Include="Utils\xorstr.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

@@ -38,7 +38,6 @@ namespace {
         VirtualProtect(NtProtectVirtualMemory, 1, old, &old);
     }
 
-
     namespace fs = std::filesystem;
     lua_State* gi_L;
     HMODULE xlua;
@@ -249,8 +248,8 @@ namespace {
         //*pp_loadbuffer = xluaL_loadbuffer_hook;
 
         il2cpp_base = (uintptr_t)ua;
-        g_xluaL_loadbuffer = PatternScan("UserAssembly.dll", "48 83 EC 38 4D 63 C0 48 C7 44 24 ? ? ? ? ? E8 ? ? ? ? 48 83 C4 38 C3");
-        g_lua_pcall = PatternScan("UserAssembly.dll", "48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3");
+        g_xluaL_loadbuffer = PatternScan(xorstr_("UserAssembly.dll"), xorstr_("48 83 EC 38 4D 63 C0 48 C7 44 24 ? ? ? ? ? E8 ? ? ? ? 48 83 C4 38 C3"));
+        g_lua_pcall = PatternScan(xorstr_("UserAssembly.dll"), xorstr_("48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3"));
         printf("xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
         printf("lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
 
@@ -272,10 +271,10 @@ namespace {
         freopen("CONOUT$", "w", stdout);
         freopen("CONOUT$", "w", stderr);
 
-        util::log(M_Error, "Starting", "");
+        util::log(M_Error, xorstr_("Starting"), "");
         //auto dir = get_scripts_folder();
 
-        while (!FindWindowA("UnityWndClass", nullptr))  Sleep(1000);
+        while (!FindWindowA(xorstr_("UnityWndClass"), nullptr))  Sleep(1000);
 
         DisableVMP();
         get_gi_L();

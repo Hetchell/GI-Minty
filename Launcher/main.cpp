@@ -18,6 +18,8 @@
 #include <tchar.h>
 #include "ImGui/imgui_internal.h"
 
+#include "xorstr.hpp"
+
 namespace fs = std::filesystem;
 
 //std::ifstream f("cfg.json");
@@ -92,13 +94,13 @@ namespace ImGui {
 namespace util {
     //template<typename... Args>
     void log(const char* fmt, std::string args) {
-        printf("[Minty] ");
+        printf(xorstr_("[Minty] "));
         printf(fmt, args);
     }
 
     void logdialog(const char* fmt) {
         // LAMLMFNDPHJ.HAFGEFPIKFK is the Beebyte (more info: https://www.beebyte.co.uk/) obfuscated text for the game's error dialog.
-        const char* errordialogformat = "CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"%s\",\"Minty\")";
+        const char* errordialogformat = xorstr_("CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"%s\",\"Minty\")");
         char errordialogtext[256];
         snprintf(errordialogtext, sizeof(errordialogtext), errordialogformat, fmt);
         //luahookfunc(errordialogtext);

@@ -276,6 +276,7 @@
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\TelemetryBlocker.h" />
     <ClInclude Include="Utils\Utils.hpp" />
+    <ClInclude Include="Utils\xorstr.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
