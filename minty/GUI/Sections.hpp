@@ -28,16 +28,16 @@
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
 #include "GuiDefinitions.h"
 // #include "../ImGui/ImGuiNotify/tahoma.h"
-#include "../Lua/luahook.hpp"
 #include "../Config/ConfigManager.hpp"
 #include "../Json/json.hpp"
-//#include "../Lua/luahook.h"
+#include "../Lua/luahook.hpp"
+// #include "../Lua/luahook.h"
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
 // bool block_input = true;
 // bool show_debug_metrics = false;
 // bool show_debug_log = false;
-//#include "../Lua/luavars.h"
+// #include "../Lua/luavars.h"
 #include "../Themes/themes.hpp"
 
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
@@ -55,21 +55,20 @@ std::vector<std::string> ModuleOrder = {
     Text will generally be obfuscated with xorstr with the intent of making it harder for miHoYo to reverse engineer, and to prevent clout chasers,
     malware developers, etc. from modifying this app and distributing a malicious/rebranded version
     */
-    /*xorstr_*/("Player"),
-    /*xorstr_*/("World"),
-    /*xorstr_*/("Misc"),
-    /*xorstr_*/("Lua"),
-    /*xorstr_*/("Minigames"),
-    /*xorstr_*/("Themes"),
+    /*xorstr_*/ ("Player"),
+    /*xorstr_*/ ("World"),
+    /*xorstr_*/ ("Misc"),
+    /*xorstr_*/ ("Lua"),
+    /*xorstr_*/ ("Minigames"),
+    /*xorstr_*/ ("Themes"),
     ///*xorstr_*/("Debug"),
-    /*xorstr_*/("About"),
-    /*xorstr_*/("Settings")
-};
+    /*xorstr_*/ ("About"),
+    /*xorstr_*/ ("Settings")};
 
 namespace Sections {
 
 void Player() {
-    ImGui::SeparatorText(/*xorstr_*/("Avatar"));
+    ImGui::SeparatorText(/*xorstr_*/ ("Avatar"));
 
     /*
     if (ImGui::Button("MoleMole Message DEBUG")) {
@@ -101,14 +100,14 @@ void Player() {
     }
     */
 
-    //static bool show_avatarresizer = false;
-    //ImGui::Checkbox(/*xorstr_*/("Avatar resizer"), &show_avatarresizer);
-    //ImGui::SameLine();
-    //HelpMarker(/*xorstr_*/("Resizes your current character's size."));
+    // static bool show_avatarresizer = false;
+    // ImGui::Checkbox(/*xorstr_*/("Avatar resizer"), &show_avatarresizer);
+    // ImGui::SameLine();
+    // HelpMarker(/*xorstr_*/("Resizes your current character's size."));
 
-    //if (show_avatarresizer) {
-    //    static float avatarsize = 1.0f;
-    //    ImGui::Indent();
+    // if (show_avatarresizer) {
+    //     static float avatarsize = 1.0f;
+    //     ImGui::Indent();
 
     //    if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f")) {
     //        il2fns::Resize__Avatar(avatarsize);
@@ -184,11 +183,11 @@ void Player() {
     // }
 
     static bool show_modelswap = false;
-    if (ImGui::Checkbox("Model swapper", &show_modelswap)) {}
+    if (ImGui::Checkbox("Model swapper", &show_modelswap)) {
+    }
     ImGui::SameLine();
     HelpMarker("Swaps your avatars' models. Switch to character which model you want to set on another, press Clone; Switch to character, which model you want to replace with copied, press Paste.");
-    if (show_modelswap)
-    {
+    if (show_modelswap) {
         ImGui::Indent();
 
         if (ImGui::Button("Clone model")) {
@@ -205,8 +204,7 @@ void Player() {
     ImGui::Checkbox("Booba resizer", &show_resizer);
     ImGui::SameLine();
     HelpMarker("Changes size of character breasts. Press Initiate and move slider.");
-    if (show_resizer)
-    {
+    if (show_resizer) {
         ImGui::Indent();
         if (ImGui::Button("Initiate resize")) {
             boob_size = 1.0f;
@@ -215,8 +213,7 @@ void Player() {
 
         ImGui::SameLine();
 
-        if (ImGui::SliderFloat("Booba scale", &boob_size, 0.0f, 4.0f, "%.3f"))
-        {
+        if (ImGui::SliderFloat("Booba scale", &boob_size, 0.0f, 4.0f, "%.3f")) {
             std::string result = char_bub_resize + std::to_string(boob_size) + "," + std::to_string(boob_size) + "," + std::to_string(boob_size) + ")";
             last_lua_string = result;
         }
@@ -230,15 +227,14 @@ void Player() {
     HelpMarker("Change current avatar's animation.");
     if (animcheng) {
         ImGui::Indent();
-        if (ImGui::Combo("Animations", &anim_select_index, animation_options, IM_ARRAYSIZE(animation_options))) {}
+        if (ImGui::Combo("Animations", &anim_select_index, animation_options, IM_ARRAYSIZE(animation_options))) {
+        }
 
-        if (ImGui::Button("Change"))
-        {
+        if (ImGui::Button("Change")) {
             std::string result = animchanger + std::string(animation_options[anim_select_index]) + animchanger2;
             last_lua_string = result;
         }
-        if (ImGui::Button("Reset"))
-        {
+        if (ImGui::Button("Reset")) {
             last_lua_string = animchangerreturn;
         }
         ImGui::Unindent();
@@ -252,15 +248,15 @@ void Player() {
     HelpMarker("Change current avatar's emotion.");
     if (emocheng) {
         ImGui::Indent();
-        if (ImGui::Combo("Face expression", &emo_select_index, emo_options, IM_ARRAYSIZE(emo_options))) {}
-        if (ImGui::Combo("Mouth expression", &pho_select_index, pho_options, IM_ARRAYSIZE(pho_options))) {}
+        if (ImGui::Combo("Face expression", &emo_select_index, emo_options, IM_ARRAYSIZE(emo_options))) {
+        }
+        if (ImGui::Combo("Mouth expression", &pho_select_index, pho_options, IM_ARRAYSIZE(pho_options))) {
+        }
 
-        if (ImGui::Button("Change"))
-        {
+        if (ImGui::Button("Change")) {
             std::string result = emochengemo1 + std::string(emo_options[emo_select_index]) + emochengemo2 + std::string(pho_options[emo_select_index]) + emochengpho2;
             last_lua_string = result;
         }
-
     }
 
     static bool show_avatarresizer = false;
@@ -273,15 +269,13 @@ void Player() {
         ImGui::Indent();
         std::string result = char_avatarresize + std::to_string(avatarsize) + "," + std::to_string(avatarsize) + "," + std::to_string(avatarsize) + ")";
 
-        if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f"))
-        {
+        if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f")) {
             last_lua_string = result;
         }
 
         ImGui::SameLine();
 
-        if (ImGui::Button("reset"))
-        {
+        if (ImGui::Button("reset")) {
             std::string result = std::string(char_avatarresize) + "1 , 1, 1)";
             avatarsize = 1.0f;
             last_lua_string = result;
@@ -316,20 +310,20 @@ void World() {
         ImGui::Unindent();
     }
 
-    //static bool isbrowser = false;
-    //static char browserUrlBuf[256] = "";
-    //static float browserSize = 1;
+    // static bool isbrowser = false;
+    // static char browserUrlBuf[256] = "";
+    // static float browserSize = 1;
 
-    //if (ImGui::Checkbox("Browser", &isbrowser)) {
-    //    if (!isbrowser)
-    //        il2fns::TurnBrowser(false, 1, "");
-    //}
+    // if (ImGui::Checkbox("Browser", &isbrowser)) {
+    //     if (!isbrowser)
+    //         il2fns::TurnBrowser(false, 1, "");
+    // }
 
-    //ImGui::SameLine();
-    //HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
+    // ImGui::SameLine();
+    // HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
 
-    //if (isbrowser) {
-    //    ImGui::Indent();
+    // if (isbrowser) {
+    //     ImGui::Indent();
 
     //    ImGui::SliderFloat("Browser scale", &browserSize, 0.1f, 20.0f, "%.3f");
     //    ImGui::SameLine();
@@ -410,11 +404,11 @@ void About() {
 
     ImGui::SeparatorText("");
 
-    ImGui::Text(/*xorstr_*/("Minty Github: "));
-    TextURL(/*xorstr_*/("Link"), /*xorstr_*/("https://github.com/kindawindytoday/minty"), true, false);
+    ImGui::Text(/*xorstr_*/ ("Minty Github: "));
+    TextURL(/*xorstr_*/ ("Link"), /*xorstr_*/ ("https://github.com/kindawindytoday/minty"), true, false);
 
-    ImGui::Text(/*xorstr_*/("Minty Discord: "));
-    TextURL(/*xorstr_*/("Link"), /*xorstr_*/("https://discord.gg/kindawindytoday"), true, false);
+    ImGui::Text(/*xorstr_*/ ("Minty Discord: "));
+    TextURL(/*xorstr_*/ ("Link"), /*xorstr_*/ ("https://discord.gg/kindawindytoday"), true, false);
 
     ImGui::SeparatorText("");
 
@@ -422,35 +416,35 @@ void About() {
 }
 
 void Themes() {
-    ImGui::SeparatorText(/*xorstr_*/("Theme colors"));
+    ImGui::SeparatorText(/*xorstr_*/ ("Theme colors"));
     /*----------PLACEHOLDER----------*/
     static int themeIndex = 0;
 
-    if (ImGui::RadioButton(/*xorstr_*/("Default dark"), &themeIndex, 0)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Default dark"), &themeIndex, 0)) {
         settheme(1);
     }
 
-    if (ImGui::RadioButton(/*xorstr_*/("Default light"), &themeIndex, 1)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Default light"), &themeIndex, 1)) {
         settheme(2);
     }
 
-    if (ImGui::RadioButton(/*xorstr_*/("Default classic"), &themeIndex, 2)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Default classic"), &themeIndex, 2)) {
         settheme(3);
     }
 
-    if (ImGui::RadioButton(/*xorstr_*/("Dark theme"), &themeIndex, 3)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Dark theme"), &themeIndex, 3)) {
         settheme(4);
     }
 
-    if (ImGui::RadioButton(/*xorstr_*/("Minty Red"), &themeIndex, 4)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Minty Red"), &themeIndex, 4)) {
         settheme(5);
     }
 
-    if (ImGui::RadioButton(/*xorstr_*/("Minty Mint"), &themeIndex, 5)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Minty Mint"), &themeIndex, 5)) {
         settheme(6);
     }
 
-    if (ImGui::RadioButton(/*xorstr_*/("Minty Mint Light"), &themeIndex, 6)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Minty Mint Light"), &themeIndex, 6)) {
         settheme(7);
     }
 
@@ -458,7 +452,7 @@ void Themes() {
 
     static int themestyleindex = 0;
 
-    if (ImGui::RadioButton(/*xorstr_*/("Minty"), &themestyleindex, 0)) {
+    if (ImGui::RadioButton(/*xorstr_*/ ("Minty"), &themestyleindex, 0)) {
         setstyle(1);
     }
 
@@ -511,7 +505,7 @@ void Debug() {
 
     const char* hook_state_name[] = {"not hooked", "hooked"};
     ImVec4 hooked_name_color[] = {ImVec4(0.76078f, 0.219607f, 0.219607f, 1), ImVec4(0.12156f, 0.8f, 0.2f, 1.0f)};
-    
+
     // ImGui::Text("il2cpp: ");
     // ImGui::SameLine();
     // ImGui::TextColored(hooked_name_color[static_cast<int>(is_il2cpp_hooked)], hook_state_name[static_cast<int>(is_il2cpp_hooked)]);
@@ -524,7 +518,7 @@ void Debug() {
     ImGui::SeparatorText("");
 
     ImGui::Checkbox("Show Debug Metrics", &show_debug_metrics);
-    ImGui::Checkbox(/*xorstr_*/("Show Minty Debug Log"), &show_debug_log);
+    ImGui::Checkbox(/*xorstr_*/ ("Show Minty Debug Log"), &show_debug_log);
 
     ImGui::SeparatorText("mDumper");
 
@@ -583,35 +577,34 @@ void Misc() {
         ImGui::Unindent();
     }
 
-    //auto state = luaL_newstate();
-    //static int threthr = 1;
-    //if (ImGui::Button("lua molmol L")) {
-    //    get_gi_L();
-    //    util::log(M_Info, "thread is: %i", GetCurrentThreadId());
-    //    //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_L);
-    //}
-    //if (ImGui::Button("lua molmol LL")) {
-    //    util::log(M_Info, "thread is: %i", GetCurrentThreadId());
-    //    //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_LL);
-    //}
-    //ImGui::SliderInt("Target ID", &threthr, 1, 50000);
-    //if (ImGui::Button("lua molmol STATE")) {
-    //    //util::log(M_Info, "main_thread is: %i", GetThreadId(mainluathread));
-    //    auto thrthr = OpenThread(THREAD_ALL_ACCESS, false, threthr);
-    //    util::log(M_Info, "main_thread is: %i", GetThreadId(thrthr));
-    //    luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
-    //}
-    //if (ImGui::Button("PUSHDFDBNFYDHFGEUIRHUIEGH"))
-    //    last_lua_string = "CS.MoleMole.ActorUtils.ShowMessage(\"11111Lua pulled from lua_list vector\")";
-    //   //lua_list.push_back("CS.MoleMole.ActorUtils.ShowMessage(\"Lua pulled from lua_list vector\")");
+    // auto state = luaL_newstate();
+    // static int threthr = 1;
+    // if (ImGui::Button("lua molmol L")) {
+    //     get_gi_L();
+    //     util::log(M_Info, "thread is: %i", GetCurrentThreadId());
+    //     //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_L);
+    // }
+    // if (ImGui::Button("lua molmol LL")) {
+    //     util::log(M_Info, "thread is: %i", GetCurrentThreadId());
+    //     //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")", gi_LL);
+    // }
+    // ImGui::SliderInt("Target ID", &threthr, 1, 50000);
+    // if (ImGui::Button("lua molmol STATE")) {
+    //     //util::log(M_Info, "main_thread is: %i", GetThreadId(mainluathread));
+    //     auto thrthr = OpenThread(THREAD_ALL_ACCESS, false, threthr);
+    //     util::log(M_Info, "main_thread is: %i", GetThreadId(thrthr));
+    //     luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
+    // }
+    // if (ImGui::Button("PUSHDFDBNFYDHFGEUIRHUIEGH"))
+    //     last_lua_string = "CS.MoleMole.ActorUtils.ShowMessage(\"11111Lua pulled from lua_list vector\")";
+    //    //lua_list.push_back("CS.MoleMole.ActorUtils.ShowMessage(\"Lua pulled from lua_list vector\")");
 
     static bool hideui = false;
 
     if (ImGui::Checkbox("Hide UI", &hideui)) {
         if (hideui) {
             last_lua_string = char_uicamera_off;
-        }
-        else {
+        } else {
             last_lua_string = char_uicamera_on;
         }
     }
@@ -778,22 +771,21 @@ void Outer() {
         if (ImGui::Button("Run")) {
             std::string code = editor.GetText();
             if (!code.empty() && code.find_first_not_of(" \t\n\v\f\r") != std::string::npos) {
-                if (true) { //if (is_lua_hooked) {
+                if (true) {  // if (is_lua_hooked) {
                     try {
                         auto thred = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
                         last_lua_string = code;
-                    }
-                    catch (...) {
+                    } catch (...) {
                         util::log(M_Error, "lua excep");
                     }
                     /*if (last_ret_code == 0) {
                         util::log(M_Info, "compilation success: %s", last_tolstr);
                     }*/
                 } else {
-                    ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Lua is not hooked."});
+                    ImGui::InsertNotification({ImGuiToastType_Error, 3000, "Lua is not hooked."});
                     util::log(M_Error, "Lua is not hooked");
                 }
-            } 
+            }
         }
         ImGui::SameLine();
         // saver to button below.
@@ -870,16 +862,15 @@ void Outer() {
 using DrawFunction = void (*)();
 
 const std::unordered_map<std::string, DrawFunction> SectionMap = {
-    {/*xorstr_*/("Player"), &Sections::Player},
-    {/*xorstr_*/("World"), &Sections::World},
-    {/*xorstr_*/("Misc"), &Sections::Misc},
-    {/*xorstr_*/("Lua"), &Sections::Lua},
-    {/*xorstr_*/("Minigames"), &Sections::Minigames},
-    {/*xorstr_*/("About"), &Sections::About},
-    {/*xorstr_*/("Themes"), &Sections::Themes},
-    {/*xorstr_*/("Settings"), &Sections::Settings},
-    {/*xorstr_*/("Debug"), &Sections::Debug}
-};
+    {/*xorstr_*/ ("Player"), &Sections::Player},
+    {/*xorstr_*/ ("World"), &Sections::World},
+    {/*xorstr_*/ ("Misc"), &Sections::Misc},
+    {/*xorstr_*/ ("Lua"), &Sections::Lua},
+    {/*xorstr_*/ ("Minigames"), &Sections::Minigames},
+    {/*xorstr_*/ ("About"), &Sections::About},
+    {/*xorstr_*/ ("Themes"), &Sections::Themes},
+    {/*xorstr_*/ ("Settings"), &Sections::Settings},
+    {/*xorstr_*/ ("Debug"), &Sections::Debug}};
 
 void DrawSection(const std::string& sectionName) {
     auto it = SectionMap.find(sectionName);
@@ -887,6 +878,6 @@ void DrawSection(const std::string& sectionName) {
         Sections::Outer();
         it->second();
     } else {
-        ImGui::TextDisabled(/*xorstr_*/("No section matches name"));
+        ImGui::TextDisabled(/*xorstr_*/ ("No section matches name"));
     }
 }
