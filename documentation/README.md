@@ -1,0 +1,3 @@
+This contains documentation, both for Minty and for Genshin Impact. It is a private resource, both to prevent patching and to prevent clout chasers from abusing it. Please *do not* include it in the Visual Studio project.
+
+You are free to contribute anything useful and relevant to this folder. I don't have the time to set any super specific standards about how it should be organized, so just observe how things look now to get an idea of its organization.

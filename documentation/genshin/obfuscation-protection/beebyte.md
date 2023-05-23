@@ -1,0 +1,1 @@
+Beebyte is an obfuscator used by Genshin Impact. You can read more about it at https://www.beebyte.co.uk.
