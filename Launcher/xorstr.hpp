@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-#ifndef JM_XORSTR_HPP
-#define JM_XORSTR_HPP
+#ifndef JM_xorstr_HPP
+#define JM_xorstr_HPP
 
 #if defined(_M_ARM64) || defined(__aarch64__) || defined(_M_ARM) || defined(__arm__)
 #include <arm_neon.h>
@@ -36,9 +36,9 @@
 #define xorstr_(str) xorstr(str).crypt_get()
 
 #ifdef _MSC_VER
-#define XORSTR_FORCEINLINE __forceinline
+#define xorstr_FORCEINLINE __forceinline
 #else
-#define XORSTR_FORCEINLINE __attribute__((always_inline)) inline
+#define xorstr_FORCEINLINE __attribute__((always_inline)) inline
 #endif
 
 namespace jm {
@@ -46,13 +46,13 @@ namespace jm {
     namespace detail {
 
         template<std::size_t Size>
-        XORSTR_FORCEINLINE constexpr std::size_t _buffer_size()
+        xorstr_FORCEINLINE constexpr std::size_t _buffer_size()
         {
             return ((Size / 16) + (Size % 16 != 0)) * 2;
         }
 
         template<std::uint32_t Seed>
-        XORSTR_FORCEINLINE constexpr std::uint32_t key4() noexcept
+        xorstr_FORCEINLINE constexpr std::uint32_t key4() noexcept
         {
             std::uint32_t value = Seed;
             for (char c : __TIME__)
@@ -61,7 +61,7 @@ namespace jm {
         }
 
         template<std::size_t S>
-        XORSTR_FORCEINLINE constexpr std::uint64_t key8()
+        xorstr_FORCEINLINE constexpr std::uint64_t key8()
         {
             constexpr auto first_part = key4<2166136261 + S>();
             constexpr auto second_part = key4<first_part>();
@@ -70,7 +70,7 @@ namespace jm {
 
         // loads up to 8 characters of string into uint64 and xors it with the key
         template<std::size_t N, class CharT>
-        XORSTR_FORCEINLINE constexpr std::uint64_t
+        xorstr_FORCEINLINE constexpr std::uint64_t
             load_xored_str8(std::uint64_t key, std::size_t idx, const CharT* str) noexcept
         {
             using cast_type = typename std::make_unsigned<CharT>::type;
@@ -87,7 +87,7 @@ namespace jm {
         }
 
         // forces compiler to use registers instead of stuffing constants in rdata
-        XORSTR_FORCEINLINE std::uint64_t load_from_reg(std::uint64_t value) noexcept
+        xorstr_FORCEINLINE std::uint64_t load_from_reg(std::uint64_t value) noexcept
         {
 #if defined(__clang__) || defined(__GNUC__)
             asm("" : "=r"(value) : "0"(value) : );
@@ -105,7 +105,7 @@ namespace jm {
 
     template<class CharT, std::size_t Size, std::uint64_t... Keys, std::size_t... Indices>
     class xor_string<CharT, Size, std::integer_sequence<std::uint64_t, Keys...>, std::index_sequence<Indices...>> {
-#ifndef JM_XORSTR_DISABLE_AVX_INTRINSICS
+#ifndef JM_xorstr_DISABLE_AVX_INTRINSICS
         constexpr static inline std::uint64_t alignment = ((Size > 16) ? 32 : 16);
 #else
         constexpr static inline std::uint64_t alignment = 16;
@@ -120,16 +120,16 @@ namespace jm {
         using const_pointer = const CharT*;
 
         template<class L>
-        XORSTR_FORCEINLINE xor_string(L l, std::integral_constant<std::size_t, Size>, std::index_sequence<Indices...>) noexcept
+        xorstr_FORCEINLINE xor_string(L l, std::integral_constant<std::size_t, Size>, std::index_sequence<Indices...>) noexcept
             : _storage{ ::jm::detail::load_from_reg((std::integral_constant<std::uint64_t, detail::load_xored_str8<Size>(Keys, Indices, l())>::value))... }
         {}
 
-        XORSTR_FORCEINLINE constexpr size_type size() const noexcept
+        xorstr_FORCEINLINE constexpr size_type size() const noexcept
         {
             return Size - 1;
         }
 
-        XORSTR_FORCEINLINE void crypt() noexcept
+        xorstr_FORCEINLINE void crypt() noexcept
         {
             // everything is inlined by hand because a certain compiler with a certain linker is _very_ slow
 #if defined(__clang__)
@@ -154,7 +154,7 @@ namespace jm {
                 veorq_u64(vld1q_u64(reinterpret_cast<const uint64_t*>(_storage) + Indices * 2),
                     vld1q_u64(reinterpret_cast<const uint64_t*>(keys) + Indices * 2)))), ...);
 #endif
-#elif !defined(JM_XORSTR_DISABLE_AVX_INTRINSICS)
+#elif !defined(JM_xorstr_DISABLE_AVX_INTRINSICS)
             ((Indices >= sizeof(_storage) / 32 ? static_cast<void>(0) : _mm256_store_si256(
                 reinterpret_cast<__m256i*>(_storage) + Indices,
                 _mm256_xor_si256(
@@ -174,17 +174,17 @@ namespace jm {
 #endif
         }
 
-        XORSTR_FORCEINLINE const_pointer get() const noexcept
+        xorstr_FORCEINLINE const_pointer get() const noexcept
         {
             return reinterpret_cast<const_pointer>(_storage);
         }
 
-        XORSTR_FORCEINLINE pointer get() noexcept
+        xorstr_FORCEINLINE pointer get() noexcept
         {
             return reinterpret_cast<pointer>(_storage);
         }
 
-        XORSTR_FORCEINLINE pointer crypt_get() noexcept
+        xorstr_FORCEINLINE pointer crypt_get() noexcept
         {
             // crypt() is inlined by hand because a certain compiler with a certain linker is _very_ slow
 #if defined(__clang__)
@@ -209,7 +209,7 @@ namespace jm {
                 veorq_u64(vld1q_u64(reinterpret_cast<const uint64_t*>(_storage) + Indices * 2),
                     vld1q_u64(reinterpret_cast<const uint64_t*>(keys) + Indices * 2)))), ...);
 #endif
-#elif !defined(JM_XORSTR_DISABLE_AVX_INTRINSICS)
+#elif !defined(JM_xorstr_DISABLE_AVX_INTRINSICS)
             ((Indices >= sizeof(_storage) / 32 ? static_cast<void>(0) : _mm256_store_si256(
                 reinterpret_cast<__m256i*>(_storage) + Indices,
                 _mm256_xor_si256(

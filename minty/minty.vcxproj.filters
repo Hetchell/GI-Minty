@@ -61,6 +61,7 @@
     <ClCompile Include="Lua\lutf8lib.c" />
     <ClCompile Include="Lua\lvm.c" />
     <ClCompile Include="Lua\lzio.c" />
+    <ClCompile Include="Utils\TelemetryBlocker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Themes\themes.hpp" />
     <ClInclude Include="Lua\luahookutil.hpp" />
     <ClInclude Include="Lua\luahook.hpp" />
+    <ClInclude Include="Utils\TelemetryBlocker.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
