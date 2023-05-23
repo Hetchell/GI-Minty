@@ -1,3 +1,4 @@
+#include "TelemetryBlocker.h"
 #include "../DirectX/D3D11Hook.hpp"
 #include "../IL2CPP/il2cpp-init.hpp"
 #include "../includes.h"
@@ -11,6 +12,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     //freopen("CONOUT$", "w", stderr);
 
     util::log(M_Info, "Starting");
+
+    TelemetryBlocker::BlockTelemetry();
 
     GetPresent();
     DetourDirectXPresent();
