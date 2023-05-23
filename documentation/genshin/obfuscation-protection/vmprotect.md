@@ -1,3 +1,3 @@
-VMProtect is a commercially available software packer used by Genshin Impact. You can read more about it at https://vmpsoft.com/.
+VMProtect is a commercially available software packer used by Genshin Impact. You can read more about it at https://vmpsoft.com/. Do note that VMProtect greatly exaggerates their claims of how well it works - many of its features are not unique to its application. Virtualization, mutation, watermarking, control flow flattening, anti-debugging, and so on are well-known (and frequently bypassed) methods of software protection.
 
 The source code for VMProtect was leaked a while ago. If you want to study it, see https://github.com/classic130/VMProtect-Source (I have a copy of this saved on my storage device in case it gets DMCA removed).
