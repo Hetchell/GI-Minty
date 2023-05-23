@@ -58,53 +58,50 @@ auto read_file(std::string_view path) -> std::string {
 }
 
 void TelemetryBlocker::BlockTelemetry() {
-    // Blocks miHoYo telemetry domains in /etc/hosts to avoid detection.
-    std::string hostsText = unindent(
-        xorstr_(R"(
-    
-        # These domains have been added to your /etc/hosts file by Minty to prevent miHoYo from recording telemetry data about you.
-        # Aside from being an egregious privacy violation, telemetry data can be used for bans.
-        # Please *do not* modify or remove this text.
+    // Blocks miHoYo telemetry domains in /etc/hosts.
+    std::string hostsText = unindent(xorstr_(R"(
+    # These domains have been added to your /etc/hosts file by Minty to prevent miHoYo from recording telemetry data about you.
+    # Aside from being an egregious privacy violation, telemetry data can be used for bans.
+    # Please *do not* modify or remove this text.
 
-        # miHoYo tracking & logging servers
-        0.0.0.0 uspider.yuanshen.com
-        0.0.0.0 overseauspider.yuanshen.com
-        0.0.0.0 log-upload-os.hoyoverse.com
-        0.0.0.0 log-upload.mihoyo.com
-        0.0.0.0 log-upload-os.mihoyo.com
-        0.0.0.0 log-upload-eur.mihoyo.com
-        0.0.0.0 devlog-upload.mihoyo.com
-        0.0.0.0 devlog-upload-os.mihoyo.com
-        0.0.0.0 hk4e-uspider.mihoyo.com
-        0.0.0.0 paizicnqa.yuanshen.com
-        0.0.0.0 minor-api-os.hoyoverse.com
-        0.0.0.0 usa01-appsflyer-report.honkaiimpact3.com
-        0.0.0.0 www.uspider.yuanshen.com
-        0.0.0.0 www.overseauspider.yuanshen.com
-        0.0.0.0 www.log-upload-os.hoyoverse.com
-        0.0.0.0 www.log-upload.mihoyo.com
-        0.0.0.0 www.log-upload-os.mihoyo.com
-        0.0.0.0 www.log-upload-eur.mihoyo.com
-        0.0.0.0 www.devlog-upload.mihoyo.com
-        0.0.0.0 www.devlog-upload-os.mihoyo.com
-        0.0.0.0 www.hk4e-uspider.mihoyo.com
-        0.0.0.0 www.paizicnqa.yuanshen.com
-        0.0.0.0 www.minor-api-os.hoyoverse.com
-        0.0.0.0 www.usa01-appsflyer-report.honkaiimpact3.com
+    # miHoYo tracking & logging servers
+    0.0.0.0 uspider.yuanshen.com
+    0.0.0.0 overseauspider.yuanshen.com
+    0.0.0.0 log-upload-os.hoyoverse.com
+    0.0.0.0 log-upload.mihoyo.com
+    0.0.0.0 log-upload-os.mihoyo.com
+    0.0.0.0 log-upload-eur.mihoyo.com
+    0.0.0.0 devlog-upload.mihoyo.com
+    0.0.0.0 devlog-upload-os.mihoyo.com
+    0.0.0.0 hk4e-uspider.mihoyo.com
+    0.0.0.0 paizicnqa.yuanshen.com
+    0.0.0.0 minor-api-os.hoyoverse.com
+    0.0.0.0 usa01-appsflyer-report.honkaiimpact3.com
+    0.0.0.0 www.uspider.yuanshen.com
+    0.0.0.0 www.overseauspider.yuanshen.com
+    0.0.0.0 www.log-upload-os.hoyoverse.com
+    0.0.0.0 www.log-upload.mihoyo.com
+    0.0.0.0 www.log-upload-os.mihoyo.com
+    0.0.0.0 www.log-upload-eur.mihoyo.com
+    0.0.0.0 www.devlog-upload.mihoyo.com
+    0.0.0.0 www.devlog-upload-os.mihoyo.com
+    0.0.0.0 www.hk4e-uspider.mihoyo.com
+    0.0.0.0 www.paizicnqa.yuanshen.com
+    0.0.0.0 www.minor-api-os.hoyoverse.com
+    0.0.0.0 www.usa01-appsflyer-report.honkaiimpact3.com
 
-        # Unity engine tracking servers
-        0.0.0.0 prd-lender.cdp.internal.unity3d.com
-        0.0.0.0 thind-prd-knob.data.ie.unity3d.com
-        0.0.0.0 thind-gke-usc.prd.data.corp.unity3d.com
-        0.0.0.0 cdp.cloud.unity3d.com
-        0.0.0.0 remote-config-proxy-prd.uca.cloud.unity3d.com
-        0.0.0.0 www.prd-lender.cdp.internal.unity3d.com
-        0.0.0.0 www.thind-prd-knob.data.ie.unity3d.com
-        0.0.0.0 www.thind-gke-usc.prd.data.corp.unity3d.com
-        0.0.0.0 www.cdp.cloud.unity3d.com
-        0.0.0.0 www.remote-config-proxy-prd.uca.cloud.unity3d.com
-        )")
-    );
+    # Unity engine tracking servers
+    0.0.0.0 prd-lender.cdp.internal.unity3d.com
+    0.0.0.0 thind-prd-knob.data.ie.unity3d.com
+    0.0.0.0 thind-gke-usc.prd.data.corp.unity3d.com
+    0.0.0.0 cdp.cloud.unity3d.com
+    0.0.0.0 remote-config-proxy-prd.uca.cloud.unity3d.com
+    0.0.0.0 www.prd-lender.cdp.internal.unity3d.com
+    0.0.0.0 www.thind-prd-knob.data.ie.unity3d.com
+    0.0.0.0 www.thind-gke-usc.prd.data.corp.unity3d.com
+    0.0.0.0 www.cdp.cloud.unity3d.com
+    0.0.0.0 www.remote-config-proxy-prd.uca.cloud.unity3d.com
+    )"));
 
     // If this string already exists in /etc/hosts, we aren't going to edit /etc/hosts again.
     // If we really need to add/remove domains to this list in a new version (unlikely), we can implement the necessary code to do that then.
@@ -120,7 +117,7 @@ void TelemetryBlocker::BlockTelemetry() {
     if (!appendFileToWorkWith)
     {
         // If this block is reached, the hosts file does not exist
-        util::log(M_Debug, xorstr_("You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. M will create one to block miHoYo telemetry and prevent bans."));
+        util::log(M_Debug, xorstr_("You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. Minty will create one to block miHoYo telemetry."));
         appendFileToWorkWith << hostsText;
         appendFileToWorkWith.close();
     }
@@ -130,9 +127,13 @@ void TelemetryBlocker::BlockTelemetry() {
 
         // We need to make sure we haven't already edited /etc/hosts. We don't want to clog the user's /etc/hosts file.
         if (read_file(hostsFilename).find(deduplicationString) == std::string::npos) {
-            // If we haven't edited it, we add data to it.
-            util::log(M_Debug, xorstr_("You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it."));
-            appendFileToWorkWith << hostsText;
+            // If we haven't edited it, we add data to it
+            util::log(M_Debug, xorstr_("You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. Minty will now append text to it."));
+            /*
+            We also add a newline, because the file is probably not empty if it exists, and as such, we would probably end up with the text looking like, for example:
+            127.0.0.1 localhost# These domains have been added . . . 
+            */
+            appendFileToWorkWith << "\n" + hostsText;
         }
         else {
             // Otherwise, we log some debug information and continue.
