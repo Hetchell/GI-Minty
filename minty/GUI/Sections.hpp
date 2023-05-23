@@ -48,6 +48,7 @@ ImGuiID textureID = 0;
 extern bool is_lua_hooked;
 // extern bool is_il2cpp_hooked;
 std::vector<std::string> lua_list;
+std::string last_lua_string;
 
 std::vector<std::string> ModuleOrder = {
     /*
@@ -464,7 +465,8 @@ void Misc() {
         luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"\123\")");
     }
     if (ImGui::Button("PUSHDFDBNFYDHFGEUIRHUIEGH"))
-       lua_list.push_back("CS.MoleMole.ActorUtils.ShowMessage(\"Lua pulled from lua_list vector\")");
+        last_lua_string = "CS.MoleMole.ActorUtils.ShowMessage(\"11111Lua pulled from lua_list vector\")";
+       //lua_list.push_back("CS.MoleMole.ActorUtils.ShowMessage(\"Lua pulled from lua_list vector\")");
 
     static bool hideui = false;
     if (ImGui::Checkbox("Hide UI", &hideui)) {

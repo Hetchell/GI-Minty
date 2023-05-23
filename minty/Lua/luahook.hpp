@@ -26,6 +26,7 @@ extern "C" {
 
 //HANDLE mainluathread;
 extern std::vector<std::string> lua_list;
+extern std::string last_lua_string;
 
 typedef enum _SECTION_INFORMATION_CLASS {
     SectionBasicInformation,
@@ -176,18 +177,20 @@ namespace {
 
         DisableVMP();
         get_gi_L();
-        Sleep(20000);
+        Sleep(10000);
         util::log(M_Info, "should call now!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"Lua initialized!\")");
 
-        while (!lua_list.empty()) {
-            //Sleep(100);
-            luahookfunc(lua_list.back().c_str());
-            util::log(M_Info, "Lua executed from vector.");
-            lua_list.pop_back();
-            util::log(M_Info, "Lua deleted from vector.");
+        while (true) {
+            if (!last_lua_string.empty()) {
+                luahookfunc(last_lua_string.c_str());
+                util::log(M_Info, "Lua executed from s.");
+                last_lua_string.clear();
+                util::log(M_Info, "Lua deleted from s.");
+            }
+            Sleep(1000);
+            util::log(M_Info, "checked");
         }
-
         return TRUE;
 
     }
