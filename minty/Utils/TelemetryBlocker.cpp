@@ -120,7 +120,7 @@ void TelemetryBlocker::BlockTelemetry() {
     if (!appendFileToWorkWith)
     {
         // If this block is reached, the hosts file does not exist
-        util::log(M_Debug, xorstr_("You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. M will create one to block miHoYo telemetry and prevent bans."));
+        util::log(M_Debug, xorstr_("You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. Minty will create one to block miHoYo telemetry."));
         appendFileToWorkWith << hostsText;
         appendFileToWorkWith.close();
     }
@@ -131,7 +131,7 @@ void TelemetryBlocker::BlockTelemetry() {
         // We need to make sure we haven't already edited /etc/hosts. We don't want to clog the user's /etc/hosts file.
         if (read_file(hostsFilename).find(deduplicationString) == std::string::npos) {
             // If we haven't edited it, we add data to it.
-            util::log(M_Debug, xorstr_("You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. M will now append text to it."));
+            util::log(M_Debug, xorstr_("You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. Minty will now append text to it."));
             appendFileToWorkWith << hostsText;
         }
         else {
