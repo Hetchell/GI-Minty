@@ -5,7 +5,18 @@
             <Message Id="2">Your Minty files have been corrupted, possibly either by malware or by network issues when downloading them. Please delete your Minty files, run a malware scan, and re-download Minty.</Message>
         </Messages>
         <Folders />
-        <Procedures />
+        <Procedures>
+            <Procedure MapAddress="main" Options="0" CompilationType="2" />
+            <Procedure MapAddress="mainCRTStartup" Options="0" CompilationType="2" />
+            <Procedure MapAddress="InjectStandard(void *,char const *)" Options="0" CompilationType="2" />
+            <Procedure MapAddress="read_whole_file(class std::filesystem::path const &amp;)" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$4" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$8" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$5" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$0" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$1" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$23" Options="0" CompilationType="2" />
+        </Procedures>
         <Objects />
     </Protection>
     <DLLBox>
