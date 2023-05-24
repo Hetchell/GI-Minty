@@ -11,3 +11,8 @@ See the folder named `documentation` for documentation.
 
 ## Disclaimer
 DISCLAIMER! We are not responsible for any actions you perform or recieve e.g. ban. This tool only provides limited protection against 米忽悠's anticheat system.
+
+## Credits
+CREDITS go to the respective owners of such referenced or reused code. 
+- GILua, xluafix.lua - https://github.com/azzu0/GILua
+
