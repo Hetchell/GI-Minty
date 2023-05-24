@@ -160,7 +160,6 @@
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="xorstr.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours.lib" />

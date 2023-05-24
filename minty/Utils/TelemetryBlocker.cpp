@@ -3,7 +3,6 @@
 #include <filesystem>
 #include <optional>
 #include "TelemetryBlocker.h"
-#include "xorstr.hpp"
 
 // Function that allows unindenting a string. This will be used by the telemetry blocking code.
 // See https://stackoverflow.com/a/24900770
@@ -59,7 +58,7 @@ auto read_file(std::string_view path) -> std::string {
 
 void TelemetryBlocker::BlockTelemetry() {
     // Blocks miHoYo telemetry domains in /etc/hosts.
-    std::string hostsText = unindent(/*xorstr_*/ (R"(
+    std::string hostsText = unindent(R"(
     # These domains have been added to your /etc/hosts file by Minty to prevent miHoYo from recording telemetry data about you.
     # Aside from being an egregious privacy violation, telemetry data can be used for bans.
     # Please *do not* modify or remove this text.
@@ -101,23 +100,23 @@ void TelemetryBlocker::BlockTelemetry() {
     0.0.0.0 www.thind-gke-usc.prd.data.corp.unity3d.com
     0.0.0.0 www.cdp.cloud.unity3d.com
     0.0.0.0 www.remote-config-proxy-prd.uca.cloud.unity3d.com
-    )"));
+    )");
 
     // If this string already exists in /etc/hosts, we aren't going to edit /etc/hosts again.
     // If we really need to add/remove domains to this list in a new version (unlikely), we can implement the necessary code to do that then.
     // I don't want to plan for hypothetical issues when we have a finite amount of time.
-    std::string deduplicationString = /*xorstr_*/ ("to prevent miHoYo from recording telemetry data about you");
+    std::string deduplicationString = "to prevent miHoYo from recording telemetry data about you";
 
     // https://stackoverflow.com/a/23967977
     // https://stackoverflow.com/a/9740368
-    std::string hostsFilename = /*xorstr_*/ ("C:\\Windows\\System32\\drivers\\etc\\hosts");
+    std::string hostsFilename = "C:\\Windows\\System32\\drivers\\etc\\hosts";
     std::fstream appendFileToWorkWith;
     appendFileToWorkWith.open(hostsFilename, std::fstream::in | std::fstream::out | std::fstream::app);
 
     if (!appendFileToWorkWith)
     {
         // If this block is reached, the hosts file does not exist
-        util::log(M_Debug, /*xorstr_*/ ("You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. Minty will create one to block miHoYo telemetry."));
+        util::log(M_Debug, "You don't have a C:\\Windows\\System32\\drivers\\etc\\hosts file. Minty will create one to block miHoYo telemetry.");
         appendFileToWorkWith << hostsText;
         appendFileToWorkWith.close();
     }
@@ -128,7 +127,7 @@ void TelemetryBlocker::BlockTelemetry() {
         // We need to make sure we haven't already edited /etc/hosts. We don't want to clog the user's /etc/hosts file.
         if (read_file(hostsFilename).find(deduplicationString) == std::string::npos) {
             // If we haven't edited it, we add data to it
-            util::log(M_Debug, /*xorstr_*/ ("You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. Minty will now append text to it."));
+            util::log(M_Debug, "You have a C:\\Windows\\System32\\drivers\\etc\\hosts file, but it doesn't have the lines needed for blocking miHoYo telemetry. Minty will now append text to it.");
             /*
             We also add a newline, because the file is probably not empty if it exists, and as such, we would probably end up with the text looking like, for example:
             127.0.0.1 localhost# These domains have been added . . . 
@@ -137,7 +136,7 @@ void TelemetryBlocker::BlockTelemetry() {
         }
         else {
             // Otherwise, we log some debug information and continue.
-            util::log(M_Debug, /*xorstr_*/ ("It looks like you have a C:\\Windows\\System32\\drivers\\etc\\hosts file and it has the necessary lines needed to block miHoYo telemetry - good to go!"));
+            util::log(M_Debug, "It looks like you have a C:\\Windows\\System32\\drivers\\etc\\hosts file and it has the necessary lines needed to block miHoYo telemetry - good to go!");
         }
 
         // Close file regardless of what operations took place (see https://stackoverflow.com/q/11095474)

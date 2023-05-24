@@ -18,8 +18,6 @@
 #include <tchar.h>
 #include "ImGui/imgui_internal.h"
 
-#include "xorstr.hpp"
-
 namespace fs = std::filesystem;
 
 //std::ifstream f("cfg.json");
@@ -94,13 +92,13 @@ namespace ImGui {
 namespace util {
     //template<typename... Args>
     void log(const char* fmt, std::string args) {
-        printf(/*xorstr_*/("[Minty] "));
+        printf("[Minty] ");
         printf(fmt, args);
     }
 
     void logdialog(const char* fmt) {
-        // LAMLMFNDPHJ.HAFGEFPIKFK is the Beebyte (more info: https://www.beebyte.co.uk/) obfuscated text for the game's error dialog.
-        const char* errordialogformat = /*xorstr_*/("CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"%s\",\"Minty\")");
+        // LAMLMFNDPHJ.HAFGEFPIKFK is the Beebyte obfuscated text for the game's error dialog. For more information, see https://www.beebyte.co.uk/.
+        const char* errordialogformat = "CS.LAMLMFNDPHJ.HAFGEFPIKFK(\"%s\",\"Minty\")";
         char errordialogtext[256];
         snprintf(errordialogtext, sizeof(errordialogtext), errordialogformat, fmt);
         //luahookfunc(errordialogtext);
@@ -192,14 +190,14 @@ int main() {
     if (!current_dir)
         return 0;
 
-    auto dll_path = current_dir.value() / /*xorstr_*/("Minty.dll");
+    auto dll_path = current_dir.value() / "Minty.dll";
     if (!fs::is_regular_file(dll_path)) {
-        printf(/*xorstr_*/("Minty.dll not found\n"));
+        printf("Minty.dll not found\n");
         system("pause");
         return 0;
     }
     std::string exe_path;
-    fs::path settings_path = fs::current_path() / /*xorstr_*/("minty");
+    fs::path settings_path = fs::current_path() / "minty";
 
     /*std::ifstream ifs("cfg.json");
     ifs >> cfg;*/
@@ -216,7 +214,7 @@ int main() {
             settings_file.close();
         }
         else {
-            std::cout << /*xorstr_*/("Error: Unable to create config file.") << std::endl;
+            std::cout << "Error: Unable to create config file." << std::endl;
             return 1;
         }
     }
@@ -225,7 +223,7 @@ int main() {
 
     auto settings = read_whole_file(settings_path);
     if (!settings) {
-        printf(/*xorstr_*/("Failed reading config\n"));
+        printf("Failed reading config\n");
         system("pause");
         return 0;
     }
@@ -248,14 +246,14 @@ int main() {
         ofn.lpstrFile[0] = '\0';
         ofn.hwndOwner = NULL;
         ofn.nMaxFile = sizeof(szFile);
-        ofn.lpstrFilter = /*xorstr_*/("Executable Files (*.exe)\0*.exe\0All Files (*.*)\0*.*\0");
+        ofn.lpstrFilter = "Executable Files (*.exe)\0*.exe\0All Files (*.*)\0*.*\0";
         ofn.nFilterIndex = 1;
-        ofn.lpstrTitle = /*xorstr_*/("Select Genshin Impact game executable");
+        ofn.lpstrTitle = "Select Genshin Impact game executable";
         ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 
         if (GetOpenFileNameA(&ofn)) {
             std::string(exe_path) = ofn.lpstrFile;
-            std::ofstream settings_file(/*xorstr_*/("minty"), std::ios_base::out);
+            std::ofstream settings_file("minty", std::ios_base::out);
             if (settings_file.is_open()) {
                 /*settings_file << exe_path << std::endl;
                 settings_file.close();*/
@@ -263,11 +261,11 @@ int main() {
                 settings_file << cfg.dump(4) << std::endl;
                 settings_file.close();
             } else {
-                std::cout << /*xorstr_*/("Error: Unable to open settings file.") << std::endl;
+                std::cout << "Error: Unable to open settings file." << std::endl;
                 return 1;
             }
         } else {
-            std::cout << /*xorstr_*/("Error: Unable to open file dialog.") << std::endl;
+            std::cout << "Error: Unable to open file dialog." << std::endl;
             return 1;
         }
 
