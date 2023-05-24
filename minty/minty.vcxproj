@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClCompile Include="Utils\ProtectionBypass.cpp" />
     <ClCompile Include="Utils\TelemetryBlocker.cpp" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Themes\themes.hpp" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
+    <ClInclude Include="Utils\ProtectionBypass.h" />
     <ClInclude Include="Utils\TelemetryBlocker.h" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>

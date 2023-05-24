@@ -62,6 +62,7 @@
     <ClCompile Include="Lua\lvm.c" />
     <ClCompile Include="Lua\lzio.c" />
     <ClCompile Include="Utils\TelemetryBlocker.cpp" />
+    <ClCompile Include="Utils\ProtectionBypass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Lua\luahookutil.hpp" />
     <ClInclude Include="Lua\luahook.hpp" />
     <ClInclude Include="Utils\TelemetryBlocker.h" />
+    <ClInclude Include="Utils\ProtectionBypass.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

@@ -2,6 +2,7 @@
 #include "../IL2CPP/il2cpp-init.hpp"
 #include "../includes.h"
 #include "TelemetryBlocker.h"
+#include "ProtectionBypass.h"
 #include "../Lua/luahook.hpp"
 
 DWORD WINAPI MainThread(LPVOID lpReserved) {
@@ -25,6 +26,17 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     // luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"12312312312312231212123\")");
 
     init_il2cpp();
+
+    try
+    {
+        ProtectionBypass::Init();
+    }
+    catch (const std::exception& e)
+    {
+        util::log(M_Error, "Unhandled exception in closing anticheat. Please report this issue in our Discord server.");
+        //util::log(M_Error, e);
+    }
+    
 
     return 0;
 }
