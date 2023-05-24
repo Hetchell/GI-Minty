@@ -10,4 +10,4 @@ new dynamically-loading tool for "园什“
 See the folder named `documentation` for documentation.
 
 ## Disclaimer
-DISCLAIMER! We are not responsible for any actions you perform or recieve e.g. ban. This tool provides nothing against 米忽悠's anticheat system.
+DISCLAIMER! We are not responsible for any actions you perform or recieve e.g. ban. This tool only provides limited protection against 米忽悠's anticheat system.
