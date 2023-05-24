@@ -11,6 +11,7 @@
     <DLLBox>
         <Folders />
         <DLL Name="Launcher.exe" FileName="Launcher.exe" />
+        <DLL Name="minty.dll" FileName="minty.dll" />
     </DLLBox>
     <Script />
     <LicenseManager />
