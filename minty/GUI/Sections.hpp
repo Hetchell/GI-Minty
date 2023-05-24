@@ -130,11 +130,11 @@ void Player() {
         il2fns::Infinity__Energy(ifEnergy);
     } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
 
-    //static bool ifNOCD = false;
-    //if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
-    //    saveFuncStateToJson("NoCD", ifNOCD);
-    //    il2fns::LCAvatarCombat_NoCD(ifNOCD);
-    //} ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
+    static bool ifNOCD = false;
+    if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
+        saveFuncStateToJson("NoCD", ifNOCD);
+        il2fns::LCAvatarCombat_NoCD(ifNOCD);
+    } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
 
     static bool ifInfStamina = false;
     if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
@@ -395,7 +395,7 @@ void Minigames() {
 void About() {
     ImGui::SeparatorText("About");
 
-    ImGui::Text("Minty version 1.0.0");
+    ImGui::Text("Minty version 1.05");
     ImGui::Text("ImGui version: %s", ImGui::GetVersion());
 
     // ImGui::Text("Game version: ???");

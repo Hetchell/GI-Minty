@@ -17,6 +17,19 @@ static bool LCAvatarCombat_IsSkillInCD_1(app::LCAvatarCombat* __this, app::LCAva
 	}
 	return CALL_ORIGIN(LCAvatarCombat_IsSkillInCD_1, __this, skillInfo);
 }
+static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float cdMultipler) {
+	if (ifnocd)
+	{
+		//if (__this->fields._targetFixTimer->fields._._timer_k__BackingField > 0) {
+		//	cdMultipler = 1 / 3;
+		//}
+		//else {
+		//	cdMultipler = 1 / 1;
+		//}
+		cdMultipler = 0;
+	}
+	return CALL_ORIGIN(LCAvatarCombat_OnSkillStart, __this, skillID, cdMultipler);
+}
 
 static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minValue, float maxValue, bool forceDoAtRemote) {
 	if (ifbow && il2cppi_to_string(key) == "_Enchanted_Time")
@@ -30,7 +43,7 @@ static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_Actor
 namespace il2fns {
 	void LCAvatarCombat_NoCD(bool value) {
 		if (!ifinit)
-			HookManager::install(app::MoleMole_LCAvatarCombat_IsSkillInCD_1, LCAvatarCombat_IsSkillInCD_1); ifinit = true;
+			HookManager::install(app::LCAvatarCombat_OnSkillStart, LCAvatarCombat_OnSkillStart); ifinit = true;
 		ifnocd = value;
 	}
 
