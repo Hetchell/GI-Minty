@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include <string>
 #include <unordered_map>
@@ -626,7 +626,7 @@ void Misc() {
         il2fns::BootyFixer(ifpeeking);
     }
     ImGui::SameLine();
-    HelpMarker(":3");
+    HelpMarker("\"Uncensors\" the camera, so that you can freely look up characters' pants. This is a highly necessary feature in high demand (^_^)");
 
     static bool show_colorator3000 = false;
     static float cc_r = 1.0f;
