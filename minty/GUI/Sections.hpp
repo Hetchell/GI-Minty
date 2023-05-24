@@ -251,6 +251,7 @@ void Player() {
             std::string result = emochengemo1 + std::string(emo_options[emo_select_index]) + emochengemo2 + std::string(pho_options[emo_select_index]) + emochengpho2;
             last_lua_string = result;
         }
+        ImGui::Unindent();
     }
 
     static bool show_avatarresizer = false;
