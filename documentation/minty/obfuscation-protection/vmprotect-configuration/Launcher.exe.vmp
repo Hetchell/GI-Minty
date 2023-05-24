@@ -16,6 +16,36 @@
             <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$0" Options="0" CompilationType="2" />
             <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$1" Options="0" CompilationType="2" />
             <Procedure MapAddress="`read_whole_file&apos;::`1&apos;::dtor$23" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`this_dir&apos;::`1&apos;::dtor$1" Options="0" CompilationType="2" />
+            <Procedure MapAddress="this_dir(void)" Options="0" CompilationType="2" />
+            <Procedure MapAddress="`__scrt_common_main_seh&apos;::`1&apos;::filt$0" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$0" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$1" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$2" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$3" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$4" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$5" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$48" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$7" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$8" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$9" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$78" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$10" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$11" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$67" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$12" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$76" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$13" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$14" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$15" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$119" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$16" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$17" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$117" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$112" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$18" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$92" Options="0" CompilationType="2" />
+            <Procedure MapAddress="main$dtor$19" Options="0" CompilationType="2" />
         </Procedures>
         <Objects />
     </Protection>
