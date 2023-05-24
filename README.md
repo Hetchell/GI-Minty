@@ -8,3 +8,6 @@ new dynamically-loading tool for "园什“
 
 ## Documentation
 See the folder named `documentation` for documentation.
+
+## Disclaimer
+DISCLAIMER! We are not responsible for any actions you perform or recieve e.g. ban. This tool provides nothing against 米忽悠's anticheat system.
