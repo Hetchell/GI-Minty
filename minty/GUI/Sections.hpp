@@ -128,25 +128,25 @@ void Player() {
     if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
         saveFuncStateToJson("InfBurst", ifEnergy);
         il2fns::Infinity__Energy(ifEnergy);
-    }
+    } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
 
     static bool ifNOCD = false;
     if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
         saveFuncStateToJson("NoCD", ifNOCD);
         il2fns::LCAvatarCombat_NoCD(ifNOCD);
-    }
+    } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
 
     static bool ifInfStamina = false;
     if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
         saveFuncStateToJson("InfStamina", ifInfStamina);
         il2fns::Infinity_Stamina(ifInfStamina);
-    }
+    } ImGui::SameLine(); HelpMarker("Infinite stamina values.");
 
     static bool ifGodmode = false;
     if (ImGui::Checkbox("No fall damage", &ifGodmode)) {
         saveFuncStateToJson("NoFallDmg", ifGodmode);
         il2fns::GodMode(ifGodmode);
-    }
+    } ImGui::SameLine(); HelpMarker("Take no damage after falling from any height.");
 
     // static bool ifBreast = false;
     // static float breastSize = 1;
@@ -174,7 +174,7 @@ void Player() {
     if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
         saveFuncStateToJson("InstantBow", ifnobowcd);
         il2fns::NoBowCD(ifnobowcd);
-    }
+    } ImGui::SameLine(); HelpMarker("Instant elemental charge for bows.");
 
     // static bool ifnoclip = false;
     // if (ImGui::Checkbox("Noclip", &ifnoclip)) {
@@ -183,10 +183,7 @@ void Player() {
     // }
 
     static bool show_modelswap = false;
-    if (ImGui::Checkbox("Model swapper", &show_modelswap)) {
-    }
-    ImGui::SameLine();
-    HelpMarker("Swaps your avatars' models. Switch to character which model you want to set on another, press Clone; Switch to character, which model you want to replace with copied, press Paste.");
+    if (ImGui::Checkbox("Model swapper", &show_modelswap)) {} ImGui::SameLine(); HelpMarker("Swaps your avatars' models. Press Clone to copy current avatar, press paste to apply the original avatar's model onto the current.");
     if (show_modelswap) {
         ImGui::Indent();
 
@@ -203,7 +200,7 @@ void Player() {
     static float boob_size = 1.0f;
     ImGui::Checkbox("Booba resizer", &show_resizer);
     ImGui::SameLine();
-    HelpMarker("Changes size of character breasts. Press Initiate and move slider.");
+    HelpMarker("Changes size of character breasts. Press Initiate and adjust slider.");
     if (show_resizer) {
         ImGui::Indent();
         if (ImGui::Button("Initiate resize")) {
@@ -262,7 +259,7 @@ void Player() {
     static bool show_avatarresizer = false;
     ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
     ImGui::SameLine();
-    HelpMarker("Resizes your current character's size. Just move slider. ");
+    HelpMarker("Resizes your current character's size.");
 
     if (show_avatarresizer) {
         static float avatarsize = 1.0f;
@@ -292,7 +289,7 @@ void World() {
     static bool timescale = false;
     ImGui::Checkbox("Change time speed", &timescale);
     ImGui::SameLine();
-    HelpMarker("Unlocks your framerate to defined target FPS.");
+    HelpMarker("Changes the speed at which the game runs.");
     if (timescale) {
         ImGui::Indent();
         if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
@@ -347,10 +344,10 @@ void World() {
     if (ImGui::Checkbox("Browser", &isbrowser)) {
         if (!isbrowser)
             il2fns::TurnBrowser(false, 1, "");
-    }
+    } ImGui::SameLine(); HelpMarker("Creates an interactive web browser in the world.");
 
-    ImGui::SameLine();
-    HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
+    // ImGui::SameLine();
+    // HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
 
     if (isbrowser) {
         ImGui::Indent();
@@ -375,7 +372,7 @@ void World() {
     if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
         saveFuncStateToJson("DumbEnemy", ifDumbAI);
         il2fns::DumbEnemies(ifDumbAI);
-    }
+    } ImGui::SameLine(); HelpMarker("Make enemies have the same level of intelligence as Congress.");
 }
 
 void Minigames() {
@@ -607,15 +604,13 @@ void Misc() {
         } else {
             last_lua_string = char_uicamera_on;
         }
-    }
-    ImGui::SameLine();
-    HelpMarker("Hides all game UI.");
+    } ImGui::SameLine(); HelpMarker("Toggles visibility of the game's UI.");
 
     static char UID_inputTextBuffer[512] = "";
     static bool ifUid;
     ImGui::Checkbox("Custom UID", &ifUid);
     ImGui::SameLine();
-    HelpMarker("Changes your game UID to any defined text. HTML/Rich Text tags can be applied.");
+    HelpMarker("Changes your game UID to any defined string. HTML/Rich Text tags can be applied.");
     if (ifUid) {
         ImGui::InputTextWithHint("##input", "Enter custom UID text here...", UID_inputTextBuffer, sizeof(UID_inputTextBuffer));
         ImGui::SameLine();
@@ -684,19 +679,19 @@ void Misc() {
     if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
         saveFuncStateToJson("ElemSight", ifElem);
         il2fns::ElemSight(ifElem);
-    }
+    } ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
 
     static bool ifDialog = false;
     if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
         saveFuncStateToJson("AutoTalk", ifDialog);
         il2fns::DialogSkip(ifDialog);
-    }
+    } ImGui::SameLine(); HelpMarker("Automatically goes through dialogue.");
 
     static bool ifCSC = false;
     if (ImGui::Checkbox("Skip cutscene", &ifCSC)) {
         saveFuncStateToJson("CutsceneSkip", ifCSC);
         il2fns::CutsceneSkip(ifCSC);
-    }
+    } ImGui::SameLine(); HelpMarker("Skip video cutscenes.");
 
     // static bool ifChest = false;
     // if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
@@ -715,10 +710,10 @@ void Misc() {
     if (ImGui::Checkbox("Change Camera Zoom", &ifzoom)) {
         if (!ifzoom)
             il2fns::CameraZoom(1.0);
-    }
+    } ImGui::SameLine(); HelpMarker("Changes the distance the camera is to the avatar.");
 
     ImGui::SameLine();
-    HelpMarker("Changes camera Field Of View. (Default = 45.)");
+    HelpMarker("Changes camera Field Of View. (Default = 45)");
     if (ifzoom) {
         ImGui::Indent();
         if (ImGui::SliderFloat("Target Zoom", &targetzoom, -10, 500))
