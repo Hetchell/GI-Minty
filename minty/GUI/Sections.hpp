@@ -302,9 +302,12 @@ void World() {
         ImGui::SameLine();
         if (ImGui::Button("Reset (F11)")) {
             TimeScale = 1.0;
-            il2fns::UnityEngine__set__Timescale(TimeScale);
         }
+        il2fns::UnityEngine__set__Timescale(TimeScale);
         ImGui::Unindent();
+    }
+    else {
+        il2fns::UnityEngine__set__Timescale(1.0);
     }
 
     // static bool isbrowser = false;
