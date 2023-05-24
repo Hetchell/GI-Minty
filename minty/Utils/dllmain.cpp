@@ -11,22 +11,10 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     freopen("CONOUT$", "w", stdout);
     freopen("CONOUT$", "w", stderr);
 
-    util::log(M_Info, "Starting");
+    util::log(M_Info, "Starting...");
 
     TelemetryBlocker::BlockTelemetry();
-
-    GetPresent();
-    DetourDirectXPresent();
-    // PrintValues(); // do we even need prntvalues, keep the comment here might be useful for later debug
-
-    // while (!FindWindowA("UnityWndClass", nullptr))  Sleep(1000);
-    // DisableVMP();
-    // get_gi_L();
-    // Sleep(10000);
-    // luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"12312312312312231212123\")");
-
-    init_il2cpp();
-
+    util::log(M_Info, "Telemetry block done.");
     try
     {
         ProtectionBypass::Init();
@@ -36,7 +24,22 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
         util::log(M_Error, "Unhandled exception in closing anticheat. Please report this issue in our Discord server.");
         //util::log(M_Error, e);
     }
-    
+    util::log(M_Info, "Initializing IL2CPP...");
+    init_il2cpp();
+    util::log(M_Info, "Initialized IL2CPP. Waiting 30 seconds before starting DirectX...");
+    Sleep(30000);
+    util::log(M_Info, "Waited, assuming that your game already opened. Opening menu...");
+    try
+    {
+        GetPresent();
+        DetourDirectXPresent();
+    }
+    catch (const std::exception& e)
+    {
+        util::log(M_Error, "Unhandled exception in opening menu. Please report this issue in our Discord server.");
+        //util::log(M_Error, e);
+    }
+    // PrintValues(); // do we even need prntvalues, keep the comment here might be useful for later debug
 
     return 0;
 }

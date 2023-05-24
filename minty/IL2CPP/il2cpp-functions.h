@@ -12,7 +12,7 @@ DO_APP_FUNC(0x8BFE60, app::Transform*, UnityEngine__Component__get__Transform, (
 DO_APP_FUNC(0x7079CA0, app::GameObject*, UnityEngine__GameObject__Find, (app::String* nameFind));
 DO_APP_FUNC(0x707A050, void, UnityEngine__GameObject__SetActive, (app::GameObject* object, bool value));
 DO_APP_FUNC(0x1C5DC00, bool, LCAvatarCombat_IsEnergyMax, (void* __this)); // -- checl!!!!!!!!!!
-// DO_APP_FUNC(0x00C6E520, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti)); -- prolly outdated
+DO_APP_FUNC(0x1C604A0, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
 DO_APP_FUNC(0x2D00460, float, MoleMole_SafeFloat_get_Value, (SafeFloat safeFloat)); //found with op implicit
 DO_APP_FUNC(0x2D003C0, SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloat)); // same
 DO_APP_FUNC(0x1C61220, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
