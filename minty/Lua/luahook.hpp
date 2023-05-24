@@ -163,9 +163,9 @@ DWORD WINAPI initLua(LPVOID lpReserved) {
 
     DisableVMP();
     get_gi_L();
-    Sleep(10000);
+    //Sleep(10000);
 
-    util::log(M_Info, "should call now!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    //util::log(M_Info, "should call now!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"Lua initialized!\")");
     while (true) {
         if (!last_lua_string.empty()) {
@@ -175,7 +175,7 @@ DWORD WINAPI initLua(LPVOID lpReserved) {
             util::log(M_Info, "Lua deleted from s.");
         }
         Sleep(100);
-        util::log(M_Info, "checked");
+        //util::log(M_Info, "checked");
     }
     return 0;
 }

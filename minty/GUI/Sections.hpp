@@ -68,7 +68,7 @@ std::vector<std::string> ModuleOrder = {
 namespace Sections {
 
 void Player() {
-    ImGui::SeparatorText(/*xorstr_*/ ("Avatar"));
+    //ImGui::SeparatorText(/*xorstr_*/ ("Avatar"));
 
     /*
     if (ImGui::Button("MoleMole Message DEBUG")) {
@@ -122,7 +122,7 @@ void Player() {
     //    ImGui::Unindent();
     //}
 
-    ImGui::SeparatorText("Skills");
+    //ImGui::SeparatorText("Skills");
 
     static bool ifEnergy = false;
     if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
@@ -130,11 +130,11 @@ void Player() {
         il2fns::Infinity__Energy(ifEnergy);
     } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
 
-    static bool ifNOCD = false;
-    if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
-        saveFuncStateToJson("NoCD", ifNOCD);
-        il2fns::LCAvatarCombat_NoCD(ifNOCD);
-    } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
+    //static bool ifNOCD = false;
+    //if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
+    //    saveFuncStateToJson("NoCD", ifNOCD);
+    //    il2fns::LCAvatarCombat_NoCD(ifNOCD);
+    //} ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
 
     static bool ifInfStamina = false;
     if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
@@ -284,7 +284,7 @@ void Player() {
 
 static float TimeScale = 1.0f;
 void World() {
-    ImGui::SeparatorText("World");
+    //ImGui::SeparatorText("World");
 
     static bool timescale = false;
     ImGui::Checkbox("Change time speed", &timescale);
@@ -341,10 +341,10 @@ void World() {
     static char browserUrlBuf[256] = "";
     static float browserSize = 1;
 
-    if (ImGui::Checkbox("Browser", &isbrowser)) {
-        if (!isbrowser)
-            il2fns::TurnBrowser(false, 1, "");
-    } ImGui::SameLine(); HelpMarker("Creates an interactive web browser in the world.");
+    //if (ImGui::Checkbox("Browser", &isbrowser)) {
+    //    if (!isbrowser)
+    //        il2fns::TurnBrowser(false, 1, "");
+    //} ImGui::SameLine(); HelpMarker("Creates an interactive web browser in the world.");
 
     // ImGui::SameLine();
     // HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
@@ -472,16 +472,16 @@ void Themes() {
     ImGui::SeparatorText("Fonts");
 
     static int fontSelectionIndex = 0;
-    if (ImGui::RadioButton("idk", &fontSelectionIndex, 0)) {
+    if (ImGui::RadioButton("Normal", &fontSelectionIndex, 0)) {
         setfont(1);
     }
 
-    if (ImGui::RadioButton("idk2", &fontSelectionIndex, 1)) {
+    if (ImGui::RadioButton("Bold", &fontSelectionIndex, 1)) {
         setfont(2);
     }
 
     ImGui::SeparatorText("Custom styles");
-    ImGui::TextDisabled("DEBUG");
+    //ImGui::TextDisabled("DEBUG");
     ImGui::Checkbox("Show Style Editor", &show_style_editor);
     /*----------PLACEHOLDER----------*/
 }
@@ -675,11 +675,11 @@ void Misc() {
     //     ImGui::Unindent();
     // }
 
-    static bool ifElem = false;
-    if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
-        saveFuncStateToJson("ElemSight", ifElem);
-        il2fns::ElemSight(ifElem);
-    } ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
+    //static bool ifElem = false;
+    //if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
+    //    saveFuncStateToJson("ElemSight", ifElem);
+    //    il2fns::ElemSight(ifElem);
+    //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
 
     static bool ifDialog = false;
     if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
@@ -712,8 +712,8 @@ void Misc() {
             il2fns::CameraZoom(1.0);
     } ImGui::SameLine(); HelpMarker("Changes the distance the camera is to the avatar.");
 
-    ImGui::SameLine();
-    HelpMarker("Changes camera Field Of View. (Default = 45)");
+    //ImGui::SameLine();
+    //HelpMarker("Changes camera Field Of View. (Default = 45)");
     if (ifzoom) {
         ImGui::Indent();
         if (ImGui::SliderFloat("Target Zoom", &targetzoom, -10, 500))
