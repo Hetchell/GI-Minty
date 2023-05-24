@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document Version="2">
+    <Protection InputFileName="Launcher.exe" Options="332744" VMCodeSectionName=".collei">
+        <Messages>
+            <Message Id="2">Your Minty files have been corrupted, possibly either by malware or by network issues when downloading them. Please delete your Minty files, run a malware scan, and re-download Minty.</Message>
+        </Messages>
+        <Folders />
+        <Procedures />
+        <Objects />
+    </Protection>
+    <DLLBox>
+        <Folders />
+        <DLL Name="Launcher.exe" FileName="Launcher.exe" />
+        <DLL Name="minty.dll" FileName="minty.dll" />
+    </DLLBox>
+    <Script />
+    <LicenseManager />
+</Document>
