@@ -19,14 +19,14 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 
     app::UnityEngine__set__Timescale(value);
 
-    //if (!talkDialog->fields._inSelect)
-        //app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context); --- requires offset
+    if (!talkDialog->fields._inSelect)
+        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
 }
 
 static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)
 {
     CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
-    OnCutScenePageUpdate(__this, ifcsc ? 5.0f : 0.0f);
+    OnCutScenePageUpdate(__this, ifdia ? 5.0f : 1.0f);
 }
 
 static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this)
