@@ -19,7 +19,16 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 
     app::UnityEngine__set__Timescale(value);
 
-    if (!talkDialog->fields._inSelect)
+    if (talkDialog->fields._inSelect /*&& f_AutoSelectDialog && !isImportant*/)
+    {
+        int32_t value = 0;
+        //auto object = il2cpp_value_box((Il2CppClass*)*app::Int32__TypeInfo, &value);
+        app::Notify notify{};
+        notify.type = app::MoleMole_NotifyTypes__Enum::DialogSelectNotify;
+        notify.body = (app::Object*)nullptr; // replace nullptr -> object
+        app::MoleMole_TalkDialogContext_OnDialogSelectItem(talkDialog, &notify);
+    }
+    else if (!talkDialog->fields._inSelect)
         app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
 }
 

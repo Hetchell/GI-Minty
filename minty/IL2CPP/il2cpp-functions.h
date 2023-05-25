@@ -48,13 +48,18 @@ DO_APP_FUNC(0x10B7130, void, Camera_set_fieldOfView, (app::Camera* __this, float
 DO_APP_FUNC(0x1D37B80, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
 DO_APP_FUNC(0x2D94270, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
 DO_APP_FUNC(0xEFAF40, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
-DO_APP_FUNC(0x02505C20, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this)); // -- cant find
-DO_APP_FUNC(0x02504850, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this)); // -- cant find
+DO_APP_FUNC(0x1EC6590, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this));
+DO_APP_FUNC(0x1EC7450, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this));
 DO_APP_FUNC(0x12EC630, void, MoleMole_InLevelCutScenePageContext_UpdateView, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x12E99E0, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x36F89D0, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
 DO_APP_FUNC(0x36F8890, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
 DO_APP_FUNC(0x12E9B70, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
+/* not tested
+0x3CB8210 ! 
+0x3CB93F0 
+*/
+DO_APP_FUNC(0x3CB8210, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
 DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x31FCA30, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
 DO_APP_FUNC(0x07A11690, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));

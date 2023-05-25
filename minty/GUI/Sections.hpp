@@ -694,13 +694,10 @@ void Misc() {
         il2fns::CutsceneSkip(ifCSC);
     } ImGui::SameLine(); HelpMarker("Skip video cutscenes.");
 
-    // static bool ifChest = false;
-    // if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
-    //     if (ifElem)
-    //         il2fns::ChestIndicator(true);
-    //     else
-    //         il2fns::ChestIndicator(false);
-    // }
+    static bool ifChest = false;
+    if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
+        il2fns::ChestIndicator(ifChest);
+    }
     /* static bool ifOTI = false;
     if (ImGui::Checkbox("Open team immediately", &ifOTI)) {
         il2fns::OpenTeamImm(ifOTI);
