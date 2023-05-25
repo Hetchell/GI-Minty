@@ -13,9 +13,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
     util::log(M_Info, "Starting...");
 
-    TelemetryBlocker::BlockTelemetry();
-    util::log(M_Info, "Telemetry block done.");
-
+    //TelemetryBlocker::BlockTelemetry();
+    //util::log(M_Info, "Telemetry block done.");
     try
     {
         ProtectionBypass::Init();

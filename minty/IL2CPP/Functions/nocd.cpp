@@ -4,29 +4,14 @@ static bool ifnocd;
 static bool ifinit;
 static bool ifbowinit;
 static bool ifbow;
-static bool LCAvatarCombat_IsSkillInCD_1(app::LCAvatarCombat* __this, app::LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo) {
-	if (ifnocd)
-	{
-		auto cdTimer = app::MoleMole_SafeFloat_get_Value(skillInfo->fields.cdTimer); // Timer start value in the game
 
-		if (cdTimer > 1)
-		{
-			struct app::SafeFloat MyValueProtect = app::MoleMole_SafeFloat_set_Value(1 - 1.0f); // Subtract -1 from the current timer value
-			skillInfo->fields.cdTimer = MyValueProtect;
-		}
-	}
-	return CALL_ORIGIN(LCAvatarCombat_IsSkillInCD_1, __this, skillInfo);
-}
 static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float cdMultipler) {
 	if (ifnocd)
 	{
-		//if (__this->fields._targetFixTimer->fields._._timer_k__BackingField > 0) {
-		//	cdMultipler = 1 / 3;
-		//}
-		//else {
-		//	cdMultipler = 1 / 1;
-		//}
-		cdMultipler = 0;
+		try {
+			cdMultipler = 0;
+		}
+		catch (...) {}
 	}
 	return CALL_ORIGIN(LCAvatarCombat_OnSkillStart, __this, skillID, cdMultipler);
 }
@@ -34,8 +19,11 @@ static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t sk
 static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minValue, float maxValue, bool forceDoAtRemote) {
 	if (ifbow && il2cppi_to_string(key) == "_Enchanted_Time")
 	{
-		value = maxValue;
-		__this->fields.nextValidAbilityID = 36;
+		try {
+			value = maxValue;
+			__this->fields.nextValidAbilityID = 36;
+		}
+		catch (...) {}
 	}
 	CALL_ORIGIN(ActorAbilityPlugin_AddDynamicFloatWithRange_Hook, __this, key, value, minValue, maxValue, forceDoAtRemote);
 }
