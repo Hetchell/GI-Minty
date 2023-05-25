@@ -124,25 +124,37 @@ void Player() {
     static bool ifEnergy = false;
     if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
         saveFuncStateToJson("InfBurst", ifEnergy);
-        il2fns::Infinity__Energy(ifEnergy);
+        try {
+            il2fns::Infinity__Energy(ifEnergy);
+        }
+        catch (...) {}
     } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
 
     static bool ifNOCD = false;
     if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
         saveFuncStateToJson("NoCD", ifNOCD);
-        il2fns::LCAvatarCombat_NoCD(ifNOCD);
+        try {
+            il2fns::LCAvatarCombat_NoCD(ifNOCD);
+        }
+        catch (...) {}
     } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
 
     static bool ifInfStamina = false;
     if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
         saveFuncStateToJson("InfStamina", ifInfStamina);
-        il2fns::Infinity_Stamina(ifInfStamina);
+        try {
+            il2fns::Infinity_Stamina(ifInfStamina);
+        }
+        catch (...) {}
     } ImGui::SameLine(); HelpMarker("Infinite stamina values.");
 
     static bool ifGodmode = false;
     if (ImGui::Checkbox("No fall damage", &ifGodmode)) {
         saveFuncStateToJson("NoFallDmg", ifGodmode);
-        il2fns::GodMode(ifGodmode);
+        try {
+            il2fns::GodMode(ifGodmode);
+        }
+        catch (...) {}
     } ImGui::SameLine(); HelpMarker("Take no damage after falling from any height.");
 
     // static bool ifBreast = false;
@@ -170,7 +182,9 @@ void Player() {
     static bool ifnobowcd;
     if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
         saveFuncStateToJson("InstantBow", ifnobowcd);
-        il2fns::NoBowCD(ifnobowcd);
+        try {
+            il2fns::NoBowCD(ifnobowcd);
+        } catch (...) {}
     } ImGui::SameLine(); HelpMarker("Instant elemental charge for bows.");
 
     // static bool ifnoclip = false;
@@ -242,10 +256,8 @@ void Player() {
     HelpMarker("Change current avatar's emotion.");
     if (emocheng) {
         ImGui::Indent();
-        if (ImGui::Combo("Face expression", &emo_select_index, emo_options, IM_ARRAYSIZE(emo_options))) {
-        }
-        if (ImGui::Combo("Mouth expression", &pho_select_index, pho_options, IM_ARRAYSIZE(pho_options))) {
-        }
+        if (ImGui::Combo("Face expression", &emo_select_index, emo_options, IM_ARRAYSIZE(emo_options))) {}
+        if (ImGui::Combo("Mouth expression", &pho_select_index, pho_options, IM_ARRAYSIZE(pho_options))) {}
 
         if (ImGui::Button("Change")) {
             std::string result = emochengemo1 + std::string(emo_options[emo_select_index]) + emochengemo2 + std::string(pho_options[emo_select_index]) + emochengpho2;
@@ -291,7 +303,10 @@ void World() {
     if (timescale) {
         ImGui::Indent();
         if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
-            il2fns::UnityEngine__set__Timescale(TimeScale);
+            try {
+                il2fns::UnityEngine__set__Timescale(TimeScale);
+            }
+            catch (...) {}
         }
 
         ImGui::SameLine();
@@ -301,11 +316,17 @@ void World() {
         if (ImGui::Button("Reset (F11)")) {
             TimeScale = 1.0;
         }
-        il2fns::UnityEngine__set__Timescale(TimeScale);
+        try {
+            il2fns::UnityEngine__set__Timescale(TimeScale);
+        }
+        catch (...) {}
         ImGui::Unindent();
     }
     else {
-        il2fns::UnityEngine__set__Timescale(1.0);
+        try {
+            il2fns::UnityEngine__set__Timescale(1.0);
+        }
+        catch (...) {}
     }
 
     // static bool isbrowser = false;
@@ -372,7 +393,9 @@ void World() {
 
     if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
         saveFuncStateToJson("DumbEnemy", ifDumbAI);
-        il2fns::DumbEnemies(ifDumbAI);
+        try {
+            il2fns::DumbEnemies(ifDumbAI);
+        } catch (...) {}
     } ImGui::SameLine(); HelpMarker("Make enemies have the same level of intelligence as Congress.");
 }
 
@@ -555,7 +578,10 @@ void Misc() {
     static int targetfps = 60;
     if (ImGui::Checkbox("Unlock FPS", &unlockfps)) {
         if (!unlockfps)
+            try {
             il2fns::UnityEngine__Application__set_targetFramerate(60);
+        }
+        catch (...) {}
     }
     ImGui::SameLine();
     HelpMarker("Unlocks your framerate to defined target FPS.");
@@ -569,7 +595,10 @@ void Misc() {
         static float fpsunlocktimer = 0.0f;
         fpsunlocktimer += ImGui::GetIO().DeltaTime;
         if (fpsunlocktimer > 1.0f) {
-            il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
+            try {
+                il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
+            }
+            catch (...) {}
             fpsunlocktimer = 0;
         }
         ImGui::Unindent();
@@ -624,7 +653,10 @@ void Misc() {
     static bool ifpeeking = false;
     if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
         saveFuncStateToJson("Booty", ifpeeking);
-        il2fns::BootyFixer(ifpeeking);
+        try {
+            il2fns::BootyFixer(ifpeeking);
+        }
+        catch (...) {}
     }
     ImGui::SameLine();
     HelpMarker("\"Uncensors\" the camera, so that you can freely look up characters' pants. This is a highly necessary feature in high demand (^_^)");
@@ -685,13 +717,22 @@ void Misc() {
     static bool ifDialog = false;
     if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
         saveFuncStateToJson("AutoTalk", ifDialog);
-        il2fns::DialogSkip(ifDialog);
+        try
+        {
+            il2fns::DialogSkip(ifDialog);
+        }
+        catch (const std::exception& e)
+        {
+            util::log(M_Error, "Unhandled exception: %s", std::string(e.what()));
+        }
     } ImGui::SameLine(); HelpMarker("Automatically goes through dialogue.");
 
     static bool ifCSC = false;
     if (ImGui::Checkbox("Skip cutscene", &ifCSC)) {
         saveFuncStateToJson("CutsceneSkip", ifCSC);
-        il2fns::CutsceneSkip(ifCSC);
+        try {
+            il2fns::CutsceneSkip(ifCSC);
+        } catch (...) {}
     } ImGui::SameLine(); HelpMarker("Skip video cutscenes.");
 
     // static bool ifChest = false;
@@ -710,7 +751,10 @@ void Misc() {
     static float targetzoom = 1;
     if (ImGui::Checkbox("Change Camera Zoom", &ifzoom)) {
         if (!ifzoom)
+            try {
             il2fns::CameraZoom(1.0);
+        }
+        catch (...) {}
     } ImGui::SameLine(); HelpMarker("Changes the distance the camera is to the avatar.");
 
     //ImGui::SameLine();
