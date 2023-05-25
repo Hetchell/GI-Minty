@@ -5,7 +5,6 @@ static bool ifinit;
 static bool LCAvatarCombat_IsEnergyMax(void* __this) {
 	if (ifenergy)
 		return true;
-
 	return CALL_ORIGIN(LCAvatarCombat_IsEnergyMax, __this);
 }
 

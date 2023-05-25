@@ -35,7 +35,10 @@ static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNex
 static float zoomval;
 void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data)
 {
-    data->currentWarningLocateRatio = static_cast<double>(zoomval);
+    try {
+        data->currentWarningLocateRatio = static_cast<double>(zoomval);
+    }
+    catch (...) {}
     CALL_ORIGIN(SCameraModuleInitialize_SetWarningLocateRatio_Hook, __this, deltaTime, data);
 }
 

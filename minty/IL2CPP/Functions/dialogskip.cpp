@@ -7,7 +7,10 @@ static bool ifcscinit;
 static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this)
 {
     if (ifcsc)
+        try {
         app::CriwareMediaPlayer_Skip(__this);
+    }
+    catch (...) {}
     return CALL_ORIGIN(CriwareMediaPlayer_Update, __this);
 }
 
@@ -34,7 +37,10 @@ static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageC
 
 static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this)
 {
-    app::UnityEngine__set__Timescale(1.f);
+    try {
+        app::UnityEngine__set__Timescale(1.f);
+    }
+    catch (...) {}
     CALL_ORIGIN(InLevelCutScenePageContext_ClearView_Hook, __this);
 }
 
