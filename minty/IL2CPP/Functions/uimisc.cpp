@@ -7,16 +7,18 @@ static void LevelSceneElementViewPlugin_Tick_Hook(app::LevelSceneElementViewPlug
 }
 
 static bool ifChest;
-static bool IndicatorPlugin_DoCheckOn(app::LCIndicatorPlugin* __this) {
-    if (__this->fields._dataItem != nullptr)
-    {
-        app::MoleMole_LCIndicatorPlugin_ShowIcon(__this);
+static bool ifchestinit;
+static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this) {
+    if (ifChest) {
+        if (__this->fields._dataItem != nullptr)
+        {
+            try {
+                app::MoleMole_LCIndicatorPlugin_ShowIcon(__this);
+            }
+            catch (...) {}
+        }
     }
-    return CALL_ORIGIN(IndicatorPlugin_DoCheckOn, __this);
-}
-
-static bool IndicatorPlugin_DoCheckOff(app::LCIndicatorPlugin* __this) {
-    return CALL_ORIGIN(IndicatorPlugin_DoCheckOff, __this);
+    return CALL_ORIGIN(IndicatorPlugin_DoCheck, __this);
 }
 
 static bool ifoti;
@@ -52,18 +54,9 @@ namespace il2fns {
 	}
 
     void ChestIndicator(bool value) {
-        if (value) {
-            if (ifChest) {
-                HookManager::detach(IndicatorPlugin_DoCheckOff);
-                ifChest = false;
-            }
-            HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheckOn);
-        }
-        else {
-            HookManager::detach(IndicatorPlugin_DoCheckOn);
-            HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheckOff);
-            ifChest = true;
-        }
+        if (!ifchestinit)
+            HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck); ifchestinit = true;
+        ifChest = value;
     }
 
     void ElemSight(bool value) {

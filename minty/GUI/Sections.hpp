@@ -267,12 +267,12 @@ void Player() {
     }
 
     static bool show_avatarresizer = false;
+    static float avatarsize = 1.0f;
     ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
     ImGui::SameLine();
     HelpMarker("Resizes your current character's size.");
 
     if (show_avatarresizer) {
-        static float avatarsize = 1.0f;
         ImGui::Indent();
         std::string result = char_avatarresize + std::to_string(avatarsize) + "," + std::to_string(avatarsize) + "," + std::to_string(avatarsize) + ")";
 
@@ -289,6 +289,11 @@ void Player() {
         }
 
         ImGui::Unindent();
+    }
+    else {
+        std::string result = std::string(char_avatarresize) + "1 , 1, 1)";
+        avatarsize = 1.0f;
+        last_lua_string = result;
     }
 }
 
@@ -312,14 +317,14 @@ void World() {
         ImGui::SameLine();
         HelpMarker("Changes speed of game time. Applies to everything in game.");
 
-        ImGui::SameLine();
-        if (ImGui::Button("Reset (F11)")) {
-            TimeScale = 1.0;
-        }
-        try {
-            il2fns::UnityEngine__set__Timescale(TimeScale);
-        }
-        catch (...) {}
+        //ImGui::SameLine();
+        //if (ImGui::Button("Reset (F11)")) {
+        //    TimeScale = 1.0;
+        //}
+        //try {
+        //    il2fns::UnityEngine__set__Timescale(TimeScale);
+        //}
+        //catch (...) {}
         ImGui::Unindent();
     }
     else {
