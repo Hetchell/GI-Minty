@@ -43,3 +43,13 @@ void saveFuncStateToJson(std::string funcName, int state) {
     merged_file << config_json.dump(4);
     merged_file.close();
 }
+
+bool readBoolFuncStateFromJson(std::string funcName) {
+    std::ifstream config_file("minty");
+    nlohmann::json config_json;
+    config_file >> config_json;
+    config_file.close();
+
+    bool state = config_json["functions"][funcName];
+    return state;
+}

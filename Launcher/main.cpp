@@ -210,6 +210,18 @@ int main() {
         if (settings_file.is_open()) {
             // Write the executable path to the settings file
             cfg["exec_path"] = exe_path;
+            cfg["functions"]["InfBurst"] = false;
+            cfg["functions"]["NoCD"] = false;
+            cfg["functions"]["InfStamina"] = false;
+            cfg["functions"]["NoFallDmg"] = false;
+            cfg["functions"]["InstantBow"] = false;
+            cfg["functions"]["DumbEnemy"] = false;
+            cfg["functions"]["Booty"] = false;
+            cfg["functions"]["AutoTalk"] = false;
+            cfg["functions"]["CutsceneSkip"] = false;
+            cfg["functions"]["ShowChest"] = false;
+            cfg["theme"]["style"] = 0;
+            cfg["theme"]["color"] = 0;
             settings_file << cfg.dump(4) << std::endl;
             //printf("created");
             exe_path = cfg["exec_path"];

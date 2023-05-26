@@ -13,6 +13,9 @@ namespace {
             return std::string("<nullptr>");
         return il2cppi_to_string(reinterpret_cast<app::Il2CppString*>(str));
     }
+    app::String* string_to_il2cppii(std::string input) {
+        return app::Marshal_PtrToStringAnsi((void*)input.c_str());
+    }
 }
 namespace il2fns {
 	void LCAvatarCombat_NoCD(bool value);

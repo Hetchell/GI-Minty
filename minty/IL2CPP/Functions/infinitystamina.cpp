@@ -3,9 +3,31 @@
 static bool ifstam;
 static bool ifinit;
 
+bool OnPropertySet(app::PropType__Enum propType)
+{
+	using PT = app::PropType__Enum;
+	static bool override_cheat = true;
+
+	if (propType == PT::PROP_CUR_TEMPORARY_STAMINA)
+		override_cheat = true;
+
+	const bool result = !ifstam ||
+		(propType != PT::PROP_MAX_STAMINA &&
+			propType != PT::PROP_CUR_PERSIST_STAMINA &&
+			propType != PT::PROP_CUR_TEMPORARY_STAMINA);
+
+	if (propType == PT::PROP_MAX_STAMINA)
+		override_cheat = false;
+
+	return result;
+}
+
 void DataItem_HandleNormalProp_Hook(app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state)
 {
-	if (!ifstam)
+	auto propType = static_cast<app::PropType__Enum>(type);
+	bool isValid = OnPropertySet(propType);
+	util::log(M_Debug, "isvalid: %d", isValid);
+	if (isValid)
 		CALL_ORIGIN(DataItem_HandleNormalProp_Hook, __this, type, value, state);
 }
 

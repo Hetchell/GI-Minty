@@ -17,7 +17,7 @@ static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t sk
 }
 
 static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minValue, float maxValue, bool forceDoAtRemote) {
-	if (ifbow && il2cppi_to_string(key) == "_Enchanted_Time")
+	if (ifbow && key == string_to_il2cppii("_Enchanted_Time"))
 	{
 		try {
 			value = maxValue;

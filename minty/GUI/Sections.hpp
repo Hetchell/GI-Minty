@@ -122,6 +122,7 @@ void Player() {
     //ImGui::SeparatorText("Skills");
 
     static bool ifEnergy = false;
+    ifEnergy = readBoolFuncStateFromJson("InfBurst");
     if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
         saveFuncStateToJson("InfBurst", ifEnergy);
         try {
@@ -131,6 +132,7 @@ void Player() {
     } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
 
     static bool ifNOCD = false;
+    ifNOCD = readBoolFuncStateFromJson("NoCD");
     if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
         saveFuncStateToJson("NoCD", ifNOCD);
         try {
@@ -140,6 +142,7 @@ void Player() {
     } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
 
     static bool ifInfStamina = false;
+    ifInfStamina = readBoolFuncStateFromJson("InfStamina");
     if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
         saveFuncStateToJson("InfStamina", ifInfStamina);
         try {
@@ -149,6 +152,7 @@ void Player() {
     } ImGui::SameLine(); HelpMarker("Infinite stamina values.");
 
     static bool ifGodmode = false;
+    ifGodmode = readBoolFuncStateFromJson("NoFallDmg");
     if (ImGui::Checkbox("No fall damage", &ifGodmode)) {
         saveFuncStateToJson("NoFallDmg", ifGodmode);
         try {
@@ -180,6 +184,7 @@ void Player() {
     //}
 
     static bool ifnobowcd;
+    ifnobowcd = readBoolFuncStateFromJson("InstantBow");
     if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
         saveFuncStateToJson("InstantBow", ifnobowcd);
         try {
@@ -293,7 +298,7 @@ void Player() {
     else {
         std::string result = std::string(char_avatarresize) + "1 , 1, 1)";
         avatarsize = 1.0f;
-        last_lua_string = result;
+        //last_lua_string = result;
     }
 }
 
@@ -395,7 +400,7 @@ void World() {
     }
 
     static bool ifDumbAI = false;
-
+    ifDumbAI = readBoolFuncStateFromJson("DumbEnemy");
     if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
         saveFuncStateToJson("DumbEnemy", ifDumbAI);
         try {
@@ -656,6 +661,7 @@ void Misc() {
     }
 
     static bool ifpeeking = false;
+    ifpeeking = readBoolFuncStateFromJson("Booty");
     if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
         saveFuncStateToJson("Booty", ifpeeking);
         try {
@@ -720,6 +726,7 @@ void Misc() {
     //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
 
     static bool ifDialog = false;
+    ifDialog = readBoolFuncStateFromJson("AutoTalk");
     if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
         saveFuncStateToJson("AutoTalk", ifDialog);
         try
@@ -733,6 +740,7 @@ void Misc() {
     } ImGui::SameLine(); HelpMarker("Automatically goes through dialogue.");
 
     static bool ifCSC = false;
+    ifCSC = readBoolFuncStateFromJson("CutsceneSkip");
     if (ImGui::Checkbox("Skip cutscene", &ifCSC)) {
         saveFuncStateToJson("CutsceneSkip", ifCSC);
         try {
@@ -741,7 +749,9 @@ void Misc() {
     } ImGui::SameLine(); HelpMarker("Skip video cutscenes.");
 
     static bool ifChest = false;
+    ifChest = readBoolFuncStateFromJson("ShowChest");
     if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
+        saveFuncStateToJson("ShowChest", ifChest);
         il2fns::ChestIndicator(ifChest);
     }
     /* static bool ifOTI = false;
