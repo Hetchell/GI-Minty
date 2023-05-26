@@ -16,6 +16,7 @@ static bool IndicatorPlugin_DoCheckOn(app::LCIndicatorPlugin* __this) {
 }
 
 static bool IndicatorPlugin_DoCheckOff(app::LCIndicatorPlugin* __this) {
+    app::MoleMole_LCIndicatorPlugin_HideIcon(__this);
     return CALL_ORIGIN(IndicatorPlugin_DoCheckOff, __this);
 }
 
