@@ -50,6 +50,7 @@ DO_APP_FUNC(0x2D94270, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* _
 DO_APP_FUNC(0xEFAF40, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
 DO_APP_FUNC(0x1EC6590, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this));
 DO_APP_FUNC(0x1EC7450, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this));
+DO_APP_FUNC(0x1EC80E0, void, MoleMole_LCIndicatorPlugin_HideIcon, (app::LCIndicatorPlugin* __this));
 DO_APP_FUNC(0x12EC630, void, MoleMole_InLevelCutScenePageContext_UpdateView, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x12E99E0, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x36F89D0, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));

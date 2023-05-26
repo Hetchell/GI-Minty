@@ -17,9 +17,15 @@ static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this) {
             }
             catch (...) {}
         }
-    }
+    } else app::MoleMole_LCIndicatorPlugin_HideIcon(__this);
     return CALL_ORIGIN(IndicatorPlugin_DoCheck, __this);
 }
+
+//static bool IndicatorPlugin_DoCheckOff(app::LCIndicatorPlugin* __this) {
+//    app::MoleMole_LCIndicatorPlugin_HideIcon(__this);
+//    return CALL_ORIGIN(IndicatorPlugin_DoCheckOff, __this);
+//>>>>>>> 2569c84d9210cec7c323394b6e05944c1df4a59a
+//}
 
 static bool ifoti;
 static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOn(app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this)
