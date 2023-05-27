@@ -5,6 +5,7 @@ DO_APP_FUNC(0x0363F220, void*, MoleMole__ActorUtils__ShowMessage, (void* message
 DO_APP_FUNC(0x00CABB60, void*, MoleMole__DoSitOnChair, ());
 DO_APP_FUNC(0x3633B20, app::Vector3, MoleMole__ActorUtils__GetAvatarPos, ());
 DO_APP_FUNC(0x707C250, void*, UnityEngine__set__Timescale, (float time));
+DO_APP_FUNC(0x7040740, bool*, UnityEngine__Application__get__isFocused, ());
 DO_APP_FUNC(0x7040C50, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
 DO_APP_FUNC(0x7082720, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
 DO_APP_FUNC(0x6F73BA0, void*, UnityEngine__Transform__set__localScale, (app::Transform* transformComponent, app::Vector3 vectorScale));
