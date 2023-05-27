@@ -12,11 +12,13 @@ uintptr_t unityPlayerAddress;
 
 // Define function addresses
 #define DO_APP_FUNC(a, r, n, p) r(*n) p
+#define DO_TYPEDEF(a, n) n ## __Class** n ## __TypeInfo
 namespace app {
 #include "../IL2CPP/il2cpp-types.h"
 #include "il2cpp-functions.h"
 }
 #undef DO_APP_FUNC
+#undef DO_TYPEDEF
 
 // Define UnityPlayer functions
 #define DO_UP_FUNC(a, r, n, p) r(*n) p
@@ -24,6 +26,8 @@ namespace app {
 #include "il2cpp-unityplayer-functions.h"
 }
 #undef DO_UP_FUNC
+
+
 
 /*
 #define DO_MD1_FUNC(a, r, n, p) r(*n) p
@@ -106,6 +110,10 @@ VOID init_il2cpp() {
 		#define DO_APP_FUNC(a, r, n, p) n = (r (*) p)(baseAddress + a)
 		#include "il2cpp-functions.h"
 		#undef DO_APP_FUNC
+
+		#define DO_TYPEDEF(a, n) n ## __TypeInfo = (n ## __Class**) (baseAddress + a)
+		#include "il2cpp-types.h"
+        #undef DO_TYPEDEF
 
 		#define DO_UP_FUNC(a, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
 		#include "il2cpp-unityplayer-functions.h"

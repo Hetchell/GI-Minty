@@ -122,7 +122,10 @@ void Player() {
     //ImGui::SeparatorText("Skills");
 
     static bool ifEnergy = false;
-    ifEnergy = readBoolFuncStateFromJson("InfBurst");
+    if (readBoolFuncStateFromJson("InfBurst") == true) {
+        il2fns::Infinity__Energy(true); ifEnergy = true;
+    }
+    else { ifEnergy = false; }
     if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
         saveFuncStateToJson("InfBurst", ifEnergy);
         try {
@@ -132,7 +135,10 @@ void Player() {
     } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
 
     static bool ifNOCD = false;
-    ifNOCD = readBoolFuncStateFromJson("NoCD");
+    if (readBoolFuncStateFromJson("NoCD") == true) {
+        il2fns::LCAvatarCombat_NoCD(true); ifNOCD = true;
+    }
+    else { ifNOCD = false; }
     if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
         saveFuncStateToJson("NoCD", ifNOCD);
         try {
@@ -142,7 +148,10 @@ void Player() {
     } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
 
     static bool ifInfStamina = false;
-    ifInfStamina = readBoolFuncStateFromJson("InfStamina");
+    if (readBoolFuncStateFromJson("InfStamina") == true) {
+        il2fns::Infinity_Stamina(true); ifInfStamina = true;
+    }
+    else { ifInfStamina = false; }
     if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
         saveFuncStateToJson("InfStamina", ifInfStamina);
         try {
@@ -152,7 +161,10 @@ void Player() {
     } ImGui::SameLine(); HelpMarker("Infinite stamina values.");
 
     static bool ifGodmode = false;
-    ifGodmode = readBoolFuncStateFromJson("NoFallDmg");
+    if (readBoolFuncStateFromJson("NoFallDmg") == true) {
+        il2fns::GodMode(true); ifGodmode = true;
+    }
+    else { ifGodmode = false; }
     if (ImGui::Checkbox("No fall damage", &ifGodmode)) {
         saveFuncStateToJson("NoFallDmg", ifGodmode);
         try {
@@ -184,7 +196,10 @@ void Player() {
     //}
 
     static bool ifnobowcd;
-    ifnobowcd = readBoolFuncStateFromJson("InstantBow");
+    if (readBoolFuncStateFromJson("InstantBow") == true) {
+        il2fns::NoBowCD(true); ifnobowcd = true;
+    }
+    else { ifnobowcd = false; }
     if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
         saveFuncStateToJson("InstantBow", ifnobowcd);
         try {
@@ -400,7 +415,10 @@ void World() {
     }
 
     static bool ifDumbAI = false;
-    ifDumbAI = readBoolFuncStateFromJson("DumbEnemy");
+    if (readBoolFuncStateFromJson("DumbEnemy") == true) {
+        il2fns::DumbEnemies(true); ifDumbAI = true;
+    }
+    else { ifDumbAI = false; }
     if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
         saveFuncStateToJson("DumbEnemy", ifDumbAI);
         try {
@@ -451,32 +469,73 @@ void Themes() {
     /*----------PLACEHOLDER----------*/
     static int themeIndex = 0;
 
+    nlohmann::json cfgjsonobj;
+    std::ifstream config_file("minty");
+    nlohmann::json config_json;
+    config_file >> config_json;
+    config_file.close();
+
     if (ImGui::RadioButton("Default dark", &themeIndex, 0)) {
         settheme(1);
+        cfgjsonobj["theme"]["color"] = 1;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Default light", &themeIndex, 1)) {
         settheme(2);
+        cfgjsonobj["theme"]["color"] = 2;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Default classic", &themeIndex, 2)) {
         settheme(3);
+        cfgjsonobj["theme"]["color"] = 3;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Dark theme", &themeIndex, 3)) {
         settheme(4);
+        cfgjsonobj["theme"]["color"] = 4;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Minty Red", &themeIndex, 4)) {
         settheme(5);
+        cfgjsonobj["theme"]["color"] = 5;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Minty Mint", &themeIndex, 5)) {
         settheme(6);
+        cfgjsonobj["theme"]["color"] = 6;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Minty Mint Light", &themeIndex, 6)) {
         settheme(7);
+        cfgjsonobj["theme"]["color"] = 7;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     ImGui::SeparatorText("Theme styles");
@@ -485,22 +544,47 @@ void Themes() {
 
     if (ImGui::RadioButton("Minty", &themestyleindex, 0)) {
         setstyle(1);
+        cfgjsonobj["theme"]["style"] = 1;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Big", &themestyleindex, 1)) {
         setstyle(2);
+        cfgjsonobj["theme"]["style"] = 2;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("ImGui Default", &themestyleindex, 2)) {
         setstyle(3);
+        cfgjsonobj["theme"]["style"] = 3;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Big Squared", &themestyleindex, 3)) {
         setstyle(4);
+        cfgjsonobj["theme"]["style"] = 4;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     if (ImGui::RadioButton("Rounded Compact", &themestyleindex, 4)) {
         setstyle(5);
+        cfgjsonobj["theme"]["style"] = 5;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
     }
 
     ImGui::SeparatorText("Fonts");
@@ -661,7 +745,10 @@ void Misc() {
     }
 
     static bool ifpeeking = false;
-    ifpeeking = readBoolFuncStateFromJson("Booty");
+    if (readBoolFuncStateFromJson("Booty")) {
+        il2fns::BootyFixer(true); ifpeeking = true;
+    }
+    else { ifpeeking = false; }
     if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
         saveFuncStateToJson("Booty", ifpeeking);
         try {
@@ -726,21 +813,34 @@ void Misc() {
     //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
 
     static bool ifDialog = false;
-    ifDialog = readBoolFuncStateFromJson("AutoTalk");
+    static float diaSpeed = 1.0f;
+    if (readBoolFuncStateFromJson("AutoTalk") == true) {
+        //il2fns::DialogSkip(true, diaSpeed); 
+        ifDialog = true;
+    }
+    else {
+        ifDialog = false;
+    }
     if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
         saveFuncStateToJson("AutoTalk", ifDialog);
-        try
-        {
-            il2fns::DialogSkip(ifDialog);
-        }
-        catch (const std::exception& e)
-        {
-            util::log(M_Error, "Unhandled exception: %s", std::string(e.what()));
-        }
+        if (!ifDialog)
+            il2fns::DialogSkip(ifDialog, 1.0);
     } ImGui::SameLine(); HelpMarker("Automatically goes through dialogue.");
+    if (ifDialog) {
+        ImGui::Indent();
+        if (ImGui::SliderFloat("Dialog speed", &diaSpeed, 1.0, 50.0)) {
+            il2fns::DialogSkip(ifDialog, diaSpeed);
+        }
+        ImGui::Unindent();
+    }
 
     static bool ifCSC = false;
-    ifCSC = readBoolFuncStateFromJson("CutsceneSkip");
+    if (readBoolFuncStateFromJson("CutsceneSkip")) {
+        il2fns::CutsceneSkip(true); ifCSC = true;
+    }
+    else {
+        ifCSC = false;
+    }
     if (ImGui::Checkbox("Skip cutscene", &ifCSC)) {
         saveFuncStateToJson("CutsceneSkip", ifCSC);
         try {
@@ -749,7 +849,10 @@ void Misc() {
     } ImGui::SameLine(); HelpMarker("Skip video cutscenes.");
 
     static bool ifChest = false;
-    ifChest = readBoolFuncStateFromJson("ShowChest");
+    if (readBoolFuncStateFromJson("ShowChest") == true) {
+        il2fns::ChestIndicator(true); ifChest = true;
+    }
+    else { ifChest = false; }
     if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
         saveFuncStateToJson("ShowChest", ifChest);
         il2fns::ChestIndicator(ifChest);

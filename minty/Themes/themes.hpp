@@ -330,22 +330,12 @@ void minty_style() {
 }
 
 void settheme(int themefunc_index) {
-    nlohmann::json cfgjsonobj;
-    std::ifstream config_file("minty");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
-
-    cfgjsonobj["theme"]["color"] = themefunc_index;
-    config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
-    merged_file << config_json.dump(4);
-    merged_file.close();
 
     switch (themefunc_index) {
         case 1:
             ImGui::StyleColorsDark();
             theme_index = 1;
+
             break;
         case 2:
             ImGui::StyleColorsLight();
@@ -377,17 +367,6 @@ void settheme(int themefunc_index) {
 }
 
 void setstyle(int stylefunc_index) {
-    nlohmann::json cfgjsonobj;
-    std::ifstream config_file("minty");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
-
-    cfgjsonobj["theme"]["color"] = stylefunc_index;
-    config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
-    merged_file << config_json.dump(4);
-    merged_file.close();
 
     switch (stylefunc_index) {
         case 1:

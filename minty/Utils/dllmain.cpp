@@ -29,7 +29,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     init_il2cpp();
 
     util::log(M_Info, "Initialized IL2CPP. Waiting 30 seconds before starting DirectX...");
-    Sleep(30000);
+    Sleep(15000);
 
     util::log(M_Info, "Waited, assuming that your game already opened. Opening menu...");
 

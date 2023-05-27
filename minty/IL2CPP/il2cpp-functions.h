@@ -60,7 +60,7 @@ DO_APP_FUNC(0x12E9B70, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (a
 0x3CB8210 ! 
 0x3CB93F0 
 */
-DO_APP_FUNC(0x3CB8210, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
+DO_APP_FUNC(0x3CB93F0, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
 DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x31FCA30, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
 DO_APP_FUNC(0x07A11690, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
@@ -73,3 +73,5 @@ DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (
 DO_APP_FUNC(0x07B813B0, float, Time_get_deltaTime, ());
 DO_APP_FUNC(0x2281F30, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float min, float max, bool forceDoAtRemote));
 DO_APP_FUNC(0x053D2100, String*, Marshal_PtrToStringAnsi, (void* ptr));
+
+//DO_TYPEDEF(0x00000, Int32);

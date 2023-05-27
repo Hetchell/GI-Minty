@@ -50,6 +50,10 @@ bool readBoolFuncStateFromJson(std::string funcName) {
     config_file >> config_json;
     config_file.close();
 
-    bool state = config_json["functions"][funcName];
-    return state;
+    if (config_json["functions"][funcName] == true) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }

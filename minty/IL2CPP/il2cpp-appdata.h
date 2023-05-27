@@ -11,6 +11,7 @@
 
 //#include "il2cpp-types.h"
 #define DO_APP_FUNC(a, r, n, p) extern r(*n) p
+#define DO_TYPEDEF(a, n) extern n ## __Class** n ## __TypeInfo
 namespace app
 {
 #include "il2cpp-functions.h"
@@ -18,6 +19,7 @@ namespace app
 #include <string>
 }
 #undef DO_APP_FUNC
+#undef DO_TYPEDEF
 
 #define DO_UP_FUNC(a, r, n, p) extern r(*n) p
 namespace app
@@ -39,6 +41,12 @@ namespace app
 }
 #undef DO_MD1_FUNC
 
+#define DO_TYPEDEF(a, n) extern n ## __Class** n ## __TypeInfo
+namespace app
+{
+	#include "il2cpp-types.h"
+}
+#undef DO_TYPEDEF
 /*
 #define DO_MD2_FUNC(a, r, n, p) extern r(*n) p
 namespace app

@@ -4,5 +4,5 @@
 
 namespace il2fns {
 	void CutsceneSkip(bool val);
-	void DialogSkip(bool val);
+	void DialogSkip(bool val, float speed);
 }

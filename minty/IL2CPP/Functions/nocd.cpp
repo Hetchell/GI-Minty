@@ -17,13 +17,11 @@ static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t sk
 }
 
 static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minValue, float maxValue, bool forceDoAtRemote) {
-	if (ifbow && key == string_to_il2cppii("_Enchanted_Time"))
+	if (ifbow && il2cppi_to_string(key) == "_Enchanted_Time")
 	{
-		try {
-			value = maxValue;
-			__this->fields.nextValidAbilityID = 36;
-		}
-		catch (...) {}
+		value = maxValue;
+		__this->fields.nextValidAbilityID = 36;
+		util::log(M_Debug, "key: %s; value: %f; minvalue: %f; maxvalue: %f;", il2cppi_to_string(key), value, minValue, maxValue);
 	}
 	CALL_ORIGIN(ActorAbilityPlugin_AddDynamicFloatWithRange_Hook, __this, key, value, minValue, maxValue, forceDoAtRemote);
 }
@@ -37,7 +35,7 @@ namespace il2fns {
 
 	void NoBowCD(bool value) {
 		if (!ifbowinit)
-			HookManager::install(app::MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, ActorAbilityPlugin_AddDynamicFloatWithRange_Hook);
+			HookManager::install(app::MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, ActorAbilityPlugin_AddDynamicFloatWithRange_Hook); ifbowinit = true;
 		ifbow = value;
 	}
 }
