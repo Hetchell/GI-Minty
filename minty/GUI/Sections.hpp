@@ -112,7 +112,7 @@ void Player() {
 
     //    ImGui::SameLine();
 
-    //    if (ImGui::Button("reset")) {
+    //    if (ImGui::Button("Reset")) {
     //        il2fns::Resize__Avatar(1.0f);
     //    }
 
@@ -229,9 +229,9 @@ void Player() {
 
     static bool show_resizer = false;
     static float boob_size = 1.0f;
-    ImGui::Checkbox("Booba resizer", &show_resizer);
+    ImGui::Checkbox("Chest resizer", &show_resizer);
     ImGui::SameLine();
-    HelpMarker("Changes size of character breasts. Press Initiate and adjust slider.");
+    HelpMarker("Changes size of character chest. Press Initiate and adjust slider.");
     if (show_resizer) {
         ImGui::Indent();
         if (ImGui::Button("Initiate resize")) {
@@ -241,7 +241,7 @@ void Player() {
 
         ImGui::SameLine();
 
-        if (ImGui::SliderFloat("Booba scale", &boob_size, 0.0f, 4.0f, "%.3f")) {
+        if (ImGui::SliderFloat("Chest size", &boob_size, 0.0f, 4.0f, "%.3f")) {
             std::string result = char_bub_resize + std::to_string(boob_size) + "," + std::to_string(boob_size) + "," + std::to_string(boob_size) + ")";
             last_lua_string = result;
         }
@@ -290,7 +290,7 @@ void Player() {
     static float avatarsize = 1.0f;
     ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
     ImGui::SameLine();
-    HelpMarker("Resizes your current character's size.");
+    HelpMarker("Resizes your current character.");
 
     if (show_avatarresizer) {
         ImGui::Indent();
@@ -302,7 +302,7 @@ void Player() {
 
         ImGui::SameLine();
 
-        if (ImGui::Button("reset")) {
+        if (ImGui::Button("Reset")) {
             std::string result = std::string(char_avatarresize) + "1 , 1, 1)";
             avatarsize = 1.0f;
             last_lua_string = result;
@@ -444,19 +444,20 @@ void Minigames() {
 void About() {
     ImGui::SeparatorText("About");
 
-    ImGui::Text("Minty version 1.05");
+    ImGui::Text("Minty version 1.13");
     ImGui::Text("ImGui version: %s", ImGui::GetVersion());
+    ImGui::Text("Design made with love by KittyKate :3");
 
-    // ImGui::Text("Game version: ???");
-    // ImGui::SameLine();
-    // ImGui::TextDisabled("maybe add version detector, compare and shit");
+    /*ImGui::Text("Game version: ???");
+    ImGui::SameLine();
+    ImGui::TextDisabled("maybe add version detector, compare and shit");*/
 
     ImGui::SeparatorText("");
 
     ImGui::Text("Minty Github: ");
     TextURL("Link", "https://github.com/kindawindytoday/minty", true, false);
 
-    ImGui::Text("Minty Discord: ");
+    ImGui::Text("KWT Discord: ");
     TextURL("Link", "https://discord.gg/kindawindytoday", true, false);
 
     ImGui::SeparatorText("");
@@ -465,9 +466,9 @@ void About() {
 }
 
 void Themes() {
-    ImGui::SeparatorText("Theme colors");
+    ImGui::SeparatorText("Theme");
     /*----------PLACEHOLDER----------*/
-    static int themeIndex = 0;
+    static int themeIndex = 1;
 
     nlohmann::json cfgjsonobj;
     std::ifstream config_file("minty");
@@ -475,7 +476,7 @@ void Themes() {
     config_file >> config_json;
     config_file.close();
 
-    if (ImGui::RadioButton("Default dark", &themeIndex, 0)) {
+    if (ImGui::RadioButton("Dark", &themeIndex, 1)) {
         settheme(1);
         cfgjsonobj["theme"]["color"] = 1;
         config_json.merge_patch(cfgjsonobj);
@@ -484,7 +485,7 @@ void Themes() {
         merged_file.close();
     }
 
-    if (ImGui::RadioButton("Default light", &themeIndex, 1)) {
+    if (ImGui::RadioButton("Light", &themeIndex, 2)) {
         settheme(2);
         cfgjsonobj["theme"]["color"] = 2;
         config_json.merge_patch(cfgjsonobj);
@@ -493,56 +494,20 @@ void Themes() {
         merged_file.close();
     }
 
-    if (ImGui::RadioButton("Default classic", &themeIndex, 2)) {
+    /*if (ImGui::RadioButton("Red", &themeIndex, 3)) {
         settheme(3);
         cfgjsonobj["theme"]["color"] = 3;
         config_json.merge_patch(cfgjsonobj);
         std::ofstream merged_file("minty");
         merged_file << config_json.dump(4);
         merged_file.close();
-    }
+    }*/
 
-    if (ImGui::RadioButton("Dark theme", &themeIndex, 3)) {
-        settheme(4);
-        cfgjsonobj["theme"]["color"] = 4;
-        config_json.merge_patch(cfgjsonobj);
-        std::ofstream merged_file("minty");
-        merged_file << config_json.dump(4);
-        merged_file.close();
-    }
+    ImGui::SeparatorText("Style");
 
-    if (ImGui::RadioButton("Minty Red", &themeIndex, 4)) {
-        settheme(5);
-        cfgjsonobj["theme"]["color"] = 5;
-        config_json.merge_patch(cfgjsonobj);
-        std::ofstream merged_file("minty");
-        merged_file << config_json.dump(4);
-        merged_file.close();
-    }
+    static int themestyleindex = 1;
 
-    if (ImGui::RadioButton("Minty Mint", &themeIndex, 5)) {
-        settheme(6);
-        cfgjsonobj["theme"]["color"] = 6;
-        config_json.merge_patch(cfgjsonobj);
-        std::ofstream merged_file("minty");
-        merged_file << config_json.dump(4);
-        merged_file.close();
-    }
-
-    if (ImGui::RadioButton("Minty Mint Light", &themeIndex, 6)) {
-        settheme(7);
-        cfgjsonobj["theme"]["color"] = 7;
-        config_json.merge_patch(cfgjsonobj);
-        std::ofstream merged_file("minty");
-        merged_file << config_json.dump(4);
-        merged_file.close();
-    }
-
-    ImGui::SeparatorText("Theme styles");
-
-    static int themestyleindex = 0;
-
-    if (ImGui::RadioButton("Minty", &themestyleindex, 0)) {
+    if (ImGui::RadioButton("Cozy", &themestyleindex, 1)) {
         setstyle(1);
         cfgjsonobj["theme"]["style"] = 1;
         config_json.merge_patch(cfgjsonobj);
@@ -551,7 +516,7 @@ void Themes() {
         merged_file.close();
     }
 
-    if (ImGui::RadioButton("Big", &themestyleindex, 1)) {
+    if (ImGui::RadioButton("Cozy Squared", &themestyleindex, 2)) {
         setstyle(2);
         cfgjsonobj["theme"]["style"] = 2;
         config_json.merge_patch(cfgjsonobj);
@@ -560,34 +525,7 @@ void Themes() {
         merged_file.close();
     }
 
-    if (ImGui::RadioButton("ImGui Default", &themestyleindex, 2)) {
-        setstyle(3);
-        cfgjsonobj["theme"]["style"] = 3;
-        config_json.merge_patch(cfgjsonobj);
-        std::ofstream merged_file("minty");
-        merged_file << config_json.dump(4);
-        merged_file.close();
-    }
-
-    if (ImGui::RadioButton("Big Squared", &themestyleindex, 3)) {
-        setstyle(4);
-        cfgjsonobj["theme"]["style"] = 4;
-        config_json.merge_patch(cfgjsonobj);
-        std::ofstream merged_file("minty");
-        merged_file << config_json.dump(4);
-        merged_file.close();
-    }
-
-    if (ImGui::RadioButton("Rounded Compact", &themestyleindex, 4)) {
-        setstyle(5);
-        cfgjsonobj["theme"]["style"] = 5;
-        config_json.merge_patch(cfgjsonobj);
-        std::ofstream merged_file("minty");
-        merged_file << config_json.dump(4);
-        merged_file.close();
-    }
-
-    ImGui::SeparatorText("Fonts");
+    ImGui::SeparatorText("Font");
 
     static int fontSelectionIndex = 0;
     if (ImGui::RadioButton("Normal", &fontSelectionIndex, 0)) {
@@ -598,7 +536,7 @@ void Themes() {
         setfont(2);
     }
 
-    ImGui::SeparatorText("Custom styles");
+    ImGui::SeparatorText("Customize");
     //ImGui::TextDisabled("DEBUG");
     ImGui::Checkbox("Show Style Editor", &show_style_editor);
     /*----------PLACEHOLDER----------*/
@@ -757,7 +695,7 @@ void Misc() {
         catch (...) {}
     }
     ImGui::SameLine();
-    HelpMarker("\"Uncensors\" the camera, so that you can freely look up characters' pants. This is a highly necessary feature in high demand (^_^)");
+    HelpMarker(";)"); // im died from cringe when read previous text here skull emoji
 
     static bool show_colorator3000 = false;
     static float cc_r = 1.0f;

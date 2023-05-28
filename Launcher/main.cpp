@@ -220,8 +220,8 @@ int main() {
             cfg["functions"]["AutoTalk"] = false;
             cfg["functions"]["CutsceneSkip"] = false;
             cfg["functions"]["ShowChest"] = false;
-            cfg["theme"]["style"] = 0;
-            cfg["theme"]["color"] = 0;
+            cfg["theme"]["style"] = 1;
+            cfg["theme"]["color"] = 1;
             settings_file << cfg.dump(4) << std::endl;
             //printf("created");
             exe_path = cfg["exec_path"];

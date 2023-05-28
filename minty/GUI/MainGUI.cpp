@@ -44,7 +44,7 @@ void FrameLoadGui() {
             ImGui::PushStyleColor(ImGuiCol_Button, is_selected ? ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered] : ImGui::GetStyle().Colors[ImGuiCol_Button]);
             ImGui::PushStyleColor(ImGuiCol_ButtonActive, is_selected ? ImGuiCol_ButtonActive : ImGuiCol_Button);
 
-            if (ImGui::Button(ModuleOrder[i].c_str(), ImVec2(-1, 32))) { SelectedSection = i; }
+            if (ImGui::Button(ModuleOrder[i].c_str(), ImVec2(-1, 46))) { SelectedSection = i; }
 
             if (is_selected) { ImGui::SetItemDefaultFocus(); }
             ImGui::PopStyleColor(2);

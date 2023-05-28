@@ -1,3 +1,1 @@
-Minty uses VMProtect, the same packer that Genshin Impact uses. This is to make it a bit harder to reverse engineer. In the past, we used xorstr, but xorstr was causing crashes. Due to a weird situation with crashing, the launcher EXE and Minty DLL are packed together. When packed in other ways, it will *always* crash, and we don't know why. You can find the configuration for our VMProtect setup inside the `vmprotect-coniguration` folder in the root of this repo.
-
-Because we have no way to ever afford VMProtect, we use a cracked version. Download link: https://cdn.discordapp.com/attachments/1099822942885531738/1110983153046270044/vmp3.6.7z
+fake, minty doesnt use vmp real
