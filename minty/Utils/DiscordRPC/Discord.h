@@ -1,7 +1,7 @@
 #pragma once
 #pragma once
-#include <discord_register.h>
-#include "discord_rpc.h"
+#include "../../Discord SDK/include/discord_register.h"
+#include "../../Discord SDK/include/discord_rpc.h"
 #include <Windows.h>
 
 class Discord {

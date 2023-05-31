@@ -13,10 +13,22 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     freopen("CONIN$", "r", stdin);
     freopen("CONOUT$", "w", stdout);
     freopen("CONOUT$", "w", stderr);
-
+    
     util::log(M_Info, "Starting...");
-    g_Discord->Initialize();
-    g_Discord->Update();
+
+    std::ifstream config_file("minty");
+    nlohmann::json config_json;
+    config_file >> config_json;
+    config_file.close();
+
+    bool showrpc = config_json["general"]["showRPC"];
+    int initde = config_json["general"]["initDelay"];
+
+    if (showrpc) {
+        g_Discord->Initialize();
+        g_Discord->Update();
+        util::log(M_Info, "Showing RPC...");
+    }
     //TelemetryBlocker::BlockTelemetry();
     //util::log(M_Info, "Telemetry block done.");
     try
@@ -33,7 +45,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     init_il2cpp();
 
     util::log(M_Info, "Initialized IL2CPP. Waiting 30 seconds before starting DirectX...");
-    Sleep(15000);
+    Sleep(initde);
 
     util::log(M_Info, "Waited, assuming that your game already opened. Opening menu...");
 

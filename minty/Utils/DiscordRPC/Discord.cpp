@@ -14,6 +14,7 @@ void Discord::Update()
     discordPresence.state = "Hacking MHY <333";
     time_t CurrentTime = time(0);
     discordPresence.startTimestamp = CurrentTime;
+    discordPresence.largeImageText = "https://linktr.ee/kindawindytoday";
     discordPresence.largeImageKey = "idol";
     discordPresence.smallImageKey = "gensh";
     discordPresence.smallImageText = "Genhsin Impact";

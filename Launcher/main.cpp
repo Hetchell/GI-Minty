@@ -222,6 +222,8 @@ int main() {
             cfg["functions"]["ShowChest"] = false;
             cfg["theme"]["style"] = 1;
             cfg["theme"]["color"] = 1;
+            cfg["general"]["showRPC"] = true;
+            cfg["general"]["initDelay"] = 15000;
             settings_file << cfg.dump(4) << std::endl;
             //printf("created");
             exe_path = cfg["exec_path"];

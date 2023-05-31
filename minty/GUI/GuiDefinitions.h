@@ -7,7 +7,8 @@ static bool show_debug_metrics;
 static bool show_style_editor;
 static bool show_debug_log;
 static bool show_lua_editor = false;
-
+extern bool show_rpc;
+extern int init_delay;
 /*----------THEME----------*/
 
 /*----------LUA----------*/

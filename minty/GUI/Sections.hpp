@@ -43,6 +43,7 @@
 uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
 uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
 
+bool show_rpc = true;
 ImGuiID textureID = 0;
 
 extern bool is_lua_hooked;
@@ -56,7 +57,7 @@ std::vector<std::string> ModuleOrder = {
     "Misc",
     "Lua",
     "Minigames",
-    "Themes",
+    //"Themes",
     //"Debug",
     "About",
     "Settings"
@@ -149,7 +150,7 @@ void Player() {
 
     static bool ifInfStamina = false;
     if (readBoolFuncStateFromJson("InfStamina") == true) {
-        il2fns::Infinity_Stamina(true); ifInfStamina = true;
+        //il2fns::Infinity_Stamina(true); ifInfStamina = true;
     }
     else { ifInfStamina = false; }
     if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
@@ -161,7 +162,7 @@ void Player() {
     } ImGui::SameLine(); HelpMarker("Infinite stamina values.");
 
     static bool ifGodmode = false;
-    if (readBoolFuncStateFromJson("NoFallDmg") == true) {
+    if (readBoolFuncStateFromJson("Godmode") == true) {
         il2fns::GodMode(true); ifGodmode = true;
     }
     else { ifGodmode = false; }
@@ -444,7 +445,7 @@ void Minigames() {
 void About() {
     ImGui::SeparatorText("About");
 
-    ImGui::Text("Minty version 1.13");
+    ImGui::Text("Minty version 1.15");
     ImGui::Text("ImGui version: %s", ImGui::GetVersion());
     ImGui::Text("Design made with love by KittyKate :3");
 
@@ -542,9 +543,121 @@ void Themes() {
     /*----------PLACEHOLDER----------*/
 }
 void Settings() {
+    std::ifstream config_file("minty");
+    nlohmann::json config_json;
+    config_file >> config_json;
+    config_file.close();
+
+    static int initinitde = config_json["general"]["initDelay"];
+    show_rpc = config_json["general"]["showRPC"];
+
+    ImGui::SeparatorText("General");
+
     ImGui::Checkbox("Show ImGui's cursor", &ImGui::GetIO().MouseDrawCursor);
 
     ImGui::Checkbox("Block input", &block_input);
+
+    if (ImGui::Checkbox("Show Discord RPC", &show_rpc)) {
+        nlohmann::json cfgjsonobj;
+        std::ifstream config_file("minty");
+        nlohmann::json config_json;
+        config_file >> config_json;
+        config_file.close();
+        cfgjsonobj["general"]["showRPC"] = show_rpc;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }
+    ImGui::SameLine(); HelpMarker("Turn Discord custom RPC on/off. Requires re-entering game.");
+
+    if (ImGui::SliderInt("Initialization delay (ms)", &initinitde, 0, 60000)) {
+        nlohmann::json cfgjsonobj;
+        std::ifstream config_file("minty");
+        nlohmann::json config_json;
+        config_file >> config_json;
+        config_file.close();
+        cfgjsonobj["general"]["initDelay"] = initinitde;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }
+    ImGui::SameLine(); HelpMarker("Change delay before showing menu. May cause lags while opening, so try to change this value in case.");
+
+    ImGui::SeparatorText("Theme");
+    /*----------PLACEHOLDER----------*/
+    static int themeIndex = 1;
+
+    nlohmann::json cfgjsonobj;
+    std::ifstream config_file111("minty");
+    nlohmann::json config_json111;
+    config_file111 >> config_json111;
+    config_file111.close();
+
+    if (ImGui::RadioButton("Dark", &themeIndex, 1)) {
+        settheme(1);
+        cfgjsonobj["theme"]["color"] = 1;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }
+
+    if (ImGui::RadioButton("Light", &themeIndex, 2)) {
+        settheme(2);
+        cfgjsonobj["theme"]["color"] = 2;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }
+
+    /*if (ImGui::RadioButton("Red", &themeIndex, 3)) {
+        settheme(3);
+        cfgjsonobj["theme"]["color"] = 3;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }*/
+
+    ImGui::SeparatorText("Style");
+
+    static int themestyleindex = 1;
+
+    if (ImGui::RadioButton("Cozy", &themestyleindex, 1)) {
+        setstyle(1);
+        cfgjsonobj["theme"]["style"] = 1;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }
+
+    if (ImGui::RadioButton("Cozy Squared", &themestyleindex, 2)) {
+        setstyle(2);
+        cfgjsonobj["theme"]["style"] = 2;
+        config_json.merge_patch(cfgjsonobj);
+        std::ofstream merged_file("minty");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }
+
+    ImGui::SeparatorText("Font");
+
+    static int fontSelectionIndex = 0;
+    if (ImGui::RadioButton("Normal", &fontSelectionIndex, 0)) {
+        setfont(1);
+    }
+
+    if (ImGui::RadioButton("Bold", &fontSelectionIndex, 1)) {
+        setfont(2);
+    }
+
+    ImGui::SeparatorText("Customize");
+    //ImGui::TextDisabled("DEBUG");
+    ImGui::Checkbox("Show Style Editor", &show_style_editor);
 }
 
 void Debug() {

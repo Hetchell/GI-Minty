@@ -66,7 +66,6 @@
     <ClCompile Include="Discord SDK\src\connection_win.cpp" />
     <ClCompile Include="Discord SDK\src\discord_register_win.cpp" />
     <ClCompile Include="Discord SDK\src\discord_rpc.cpp" />
-    <ClCompile Include="Discord SDK\src\dllmain.cpp" />
     <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
