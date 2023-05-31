@@ -93,4 +93,8 @@ namespace il2fns {
             HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook); ifinit = true;
         zoomval = value;
     }
+
+    void TurnFog(bool value) {
+        app::RenderSettings_set_fog(!value);
+    }
 }

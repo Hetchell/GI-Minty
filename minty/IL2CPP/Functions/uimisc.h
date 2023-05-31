@@ -8,4 +8,5 @@ namespace il2fns {
 	void ChestIndicator(bool value);
 	void OpenTeamImm(bool value);
 	void CameraZoom(float value);
+	void TurnFog(bool value);
 }

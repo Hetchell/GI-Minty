@@ -26,7 +26,7 @@ void DataItem_HandleNormalProp_Hook(app::DataItem* __this, uint32_t type, int64_
 {
 	auto propType = static_cast<app::PropType__Enum>(type);
 	bool isValid = OnPropertySet(propType);
-	util::log(M_Debug, "isvalid: %d", isValid);
+	//util::log(M_Debug, "isvalid: %d", isValid);
 	if (isValid)
 		CALL_ORIGIN(DataItem_HandleNormalProp_Hook, __this, type, value, state);
 }

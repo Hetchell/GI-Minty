@@ -436,6 +436,11 @@ void World() {
             il2fns::DumbEnemies(ifDumbAI);
         } catch (...) {}
     } ImGui::SameLine(); HelpMarker("Make enemies have the same level of intelligence as Congress.");
+
+    static bool ifFog = false;
+    if (ImGui::Checkbox("Turn on/off fog", &ifFog)) {
+        il2fns::TurnFog(ifFog);
+    }
 }
 
 void Minigames() {

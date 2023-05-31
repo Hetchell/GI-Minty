@@ -81,7 +81,8 @@ DO_APP_FUNC(0x388BF70, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* atta
 DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo); // - not yet
 
 DO_APP_FUNC(0x43C80F0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
-DO_APP_FUNC(0x23F9100, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult)); // rva
+DO_APP_FUNC(0x23F9100, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
+DO_APP_FUNC(0x701BBD0, void, RenderSettings_set_fog, (bool value));
 
 
 //DO_TYPEDEF(0x00000, Int32);
