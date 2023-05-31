@@ -162,6 +162,7 @@
     <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
     <ClCompile Include="Utils\TelemetryBlocker.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
     <ClInclude Include="IL2CPP\Functions\infinitystamina.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
+    <ClInclude Include="IL2CPP\Functions\multihit.h" />
     <ClInclude Include="IL2CPP\Functions\nocd.h" />
     <ClInclude Include="IL2CPP\Functions\noclip.h" />
     <ClInclude Include="IL2CPP\Functions\resizeavatar.h" />

@@ -53,8 +53,6 @@ bool ifAvatarOD(app::BaseEntity* target) {
 
 bool Miscs_CheckTargetAttackableH(app::BaseEntity* attacker, app::BaseEntity* target, bool idk)
 {
-	util::log(M_Info, "type of target: %i", app::get_entityType(target));
-	util::log(M_Info, "type of target: %d", app::get_entityType(target));
 	if (ifgod && app::get_entityType(target) == app::EntityType__Enum_1::Avatar) {
 		return false;
 	}

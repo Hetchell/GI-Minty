@@ -69,6 +69,7 @@
     <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
+    <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Games\lightsout.hpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Discord SDK\src\rapidjson\stream.h" />
     <ClInclude Include="Discord SDK\src\rapidjson\stringbuffer.h" />
     <ClInclude Include="Discord SDK\src\rapidjson\writer.h" />
+    <ClInclude Include="IL2CPP\Functions\multihit.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

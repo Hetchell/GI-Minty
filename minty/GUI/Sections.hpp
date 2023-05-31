@@ -21,6 +21,7 @@
 #include "../IL2CPP/Functions/timescale.h"
 #include "../IL2CPP/Functions/uimisc.h"
 #include "../IL2CPP/Functions/unlockfps.h"
+#include "../IL2CPP/Functions/multihit.h"
 #include "../Lua/function.h"
 #include "../Utils/GuiUtils.hpp"
 #include "MainGUI.h"
@@ -166,8 +167,8 @@ void Player() {
         il2fns::GodMode(true); ifGodmode = true;
     }
     else { ifGodmode = false; }
-    if (ImGui::Checkbox("No fall damage", &ifGodmode)) {
-        saveFuncStateToJson("NoFallDmg", ifGodmode);
+    if (ImGui::Checkbox("Godmode", &ifGodmode)) {
+        saveFuncStateToJson("Godmode", ifGodmode);
         try {
             il2fns::GodMode(ifGodmode);
         }
@@ -213,6 +214,15 @@ void Player() {
     //     saveFuncStateToJson("Noclip", ifnoclip);
     //     il2fns::OnNoclip(ifnoclip);
     // }
+
+    static bool ifMultiHit = false;
+    static int numberhits = 1;
+    ImGui::Checkbox("Multi-hit", &ifMultiHit);
+    if (ifMultiHit) {
+        if (ImGui::SliderInt("Number of htis", &numberhits, 1, 50)) {
+            il2fns::MultiHit(ifMultiHit, numberhits);
+        }
+    }
 
     static bool show_modelswap = false;
     if (ImGui::Checkbox("Model swapper", &show_modelswap)) {} ImGui::SameLine(); HelpMarker("Swaps your avatars' models. Press Clone to copy current avatar, press paste to apply the original avatar's model onto the current.");
