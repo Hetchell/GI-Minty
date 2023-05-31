@@ -81,11 +81,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Administrator\Documents\GitHub\M\minty\Discord SDK\src;C:\Users\Administrator\Documents\GitHub\M\minty\Discord SDK\include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Administrator\Documents\GitHub\M\minty\Discord SDK\src;C:\Users\Administrator\Documents\GitHub\M\minty\Discord SDK\include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,12 +156,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Discord SDK\src\connection_win.cpp" />
+    <ClCompile Include="Discord SDK\src\discord_register_win.cpp" />
+    <ClCompile Include="Discord SDK\src\discord_rpc.cpp" />
+    <ClCompile Include="Discord SDK\src\dllmain.cpp" />
+    <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
+    <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
     <ClCompile Include="Utils\TelemetryBlocker.cpp" />
+    <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_register.h" />
+    <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_rpc.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
+    <ClInclude Include="Discord SDK\include\discord_register.h" />
+    <ClInclude Include="Discord SDK\include\discord_rpc.h" />
+    <ClInclude Include="Discord SDK\src\backoff.h" />
+    <ClInclude Include="Discord SDK\src\connection.h" />
+    <ClInclude Include="Discord SDK\src\msg_queue.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\allocators.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\cursorstreamwrapper.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\document.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\encodedstream.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\encodings.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\filereadstream.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\filewritestream.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\fwd.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\istreamwrapper.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\memorybuffer.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\memorystream.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\pointer.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\prettywriter.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\rapidjson.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\reader.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\schema.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\stream.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\stringbuffer.h" />
+    <ClInclude Include="Discord SDK\src\rapidjson\writer.h" />
+    <ClInclude Include="Discord SDK\src\rpc_connection.h" />
+    <ClInclude Include="Discord SDK\src\serialization.h" />
     <ClInclude Include="GUI\GuiDefinitions.h" />
     <ClInclude Include="GUI\InitGui.hpp" />
     <ClInclude Include="GUI\Sections.hpp" />
@@ -275,6 +311,7 @@
     <ClInclude Include="Lua\lzio.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Themes\themes.hpp" />
+    <ClInclude Include="Utils\DiscordRPC\Discord.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
     <ClInclude Include="Utils\TelemetryBlocker.h" />
@@ -321,6 +358,7 @@
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="IL2CPP\detours.lib" />
     <Library Include="Lua\lua53.lib" />
   </ItemGroup>
   <ItemGroup>

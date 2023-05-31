@@ -4,6 +4,9 @@
 #include "TelemetryBlocker.h"
 #include "ProtectionBypass.h"
 #include "../Lua/luahook.hpp"
+#include "DiscordRPC/Discord.h"
+
+Discord* g_Discord;
 
 DWORD WINAPI MainThread(LPVOID lpReserved) {
     AllocConsole();
@@ -12,7 +15,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     freopen("CONOUT$", "w", stderr);
 
     util::log(M_Info, "Starting...");
-
+    g_Discord->Initialize();
+    g_Discord->Update();
     //TelemetryBlocker::BlockTelemetry();
     //util::log(M_Info, "Telemetry block done.");
     try
