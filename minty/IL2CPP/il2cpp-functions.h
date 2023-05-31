@@ -72,7 +72,15 @@ DO_APP_FUNC(0x04173F80, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEn
 DO_APP_FUNC(0x01EC83D0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
 DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
 DO_APP_FUNC(0x07B813B0, float, Time_get_deltaTime, ());
-DO_APP_FUNC(0x2281F30, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float min, float max, bool forceDoAtRemote));
-DO_APP_FUNC(0x053D2100, String*, Marshal_PtrToStringAnsi, (void* ptr));
+DO_APP_FUNC(0x2281F30, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
+DO_APP_FUNC(0x6970110, String*, Marshal_PtrToStringAnsi, (void* ptr));
+DO_APP_FUNC(0x40350C0, app::BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this)); // - not yet
+DO_APP_FUNC(0x2191C0, void*, Singleton_GetInstance, (app::MethodInfo* method)); //idr
+DO_APP_FUNC(0x388BF70, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* attackerEntity, app::BaseEntity* targetEntity, bool idk));
+
+DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo); // - not yet
+
+DO_APP_FUNC(0x43C80F0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
+
 
 //DO_TYPEDEF(0x00000, Int32);
