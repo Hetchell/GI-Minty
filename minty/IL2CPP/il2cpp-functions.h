@@ -58,10 +58,10 @@ DO_APP_FUNC(0x36F89D0, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer
 DO_APP_FUNC(0x36F8890, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
 DO_APP_FUNC(0x12E9B70, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
 /* not tested
-0x3CB8210 ! 
+0x3CB8210 !
 0x3CB93F0 
 */
-DO_APP_FUNC(0x3CB93F0, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
+DO_APP_FUNC(0x3CB8210, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
 DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x31FCA30, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
 DO_APP_FUNC(0x07A11690, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
