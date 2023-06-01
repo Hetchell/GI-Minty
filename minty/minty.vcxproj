@@ -227,12 +227,9 @@
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\dialogskip.cpp" />
     <ClCompile Include="IL2CPP\Functions\dumbenemies.cpp" />
-    <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
     <ClCompile Include="IL2CPP\Functions\fovchanger.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
-    <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
     <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
-    <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
     <ClCompile Include="IL2CPP\Functions\nocd.cpp" />
     <ClCompile Include="IL2CPP\Functions\resizeavatar.cpp" />
     <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
