@@ -360,7 +360,7 @@ void World() {
     }
     else {
         try {
-            il2fns::UnityEngine__set__Timescale(1.0);
+            //il2fns::UnityEngine__set__Timescale(1.0);
         }
         catch (...) {}
     }
@@ -437,10 +437,10 @@ void World() {
         } catch (...) {}
     } ImGui::SameLine(); HelpMarker("Make enemies have the same level of intelligence as Congress.");
 
-    static bool ifFog = false;
-    if (ImGui::Checkbox("Turn on/off fog", &ifFog)) {
-        il2fns::TurnFog(ifFog);
-    }
+    //static bool ifFog = false;
+    //if (ImGui::Checkbox("Turn on/off fog", &ifFog)) {
+    //    il2fns::TurnFog(ifFog);
+    //}
 }
 
 void Minigames() {
@@ -599,6 +599,42 @@ void Settings() {
         merged_file.close();
     }
     ImGui::SameLine(); HelpMarker("Change delay before showing menu. May cause lags while opening, so try to change this value in case.");
+
+    //ImGui::SeparatorText("Hotkeys");
+
+    //std::map<int, std::function<void()>> hotkeyCallbacks;
+    //std::map<int, ImGuiKey> intToImGuiKeyMap;
+    //int selectedHotkey = -1;
+    //char hotkeyText[32] = "Press key...";
+    //ImGui::InputText("Hotkey", hotkeyText, sizeof(hotkeyText), ImGuiInputTextFlags_ReadOnly);
+
+    //if (ImGui::IsItemClicked())
+    //{
+    //    strcpy(hotkeyText, "Press key...");
+    //}
+
+    //if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Escape)))
+    //{
+    //    strcpy(hotkeyText, "None");
+    //}
+    //else
+    //{
+    //    for (const auto& [intValue, key] : intToImGuiKeyMap)
+    //    {
+    //        if (ImGui::IsKeyPressed(key) && key != ImGuiKey_Tab)
+    //        {
+    //            const char* keyName = ImGui::GetKeyName(key);
+    //            util::log(M_Info, "keyname: %s", keyName);
+    //            strcpy(hotkeyText, keyName);
+
+    //            auto callback = hotkeyCallbacks.find(intValue);
+    //            if (callback != hotkeyCallbacks.end())
+    //            {
+    //                callback->second();  // Call the associated callback function
+    //            }
+    //        }
+    //    }
+    //}
 
     ImGui::SeparatorText("Theme");
     /*----------PLACEHOLDER----------*/
