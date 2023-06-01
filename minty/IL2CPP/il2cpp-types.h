@@ -12467,5 +12467,5 @@ typedef union Il2CppSingle_float
 
 #define IS_SINGLETON_LOADED(className) (/**app::Singleton_1_## className ##___TypeInfo != nullptr &&*/ *app::Singleton_1_ ## className ## __get_Instance__MethodInfo != nullptr)
 #define GET_SINGLETON(tpname) IS_SINGLETON_LOADED(tpname) ? reinterpret_cast<app:: ## tpname ## *>(app::Singleton_GetInstance(*app::Singleton_1_ ## tpname ## __get_Instance__MethodInfo)) : nullptr
-
+    DO_TYPEDEF(0x0A63C3F8, Int32);
 #endif // IL2CPP_TYPES_H

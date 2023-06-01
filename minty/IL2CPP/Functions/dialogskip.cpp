@@ -26,8 +26,7 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
     if (talkDialog->fields._inSelect /*&& f_AutoSelectDialog && !isImportant*/)
     {
         int32_t value = 0;
-        //auto object = il2cpp_value_box((app::Il2CppClass*)*app::Int32__TypeInfo, &value);
-        auto object = il2cpp_value_box(nullptr, &value);
+        auto object = il2cpp_value_box((app::Il2CppClass*)*app::Int32__TypeInfo, &value);
         app::Notify notify{};
         notify.type = app::MoleMole_NotifyTypes__Enum::DialogSelectNotify;
         notify.body = (app::Object*)object;
