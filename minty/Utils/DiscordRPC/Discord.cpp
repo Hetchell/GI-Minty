@@ -17,6 +17,6 @@ void Discord::Update()
     discordPresence.largeImageText = "https://linktr.ee/kindawindytoday";
     discordPresence.largeImageKey = "idol";
     discordPresence.smallImageKey = "gensh";
-    discordPresence.smallImageText = "Genhsin Impact";
+    discordPresence.smallImageText = "Genshin Impact";
     Discord_UpdatePresence(&discordPresence);
 }
