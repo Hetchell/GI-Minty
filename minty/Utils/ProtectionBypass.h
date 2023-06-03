@@ -1,6 +1,5 @@
 #pragma once
 
-namespace ProtectionBypass
-{
+namespace ProtectionBypass {
 	void Init();
 }
