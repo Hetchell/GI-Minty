@@ -1,1 +1,1 @@
-Genshin Impact documentation
+Genshin Impact documentation.
