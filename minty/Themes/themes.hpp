@@ -18,7 +18,7 @@
 
     void cozy_style();
     void cozy_square_style();
-	
+
     void settheme(int themefunc_index);
     void setstyle(int stylefunc_index);
     void setfont(int fontfunc_index);
