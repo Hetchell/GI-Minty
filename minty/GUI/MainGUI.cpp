@@ -3,11 +3,10 @@
 #include "../Utils/GuiUtils.hpp"
 #include "GuiDefinitions.h"
 #include "Sections.hpp"
-// #include "../Themes/Fonts/fontsloader.h"
 // #include "../Lua/luahook.hpp"
-// #include "../ImGui/ImGuiNotify/imgui_notify.h"
-#include "../Themes/themes.hpp"
-#include "../Utils/ImageLoader/imageloader.h"
+#include "../ImGui/ImGuiNotify/imgui_notify.h"
+#include "../Themes/Themes.hpp"
+#include "../Utils/ImageLoader/ImageLoader.hpp"
 
 using namespace std;
 

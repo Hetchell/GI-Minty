@@ -1,10 +1,5 @@
 #include "breastsizer.h"
 
-#include <codecvt>
-#include <charconv>
-
-#include <locale>
-
 static std::string ActiveHero;
 static app::GameObject* pathBoob = new app::GameObject;
 static app::GameObject* avatarBoobL;
@@ -32,7 +27,7 @@ namespace il2fns {
                     auto GameObjectName = app::Object_1_get_name(reinterpret_cast<app::Object_1*>(HeroGameObject));
                     ActiveHero = il2cppi_to_string(GameObjectName);
                     std::string Hero = ActiveHero.erase(ActiveHero.find("(Clone)"));
-                    util::log(2, "active hero is %s", ActiveHero);
+                    util::log(M_Warning, "active hero is %s", ActiveHero.c_str());
 
                     std::string nameL = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str() + "/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Spine2/+Breast L A01";
                     std::string nameR = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str() + "/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Spine2/+Breast R A01";

@@ -266,6 +266,21 @@ bool CloseHandleByName(const wchar_t* name)
 	return closed;
 }
 
+typedef enum _SECTION_INFORMATION_CLASS {
+	SectionBasicInformation,
+	SectionImageInformation
+} SECTION_INFORMATION_CLASS, *PSECTION_INFORMATION_CLASS;
+
+EXTERN_C NTSTATUS __stdcall NtQuerySection(HANDLE SectionHandle, SECTION_INFORMATION_CLASS InformationClass, PVOID InformationBuffer, ULONG InformationBufferSize, PULONG ResultLength);
+EXTERN_C NTSTATUS __stdcall NtProtectVirtualMemory(HANDLE ProcessHandle, PVOID* BaseAddress, PULONG NumberOfBytesToProtect, ULONG NewAccessProtection, PULONG OldAccessProtection);
+
+void DisableVMP() {
+	DWORD old;
+	VirtualProtect(NtProtectVirtualMemory, 1, PAGE_EXECUTE_READWRITE, &old);
+	*(uintptr_t*)NtProtectVirtualMemory = *(uintptr_t*)NtQuerySection & ~(0xFFui64 << 32) | (uintptr_t)(*(uint32_t*)((uintptr_t)NtQuerySection + 4) - 1) << 32;
+	VirtualProtect(NtProtectVirtualMemory, 1, old, &old);
+}
+
 void ProtectionBypass::Init()
 {
 	/*HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);

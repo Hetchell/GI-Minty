@@ -1,10 +1,12 @@
 #include "../DirectX/D3D11Hook.hpp"
 #include "../IL2CPP/il2cpp-init.hpp"
 #include "../includes.h"
+#include "../Lua/luahook.hpp"
+
+#include "DiscordRPC/Discord.h"
+
 #include "TelemetryBlocker.h"
 #include "ProtectionBypass.h"
-#include "../Lua/luahook.hpp"
-#include "DiscordRPC/Discord.h"
 
 Discord* g_Discord;
 

@@ -38,6 +38,15 @@ void log(MLogType output_type, const char* fmt, Args... args) {
     log_textbuf.appendf("\n");
 }
 
+template< typename T >
+std::string int_to_hex(T i) {
+	std::stringstream stream;
+	stream << "0x"
+		<< std::setfill('0') << std::setw(sizeof(T) * 2)
+		<< std::hex << i;
+	return stream.str();
+}
+
 // uintptr_t PatternScan(LPCSTR module, LPCSTR pattern)
 //{
 //	static auto pattern_to_byte = [](const char* pattern)
@@ -94,14 +103,7 @@ void log(MLogType output_type, const char* fmt, Args... args) {
 //	return 0;
 //}
 
-// template< typename T >
-// std::string int_to_hex(T i) {
-// 	std::stringstream stream;
-// 	stream << "0x"
-// 		<< std::setfill('0') << std::setw(sizeof(T) * 2)
-// 		<< std::hex << i;
-// 	return stream.str();
-// }
+
 
 // void DumpAddress(uint32_t start, long magic_a, long magic_b)
 //{
