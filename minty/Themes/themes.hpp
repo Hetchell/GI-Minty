@@ -13,19 +13,14 @@
     static ImVec4 wordle_guessed_correct = ImVec4(0.32549f, 0.55294f, 0.30588f, 1.0f);   // 3 = guessed, letter exists and in right pos, green
 
     void dark_theme();
-
     void light_theme();
-
-    /*void red_theme()*/;
+    /*void red_theme();*/
 
     void cozy_style();
-
     void cozy_square_style();
-
+	
     void settheme(int themefunc_index);
-
     void setstyle(int stylefunc_index);
-
     void setfont(int fontfunc_index);
 
 //}  // namespace
