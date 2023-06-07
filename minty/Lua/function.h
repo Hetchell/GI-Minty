@@ -1,4 +1,4 @@
-//#include "../Lua/luahook.h"
+#pragma once
 
 const char* char_eleminf = R"MY_DELIMITER(
 local function normalattack()
