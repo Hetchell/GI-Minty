@@ -23,7 +23,6 @@
     <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
-    <ClCompile Include="IL2CPP\Functions\fovchanger.cpp" />
     <ClCompile Include="IL2CPP\Functions\dumbenemies.cpp" />
     <ClCompile Include="IL2CPP\Functions\dialogskip.cpp" />
     <ClCompile Include="Lua\lapi.c" />
@@ -135,7 +134,6 @@
     <ClInclude Include="IL2CPP\il2cppUtils.h" />
     <ClInclude Include="IL2CPP\Functions\noclip.h" />
     <ClInclude Include="IL2CPP\Functions\browser.h" />
-    <ClInclude Include="IL2CPP\Functions\fovchanger.h" />
     <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
     <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
     <ClInclude Include="Lua\lzio.h" />

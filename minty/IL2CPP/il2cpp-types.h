@@ -9422,12 +9422,12 @@ typedef union Il2CppSingle_float
     struct LevelSceneElementViewPlugin__Fields
     {
         struct BaseComponentPlugin__Fields _;
-        bool _triggerElementView;
-        float _keepElementViewTime;
-        struct ElementView* _elementViewSetting;
-        float _transition;
         struct Action* onStartElementView;
         struct Action* onFinishElementView;
+        struct ElementView* _elementViewSetting;
+        float _keepElementViewTime;
+        bool _triggerElementView;
+        float _transition;
     };
 
     struct LevelSceneElementViewPlugin

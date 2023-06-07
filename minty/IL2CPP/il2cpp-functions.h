@@ -45,7 +45,7 @@ DO_APP_FUNC(0x6F75160, void, Transform_set_parent, (app::Transform* __this, app:
 DO_APP_FUNC(0x6F75230, void, Transform_set_rotation, (app::Transform* __this, app::Quaternion value));
 DO_APP_FUNC(0x6F73BB0, void, Transform_set_position, (app::Transform* __this, app::Vector3 value));
 DO_APP_FUNC(0x707A130, void, GameObject__ctor, (app::GameObject* __this, void* name));
-DO_APP_FUNC(0x10B7130, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
+DO_APP_FUNC(0x6F97D30, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
 DO_APP_FUNC(0x1D37B80, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
 DO_APP_FUNC(0x2D94270, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
 DO_APP_FUNC(0xEFAF40, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));

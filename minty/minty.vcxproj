@@ -207,7 +207,6 @@
     <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
     <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
     <ClInclude Include="IL2CPP\Functions\eleminf.h" />
-    <ClInclude Include="IL2CPP\Functions\fovchanger.h" />
     <ClInclude Include="IL2CPP\Functions\godmode.h" />
     <ClInclude Include="IL2CPP\Functions\hideui.h" />
     <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
@@ -227,7 +226,6 @@
     <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\dialogskip.cpp" />
     <ClCompile Include="IL2CPP\Functions\dumbenemies.cpp" />
-    <ClCompile Include="IL2CPP\Functions\fovchanger.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
     <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
     <ClCompile Include="IL2CPP\Functions\nocd.cpp" />

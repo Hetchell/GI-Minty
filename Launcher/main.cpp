@@ -190,7 +190,7 @@ int main() {
     //if (!current_dir)
         //return 0;
 
-    auto dll_path = current_dir.value() / "Minty.dll";
+    auto dll_path = current_dir.value() / "minty.dll";
     if (!fs::is_regular_file(dll_path)) {
         printf("Minty.dll not found\n");
         system("pause");

@@ -4,4 +4,5 @@
 
 namespace il2fns {
 	void MultiHit(bool value, int quantity);
+	void CustomElem(bool value);
 }

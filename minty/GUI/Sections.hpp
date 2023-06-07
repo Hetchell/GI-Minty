@@ -9,7 +9,6 @@
 #include "../IL2CPP/Functions/browser.h"
 #include "../IL2CPP/Functions/dialogskip.h"
 #include "../IL2CPP/Functions/dumbenemies.h"
-#include "../IL2CPP/Functions/fovchanger.h"
 #include "../IL2CPP/Functions/godmode.h"
 #include "../IL2CPP/Functions/hideui.h"
 #include "../IL2CPP/Functions/infinityenergy.h"
@@ -325,6 +324,11 @@ void Player() {
         std::string result = std::string(char_avatarresize) + "1 , 1, 1)";
         avatarsize = 1.0f;
         //last_lua_string = result;
+    }
+
+    static bool ifelem;
+    if (ImGui::Checkbox("Custom attack element", &ifelem)) {
+        il2fns::CustomElem(ifelem);
     }
 }
 
@@ -892,27 +896,21 @@ void Misc() {
 
     ImGui::SeparatorText("Camera");
 
-    // static bool iffov = false;
-    // static float targetfov = 45;
-    // if (ImGui::Checkbox("Change FOV", &iffov)) {
-    //     if (!iffov)
-    //         il2fns::ChangeFov(45.0f);
-    // }
-    // ImGui::SameLine();
-    // HelpMarker("Changes camera Field Of View. (Default = 45.)");
-    // if (iffov) {
-    //     ImGui::Indent();
-    //     if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
-    //         il2fns::ChangeFov(targetfov);
-    //     saveFuncStateToJson("FOV", targetfov);
-    //     ImGui::Unindent();
-    // }
-
-    //static bool ifElem = false;
-    //if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
-    //    saveFuncStateToJson("ElemSight", ifElem);
-    //    il2fns::ElemSight(ifElem);
-    //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
+     static bool iffov = false;
+     static float targetfov = 45;
+     if (ImGui::Checkbox("Change FOV", &iffov)) {
+         if (!iffov)
+             il2fns::SetFov(45.0f);
+     }
+     ImGui::SameLine();
+     HelpMarker("Changes camera Field Of View. (Default = 45.)");
+     if (iffov) {
+         ImGui::Indent();
+         if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
+             il2fns::SetFov(targetfov);
+         saveFuncStateToJson("FOV", targetfov);
+         ImGui::Unindent();
+     }
 
     static bool ifDialog = false;
     static float diaSpeed = 1.0f;

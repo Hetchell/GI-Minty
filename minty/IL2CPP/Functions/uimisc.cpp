@@ -1,8 +1,15 @@
 #include "uimisc.h"
 
+static bool ifinitfov;
+static bool ifinitsight;
+
 static bool ifElem;
 static void LevelSceneElementViewPlugin_Tick_Hook(app::LevelSceneElementViewPlugin* __this, float inDeltaTime) {
-     __this->fields._triggerElementView = ifElem;
+    util::log(M_Info, "bool: %d", __this->fields._triggerElementView);
+    if (ifElem) {
+        __this->fields._triggerElementView = true;
+        inDeltaTime = 999;
+    }
     CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_Hook, __this, inDeltaTime);
 }
 
@@ -20,12 +27,6 @@ static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this) {
     } else app::MoleMole_LCIndicatorPlugin_HideIcon(__this);
     return CALL_ORIGIN(IndicatorPlugin_DoCheck, __this);
 }
-
-//static bool IndicatorPlugin_DoCheckOff(app::LCIndicatorPlugin* __this) {
-//    app::MoleMole_LCIndicatorPlugin_HideIcon(__this);
-//    return CALL_ORIGIN(IndicatorPlugin_DoCheckOff, __this);
-//>>>>>>> 2569c84d9210cec7c323394b6e05944c1df4a59a
-//}
 
 static bool ifoti;
 static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOn(app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this)
@@ -50,6 +51,13 @@ void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitia
     CALL_ORIGIN(SCameraModuleInitialize_SetWarningLocateRatio_Hook, __this, deltaTime, data);
 }
 
+static float fovval;
+void InLevelCameraSetFov_Hook(app::Camera* __this, float value)
+{
+    value = fovval;
+    CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
+}
+
 namespace il2fns {
 	void Change_UID(const char* uidText) {
         app::GameObject* uidTextObj = app::UnityEngine__GameObject__Find((app::String*)il2cpp_string_new("/BetaWatermarkCanvas(Clone)/Panel/TxtUID"));
@@ -66,9 +74,8 @@ namespace il2fns {
     }
 
     void ElemSight(bool value) {
-        static bool ifinit = false;
-        if (!ifinit)
-            HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook); ifinit = true;
+        if (!ifinitsight)
+            HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook); ifinitsight = true;
         ifElem = value;
     }
 
@@ -96,5 +103,11 @@ namespace il2fns {
 
     void TurnFog(bool value) {
         app::RenderSettings_set_fog(!value);
+    }
+
+    void SetFov(float value) {
+        if (!ifinitfov)
+            HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook); ifinitfov = true;
+        fovval = value;
     }
 }
