@@ -76,88 +76,6 @@ namespace Sections {
 void Player() {
     ImGui::SeparatorText("Avatar");
 
-    
-    if (ImGui::Button("MoleMole Message DEBUG")) {
-        if (GetModuleHandleA("UserAssembly.dll") != nullptr)
-            il2fns::MoleMole__ActorUtils__ShowMessage("123");
-        else
-            ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "Pointers are still NULLPTR." });
-    }
-    /*
-    if (ImGui::Button("UA ptr debug")) {
-        luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"Lua works btw\")");
-        if (baseAddress == (uint64_t)nullptr) {
-            util::log(M_Info, "UA is still very not real, wait pwease qwq uwu");
-            ImGui::InsertNotification({ ImGuiToastType_Error, 3000, "UA is still very not real, wait pwease qwq uwu" });
-
-            baseAddress = (uint64_t)GetModuleHandleA("UserAssembly.dll");
-            if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
-                util::log(M_Info, "now ua ptr: %s", util::get_ptr(baseAddress));
-            }
-        }
-        else {
-            util::log(M_Debug, "first var of ptr is just getmodule: %s", util::get_ptr(GetModuleHandleA("UserAssembly.dll")));
-            util::log(M_Debug, "second var of ptr is baseAddress from il2i: %s", util::get_ptr(baseAddress1));
-            util::log(M_Debug, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")));
-            ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "first var of ptr is just getmodule: %s", util::get_ptr(GetModuleHandleA("UserAssembly.dll") )});
-            ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "second var of ptr is baseAddress from il2i: %s", util::get_ptr(baseAddress1) });
-            ImGui::InsertNotification({ ImGuiToastType_Info, 3000, "third var of ptr is just getmodule but goofy var: %s", util::get_ptr(GetModuleHandleW(L"UserAssembly.dll")) });
-        }
-    }
-    */
-
-    /*
-    static bool show_avatarresizer = false;
-    ImGui::Checkbox("Avatar resizer", &show_avatarresizer);
-    ImGui::SameLine();
-    HelpMarker("Resizes your current character's size.");
-
-    if (show_avatarresizer) {
-        static float avatarsize = 1.0f;
-        ImGui::Indent();
-
-        if (ImGui::SliderFloat("Avatar scale", &avatarsize, 0.0f, 25.0f, "%.3f")) {
-            il2fns::Resize__Avatar(avatarsize);
-        }
-
-        ImGui::SameLine();
-
-        if (ImGui::Button("Reset")) {
-            il2fns::Resize__Avatar(1.0f);
-        }
-
-        ImGui::Unindent();
-    }
-
-    ImGui::SeparatorText("Skills");
-    */
-
-    static bool ifEnergy = false;
-    if (readBoolFuncStateFromJson("InfBurst") == true) {
-        il2fns::Infinity__Energy(true); ifEnergy = true;
-    }
-    else { ifEnergy = false; }
-    if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
-        saveFuncStateToJson("InfBurst", ifEnergy);
-        try {
-            il2fns::Infinity__Energy(ifEnergy);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
-
-    static bool ifNOCD = false;
-    if (readBoolFuncStateFromJson("NoCD") == true) {
-        il2fns::LCAvatarCombat_NoCD(true); ifNOCD = true;
-    }
-    else { ifNOCD = false; }
-    if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
-        saveFuncStateToJson("NoCD", ifNOCD);
-        try {
-            il2fns::LCAvatarCombat_NoCD(ifNOCD);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
-
     static bool ifInfStamina = false;
     if (readBoolFuncStateFromJson("InfStamina") == true) {
         //il2fns::Infinity_Stamina(true); ifInfStamina = true;
@@ -183,63 +101,6 @@ void Player() {
         }
         catch (...) {}
     } ImGui::SameLine(); HelpMarker("Take no damage after falling from any height.");
-
-    /*
-    static bool ifBreast = false;
-    static float breastSize = 1;
-    
-    ImGui::Checkbox("Resize breast", &ifBreast);
-    ImGui::SameLine();
-    
-    HelpMarker("Changes size of avatar's breasts.");
-    
-    if (ifBreast) {
-        ImGui::Indent();
-
-        if (ImGui::SliderFloat("Breast size", &breastSize, 0.0f, 50.0f, "%.3f")) {
-            il2fns::ScaleBreast();
-        }
-
-        ImGui::SameLine();
-        HelpMarker("Changes size of avatar's breasts. Doesn't work on characters, that have no breasts. You understood me.");
-
-        ImGui::SameLine();
-
-        if (ImGui::Button("Reset")) {
-            breastSize = 1.0;
-            il2fns::ScaleBreast();
-        }
-
-        ImGui::Unindent();
-    }
-    */
-
-    static bool ifnobowcd;
-    if (readBoolFuncStateFromJson("InstantBow") == true) {
-        il2fns::NoBowCD(true); ifnobowcd = true;
-    }
-    else { ifnobowcd = false; }
-    if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
-        saveFuncStateToJson("InstantBow", ifnobowcd);
-        try {
-            il2fns::NoBowCD(ifnobowcd);
-        } catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Instant elemental charge for bows.");
-
-    static bool ifnoclip = false;
-    if (ImGui::Checkbox("Noclip", &ifnoclip)) {
-        saveFuncStateToJson("Noclip", ifnoclip);
-        il2fns::OnNoclip(ifnoclip);
-    }
-
-    static bool ifMultiHit = false;
-    static int numberhits = 1;
-    ImGui::Checkbox("Multi-hit", &ifMultiHit);
-    if (ifMultiHit) {
-        if (ImGui::SliderInt("Number of htis", &numberhits, 1, 50)) {
-            il2fns::MultiHit(ifMultiHit, numberhits);
-        }
-    }
 
     static bool show_modelswap = false;
     if (ImGui::Checkbox("Model swapper", &show_modelswap)) {} ImGui::SameLine(); HelpMarker("Swaps your avatars' models. Press Clone to copy current avatar, press paste to apply the original avatar's model onto the current.");
@@ -342,6 +203,61 @@ void Player() {
         std::string result = std::string(char_avatarresize) + "1 , 1, 1)";
         avatarsize = 1.0f;
         //last_lua_string = result;
+    }
+
+    ImGui::SeparatorText("Skills");
+
+    static bool ifEnergy = false;
+    if (readBoolFuncStateFromJson("InfBurst") == true) {
+        il2fns::Infinity__Energy(true); ifEnergy = true;
+    }
+    else { ifEnergy = false; }
+    if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
+        saveFuncStateToJson("InfBurst", ifEnergy);
+        try {
+            il2fns::Infinity__Energy(ifEnergy);
+        }
+        catch (...) {}
+    } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
+
+    static bool ifNOCD = false;
+    if (readBoolFuncStateFromJson("NoCD") == true) {
+        il2fns::LCAvatarCombat_NoCD(true); ifNOCD = true;
+    }
+    else { ifNOCD = false; }
+    if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
+        saveFuncStateToJson("NoCD", ifNOCD);
+        try {
+            il2fns::LCAvatarCombat_NoCD(ifNOCD);
+        }
+        catch (...) {}
+    } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
+
+    static bool ifnobowcd;
+    if (readBoolFuncStateFromJson("InstantBow") == true) {
+        il2fns::NoBowCD(true); ifnobowcd = true;
+    }
+    else { ifnobowcd = false; }
+    if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
+        saveFuncStateToJson("InstantBow", ifnobowcd);
+        try {
+            il2fns::NoBowCD(ifnobowcd);
+        } catch (...) {}
+    } ImGui::SameLine(); HelpMarker("Instant elemental charge for bows.");
+
+    //static bool ifnoclip = false;
+    //if (ImGui::Checkbox("Noclip", &ifnoclip)) {
+    //    saveFuncStateToJson("Noclip", ifnoclip);
+    //    il2fns::OnNoclip(ifnoclip);
+    //}
+
+    static bool ifMultiHit = false;
+    static int numberhits = 1;
+    ImGui::Checkbox("Multi-hit", &ifMultiHit);
+    if (ifMultiHit) {
+        if (ImGui::SliderInt("Number of htis", &numberhits, 1, 50)) {
+            il2fns::MultiHit(ifMultiHit, numberhits);
+        }
     }
 }
 
@@ -760,7 +676,7 @@ void Misc() {
     // bool misc1 = false;
     // float misc1;
     // CreateFuncWidget("It is label of checkbox, that shows/hides slider.", misc1, "It is HelpMarker text", "some slider name", misc1, 60, 10, 100, il2fns::UnityEngine__set__Timescale);
-    ImGui::SeparatorText("Rendering");
+    ImGui::SeparatorText("Interface");
 
     static bool unlockfps = false;
     static int targetfps = 60;
@@ -853,58 +769,34 @@ void Misc() {
     ImGui::SameLine();
     HelpMarker(";)"); // im died from cringe when read previous text here skull emoji
 
-    static bool show_colorator3000 = false;
-    static float cc_r = 1.0f;
-    static float cc_g = 1.0f;
-    static float cc_b = 1.0f;
-    static float cc_a = 1.0f;
-    static ImVec4 infusion_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+    //static bool show_colorator3000 = false;
+    //static float cc_r = 1.0f;
+    //static float cc_g = 1.0f;
+    //static float cc_b = 1.0f;
+    //static float cc_a = 1.0f;
+    //static ImVec4 infusion_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-    ImGui::Checkbox("Infusion changer", &show_colorator3000);
-    ImGui::SameLine();
-    HelpMarker("Changes color of Elemental Infusion/Blade trail of your current character. Adjust color either with sliders or with color picker. Works perfectly on swords, greatswords, polearms.");
-    if (show_colorator3000) {
-        ImGui::Indent();
+    //ImGui::Checkbox("Infusion changer", &show_colorator3000);
+    //ImGui::SameLine();
+    //HelpMarker("Changes color of Elemental Infusion/Blade trail of your current character. Adjust color either with sliders or with color picker. Works perfectly on swords, greatswords, polearms.");
+    //if (show_colorator3000) {
+    //    ImGui::Indent();
 
-        if (ImGui::Button("Change")) {
-            std::string result = char_eleminf + std::to_string(cc_r) + "," + std::to_string(cc_g) + "," + std::to_string(cc_b) + "," + std::to_string(cc_a) + char_eleminf_end;
-            last_lua_string = result;
-        }
-        ImGui::SameLine();
+    //    if (ImGui::Button("Change")) {
+    //        std::string result = char_eleminf + std::to_string(cc_r) + "," + std::to_string(cc_g) + "," + std::to_string(cc_b) + "," + std::to_string(cc_a) + char_eleminf_end;
+    //        last_lua_string = result;
+    //    }
+    //    ImGui::SameLine();
 
-        ImGui::ColorEdit4("Infusion Color", &infusion_col.x, ImGuiColorEditFlags_AlphaBar);
+    //    ImGui::ColorEdit4("Infusion Color", &infusion_col.x, ImGuiColorEditFlags_AlphaBar);
 
-        cc_r = infusion_col.x;
-        cc_g = infusion_col.y;
-        cc_b = infusion_col.z;
-        cc_a = infusion_col.w;
+    //    cc_r = infusion_col.x;
+    //    cc_g = infusion_col.y;
+    //    cc_b = infusion_col.z;
+    //    cc_a = infusion_col.w;
 
-        ImGui::Unindent();
-    }
-
-    ImGui::SeparatorText("Camera");
-
-    // static bool iffov = false;
-    // static float targetfov = 45;
-    // if (ImGui::Checkbox("Change FOV", &iffov)) {
-    //     if (!iffov)
-    //         il2fns::ChangeFov(45.0f);
-    // }
-    // ImGui::SameLine();
-    // HelpMarker("Changes camera Field Of View. (Default = 45.)");
-    // if (iffov) {
-    //     ImGui::Indent();
-    //     if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
-    //         il2fns::ChangeFov(targetfov);
-    //     saveFuncStateToJson("FOV", targetfov);
-    //     ImGui::Unindent();
-    // }
-
-    //static bool ifElem = false;
-    //if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
-    //    saveFuncStateToJson("ElemSight", ifElem);
-    //    il2fns::ElemSight(ifElem);
-    //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
+    //    ImGui::Unindent();
+    //}
 
     static bool ifDialog = false;
     static float diaSpeed = 1.0f;
@@ -939,7 +831,8 @@ void Misc() {
         saveFuncStateToJson("CutsceneSkip", ifCSC);
         try {
             il2fns::CutsceneSkip(ifCSC);
-        } catch (...) {}
+        }
+        catch (...) {}
     } ImGui::SameLine(); HelpMarker("Skip video cutscenes.");
 
     static bool ifChest = false;
@@ -951,6 +844,31 @@ void Misc() {
         saveFuncStateToJson("ShowChest", ifChest);
         il2fns::ChestIndicator(ifChest);
     }
+
+    ImGui::SeparatorText("Camera");
+
+     static bool iffov = false;
+     static float targetfov = 45;
+     if (ImGui::Checkbox("Change FOV", &iffov)) {
+         if (!iffov)
+             il2fns::ChangeFov(45.0f);
+     }
+     ImGui::SameLine();
+     HelpMarker("Changes camera Field Of View. (Default = 45.)");
+     if (iffov) {
+         ImGui::Indent();
+         if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
+             il2fns::ChangeFov(targetfov);
+         saveFuncStateToJson("FOV", targetfov);
+         ImGui::Unindent();
+     }
+
+    //static bool ifElem = false;
+    //if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
+    //    saveFuncStateToJson("ElemSight", ifElem);
+    //    il2fns::ElemSight(ifElem);
+    //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
+
     /* static bool ifOTI = false;
     if (ImGui::Checkbox("Open team immediately", &ifOTI)) {
         il2fns::OpenTeamImm(ifOTI);

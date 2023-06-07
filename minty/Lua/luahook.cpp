@@ -35,7 +35,9 @@ int xluaL_loadbuffer_hook(lua_State* L, const char* chunk, size_t sz, const char
     is_hook_success = true;
     main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
     util::log(M_Info, "main_thread created; id: %i", GetCurrentThreadId());
-    return CALL_ORIGIN(xluaL_loadbuffer_hook, L, chunk, sz, chunkname);
+    int i = CALL_ORIGIN(xluaL_loadbuffer_hook, L, chunk, sz, chunkname);
+    HookManager::detach(xluaL_loadbuffer_hook);
+    return i;
 }
 
 void exec(const std::string& compiled) {

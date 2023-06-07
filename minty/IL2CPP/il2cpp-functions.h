@@ -45,7 +45,7 @@ DO_APP_FUNC(0x6F75160, void, Transform_set_parent, (app::Transform* __this, app:
 DO_APP_FUNC(0x6F75230, void, Transform_set_rotation, (app::Transform* __this, app::Quaternion value));
 DO_APP_FUNC(0x6F73BB0, void, Transform_set_position, (app::Transform* __this, app::Vector3 value));
 DO_APP_FUNC(0x707A130, void, GameObject__ctor, (app::GameObject* __this, void* name));
-DO_APP_FUNC(0x10B7130, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
+DO_APP_FUNC(0x6F97D30, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
 DO_APP_FUNC(0x1D37B80, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
 DO_APP_FUNC(0x2D94270, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
 DO_APP_FUNC(0xEFAF40, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
@@ -74,7 +74,7 @@ DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (
 DO_APP_FUNC(0x07B813B0, float, Time_get_deltaTime, ());
 DO_APP_FUNC(0x2281F30, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
 DO_APP_FUNC(0x6970110, String*, Marshal_PtrToStringAnsi, (void* ptr));
-DO_APP_FUNC(0x40350C0, app::BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this)); 
+DO_APP_FUNC(0x40350C0, BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this)); 
 DO_APP_FUNC(0x2191C0, void*, Singleton_GetInstance, (app::MethodInfo* method)); //idr
 DO_APP_FUNC(0x388BF70, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* attackerEntity, app::BaseEntity* targetEntity, bool idk));
 
@@ -83,6 +83,7 @@ DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Insta
 DO_APP_FUNC(0x43C80F0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
 DO_APP_FUNC(0x23F9100, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
 DO_APP_FUNC(0x701BBD0, void, RenderSettings_set_fog, (bool value));
+DO_APP_FUNC(0x070401B0, Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
 
 
 //DO_TYPEDEF(0x00000, Int32);

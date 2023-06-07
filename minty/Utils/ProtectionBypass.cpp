@@ -14,6 +14,9 @@
 #include <stdlib.h>
 #include <format>
 #include <intsafe.h>
+#include "../IL2CPP/il2cpp-appdata.h"
+#include "../IL2CPP/HookManager.h"
+#include "../IL2CPP/il2cppUtils.h"
 
 #pragma comment(lib,"ntdll.lib")
 
@@ -281,16 +284,50 @@ void DisableVMP() {
 	VirtualProtect(NtProtectVirtualMemory, 1, old, &old);
 }
 
+std::map<int32_t, std::string> m_CorrectSignatures;
+
+app::Byte__Array* OnRecordUserData(int32_t nType);
+
+static app::Byte__Array* RecordUserData_Hook(int32_t nType)
+{
+
+	return OnRecordUserData(nType);
+}
+
+app::Byte__Array* OnRecordUserData(int32_t nType)
+{
+	if (m_CorrectSignatures.count(nType))
+	{
+		//auto byteClass = app::GetIl2Classes()[0x25];
+
+		auto& content = m_CorrectSignatures[nType];
+		//auto newArray = (app::Byte__Array*)il2cpp_array_new(byteClass, content.size());
+		//memmove_s(newArray->vector, content.size(), content.data(), content.size());
+
+		//return newArray;
+	}
+
+	app::Byte__Array* result = CALL_ORIGIN(RecordUserData_Hook, nType);
+	auto resultArray = TO_UNI_ARRAY(result, byte);
+
+	auto length = resultArray->length();
+	if (length == 0)
+		return result;
+
+	auto stringValue = std::string((char*)result->vector, length);
+	m_CorrectSignatures[nType] = stringValue;
+
+	util::log(M_Info, "Sniffed correct signature for type %d value '%s'", nType, stringValue.c_str());
+
+	return result;
+}
+
 void ProtectionBypass::Init()
 {
-	/*HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
-	HookManager::install(app::CrashReporter, CrashReporter_Hook);
-
 	for (int i = 0; i < 4; i++) {
-		LOG_TRACE("Emulating call of RecordUserData with type %d", i);
-		app::Application_RecordUserData(i, nullptr);
-	}*/
-
+		//app::Application_RecordUserData(i, nullptr);
+		//util::log(M_Info, "sent RecordUserData for type: %i", i);
+	}
 	util::log(M_Info, "Trying to close mhyprot.");
 
 	if (CloseHandleByName(L"\\Device\\mhyprot2")) {
@@ -302,4 +339,12 @@ void ProtectionBypass::Init()
 
 
 	util::log(M_Info, "Initialized protection bypass");
+	//util::log(M_Info, "sleeping");
+	//Sleep(20000);
+	//util::log(M_Info, "slept");
+
+	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+	//HookManager::install(app::CrashReporter, CrashReporter_Hook);
+
+	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 }
