@@ -109,6 +109,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,15 +163,29 @@
     <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
+    <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
+    <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
+    <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
     <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
+    <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
+    <ClCompile Include="Utils\GuiUtils.cpp" />
+    <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
+    <ClCompile Include="Utils\LuaUtils.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
     <ClCompile Include="Utils\TelemetryBlocker.cpp" />
     <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_register.h" />
     <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_rpc.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
-    <ClInclude Include="DirectX\D3D11Hook.hpp" />
+    <ClCompile Include="Config\ConfigManager.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="DirectX\D3D11Hook.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="DirectX\shadez.h" />
+    <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="Discord SDK\include\discord_register.h" />
     <ClInclude Include="Discord SDK\include\discord_rpc.h" />
     <ClInclude Include="Discord SDK\src\backoff.h" />
@@ -198,11 +213,17 @@
     <ClInclude Include="Discord SDK\src\rapidjson\writer.h" />
     <ClInclude Include="Discord SDK\src\rpc_connection.h" />
     <ClInclude Include="Discord SDK\src\serialization.h" />
+    <ClInclude Include="Games\lightsout.hpp" />
+    <ClInclude Include="Games\minesweeper.hpp" />
+    <ClInclude Include="Games\tictactoe.hpp" />
+    <ClInclude Include="Games\wordle.hpp" />
     <ClInclude Include="GUI\GuiDefinitions.h" />
     <ClInclude Include="GUI\InitGui.hpp" />
+    <ClCompile Include="GUI\Sections.cpp" />
     <ClInclude Include="GUI\Sections.hpp" />
     <ClInclude Include="GUI\Translations.h" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
+    <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
     <ClInclude Include="IL2CPP\Functions\browser.h" />
     <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
     <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
@@ -279,9 +300,14 @@
     <ClCompile Include="Utils\dllmain.cpp" />
     <ClInclude Include="IL2CPP\il2cpp-types.h" />
     <ClInclude Include="IL2CPP\il2cppUtils.h" />
+    <ClCompile Include="GUI\InitGui.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="IL2CPP\mDumper-funcs.h" />
+    <ClCompile Include="IL2CPP\il2cppUtils.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="Lua\function.h" />
-    <ClInclude Include="Lua\functions.hpp" />
     <ClInclude Include="Lua\lapi.h" />
     <ClInclude Include="Lua\lcode.h" />
     <ClInclude Include="Lua\lctype.h" />
@@ -301,23 +327,41 @@
     <ClInclude Include="Lua\ltm.h" />
     <ClInclude Include="Lua\lua.hpp" />
     <ClInclude Include="Lua\luahook.hpp" />
-    <ClInclude Include="Lua\luahookutil.hpp" />
     <ClInclude Include="Lua\lundump.h" />
     <ClInclude Include="Lua\lvm.h" />
     <ClInclude Include="Lua\lzio.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Themes\themes.hpp" />
+    <ClInclude Include="Themes\Fonts\FontsLoader.hpp" />
+    <ClCompile Include="Lua\luahook.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClInclude Include="Themes\ThemeLoader.hpp" />
+    <ClCompile Include="Themes\Themes.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClInclude Include="Themes\Themes.hpp" />
     <ClInclude Include="Utils\DiscordRPC\Discord.h" />
+    <ClInclude Include="Utils\GuiUtils.hpp" />
+    <ClInclude Include="Utils\ImageLoader\ImageLoader.hpp" />
+    <ClInclude Include="Utils\ImageLoader\stb_image.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
     <ClInclude Include="Utils\TelemetryBlocker.h" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Games\lightsout.hpp" />
-    <ClInclude Include="Games\minesweeper.hpp" />
-    <ClInclude Include="Games\tictactoe.hpp" />
-    <ClInclude Include="Games\wordle.hpp" />
+    <ClCompile Include="Games\lightsout.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="Games\minesweeper.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="Games\tictactoe.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="Games\wordle.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="GUI\MainGUI.h" />
     <ClInclude Include="IL2CPP\detours.h" />
@@ -341,7 +385,6 @@
     <ClInclude Include="ImGui\TextEditor\TextEditor.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="Json\json.hpp" />
-    <ClInclude Include="Json\prejson.hpp" />
     <ClInclude Include="Lua\lauxlib.h" />
     <ClInclude Include="Lua\lprefix.h" />
     <ClInclude Include="Lua\lua.h" />
@@ -349,8 +392,12 @@
     <ClInclude Include="Lua\lualib.h" />
     <ClInclude Include="Lua\pe.h" />
     <ClInclude Include="Lua\scanner.h" />
-    <ClInclude Include="Themes\Fonts\fontsloader.h" />
-    <ClInclude Include="Themes\Themeloader.hpp" />
+    <ClCompile Include="Themes\Fonts\FontsLoader.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="Themes\ThemeLoader.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
   </ItemGroup>
   <ItemGroup>

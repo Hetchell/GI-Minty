@@ -1,9 +1,12 @@
 #include "noclip.h"
+
 namespace il2fns {
 	void OnNoclip(bool ifnoclip) {
 		app::Vector3 zero;
+
 		static bool isApplied = false;
 		static std::string ActiveHero;
+
 		app::Rigidbody* rigidbody = nullptr;
 		app::GameObject* nameAvatar = nullptr;
 		app::Transform* avatarTransform = nullptr;
@@ -14,10 +17,10 @@ namespace il2fns {
 
 		if (!ifnoclip && isApplied)
 		{
-			auto AvatarRoot = app::UnityEngine__GameObject__Find(il2cpp_string_new("/EntityRoot/AvatarRoot"));
+			auto AvatarRoot = app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
 
 			if (AvatarRoot != nullptr) {
-				auto Transform = app::UnityEngine_GameObject_GetComponent(AvatarRoot, il2cpp_string_new("Transform"));
+				auto Transform = app::UnityEngine_GameObject_GetComponent(AvatarRoot, string_to_il2cppi("Transform"));
 				auto HeroCount = app::UnityEngine_Transform_GetChildCount(reinterpret_cast<app::Transform*>(Transform));
 
 				for (int i = 0; i <= HeroCount - 1; i++)
@@ -29,18 +32,19 @@ namespace il2fns {
 					if (isActiveHero)
 					{
 						auto GameObjectName = app::Object_1_get_name(reinterpret_cast<app::Object_1*>(HeroGameObject));
-						ActiveHero = il2cppi_to_string3(GameObjectName);
+						ActiveHero = il2cppi_to_string(GameObjectName);
 						std::string Hero = ActiveHero.erase(ActiveHero.find("(Clone)"));
-						util::log(2, "active hero is %s", ActiveHero);
+						util::log(M_Info, "active hero is %s", ActiveHero);
 
-						std::string avatarNamestring = "/EntityRoot/AvatarRoot/" + il2cppi_to_string3(GameObjectName) + "/OffsetDummy/" + Hero.c_str();
+						std::string avatarNamestring = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str();
 
-						nameAvatar = app::UnityEngine__GameObject__Find(il2cpp_string_new(avatarNamestring.c_str()));
+						nameAvatar = app::UnityEngine__GameObject__Find(string_to_il2cppi(avatarNamestring.c_str()));
 						avatarTransform = app::UnityEngine__Component__get__Transform(nameAvatar);
 
-						rigidbody = reinterpret_cast<app::Rigidbody*>(app::UnityEngine_GameObject_GetComponent(nameAvatar, il2cpp_string_new("Rigidbody")));
+						rigidbody = reinterpret_cast<app::Rigidbody*>(app::UnityEngine_GameObject_GetComponent(nameAvatar, string_to_il2cppi("Rigidbody")));
+
 						if (rigidbody == nullptr)
-							util::log(2, "no rigidbody");
+							util::log(M_Info, "no rigidbody");
 					}
 				}
 			}
@@ -73,7 +77,7 @@ namespace il2fns {
 
 		//app::Rigidbody_set_velocity(rigidBody, zero);
 
-		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::UnityEngine__GameObject__Find(il2cpp_string_new("/EntityRoot/MainCamera(clone)")));
+		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/MainCamera(clone)")));
 		auto avatarEntity = reinterpret_cast<app::BaseEntity*>(nameAvatar);
 		//auto relativeEntity = &cameraEntity;
 

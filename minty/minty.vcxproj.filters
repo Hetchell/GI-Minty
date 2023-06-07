@@ -66,16 +66,31 @@
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
+    <ClCompile Include="Utils\LuaUtils.cpp" />
+    <ClCompile Include="Utils\GuiUtils.cpp" />
+    <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
+    <ClCompile Include="Themes\Themes.cpp" />
+    <ClCompile Include="Themes\ThemeLoader.cpp" />
+    <ClCompile Include="Themes\Fonts\FontsLoader.cpp" />
+    <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
+    <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
+    <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
+    <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
+    <ClCompile Include="DirectX\D3D11Hook.cpp" />
+    <ClCompile Include="Config\ConfigManager.cpp" />
+    <ClCompile Include="GUI\InitGui.cpp" />
+    <ClCompile Include="IL2CPP\il2cppUtils.cpp" />
+    <ClCompile Include="Lua\luahook.cpp" />
+    <ClCompile Include="GUI\Sections.cpp" />
+    <ClCompile Include="Games\wordle.cpp" />
+    <ClCompile Include="Games\tictactoe.cpp" />
+    <ClCompile Include="Games\minesweeper.cpp" />
+    <ClCompile Include="Games\lightsout.cpp" />
+    <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Games\lightsout.hpp" />
-    <ClInclude Include="Games\minesweeper.hpp" />
-    <ClInclude Include="Games\tictactoe.hpp" />
-    <ClInclude Include="Games\wordle.hpp" />
     <ClInclude Include="GUI\MainGUI.h" />
     <ClInclude Include="includes.h" />
-    <ClInclude Include="Json\prejson.hpp" />
-    <ClInclude Include="Themes\Fonts\fontsloader.h" />
     <ClInclude Include="ImGui\TextEditor\TextEditor.h" />
     <ClInclude Include="ImGui\ImGui\imconfig.h" />
     <ClInclude Include="ImGui\ImGui\imgui.h" />
@@ -87,7 +102,6 @@
     <ClInclude Include="ImGui\ImGui\imstb_truetype.h" />
     <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
-    <ClInclude Include="Themes\Themeloader.hpp" />
     <ClInclude Include="Json\json.hpp" />
     <ClInclude Include="IL2CPP\detours.h" />
     <ClInclude Include="IL2CPP\HookManager.h" />
@@ -96,10 +110,8 @@
     <ClInclude Include="IL2CPP\il2cpp-init.hpp" />
     <ClInclude Include="IL2CPP\il2cpp-api-functions.h" />
     <ClInclude Include="IL2CPP\il2cpp-unityplayer-functions.h" />
-    <ClInclude Include="DirectX\D3D11Hook.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
     <ClInclude Include="IL2CPP\Functions\molemole.h" />
-    <ClInclude Include="GUI\Sections.hpp" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
     <ClInclude Include="IL2CPP\Functions\timescale.h" />
     <ClInclude Include="ImGui\ImGuiNotify\fa_solid_900.h" />
@@ -137,7 +149,6 @@
     <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
     <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
     <ClInclude Include="Lua\lzio.h" />
-    <ClInclude Include="Lua\functions.hpp" />
     <ClInclude Include="Lua\lapi.h" />
     <ClInclude Include="Lua\lcode.h" />
     <ClInclude Include="Lua\lctype.h" />
@@ -159,8 +170,6 @@
     <ClInclude Include="Lua\lundump.h" />
     <ClInclude Include="Lua\lvm.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
-    <ClInclude Include="Themes\themes.hpp" />
-    <ClInclude Include="Lua\luahookutil.hpp" />
     <ClInclude Include="Lua\luahook.hpp" />
     <ClInclude Include="Utils\TelemetryBlocker.h" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
@@ -195,6 +204,19 @@
     <ClInclude Include="Discord SDK\src\rapidjson\stringbuffer.h" />
     <ClInclude Include="Discord SDK\src\rapidjson\writer.h" />
     <ClInclude Include="IL2CPP\Functions\multihit.h" />
+    <ClInclude Include="Utils\GuiUtils.hpp" />
+    <ClInclude Include="Themes\ThemeLoader.hpp" />
+    <ClInclude Include="Themes\Themes.hpp" />
+    <ClInclude Include="Themes\Fonts\FontsLoader.hpp" />
+    <ClInclude Include="Utils\ImageLoader\stb_image.h" />
+    <ClInclude Include="Utils\ImageLoader\ImageLoader.hpp" />
+    <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
+    <ClInclude Include="DirectX\D3D11Hook.hpp" />
+    <ClInclude Include="GUI\Sections.hpp" />
+    <ClInclude Include="Games\lightsout.hpp" />
+    <ClInclude Include="Games\minesweeper.hpp" />
+    <ClInclude Include="Games\tictactoe.hpp" />
+    <ClInclude Include="Games\wordle.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
