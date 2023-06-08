@@ -8,10 +8,7 @@ static bool ifbow;
 static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float cdMultipler) {
 	if (ifnocd)
 	{
-		try {
-			cdMultipler = 0;
-		}
-		catch (...) {}
+		cdMultipler = 0;
 	}
 	return CALL_ORIGIN(LCAvatarCombat_OnSkillStart, __this, skillID, cdMultipler);
 }
@@ -21,7 +18,6 @@ static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_Actor
 	{
 		value = maxValue;
 		__this->fields.nextValidAbilityID = 36;
-		util::log(M_Debug, "key: %s; value: %f; minvalue: %f; maxvalue: %f;", il2cppi_to_string(key), value, minValue, maxValue);
 	}
 	CALL_ORIGIN(ActorAbilityPlugin_AddDynamicFloatWithRange_Hook, __this, key, value, minValue, maxValue, forceDoAtRemote);
 }

@@ -3,42 +3,16 @@
 static bool ifinitfov;
 static bool ifinitsight;
 
-static bool ifElem;
-static void LevelSceneElementViewPlugin_Tick_Hook(app::LevelSceneElementViewPlugin* __this, float inDeltaTime) {
-    util::log(M_Info, "bool: %d", __this->fields._triggerElementView);
-    if (ifElem) {
-        __this->fields._triggerElementView = true;
-        inDeltaTime = 999;
-    }
-    CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_Hook, __this, inDeltaTime);
-}
-
 static bool ifChest;
 static bool ifchestinit;
 static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this) {
     if (ifChest) {
         if (__this->fields._dataItem != nullptr)
         {
-            try {
-                app::MoleMole_LCIndicatorPlugin_ShowIcon(__this);
-            }
-            catch (...) {}
+            app::MoleMole_LCIndicatorPlugin_ShowIcon(__this);
         }
     } else app::MoleMole_LCIndicatorPlugin_HideIcon(__this);
     return CALL_ORIGIN(IndicatorPlugin_DoCheck, __this);
-}
-
-static bool ifoti;
-static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOn(app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this)
-{
-    __this->fields._levelMainPageContext->fields._countDownTime = 0;
-    return CALL_ORIGIN(MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOn, __this);
-}
-
-static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff(app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this)
-{
-    __this->fields._levelMainPageContext->fields._countDownTime = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
-    return CALL_ORIGIN(MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff, __this);
 }
 
 static float zoomval;
@@ -73,36 +47,11 @@ namespace il2fns {
         ifChest = value;
     }
 
-    void ElemSight(bool value) {
-        if (!ifinitsight)
-            HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook); ifinitsight = true;
-        ifElem = value;
-    }
-
-    void OpenTeamImm(bool value) {
-        if (value) {
-            if (ifoti) {
-                HookManager::detach(MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff);
-                ifoti = false;
-            }
-            HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOn);
-        }
-        else {
-            HookManager::detach(LevelSceneElementViewPlugin_Tick_Hook);
-            HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff);
-            ifoti = true;
-        }
-    }
-
     void CameraZoom(float value) {
         static bool ifinit;
         if (!ifinit)
             HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook); ifinit = true;
         zoomval = value;
-    }
-
-    void TurnFog(bool value) {
-        app::RenderSettings_set_fog(!value);
     }
 
     void SetFov(float value) {

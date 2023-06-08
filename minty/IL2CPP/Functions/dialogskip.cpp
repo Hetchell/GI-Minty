@@ -8,10 +8,7 @@ static float diaSpeed;
 static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this)
 {
     if (ifcsc)
-        try {
         app::CriwareMediaPlayer_Skip(__this);
-    }
-    catch (...) {}
     return CALL_ORIGIN(CriwareMediaPlayer_Update, __this);
 }
 
@@ -28,18 +25,12 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)
 {
     CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
-    try {
-        OnCutScenePageUpdate(__this, ifdia ? diaSpeed : 1.0f);
-    }
-    catch (...) {}
+    OnCutScenePageUpdate(__this, ifdia ? diaSpeed : 1.0f);
 }
 
 static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this)
 {
-    try {
-        app::UnityEngine__set__Timescale(1.f);
-    }
-    catch (...) {}
+    app::UnityEngine__set__Timescale(1.f);
     CALL_ORIGIN(InLevelCutScenePageContext_ClearView_Hook, __this);
 }
 

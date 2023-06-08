@@ -5,52 +5,35 @@
 #include "../ImGui/ImGui/imgui.h"
 
 #include "../Games/games.h"
+
 #include "../IL2CPP/Functions/bootyfixer.h"
-#include "../IL2CPP/Functions/breastsizer.h"
-#include "../IL2CPP/Functions/browser.h"
 #include "../IL2CPP/Functions/dialogskip.h"
 #include "../IL2CPP/Functions/dumbenemies.h"
-#include "../IL2CPP/Functions/fovchanger.h"
 #include "../IL2CPP/Functions/godmode.h"
-#include "../IL2CPP/Functions/hideui.h"
 #include "../IL2CPP/Functions/infinityenergy.h"
 #include "../IL2CPP/Functions/infinitystamina.h"
-#include "../IL2CPP/Functions/molemole.h"
 #include "../IL2CPP/Functions/nocd.h"
 #include "../IL2CPP/Functions/noclip.h"
-#include "../IL2CPP/Functions/resizeavatar.h"
-#include "../IL2CPP/Functions/timescale.h"
 #include "../IL2CPP/Functions/uimisc.h"
 #include "../IL2CPP/Functions/unlockfps.h"
 #include "../IL2CPP/Functions/multihit.h"
+
 #include "../Lua/function.h"
 #include "../Utils/GuiUtils.hpp"
 #include "MainGUI.h"
-// #include "../IL2CPP/il2cpp-init.hpp"
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
 #include "GuiDefinitions.h"
-// #include "../ImGui/ImGuiNotify/tahoma.h"
 #include "../Config/ConfigManager.hpp"
 #include "../Json/json.hpp"
 #include "../Lua/luahook.hpp"
-// #include "../Lua/luahook.h"
 #include "../Utils/LuaUtils.hpp"
 #include "../Utils/Utils.hpp"
-// bool block_input = true;
-// bool show_debug_metrics = false;
-// bool show_debug_log = false;
-// #include "../Lua/luavars.h"
 #include "../Themes/Themes.hpp"
-
-//uintptr_t baseAddress1 = (uint64_t)GetModuleHandleA("UserAssembly.dll");
-//uintptr_t unityPlayerAddress1 = (uint64_t)GetModuleHandleA("UnityPlayer.dll");
 
 bool show_rpc = true;
 ImGuiID textureID = 0;
 
 extern bool is_lua_hooked;
-// extern bool is_il2cpp_hooked;
-
 
 extern uintptr_t baseAddress;
 extern uintptr_t unityPlayerAddress;
@@ -75,6 +58,15 @@ namespace Sections {
 
 void Player() {
     ImGui::SeparatorText("Avatar");
+
+    static bool ifnoclip;
+    ImGui::Checkbox("Noclip", &ifnoclip);
+
+    if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_RightArrow)))
+    {
+        //util::log(2, "pressed right");
+        last_lua_string = "CS.UnityEngine.GameObject.Find(\"/EntityRoot/AnimCamera\").transform:Translate(CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 10)";
+    }
 
     static bool ifInfStamina = false;
     if (readBoolFuncStateFromJson("InfStamina") == true) {
@@ -263,10 +255,11 @@ void Player() {
 
 static float TimeScale = 1.0f;
 void World() {
-    //ImGui::SeparatorText("World");
-
     static bool timescale = false;
-    ImGui::Checkbox("Change time speed", &timescale);
+    if (ImGui::Checkbox("Change time speed", &timescale)) {
+        if (!timescale)
+            app::UnityEngine__set__Timescale(1);
+    }
     ImGui::SameLine();
 
     HelpMarker("Changes the speed at which the game runs.");
@@ -274,59 +267,11 @@ void World() {
     if (timescale) {
         ImGui::Indent();
         if (ImGui::SliderFloat("Timescale", &TimeScale, 0.0f, 5.0f, "%.3f")) {
-            try {
-                il2fns::UnityEngine__set__Timescale(TimeScale);
-            }
-            catch (...) {}
+            app::UnityEngine__set__Timescale(TimeScale);
         }
 
         ImGui::SameLine();
         HelpMarker("Changes speed of game time. Applies to everything in game.");
-
-        //ImGui::SameLine();
-        //if (ImGui::Button("Reset (F11)")) {
-        //    TimeScale = 1.0;
-        //}
-        //try {
-        //    il2fns::UnityEngine__set__Timescale(TimeScale);
-        //}
-        //catch (...) {}
-
-        ImGui::Unindent();
-    }
-    else {
-        try {
-            //il2fns::UnityEngine__set__Timescale(1.0);
-        }
-        catch (...) {}
-    }
-
-    static bool isbrowser = false;
-    static char browserUrlBuf[256] = "";
-    static float browserSize = 1;
-
-    //if (ImGui::Checkbox("Browser", &isbrowser)) {
-    //    if (!isbrowser)
-    //        il2fns::TurnBrowser(false, 1, "");
-    //} ImGui::SameLine(); HelpMarker("Creates an interactive web browser in the world.");
-
-    // ImGui::SameLine();
-    // HelpMarker("Creates interactive browser panel with defined scale and URL. use Alt+Mouse or Bow to interact.");
-
-    if (isbrowser) {
-        ImGui::Indent();
-
-        ImGui::SliderFloat("Browser scale", &browserSize, 0.1f, 20.0f, "%.3f");
-        ImGui::SameLine();
-        HelpMarker("Set scale ratio of Browser. 1.0 - 1920x1080.");
-
-        ImGui::InputTextWithHint("Browser URL", "Input Browser URL", browserUrlBuf, 256);
-
-        if (ImGui::Button("Create")) {
-            if (browserSize != 0 && strcmp(browserUrlBuf, "")) {
-                il2fns::TurnBrowser(true, browserSize, browserUrlBuf);
-            }
-        }
 
         ImGui::Unindent();
     }
@@ -345,10 +290,10 @@ void World() {
         } catch (...) {}
     } ImGui::SameLine(); HelpMarker("Make enemies have the same level of intelligence as Congress.");
 
-    //static bool ifFog = false;
-    //if (ImGui::Checkbox("Turn on/off fog", &ifFog)) {
-    //    il2fns::TurnFog(ifFog);
-    //}
+    static bool ifFog = false;
+    if (ImGui::Checkbox("Turn on/off fog", &ifFog)) {
+        last_lua_string = R"MY_DELIMITER(CS.UnityEngine.GameObject.Find("LevelMapUIManager(Clone)/Canvas3D/MapBackContainer/BigWorld_Map(Clone)/MapArea/OpenArea_Fog"):SetActive(not CS.UnityEngine.GameObject.Find("LevelMapUIManager(Clone)/Canvas3D/MapBackContainer/BigWorld_Map(Clone)/MapArea/OpenArea_Fog").activeSelf))MY_DELIMITER";
+    }
 }
 
 void Minigames() {
@@ -368,25 +313,25 @@ void Minigames() {
 void About() {
     ImGui::SeparatorText("About");
 
-    ImGui::Text("Minty version 1.15");
+    ImGui::Text("Minty version 1.23");
     ImGui::Text("ImGui version: %s", ImGui::GetVersion());
     ImGui::Text("Design made with love by KittyKate :3");
 
-    /*ImGui::Text("Game version: ???");
-    ImGui::SameLine();
-    ImGui::TextDisabled("maybe add version detector, compare and shit");*/
+    ImGui::SeparatorText("Contributors");
+    
+    ImGui::TextColored(ImVec4(235.0/255.0, 64.0/255.0, 52.0/255.0, 1.0), "Owner: MintyGingy");
+    ImGui::TextColored(ImVec4(219.0/255.0, 57.0/255.0, 219.0/255.0, 1.0), "Co-founder: Moistcrafter");
+    ImGui::TextColored(ImVec4(57.0/255.0, 68.0/255.0, 219.0/255.0, 1.0), "Contributors: EtoShinya, KittyKate, lilmayofuksu, USSY, akioukun, m3gan");
+    ImGui::TextColored(ImVec4(255, 0, 212, 255), "Donaters: EtoShinya <3 <3, Thomas_Heath, Blair, unmeinoshonen, USSY");
+    ImGui::TextColored(ImVec4(0, 255, 179, 255), "Special thanks to family: Futchev, yarik0chka, keitaro_gg");
 
     ImGui::SeparatorText("");
 
     ImGui::Text("Minty Github: ");
-    TextURL("Link", "https://github.com/kindawindytoday/minty", true, false);
+    TextURL("Link", "https://github.com/kindawindytoday/Minty-Releases", true, false);
 
     ImGui::Text("KWT Discord: ");
     TextURL("Link", "https://discord.gg/kindawindytoday", true, false);
-
-    ImGui::SeparatorText("");
-
-    // ImGui::Text("asdasd add stuff");
 }
 
 void Themes() {
@@ -851,14 +796,14 @@ void Misc() {
      static float targetfov = 45;
      if (ImGui::Checkbox("Change FOV", &iffov)) {
          if (!iffov)
-             il2fns::ChangeFov(45.0f);
+             il2fns::SetFov(45.0f);
      }
      ImGui::SameLine();
      HelpMarker("Changes camera Field Of View. (Default = 45.)");
      if (iffov) {
          ImGui::Indent();
          if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
-             il2fns::ChangeFov(targetfov);
+             il2fns::SetFov(targetfov);
          saveFuncStateToJson("FOV", targetfov);
          ImGui::Unindent();
      }

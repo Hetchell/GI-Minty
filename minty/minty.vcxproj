@@ -163,10 +163,6 @@
     <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
-    <ClCompile Include="IL2CPP\Functions\breastsizer.cpp" />
-    <ClCompile Include="IL2CPP\Functions\eleminf.cpp" />
-    <ClCompile Include="IL2CPP\Functions\hideui.cpp" />
-    <ClCompile Include="IL2CPP\Functions\molemole.cpp" />
     <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
@@ -223,35 +219,25 @@
     <ClInclude Include="GUI\Sections.hpp" />
     <ClInclude Include="GUI\Translations.h" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
-    <ClInclude Include="IL2CPP\Functions\breastsizer.h" />
-    <ClInclude Include="IL2CPP\Functions\browser.h" />
     <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
     <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
-    <ClInclude Include="IL2CPP\Functions\eleminf.h" />
     <ClInclude Include="IL2CPP\Functions\godmode.h" />
-    <ClInclude Include="IL2CPP\Functions\hideui.h" />
     <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
     <ClInclude Include="IL2CPP\Functions\infinitystamina.h" />
-    <ClInclude Include="IL2CPP\Functions\molemole.h" />
     <ClInclude Include="IL2CPP\Functions\multihit.h" />
     <ClInclude Include="IL2CPP\Functions\nocd.h" />
     <ClInclude Include="IL2CPP\Functions\noclip.h" />
-    <ClInclude Include="IL2CPP\Functions\resizeavatar.h" />
-    <ClInclude Include="IL2CPP\Functions\timescale.h" />
     <ClInclude Include="IL2CPP\Functions\uimisc.h" />
     <ClInclude Include="IL2CPP\Functions\unlockfps.h" />
     <ClInclude Include="IL2CPP\HookManager.h">
       <FileType>CppHeader</FileType>
     </ClInclude>
     <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
-    <ClCompile Include="IL2CPP\Functions\browser.cpp" />
     <ClCompile Include="IL2CPP\Functions\dialogskip.cpp" />
     <ClCompile Include="IL2CPP\Functions\dumbenemies.cpp" />
     <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
     <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
     <ClCompile Include="IL2CPP\Functions\nocd.cpp" />
-    <ClCompile Include="IL2CPP\Functions\resizeavatar.cpp" />
-    <ClCompile Include="IL2CPP\Functions\timescale.cpp" />
     <ClCompile Include="IL2CPP\Functions\uimisc.cpp" />
     <ClCompile Include="IL2CPP\Functions\unlockfps.cpp" />
     <ClCompile Include="IL2CPP\Functions\infinityenergy.cpp" />

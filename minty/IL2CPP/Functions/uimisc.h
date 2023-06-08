@@ -6,10 +6,7 @@
 
 namespace il2fns {
 	void Change_UID(const char* uidText);
-	void ElemSight(bool value);
 	void ChestIndicator(bool value);
-	void OpenTeamImm(bool value);
 	void CameraZoom(float value);
-	void TurnFog(bool value);
 	void SetFov(float value);
 }
