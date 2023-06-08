@@ -31,20 +31,14 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
         g_Discord->Update();
         util::log(M_Info, "Showing RPC...");
     }
-    //TelemetryBlocker::BlockTelemetry();
-    //util::log(M_Info, "Telemetry block done.");
-    try
-    {
-        ProtectionBypass::Init();
-    }
-    catch (const std::exception& e)
-    {
-        util::log(M_Error, "Unhandled exception in closing anticheat. Please report this issue in our Discord server.");
-        //util::log(M_Error, e); // TODO: figure out how to log things that are of the std::exception class
-    }
+
+    // Initialize all offsets.
+	init_il2cpp();
+
+    ProtectionBypass::Init();
 
     util::log(M_Info, "Initializing IL2CPP...");
-    init_il2cpp();
+    
 
     util::log(M_Info, "Initialized IL2CPP. Waiting 30 seconds before starting DirectX...");
     Sleep(initde);

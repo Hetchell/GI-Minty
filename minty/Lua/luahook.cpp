@@ -127,7 +127,7 @@ DWORD WINAPI initLua(LPVOID lpReserved) {
 
     while (!FindWindowA("UnityWndClass", nullptr)) Sleep(1000);
 
-    DisableVMP();
+	ProtectionBypass::DisableVMP();
     get_gi_L();
     //Sleep(10000);
 

@@ -1,7 +1,6 @@
 #pragma once
 
-void DisableVMP();
-
 namespace ProtectionBypass {
+	void DisableVMP();
 	void Init();
 }

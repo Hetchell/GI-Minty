@@ -277,7 +277,7 @@ typedef enum _SECTION_INFORMATION_CLASS {
 EXTERN_C NTSTATUS __stdcall NtQuerySection(HANDLE SectionHandle, SECTION_INFORMATION_CLASS InformationClass, PVOID InformationBuffer, ULONG InformationBufferSize, PULONG ResultLength);
 EXTERN_C NTSTATUS __stdcall NtProtectVirtualMemory(HANDLE ProcessHandle, PVOID* BaseAddress, PULONG NumberOfBytesToProtect, ULONG NewAccessProtection, PULONG OldAccessProtection);
 
-void DisableVMP() {
+void ProtectionBypass::DisableVMP() {
 	DWORD old;
 	VirtualProtect(NtProtectVirtualMemory, 1, PAGE_EXECUTE_READWRITE, &old);
 	*(uintptr_t*)NtProtectVirtualMemory = *(uintptr_t*)NtQuerySection & ~(0xFFui64 << 32) | (uintptr_t)(*(uint32_t*)((uintptr_t)NtQuerySection + 4) - 1) << 32;
@@ -348,3 +348,34 @@ void ProtectionBypass::Init()
 
 	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 }
+
+
+/*
+static int RecordChecksumUserData_Hook(int type, char* out, int out_size)
+{
+	auto ret = CALL_ORIGIN(RecordChecksumUserData_Hook, type, out, out_size);
+	util::log(M_Info, "type %d\nret %d: %s", type, ret, out);
+	const char* data[] = {
+		"08126aeb28524e7b05d718826b6c5e4e",
+		"b8c1d4c0f687df999270a5c2ece67e6c27",
+		""
+		//""
+	};
+
+	assert(type < sizeof(data) / sizeof(const char*));
+	ret = strlen(data[type]);
+	if (strcmp(data[type], out) != 0)
+		util::log(M_Error, "Wrong checksum");
+
+	strncpy(out, data[type], out_size);
+
+	return ret;
+}
+
+
+void ProtectionBypass::Init()
+{
+	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
+}
+
+ */
