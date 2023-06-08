@@ -35,12 +35,26 @@ static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageCo
 }
 
 namespace il2fns {
-    void DialogSkip(bool value, float speed) {
-        if (!ifdiainit) {
+    void DialogSkip() {
+        static bool ifDialog = readBoolFuncStateFromJson("AutoTalk");
+        ifdia = ifDialog;
+
+        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifdiainit) {
             HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
-            HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook); ifdiainit = true; }
-        ifdia = value;
-        diaSpeed = speed;
+            HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook); ifdiainit = true; 
+        }
+
+        if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
+            saveFuncStateToJson("AutoTalk", ifDialog);
+            if (!ifDialog)
+                diaSpeed = 1; ifdia = false;
+        } ImGui::SameLine(); HelpMarker("Automatically goes through dialogue.");
+
+        if (ifDialog) {
+            ImGui::Indent();
+            ImGui::SliderFloat("Dialog speed", &diaSpeed, 1.0, 50.0);
+            ImGui::Unindent();
+        }
     }
 
     void CutsceneSkip(bool value) {

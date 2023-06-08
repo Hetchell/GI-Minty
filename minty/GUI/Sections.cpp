@@ -325,8 +325,6 @@ void About() {
     ImGui::TextColored(ImVec4(255, 0, 212, 255), "Donaters: EtoShinya <3 <3, Thomas_Heath, Blair, unmeinoshonen, USSY");
     ImGui::TextColored(ImVec4(0, 255, 179, 255), "Special thanks to family: Futchev, yarik0chka, keitaro_gg");
 
-    ImGui::SeparatorText("");
-
     ImGui::Text("Minty Github: ");
     TextURL("Link", "https://github.com/kindawindytoday/Minty-Releases", true, false);
 
@@ -618,9 +616,6 @@ void Debug() {
 // this will be ran regardless of the tab
 
 void Misc() {
-    // bool misc1 = false;
-    // float misc1;
-    // CreateFuncWidget("It is label of checkbox, that shows/hides slider.", misc1, "It is HelpMarker text", "some slider name", misc1, 60, 10, 100, il2fns::UnityEngine__set__Timescale);
     ImGui::SeparatorText("Interface");
 
     static bool unlockfps = false;
@@ -636,18 +631,13 @@ void Misc() {
     HelpMarker("Unlocks your framerate to defined target FPS.");
     if (unlockfps) {
         ImGui::Indent();
-        // ImGui::SliderFloat("Target FPS", &targetfps, 10.0f, 360.0f, "%.3f");
-
         if (ImGui::SliderInt("Target FPS", &targetfps, 1, 360))
             saveFuncStateToJson("FPS", targetfps);
 
         static float fpsunlocktimer = 0.0f;
         fpsunlocktimer += ImGui::GetIO().DeltaTime;
         if (fpsunlocktimer > 1.0f) {
-            try {
-                il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
-            }
-            catch (...) {}
+            il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
             fpsunlocktimer = 0;
         }
         ImGui::Unindent();
@@ -699,71 +689,9 @@ void Misc() {
         }
     }
 
-    static bool ifpeeking = false;
-    if (readBoolFuncStateFromJson("Booty")) {
-        il2fns::BootyFixer(true); ifpeeking = true;
-    }
-    else { ifpeeking = false; }
-    if (ImGui::Checkbox("Enable peeking", &ifpeeking)) {
-        saveFuncStateToJson("Booty", ifpeeking);
-        try {
-            il2fns::BootyFixer(ifpeeking);
-        }
-        catch (...) {}
-    }
-    ImGui::SameLine();
-    HelpMarker(";)"); // im died from cringe when read previous text here skull emoji
+    il2fns::BootyFixer();
 
-    //static bool show_colorator3000 = false;
-    //static float cc_r = 1.0f;
-    //static float cc_g = 1.0f;
-    //static float cc_b = 1.0f;
-    //static float cc_a = 1.0f;
-    //static ImVec4 infusion_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-    //ImGui::Checkbox("Infusion changer", &show_colorator3000);
-    //ImGui::SameLine();
-    //HelpMarker("Changes color of Elemental Infusion/Blade trail of your current character. Adjust color either with sliders or with color picker. Works perfectly on swords, greatswords, polearms.");
-    //if (show_colorator3000) {
-    //    ImGui::Indent();
-
-    //    if (ImGui::Button("Change")) {
-    //        std::string result = char_eleminf + std::to_string(cc_r) + "," + std::to_string(cc_g) + "," + std::to_string(cc_b) + "," + std::to_string(cc_a) + char_eleminf_end;
-    //        last_lua_string = result;
-    //    }
-    //    ImGui::SameLine();
-
-    //    ImGui::ColorEdit4("Infusion Color", &infusion_col.x, ImGuiColorEditFlags_AlphaBar);
-
-    //    cc_r = infusion_col.x;
-    //    cc_g = infusion_col.y;
-    //    cc_b = infusion_col.z;
-    //    cc_a = infusion_col.w;
-
-    //    ImGui::Unindent();
-    //}
-
-    static bool ifDialog = false;
-    static float diaSpeed = 1.0f;
-    if (readBoolFuncStateFromJson("AutoTalk") == true) {
-        //il2fns::DialogSkip(true, diaSpeed); 
-        ifDialog = true;
-    }
-    else {
-        ifDialog = false;
-    }
-    if (ImGui::Checkbox("Auto-talk", &ifDialog)) {
-        saveFuncStateToJson("AutoTalk", ifDialog);
-        if (!ifDialog)
-            il2fns::DialogSkip(ifDialog, 1.0);
-    } ImGui::SameLine(); HelpMarker("Automatically goes through dialogue.");
-    if (ifDialog) {
-        ImGui::Indent();
-        if (ImGui::SliderFloat("Dialog speed", &diaSpeed, 1.0, 50.0)) {
-            il2fns::DialogSkip(ifDialog, diaSpeed);
-        }
-        ImGui::Unindent();
-    }
+    il2fns::DialogSkip();
 
     static bool ifCSC = false;
     if (readBoolFuncStateFromJson("CutsceneSkip")) {
