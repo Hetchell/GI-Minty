@@ -8,6 +8,6 @@
 #include "../il2cppUtils.h"
 
 namespace il2fns {
-	void CutsceneSkip(bool val);
+	void CutsceneSkip();
 	void DialogSkip();
 }

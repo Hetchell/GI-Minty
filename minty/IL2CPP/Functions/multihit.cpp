@@ -15,11 +15,17 @@ static void LCBaseCombat_FireBeingHitEvent_Hook(app::LCBaseCombat* __this, uint3
 }
 
 namespace il2fns {
-	void MultiHit(bool value, int quantity) {
-		if (!ifinit) {
+	void MultiHit() {
+		while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
 			HookManager::install(app::MoleMole_LCBaseCombat_FireBeingHitEvent, LCBaseCombat_FireBeingHitEvent_Hook); ifinit = true;
 		}
-		ifmh = value;
-		quantityHit = quantity;
+
+		ImGui::SameLine();
+		HelpMarker("Make enemies have the same level of intelligence as Congress.");
+
+		ImGui::Checkbox("Multi-hit", &ifmh);
+		if (ifmh) {
+			ImGui::SliderInt("Number of htis", &quantityHit, 1, 50);
+		}
 	}
 }

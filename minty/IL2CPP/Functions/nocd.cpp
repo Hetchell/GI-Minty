@@ -23,15 +23,31 @@ static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_Actor
 }
 
 namespace il2fns {
-	void LCAvatarCombat_NoCD(bool value) {
-		if (!ifinit)
+	void LCAvatarCombat_NoCD() {
+		while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
 			HookManager::install(app::LCAvatarCombat_OnSkillStart, LCAvatarCombat_OnSkillStart); ifinit = true;
-		ifnocd = value;
+		}
+
+		ifnocd = readBoolFuncStateFromJson("NoCD");
+
+		if (ImGui::Checkbox("No skill cooldown", &ifnocd)) {
+			saveFuncStateToJson("NoCD", ifnocd);
+		}
+		ImGui::SameLine();
+		HelpMarker("Removes skill cooldown timer.");
 	}
 
-	void NoBowCD(bool value) {
-		if (!ifbowinit)
+	void NoBowCD() {
+		while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifbowinit) {
 			HookManager::install(app::MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, ActorAbilityPlugin_AddDynamicFloatWithRange_Hook); ifbowinit = true;
-		ifbow = value;
+		}
+
+		ifbow = readBoolFuncStateFromJson("InstantBow");
+
+		if (ImGui::Checkbox("Instant bow charge", &ifbow)) {
+			saveFuncStateToJson("InstantBow", ifbow);
+		}
+		ImGui::SameLine();
+		HelpMarker("Charges full bow attack instantly.");
 	}
 }

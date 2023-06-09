@@ -57,9 +57,19 @@ namespace il2fns {
         }
     }
 
-    void CutsceneSkip(bool value) {
-        if (!ifcscinit)
+    void CutsceneSkip() {
+        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifcscinit) {
             HookManager::install(app::CriwareMediaPlayer_Update, CriwareMediaPlayer_Update); ifcscinit = true;
-        ifcsc = value;
+        }
+
+        static bool ifcutscene = readBoolFuncStateFromJson("CutsceneSkip");
+        ifcsc = ifcutscene;
+
+        if (ImGui::Checkbox("Skip cutscene", &ifcutscene)) {
+            saveFuncStateToJson("CutsceneSkip", ifcutscene);
+            ifcsc = ifcutscene;
+        }
+        ImGui::SameLine();
+        HelpMarker("Skips cutscene. May break some game mechanics.");
     }
 }

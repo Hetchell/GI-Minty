@@ -1,12 +1,25 @@
 #include "unlockfps.h"
 
 namespace il2fns {
-	void UnityEngine__Application__set_targetFramerate(int32_t value) {
-		if (app::UnityEngine__Application__get__isFocused()) {
-			app::UnityEngine__Application__set__targetFramerate(value);
-			app::UnityEngine__QualitySettings__set__vSyncCount(0);
+	void UnlockFps() {
+		static bool ifunlock;
+		static bool ifsave;
+		static int target = 60;
+		if (ImGui::Checkbox("Unlock FPS", &ifunlock))
+			if (!ifunlock)
+				app::UnityEngine__Application__set__targetFramerate(60);
+		ImGui::SameLine();
+		HelpMarker("Unlocks framerate to target value.");
+		if (ifunlock) {
+			ImGui::Indent();
+			if (ImGui::SliderInt("Target FPS", &target, 10, 360))
+				app::UnityEngine__Application__set__targetFramerate(target);
+			ImGui::Unindent();
 		}
-		else {
+		ImGui::Checkbox("Energy-saving mode", &ifsave);
+		ImGui::SameLine();
+		HelpMarker("Locks FPS to 5 when game is in background.");
+		if (!app::UnityEngine__Application__get__isFocused() && ifsave) {
 			app::UnityEngine__Application__set__targetFramerate(5);
 		}
 	}

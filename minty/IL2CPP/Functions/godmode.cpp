@@ -23,11 +23,18 @@ bool Miscs_CheckTargetAttackableH(app::BaseEntity* attacker, app::BaseEntity* ta
 }
 
 namespace il2fns {
-	void GodMode(bool value) {
-		if (!ifinit) {
+	void GodMode() {
+		while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
 			HookManager::install(app::Miscs_CheckTargetAttackable, Miscs_CheckTargetAttackableH);
 			HookManager::install(app::VCHumanoidMove_NotifyLandVelocity, VCHumanoidMove_NotifyLandVelocity_Hook); ifinit = true;
 		}
-		ifgod = value;
+
+		ifgod = readBoolFuncStateFromJson("Godmode");
+
+		if (ImGui::Checkbox("Godmode", &ifgod)) {
+			saveFuncStateToJson("Godmode", ifgod);
+		}
+		ImGui::SameLine();
+		HelpMarker("Blocks any type of damage.");
 	}
 }

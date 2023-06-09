@@ -16,19 +16,19 @@ static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this) {
 }
 
 static float zoomval;
+static bool ifzoominit;
+static bool ifzoom;
 void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data)
 {
-    try {
-        data->currentWarningLocateRatio = static_cast<double>(zoomval);
-    }
-    catch (...) {}
+    data->currentWarningLocateRatio = static_cast<double>(ifzoom ? zoomval : 1);
     CALL_ORIGIN(SCameraModuleInitialize_SetWarningLocateRatio_Hook, __this, deltaTime, data);
 }
 
 static float fovval;
+static bool iffov;
 void InLevelCameraSetFov_Hook(app::Camera* __this, float value)
 {
-    value = fovval;
+    value = iffov ? fovval : 45;
     CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
 }
 
@@ -41,22 +41,51 @@ namespace il2fns {
 		app::UnityEngine_Text_setText(reinterpret_cast<app::Text*>(uidTextComp), il2cpp_string_new(uidText));
 	}
 
-    void ChestIndicator(bool value) {
-        if (!ifchestinit)
+    void ChestIndicator() {
+        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifchestinit) {
             HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck); ifchestinit = true;
-        ifChest = value;
+        }
+
+        ifChest = readBoolFuncStateFromJson("ShowChest");
+
+        if (ImGui::Checkbox("Show chests indicators", &ifChest)) {
+            saveFuncStateToJson("ShowChest", ifChest);
+        }
+        ImGui::SameLine();
+        HelpMarker("Shows indicators for all chests and TP points.");
     }
 
-    void CameraZoom(float value) {
-        static bool ifinit;
-        if (!ifinit)
-            HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook); ifinit = true;
-        zoomval = value;
+    void CameraZoom() {
+        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifzoominit) {
+            HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook); ifzoominit = true;
+        }
+
+        //ifzoom = readBoolFuncStateFromJson("NoCD");
+
+        if (ImGui::Checkbox("Camera zoom", &ifzoom)) {
+            //saveFuncStateToJson("NoCD", ifzoom);
+        }
+        ImGui::SameLine();
+        HelpMarker("Changes distance from camera.");
+        if (ifzoom) {
+            ImGui::SliderFloat("Target Zoom", &zoomval, 0, 500);
+        }
     }
 
-    void SetFov(float value) {
-        if (!ifinitfov)
+    void SetFov() {
+        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinitfov) {
             HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook); ifinitfov = true;
-        fovval = value;
+        }
+
+        //ifzoom = readBoolFuncStateFromJson("NoCD");
+
+        if (ImGui::Checkbox("Change field of view", &iffov)) {
+            //saveFuncStateToJson("NoCD", ifzoom);
+        }
+        ImGui::SameLine();
+        HelpMarker("Changes camera's field of view.");
+        if (iffov) {
+            ImGui::SliderFloat("Target FOV", &fovval, 10, 180);
+        }
     }
 }

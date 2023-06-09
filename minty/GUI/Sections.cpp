@@ -59,40 +59,9 @@ namespace Sections {
 void Player() {
     ImGui::SeparatorText("Avatar");
 
-    static bool ifnoclip;
-    ImGui::Checkbox("Noclip", &ifnoclip);
+    il2fns::Infinity_Stamina();
 
-    if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_RightArrow)))
-    {
-        //util::log(2, "pressed right");
-        last_lua_string = "CS.UnityEngine.GameObject.Find(\"/EntityRoot/AnimCamera\").transform:Translate(CS.UnityEngine.Vector3.right * CS.UnityEngine.Time.deltaTime * 10)";
-    }
-
-    static bool ifInfStamina = false;
-    if (readBoolFuncStateFromJson("InfStamina") == true) {
-        //il2fns::Infinity_Stamina(true); ifInfStamina = true;
-    }
-    else { ifInfStamina = false; }
-    if (ImGui::Checkbox("Infinity stamina", &ifInfStamina)) {
-        saveFuncStateToJson("InfStamina", ifInfStamina);
-        try {
-            il2fns::Infinity_Stamina(ifInfStamina);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Infinite stamina values.");
-
-    static bool ifGodmode = false;
-    if (readBoolFuncStateFromJson("Godmode") == true) {
-        il2fns::GodMode(true); ifGodmode = true;
-    }
-    else { ifGodmode = false; }
-    if (ImGui::Checkbox("Godmode", &ifGodmode)) {
-        saveFuncStateToJson("Godmode", ifGodmode);
-        try {
-            il2fns::GodMode(ifGodmode);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Take no damage after falling from any height.");
+    il2fns::GodMode();
 
     static bool show_modelswap = false;
     if (ImGui::Checkbox("Model swapper", &show_modelswap)) {} ImGui::SameLine(); HelpMarker("Swaps your avatars' models. Press Clone to copy current avatar, press paste to apply the original avatar's model onto the current.");
@@ -199,43 +168,11 @@ void Player() {
 
     ImGui::SeparatorText("Skills");
 
-    static bool ifEnergy = false;
-    if (readBoolFuncStateFromJson("InfBurst") == true) {
-        il2fns::Infinity__Energy(true); ifEnergy = true;
-    }
-    else { ifEnergy = false; }
-    if (ImGui::Checkbox("Infinity burst energy", &ifEnergy)) {
-        saveFuncStateToJson("InfBurst", ifEnergy);
-        try {
-            il2fns::Infinity__Energy(ifEnergy);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Ignore energy level and allow elemental burst at any time.");
+    il2fns::Infinity__Energy();
 
-    static bool ifNOCD = false;
-    if (readBoolFuncStateFromJson("NoCD") == true) {
-        il2fns::LCAvatarCombat_NoCD(true); ifNOCD = true;
-    }
-    else { ifNOCD = false; }
-    if (ImGui::Checkbox("No skill cooldown", &ifNOCD)) {
-        saveFuncStateToJson("NoCD", ifNOCD);
-        try {
-            il2fns::LCAvatarCombat_NoCD(ifNOCD);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Disable skill cooldowns.");
+    il2fns::LCAvatarCombat_NoCD();
 
-    static bool ifnobowcd;
-    if (readBoolFuncStateFromJson("InstantBow") == true) {
-        il2fns::NoBowCD(true); ifnobowcd = true;
-    }
-    else { ifnobowcd = false; }
-    if (ImGui::Checkbox("Instant bow charge", &ifnobowcd)) {
-        saveFuncStateToJson("InstantBow", ifnobowcd);
-        try {
-            il2fns::NoBowCD(ifnobowcd);
-        } catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Instant elemental charge for bows.");
+    il2fns::NoBowCD();
 
     //static bool ifnoclip = false;
     //if (ImGui::Checkbox("Noclip", &ifnoclip)) {
@@ -243,14 +180,7 @@ void Player() {
     //    il2fns::OnNoclip(ifnoclip);
     //}
 
-    static bool ifMultiHit = false;
-    static int numberhits = 1;
-    ImGui::Checkbox("Multi-hit", &ifMultiHit);
-    if (ifMultiHit) {
-        if (ImGui::SliderInt("Number of htis", &numberhits, 1, 50)) {
-            il2fns::MultiHit(ifMultiHit, numberhits);
-        }
-    }
+    il2fns::MultiHit();
 }
 
 static float TimeScale = 1.0f;
@@ -276,24 +206,7 @@ void World() {
         ImGui::Unindent();
     }
 
-    static bool ifDumbAI = false;
-
-    if (readBoolFuncStateFromJson("DumbEnemy") == true) {
-        il2fns::DumbEnemies(true); ifDumbAI = true;
-    }
-    else ifDumbAI = false;
-
-    if (ImGui::Checkbox("Dumb Enemies", &ifDumbAI)) {
-        saveFuncStateToJson("DumbEnemy", ifDumbAI);
-        try {
-            il2fns::DumbEnemies(ifDumbAI);
-        } catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Make enemies have the same level of intelligence as Congress.");
-
-    static bool ifFog = false;
-    if (ImGui::Checkbox("Turn on/off fog", &ifFog)) {
-        last_lua_string = R"MY_DELIMITER(CS.UnityEngine.GameObject.Find("LevelMapUIManager(Clone)/Canvas3D/MapBackContainer/BigWorld_Map(Clone)/MapArea/OpenArea_Fog"):SetActive(not CS.UnityEngine.GameObject.Find("LevelMapUIManager(Clone)/Canvas3D/MapBackContainer/BigWorld_Map(Clone)/MapArea/OpenArea_Fog").activeSelf))MY_DELIMITER";
-    }
+    il2fns::DumbEnemies();
 }
 
 void Minigames() {
@@ -618,30 +531,7 @@ void Debug() {
 void Misc() {
     ImGui::SeparatorText("Interface");
 
-    static bool unlockfps = false;
-    static int targetfps = 60;
-    if (ImGui::Checkbox("Unlock FPS", &unlockfps)) {
-        if (!unlockfps)
-            try {
-            il2fns::UnityEngine__Application__set_targetFramerate(60);
-        }
-        catch (...) {}
-    }
-    ImGui::SameLine();
-    HelpMarker("Unlocks your framerate to defined target FPS.");
-    if (unlockfps) {
-        ImGui::Indent();
-        if (ImGui::SliderInt("Target FPS", &targetfps, 1, 360))
-            saveFuncStateToJson("FPS", targetfps);
-
-        static float fpsunlocktimer = 0.0f;
-        fpsunlocktimer += ImGui::GetIO().DeltaTime;
-        if (fpsunlocktimer > 1.0f) {
-            il2fns::UnityEngine__Application__set_targetFramerate(targetfps);
-            fpsunlocktimer = 0;
-        }
-        ImGui::Unindent();
-    }
+    il2fns::UnlockFps();
 
     // auto state = luaL_newstate();
     // static int threthr = 1;
@@ -693,48 +583,13 @@ void Misc() {
 
     il2fns::DialogSkip();
 
-    static bool ifCSC = false;
-    if (readBoolFuncStateFromJson("CutsceneSkip")) {
-        il2fns::CutsceneSkip(true); ifCSC = true;
-    }
-    else {
-        ifCSC = false;
-    }
-    if (ImGui::Checkbox("Skip cutscene", &ifCSC)) {
-        saveFuncStateToJson("CutsceneSkip", ifCSC);
-        try {
-            il2fns::CutsceneSkip(ifCSC);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Skip video cutscenes.");
+    il2fns::CutsceneSkip();
 
-    static bool ifChest = false;
-    if (readBoolFuncStateFromJson("ShowChest") == true) {
-        il2fns::ChestIndicator(true); ifChest = true;
-    }
-    else { ifChest = false; }
-    if (ImGui::Checkbox("Show chest indicators", &ifChest)) {
-        saveFuncStateToJson("ShowChest", ifChest);
-        il2fns::ChestIndicator(ifChest);
-    }
+    il2fns::ChestIndicator();
 
     ImGui::SeparatorText("Camera");
 
-     static bool iffov = false;
-     static float targetfov = 45;
-     if (ImGui::Checkbox("Change FOV", &iffov)) {
-         if (!iffov)
-             il2fns::SetFov(45.0f);
-     }
-     ImGui::SameLine();
-     HelpMarker("Changes camera Field Of View. (Default = 45.)");
-     if (iffov) {
-         ImGui::Indent();
-         if (ImGui::SliderFloat("Target FOV", &targetfov, 10, 160))
-             il2fns::SetFov(targetfov);
-         saveFuncStateToJson("FOV", targetfov);
-         ImGui::Unindent();
-     }
+    il2fns::SetFov();
 
     //static bool ifElem = false;
     //if (ImGui::Checkbox("Infinity Elemental sight", &ifElem)) {
@@ -747,25 +602,7 @@ void Misc() {
         il2fns::OpenTeamImm(ifOTI);
     }*/
 
-    static bool ifzoom = false;
-    static float targetzoom = 1;
-    if (ImGui::Checkbox("Change Camera Zoom", &ifzoom)) {
-        if (!ifzoom)
-            try {
-            il2fns::CameraZoom(1.0);
-        }
-        catch (...) {}
-    } ImGui::SameLine(); HelpMarker("Changes the distance the camera is to the avatar.");
-
-    //ImGui::SameLine();
-    //HelpMarker("Changes camera Field Of View. (Default = 45)");
-    if (ifzoom) {
-        ImGui::Indent();
-        if (ImGui::SliderFloat("Target Zoom", &targetzoom, -10, 500))
-            il2fns::CameraZoom(targetzoom);
-        saveFuncStateToJson("CameraZoom", targetzoom);
-        ImGui::Unindent();
-    }
+    il2fns::CameraZoom();
 }
 
 void Lua() {

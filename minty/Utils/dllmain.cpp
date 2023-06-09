@@ -32,15 +32,13 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
         util::log(M_Info, "Showing RPC...");
     }
 
+    util::log(M_Info, "Initializing IL2CPP...");
     // Initialize all offsets.
 	init_il2cpp();
-
+    //Sleep(5000);
     ProtectionBypass::Init();
 
-    util::log(M_Info, "Initializing IL2CPP...");
-    
-
-    util::log(M_Info, "Initialized IL2CPP. Waiting 30 seconds before starting DirectX...");
+    util::log(M_Info, "Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initde/1000);
     Sleep(initde);
 
     util::log(M_Info, "Waited, assuming that your game already opened. Opening menu...");

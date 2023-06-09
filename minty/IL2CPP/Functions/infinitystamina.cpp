@@ -38,11 +38,18 @@ void VCHumanoidMove_Scara_Hook(app::VCHumanoidMove* __this, float somevalue)
 }
 
 namespace il2fns {
-	void Infinity_Stamina(bool value) {
-		if (!ifinit) {
+	void Infinity_Stamina() {
+		while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
 			HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
 			HookManager::install(app::VCHumanoidMove_Scara, VCHumanoidMove_Scara_Hook); ifinit = true;
 		}
-		ifstam = value;
+
+		ifstam = readBoolFuncStateFromJson("InfStamina");
+
+		if (ImGui::Checkbox("Infinity stamina", &ifstam)) {
+			saveFuncStateToJson("InfStamina", ifstam);
+		}
+		ImGui::SameLine();
+		HelpMarker("Prevents stamina level from changing.");
 	}
 }
