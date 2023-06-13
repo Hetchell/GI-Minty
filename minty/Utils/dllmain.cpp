@@ -1,12 +1,10 @@
 #include "../DirectX/D3D11Hook.hpp"
 #include "../IL2CPP/il2cpp-init.hpp"
-#include "../includes.h"
 #include "../Lua/luahook.hpp"
-
+#include "../includes.h"
 #include "DiscordRPC/Discord.h"
-
-#include "TelemetryBlocker.h"
 #include "ProtectionBypass.h"
+#include "TelemetryBlocker.h"
 
 Discord* g_Discord;
 
@@ -15,7 +13,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     freopen("CONIN$", "r", stdin);
     freopen("CONOUT$", "w", stdout);
     freopen("CONOUT$", "w", stderr);
-    
+
     util::log(M_Info, "Starting...");
 
     std::ifstream config_file("minty");
@@ -34,24 +32,21 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
     util::log(M_Info, "Initializing IL2CPP...");
     // Initialize all offsets.
-	init_il2cpp();
-    //Sleep(5000);
+    init_il2cpp();
+    // Sleep(5000);
     ProtectionBypass::Init();
 
-    util::log(M_Info, "Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initde/1000);
+    util::log(M_Info, "Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initde / 1000);
     Sleep(initde);
 
     util::log(M_Info, "Waited, assuming that your game already opened. Opening menu...");
 
-    try
-    {
+    try {
         GetPresent();
         DetourDirectXPresent();
-    }
-    catch (const std::exception& e)
-    {
+    } catch (const std::exception& e) {
         util::log(M_Error, "Unhandled exception in opening menu. Please report this issue in our Discord server.");
-        //util::log(M_Error, e);
+        // util::log(M_Error, e);
     }
 
     // PrintValues(); // do we even need prntvalues, keep the comment here might be useful for later debug
