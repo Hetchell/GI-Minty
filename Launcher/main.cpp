@@ -223,6 +223,7 @@ int main() {
             cfg["theme"]["style"] = 1;
             cfg["theme"]["color"] = 1;
             cfg["general"]["showRPC"] = true;
+            cfg["general"]["ShowFPS"] = true;
             cfg["general"]["initDelay"] = 15000;
             settings_file << cfg.dump(4) << std::endl;
             //printf("created");

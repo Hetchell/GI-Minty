@@ -12,6 +12,7 @@
 #include "../Themes/ThemeLoader.hpp"
 #include "GuiDefinitions.h"
 #include "MainGUI.h"
+#include "Sections.hpp"
 
 void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas = false);
 
