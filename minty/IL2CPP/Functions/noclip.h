@@ -8,4 +8,5 @@ namespace il2fns {
     void noclipmod(int i);
     void NoClipInit(bool b);
     void OnNoclip();
+    void colmod(int i);
 }

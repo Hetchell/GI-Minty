@@ -3,12 +3,17 @@
 namespace il2fns {
 	static bool ifnoclip, bInitNoClip, isApplied;
 	static int iNoClipMode;
+	int iColMode;
 	static float speed = 10;
 	app::Vector3 prevPos, newPos;
 	app::Vector3 posCheck;
 
 	void noclipmod(int i) {
 		iNoClipMode = i;
+	}
+	
+	void colmod(int i) {
+		iColMode = i;
 	}
 
 	void OnNoclip() {
@@ -54,7 +59,12 @@ namespace il2fns {
 		isApplied = true;
 
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
-		app::Rigidbody_set_detectCollisions(rigidbody, false);
+		if (iColMode == 1) {
+			app::Rigidbody_set_detectCollisions(rigidbody, true);
+		}
+		else if (iColMode == 0) {
+			app::Rigidbody_set_detectCollisions(rigidbody, false);
+		}
 
 		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::UnityEngine__Component__get__Transform(app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
 		auto avatarEntity = reinterpret_cast<app::BaseEntity*>(avatarTransform);
@@ -94,7 +104,7 @@ namespace il2fns {
 	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method)
 	{
 		__try {
-			if (ifnoclip) OnNoclip();
+			//if (ifnoclip) OnNoclip();
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
 			util::log(M_Error, "Exception 0x%08x.", _exception_code());

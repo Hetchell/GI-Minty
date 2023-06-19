@@ -166,19 +166,49 @@ void Player() {
         //last_lua_string = result;
     }
 
-    static bool ifnoclip = false;
+    static bool ifnoclip, ifaltSpeed = false;
+    static bool ignoreCol = true;
     static float fNoClip = 10.f;
+    static float faltNoClip = 25.f;
     static int iNoClip;
 
     if (ImGui::Checkbox("Noclip", &ifnoclip)) il2fns::NoClipInit(ifnoclip);
     
     if (ifnoclip) {
-        //il2fns::OnNoclip();
+        il2fns::OnNoclip();
 
         ImGui::Indent();
 
-        if (ImGui::SliderFloat("##NoClip", &fNoClip, 1.f, 30.f, "%.1f")) il2fns::NoClipSpeed(fNoClip);
-        if (ImGui::InputInt("Noclip Mode", &iNoClip, 1, 1, ImGuiInputTextFlags_EnterReturnsTrue)) il2fns::noclipmod(iNoClip);
+        if (ImGui::SliderFloat("##NoClip speed", &fNoClip, 1.f, 30.f, "%.1f")) il2fns::NoClipSpeed(fNoClip);
+        ImGui::Checkbox("Alt speed", &ifaltSpeed);
+
+        if (ifaltSpeed) {
+            ImGui::Indent();
+
+            ImGui::SliderFloat("##NoClip alt speed", &faltNoClip, 1.f, 50.f, "%.1f");
+
+            if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl, true))
+                il2fns::NoClipSpeed(faltNoClip);
+
+            if (ImGui::IsKeyReleased(ImGuiKey_LeftCtrl))
+                il2fns::NoClipSpeed(fNoClip);
+
+            ImGui::Unindent();
+        }
+
+        if (ImGui::Checkbox("Ignore Collisions", &ignoreCol)) {
+            if (ignoreCol) {
+                il2fns::colmod(0);
+            }
+            else {
+                il2fns::colmod(1);
+            }
+        }
+
+        if (ignoreCol) {
+
+        }
+
 
         ImGui::Unindent();
     }
