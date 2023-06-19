@@ -166,6 +166,23 @@ void Player() {
         //last_lua_string = result;
     }
 
+    static bool ifnoclip = false;
+    static float fNoClip = 10.f;
+    static int iNoClip;
+
+    if (ImGui::Checkbox("Noclip", &ifnoclip)) il2fns::NoClipInit(ifnoclip);
+    
+    if (ifnoclip) {
+        //il2fns::OnNoclip();
+
+        ImGui::Indent();
+
+        if (ImGui::SliderFloat("##NoClip", &fNoClip, 1.f, 30.f, "%.1f")) il2fns::NoClipSpeed(fNoClip);
+        if (ImGui::InputInt("Noclip Mode", &iNoClip, 1, 1, ImGuiInputTextFlags_EnterReturnsTrue)) il2fns::noclipmod(iNoClip);
+
+        ImGui::Unindent();
+    }
+
     ImGui::SeparatorText("Skills");
 
     il2fns::Infinity__Energy();

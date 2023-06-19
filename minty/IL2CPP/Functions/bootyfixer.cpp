@@ -24,15 +24,5 @@ namespace il2fns {
         }
         ImGui::SameLine();
         HelpMarker(";)");
-
-        if (ImGui::Button("12312341238123"))
-            for (int i = 0; i < 4; i++) {
-                app::Unity_RecordUserData(0);
-                app::Unity_RecordUserData(1);
-                app::Unity_RecordUserData(2);
-                app::Unity_RecordUserData(3);
-                //std::string cscscs = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
-                //util::log(M_Info, "type %i checksum: %s", i, cscscs);
-            }
     }
 }
