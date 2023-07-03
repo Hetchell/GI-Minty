@@ -667,15 +667,13 @@ namespace Sections {
         }*/
 
         il2fns::CameraZoom();
+
+        
     }
 
     void Lua() {
         ImGui::SeparatorText("Editor");
         ImGui::Checkbox("Show Lua editor", &show_lua_editor);
-
-        if (ImGui::Button("XLua Hotfix")) {
-            last_lua_string = xluaHotFix;
-        }
     }
 
     void Outer() {
