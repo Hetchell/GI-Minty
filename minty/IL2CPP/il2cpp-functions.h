@@ -48,52 +48,80 @@ DO_APP_FUNC(0x07B30CC0, void, GameObject__ctor, (app::GameObject* __this, void* 
 DO_APP_FUNC(0x07A60280, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
 DO_APP_FUNC(0x1D37B80, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value)); // =
 DO_APP_FUNC(0x2D94270, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID)); // =
+
+// 3.7 (check)
 DO_APP_FUNC(0xEFAF40, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
+// 3.7 (check)
 DO_APP_FUNC(0x1EC6590, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this));
+// 3.7 (check)
 DO_APP_FUNC(0x1EC7450, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this));
+// 3.7 (check)
 DO_APP_FUNC(0x1EC80E0, void, MoleMole_LCIndicatorPlugin_HideIcon, (app::LCIndicatorPlugin* __this));
+// 3.7 (check)
 DO_APP_FUNC(0x12EC630, void, MoleMole_InLevelCutScenePageContext_UpdateView, (app::InLevelCutScenePageContext* __this));
+// 3.7 (check)
 DO_APP_FUNC(0x12E99E0, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
-DO_APP_FUNC(0x36F89D0, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
-DO_APP_FUNC(0x36F8890, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
+DO_APP_FUNC(0x032D4E50, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
+DO_APP_FUNC(0x032D4D10, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
+// 3.7 (check)
 DO_APP_FUNC(0x12E9B70, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
 
-//No Clip
+// No Clip
+// 3.7 (check)
 DO_APP_FUNC(0x15CAEA0, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
-DO_APP_FUNC(0xECFFC0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
-DO_APP_FUNC(0x706BBA0, float, Vector3_Distance, (app::Vector3 pos1, app::Vector3 pos2));
-DO_APP_FUNC(0x6F298A0, void, Rigidbody_set_position, (app::Rigidbody* __this, app::Vector3 value));
-DO_APP_FUNC(0x6F29600, void, Rigidbody_MovePosition, (app::Rigidbody* __this, app::Vector3 value));
-DO_APP_FUNC(0x6F295D0, void, Rigidbody_set_velocity, (app::Rigidbody* __this, app::Vector3 value));
-DO_APP_FUNC(0x707C0C0, float, Time_get_deltaTime, ());
-DO_APP_FUNC(0x6F296C0, app::Vector3, Rigidbody_get_position, (app::Rigidbody* __this));
-DO_APP_FUNC(0x6F74B60, app::Vector3, MoleMole_BaseEntity_GetForward, (app::BaseEntity* __this));
-DO_APP_FUNC(0x6F74E30, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEntity* __this));
-DO_APP_FUNC(0x6F74F10, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
-DO_APP_FUNC(0x6F29810, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
-DO_APP_FUNC(0x6F297F0, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, app::CollisionDetectionMode__Enum value));
-//No Clip
+DO_APP_FUNC(0x00D4D2D0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
+DO_APP_FUNC(0x07B246F0, float, Vector3_Distance, (app::Vector3 pos1, app::Vector3 pos2));
+DO_APP_FUNC(0x079E4320, void, Rigidbody_set_position, (app::Rigidbody* __this, app::Vector3 value));
+DO_APP_FUNC(0x079E3FA0, void, Rigidbody_MovePosition, (app::Rigidbody* __this, app::Vector3 value));
+DO_APP_FUNC(0x079E4350, void, Rigidbody_set_velocity, (app::Rigidbody* __this, app::Vector3 value));
+DO_APP_FUNC(0x07B32C30, float, Time_get_deltaTime, ());
+DO_APP_FUNC(0x079E4150, app::Vector3, Rigidbody_get_position, (app::Rigidbody* __this));
+DO_APP_FUNC(0x07A39730, app::Vector3, MoleMole_BaseEntity_GetForward, (app::BaseEntity* __this));
+DO_APP_FUNC(0x07A39A00, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEntity* __this));
+DO_APP_FUNC(0x07A39AE0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
+DO_APP_FUNC(0x079E42A0, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
+DO_APP_FUNC(0x079E4280, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, app::CollisionDetectionMode__Enum value));
 
-/* not tested
-0x3CB8210 !
+/*
+0x3CB8210
 0x3CB93F0
 */
+// not used :cry: 3.7 (check?)
 DO_APP_FUNC(0x3CB8210, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
+// 3.7 (check)
 DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
+// 3.7 (check)
 DO_APP_FUNC(0x31FCA30, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
-DO_APP_FUNC(0x07AAF810, void, Transform_Translate, (app::Transform* __this, app::Vector3));
+/*
+0x07A393B0
+0x07A394D0
+0x07A393E0
+0x07A39430
+0x07A395A0
+0x07A39480
+*/
+DO_APP_FUNC(0x07A393B0, void, Transform_Translate, (app::Transform* __this, app::Vector3));
+// very old? not used?
 DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
+// 3.7 (check)
 DO_APP_FUNC(0x2281F30, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
-DO_APP_FUNC(0x6970110, String*, Marshal_PtrToStringAnsi, (void* ptr));
+/*
+0x07410B70
+0x07410B60
+*/
+DO_APP_FUNC(0x07410B70, String*, Marshal_PtrToStringAnsi, (void* ptr));
+// 3.7 (check)
 DO_APP_FUNC(0x40350C0, BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
 DO_APP_FUNC(0x2191C0, void*, Singleton_GetInstance, (app::MethodInfo* method)); //idr
+// 3.7 (check)
 DO_APP_FUNC(0x388BF70, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* attackerEntity, app::BaseEntity* targetEntity, bool idk));
 
 DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo); // - not yet
 
+// 3.7 (check)
 DO_APP_FUNC(0x43C80F0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
+// 3.7 (check)
 DO_APP_FUNC(0x23F9100, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
-DO_APP_FUNC(0x701BBD0, void, RenderSettings_set_fog, (bool value));
-DO_APP_FUNC(0x070401B0, Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
-//DO_APP_FUNC(0x322E300, void, SetGachaResult, (uint32_t EMHCLDBGNAJ, uint32_t JDABPOEGJLC, uint32_t HCBOMCGDNNA, uint32_t COHOGBNNNKA, uint32_t HDHPGKHOEBG, uint32_t OPFEJOIJFBB, uint32_t ADGAALDOGHK, uint32_t NEHCGMENMGI, uint32_t JJMMDJIOELE, uint32_t BIGPMAHFOKA, uint32_t KGMHDOBIAAL, app::MoleMole_NotifyTypes__Enum::GachaItemNotify LIEIJCPGKHB));
-DO_APP_FUNC(0x15BC4B0, void, OnDoGacha, (uint32_t count));
+
+(0x07AEB020, void, RenderSettings_set_fog, (bool value));
+DO_APP_FUNC(0x07AFE4E0, Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
