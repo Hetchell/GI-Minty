@@ -20,12 +20,11 @@ namespace il2fns {
 			HookManager::install(app::MoleMole_LCBaseCombat_FireBeingHitEvent, LCBaseCombat_FireBeingHitEvent_Hook); ifinit = true;
 		}
 
-		ImGui::SameLine();
-
 		ImGui::Checkbox("Multi-hit", &ifmh);
 		if (ifmh) {
 			ImGui::SliderInt("Number of htis", &quantityHit, 1, 50);
 		}
+		ImGui::SameLine();
 		HelpMarker("Multi-hit.");
 	}
 }
