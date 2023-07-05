@@ -21,11 +21,11 @@ namespace il2fns {
 		}
 
 		ImGui::SameLine();
-		HelpMarker("Make enemies have the same level of intelligence as Congress.");
 
 		ImGui::Checkbox("Multi-hit", &ifmh);
 		if (ifmh) {
 			ImGui::SliderInt("Number of htis", &quantityHit, 1, 50);
 		}
+		HelpMarker("Multi-hit.");
 	}
 }

@@ -645,7 +645,7 @@ namespace Sections {
 
         il2fns::BootyFixer();
 
-        //il2fns::DialogSkip(); :(
+        il2fns::DialogSkip();
 
         il2fns::CutsceneSkip();
 

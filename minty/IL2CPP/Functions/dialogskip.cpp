@@ -14,9 +14,11 @@ static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this)
 
 void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 {
-    auto talkDialog = context->fields._talkDialog;
-    if (talkDialog == nullptr)
+    auto talkDialog = context->fields._talkDialog12;
+    if (talkDialog == nullptr) {
+        util::log(M_Info, "talkDialog == null :cry:");
         return;
+    }
 
     app::UnityEngine__set__Timescale(value);
     app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);

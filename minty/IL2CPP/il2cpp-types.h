@@ -9192,6 +9192,24 @@ typedef union Il2CppSingle_float
         struct BasePageContext__Fields _;
         struct MonoInLevelCutScenePage* _pageMono;
         struct TalkDialogContext* _talkDialog;
+        struct TalkDialogContext* _talkDialog2;
+        struct TalkDialogContext* _talkDialog3;
+        struct TalkDialogContext* _talkDialog4;
+        struct TalkDialogContext* _talkDialog5;
+        struct TalkDialogContext* _talkDialog6;
+        struct TalkDialogContext* _talkDialog7;
+        struct TalkDialogContext* _talkDialog8;
+        struct TalkDialogContext* _talkDialog9;
+        struct TalkDialogContext* _talkDialog10;
+        struct TalkDialogContext* _talkDialog11;
+        struct TalkDialogContext* _talkDialog12;
+        struct TalkDialogContext* _talkDialog13;
+        struct TalkDialogContext* _talkDialog14;
+        struct TalkDialogContext* _talkDialog15;
+        struct TalkDialogContext* _talkDialog16;
+        struct TalkDialogContext* _talkDialog17;
+        struct TalkDialogContext* _talkDialog18;
+        struct TalkDialogContext* _talkDialog19;
         struct Image_1* _backImg;
         struct GameObject* _loadingAnim;
         struct Animator* _textAnimator;
@@ -9210,6 +9228,30 @@ typedef union Il2CppSingle_float
         float CLCKJBEKGDE;
         bool DHJFOHOHLAM;
         struct Action* ODGEDLKIJJC;
+        //
+        /*
+        
+        struct BasePageContext__Fields _;
+        struct MonoInLevelCutScenePage* _pageMono;
+        struct TalkDialogContext* _talkDialog;
+        struct Image_1* _backImg;
+        struct GameObject* _loadingAnim;
+        struct Animator* _textAnimator;
+        bool _needFreeClick;
+        bool _isChangingColor;
+        struct Coroutine* _wait2ShowLoadingDialog;
+        bool _talking;
+        uint32_t _inteeID;
+        struct EACLKLIILDA* NDFDCBKOFAO;
+        float _durationToHide;
+        struct Vector2 _lastMousePos;
+        float _lastMouseMoveTime;
+        bool _firstUpdate;
+        bool _needHideMouse;
+        float LENFNMCNKCO;
+        float CLCKJBEKGDE;
+        bool DHJFOHOHLAM;
+        struct Action* ODGEDLKIJJC;*/
     };
 
     struct InLevelCutScenePageContext {
