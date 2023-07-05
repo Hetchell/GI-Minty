@@ -17,7 +17,7 @@ static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_Actor
 	if (ifbow && il2cppi_to_string(key) == "_Enchanted_Time")
 	{
 		value = maxValue;
-		__this->fields.nextValidAbilityID = 36;
+		//__this->fields.nextValidAbilityID = 36;
 	}
 	CALL_ORIGIN(ActorAbilityPlugin_AddDynamicFloatWithRange_Hook, __this, key, value, minValue, maxValue, forceDoAtRemote);
 }
