@@ -24,7 +24,7 @@ void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitia
     CALL_ORIGIN(SCameraModuleInitialize_SetWarningLocateRatio_Hook, __this, deltaTime, data);
 }
 
-static float fovval;
+static float fovval = 45;
 static bool iffov;
 void InLevelCameraSetFov_Hook(app::Camera* __this, float value)
 {
