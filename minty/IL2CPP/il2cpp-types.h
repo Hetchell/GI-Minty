@@ -9123,6 +9123,41 @@ typedef union Il2CppSingle_float
     };
 
     struct TalkDialogContext__Fields {
+        //struct BaseDialogContext__Fields _;
+        //bool _inCoopSelect;
+        //bool _inCoopTemperamentSelect;
+        //bool _coopSelectShow;
+        bool _inSelect;
+        bool _inSelect2;
+        bool _inSelect3;
+        bool _inSelect4;
+        bool _inSelect5;
+        bool _inSelect6;
+        bool _inSelect7;
+        bool _inSelect8;
+        bool _inSelect9;
+        bool _inSelect10;
+        bool _inSelect11;
+        bool _inSelect12;
+        bool _inSelect13;
+        bool _inSelect14;
+        bool _inSelect15;
+        bool _inSelect16;
+        bool _inSelect17;
+        bool _inSelect18;
+        bool _inSelect19;
+        bool _inSelect20;
+        bool _inSelect21;
+        bool _inSelect22;
+        bool _inSelect23;
+        bool _inSelect24;
+        bool _inSelect25;
+        bool _inSelect26;
+        bool _inSelect27;
+        bool _inSelect28;
+        bool _inSelect29;
+        bool _inSelect30;
+        /*
         struct BaseDialogContext__Fields _;
         bool _inCoopSelect;
         bool _inCoopTemperamentSelect;
@@ -9152,6 +9187,7 @@ typedef union Il2CppSingle_float
         struct Coroutine* _showSelectOptionsCoroutine;
         bool _inSelect;
         struct Coroutine* WaitDialogSelectCoroutine;
+        */
     };
 
     struct TalkDialogContext {
@@ -12509,9 +12545,8 @@ typedef union Il2CppSingle_float
 
 #define IS_SINGLETON_LOADED(className) (/**app::Singleton_1_## className ##___TypeInfo != nullptr &&*/ *app::Singleton_1_ ## className ## __get_Instance__MethodInfo != nullptr)
 #define GET_SINGLETON(tpname) IS_SINGLETON_LOADED(tpname) ? reinterpret_cast<app:: ## tpname ## *>(app::Singleton_GetInstance(*app::Singleton_1_ ## tpname ## __get_Instance__MethodInfo)) : nullptr
-    /*
-    0xA63C3F8 -
-    0xA63C4F0 ?
-    */
-    DO_TYPEDEF(0xA63C4F0, Int32);
+    // 48 89 5c 24 08 57 48 83 ec 20 48 8b 01 48 8b d9 48 89 02 48 8b fa 48 8b 15 6b 5a f4 0a b9 03 00
+    DO_TYPEDEF(0xB18DBB8, Int32);
+    // 48 89 5c 24 08 57 48 83 ec 20 48 8b 01 48 8b d9 48 89 02 48 8b fa 48 8b 15 b3 23 f7 0a b9 10 00
+    DO_TYPEDEF(0xB18DCB0, Byte);
 #endif // IL2CPP_TYPES_H

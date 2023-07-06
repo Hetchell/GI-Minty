@@ -14,6 +14,9 @@ static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this)
 
 void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 {
+    if (!ifdia)
+        return;
+
     auto talkDialog = context->fields._talkDialog12;
     if (talkDialog == nullptr) {
         util::log(M_Info, "talkDialog == null :cry:");
@@ -22,6 +25,35 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 
     app::UnityEngine__set__Timescale(value);
     app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
+
+    //util::log(M_Info, "inselect: %d", talkDialog->fields._inSelect);
+    //util::log(M_Info, "inselect2: %d", talkDialog->fields._inSelect2);
+    //util::log(M_Info, "inselect3: %d", talkDialog->fields._inSelect3);
+    //util::log(M_Info, "inselect4: %d", talkDialog->fields._inSelect4);
+    //util::log(M_Info, "inselect5: %d", talkDialog->fields._inSelect5);
+    //util::log(M_Info, "inselect6: %d", talkDialog->fields._inSelect6);
+    //util::log(M_Info, "inselect7: %d", talkDialog->fields._inSelect7);
+    //util::log(M_Info, "inselect8: %d", talkDialog->fields._inSelect8);
+    //util::log(M_Info, "inselect9: %d", talkDialog->fields._inSelect9);
+    //util::log(M_Info, "inselect10: %d", talkDialog->fields._inSelect10);
+    //util::log(M_Info, "inselect11: %d", talkDialog->fields._inSelect11);
+    //util::log(M_Info, "inselect12: %d", talkDialog->fields._inSelect12);
+    //util::log(M_Info, "inselect13: %d", talkDialog->fields._inSelect13);
+    //util::log(M_Info, "inselect14: %d", talkDialog->fields._inSelect14);
+    //util::log(M_Info, "inselect15: %d", talkDialog->fields._inSelect15);
+    //util::log(M_Info, "inselect16: %d", talkDialog->fields._inSelect16);
+    //util::log(M_Info, "inselect17: %d", talkDialog->fields._inSelect17);
+    /*if (talkDialog->fields._inSelect/* && f_AutoSelectDialog->enabled() && !isImportantAAA)
+    {
+        int32_t value = 0;
+        auto object = il2cpp_value_box((app::Il2CppClass*)*app::Int32__TypeInfo, &value);
+        app::Notify notify{};
+        notify.type = app::MoleMole_NotifyTypes__Enum::DialogSelectNotify;
+        notify.body = (app::Object*)object;
+        app::MoleMole_TalkDialogContext_OnDialogSelectItem(talkDialog, &notify);
+    }
+    else if (!talkDialog->fields._inSelect)
+        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);*/
 }
 
 static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)
@@ -38,7 +70,8 @@ static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageCo
 
 namespace il2fns {
     void DialogSkip() {
-        static bool ifDialog = readBoolFuncStateFromJson("AutoTalk");
+        //static bool ifDialog = readBoolFuncStateFromJson("AutoTalk");
+        static bool ifDialog = false;
         ifdia = ifDialog;
 
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifdiainit) {

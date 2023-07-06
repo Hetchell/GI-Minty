@@ -12,19 +12,19 @@ DO_APP_FUNC(0x07A387A0, void*, UnityEngine__Transform__set__localScale, (app::Tr
 DO_APP_FUNC(0x07B30DC0, app::Transform*, UnityEngine__Component__get__Transform, (app::GameObject* object));
 DO_APP_FUNC(0x07B30840, app::GameObject*, UnityEngine__GameObject__Find, (app::String* nameFind));
 DO_APP_FUNC(0x07B30BE0, void, UnityEngine__GameObject__SetActive, (app::GameObject* object, bool value));
-DO_APP_FUNC(0x02C52B40, bool, LCAvatarCombat_IsEnergyMax, (void* __this)); //
-DO_APP_FUNC(0x02C50250, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti)); // 
+DO_APP_FUNC(0x02C52B40, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
+DO_APP_FUNC(0x02C50250, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
 DO_APP_FUNC(0x0327B430, float, MoleMole_SafeFloat_get_Value, (SafeFloat safeFloat)); //found with op implicit 
 DO_APP_FUNC(0x0327B370, SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloat)); // same 
-DO_APP_FUNC(0x02C4FB80, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo)); //
-DO_APP_FUNC(0x07B30850, app::Component_1*, UnityEngine_GameObject_GetComponent, (app::GameObject* __this, void* type)); // 0x07B30850
+DO_APP_FUNC(0x02C4FB80, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
+DO_APP_FUNC(0x07B30850, app::Component_1*, UnityEngine_GameObject_GetComponent, (app::GameObject* __this, void* type));
 DO_APP_FUNC(0x07B16AA0, void, UnityEngine_Text_setText, (app::Text* __this, void* value)); // set_text
-DO_APP_FUNC(0x06D19EF0, void, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, (MoleMole_VCBaseSetDitherValue* __this, float value)); //
-DO_APP_FUNC(0x025BCD20, void, MoleMole_DataItem_HandleNormalProp, (DataItem* __this, uint32_t type, int64_t value, DataPropOp__Enum state)); // 
+DO_APP_FUNC(0x06D19EF0, void, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, (MoleMole_VCBaseSetDitherValue* __this, float value));
+DO_APP_FUNC(0x025BCD20, void, MoleMole_DataItem_HandleNormalProp, (DataItem* __this, uint32_t type, int64_t value, DataPropOp__Enum state));
 DO_APP_FUNC(0x07A385A0, app::Transform*, UnityEngine_Transform_GetChild, (Transform* __this, int32_t index));
 DO_APP_FUNC(0x07A38590, int32_t, UnityEngine_Transform_GetChildCount, (Transform* __this));
 DO_APP_FUNC(0x0115D300, void, VCHumanoidMove_NotifyLandVelocity, (VCHumanoidMove* __this, Vector3 velocity, float reachMaxDownVelocityTime));
-DO_APP_FUNC(0x03871680, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (ActorAbilityPlugin* __this, float delay, Object* arg)); //
+DO_APP_FUNC(0x03871680, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (ActorAbilityPlugin* __this, float delay, Object* arg));
 DO_APP_FUNC(0x07B30D10, bool, UnityEngine_GameObject_get_active, (app::GameObject* __this));
 DO_APP_FUNC(0x07B30810, app::GameObject*, UnityEngine_GameObject_CreatePrimitive, (app::PrimitiveType__Enum type));
 DO_APP_FUNC(0x05C1CF90, app::Vector3, GetRelativePosition, (app::Vector3 __this)); // 0x05C1D0C0
@@ -32,7 +32,7 @@ DO_APP_FUNC(0x07A38790, void, set_localPosition, (app::Transform* __this, app::V
 DO_APP_FUNC(0x07A387A0, void, set_localScale, (app::Transform* __this, app::Vector3 value));
 DO_APP_FUNC(0x07A39D10, void, set_localRotation, (app::Transform* __this, app::Quaternion value));
 DO_APP_FUNC(0x07B30790, app::Component_1*, AddComponentInternal, (GameObject* __this, app::String* className));
-DO_APP_FUNC(0x07A345F0, void, Object_1_DestroyImmediate_1, (app::Object_1* obj)); // 
+DO_APP_FUNC(0x07A345F0, void, Object_1_DestroyImmediate_1, (app::Object_1* obj));
 DO_APP_FUNC(0x07A25EE0, app::GameObject*, Component_1_get_gameObject, (app::Component_1* __this));
 DO_APP_FUNC(0x07A385A0, app::Transform*, Transform_GetChild, (app::Transform* __this, int32_t index));
 DO_APP_FUNC(0x07B30D10, bool, GameObject_get_active, (app::GameObject* __this));
@@ -72,12 +72,8 @@ DO_APP_FUNC(0x07A39A00, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEn
 DO_APP_FUNC(0x07A39AE0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
 DO_APP_FUNC(0x079E42A0, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
 DO_APP_FUNC(0x079E4280, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, app::CollisionDetectionMode__Enum value));
-/*
-0x3CB8210
-0x3CB93F0
-*/
-// not used :cry: 3.7 (check?) похуй
-DO_APP_FUNC(0x3CB8210, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
+// 48 89 5c 24 20 41 56 48 83 ec 40 48 8b 05 0e 01 0b 0a 48 8b da 4c 8b f1 4c 8b 40 68 49 8b 00 81
+DO_APP_FUNC(0x10EF960, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
 // 3.7 (check) снова похуй
 DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x016D3350, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
