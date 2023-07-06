@@ -70,8 +70,7 @@ static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageCo
 
 namespace il2fns {
     void DialogSkip() {
-        //static bool ifDialog = readBoolFuncStateFromJson("AutoTalk");
-        static bool ifDialog = false;
+        static bool ifDialog = readBoolFuncStateFromJson("AutoTalk");
         ifdia = ifDialog;
 
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifdiainit) {
