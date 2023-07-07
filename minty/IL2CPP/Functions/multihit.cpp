@@ -22,7 +22,7 @@ namespace il2fns {
 
 		ImGui::Checkbox("Multi-hit", &ifmh);
 		if (ifmh) {
-			ImGui::SliderInt("Number of htis", &quantityHit, 1, 50);
+			ImGui::SliderInt("Number of hits", &quantityHit, 1, 50);
 		}
 		ImGui::SameLine();
 		HelpMarker("Multi-hit.");
