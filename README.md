@@ -14,5 +14,5 @@ DISCLAIMER! We are not responsible for any actions you perform or recieve e.g. b
 
 ## Credits
 CREDITS go to the respective owners of such referenced or reused code. 
-- GILua, xluafix.lua - https://github.com/azzu0/GILua
+- [GILua, xluafix.lua](https://github.com/azzu0/GILua)
 
