@@ -14,4 +14,5 @@ namespace il2fns {
 	void ChestIndicator();
 	void CameraZoom();
 	void SetFov();
+	void SkipAnim();
 }

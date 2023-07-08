@@ -276,7 +276,7 @@ namespace Sections {
     void About() {
         ImGui::SeparatorText("About");
 
-        ImGui::Text("Minty version 1.30");
+        ImGui::Text("Minty version 1.32");
         ImGui::Text("ImGui version: %s", ImGui::GetVersion());
         ImGui::Text("Design made with love by KittyKate :3");
 
@@ -651,6 +651,8 @@ namespace Sections {
 
         il2fns::ChestIndicator();
 
+        il2fns::SkipAnim();
+
         ImGui::SeparatorText("Camera");
 
         il2fns::SetFov();
@@ -668,7 +670,6 @@ namespace Sections {
 
         // il2fns::CameraZoom(); ебаные китайцы вы нахуя поля опять перемешали мне че делать с ними пожалуйста засуньте их себе в жопу спасибо за понимание :kissing_heart:
 
-        
     }
 
     void Lua() {

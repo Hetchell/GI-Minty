@@ -9122,6 +9122,51 @@ typedef union Il2CppSingle_float
         struct BLDKFDKIPLL* _pageContext_k__BackingField;
     };
 
+    enum class MoleMole_Config_ItemType__Enum : int32_t {
+        ITEM_NONE = 0x00000000,
+        ITEM_VIRTUAL = 0x00000001,
+        ITEM_MATERIAL = 0x00000002,
+        ITEM_RELIQUARY = 0x00000003,
+        ITEM_WEAPON = 0x00000004,
+        ITEM_DISPLAY = 0x00000005,
+        ITEM_FURNITURE = 0x00000006,
+    };
+
+    struct MoleMole_BaseDialogContext__Fields {
+        struct BaseContext__Fields _;
+        bool attachToPage;
+        bool _autoCloseDialogOnBackEvent;
+        struct MoleMole_BasePageContext* _pageContext_k__BackingField;
+    };
+
+    struct MoleMole_BaseDialogContext {
+        struct MoleMole_BaseDialogContext__Class* klass;
+        MonitorData* monitor;
+        struct MoleMole_BaseDialogContext__Fields fields;
+    };
+
+    struct MoleMole_EquipLevelUpDialogContext__Fields {
+        struct MoleMole_BaseDialogContext__Fields _;
+        struct MonoEquipLevelUpDialog* _dialogMono; // 0x188
+        struct MoleMole_BagItem* _equip; // 0x190
+        struct MonoAvatarPropertyItem* _propertyItemPrefab; // 0x198
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList; // 0x1A0
+        struct List_1_MoleMole_PropertyChange_* _propertyChange; // 0x1A8
+        uint32_t _powerUpRate; // 0x1B0
+        uint32_t _currLevel; // 0x1B4
+        uint32_t _prevLevel; // 0x1B8
+        MoleMole_Config_ItemType__Enum _equipType; // 0x1BC
+        bool _canClose; // 0x1C0
+        uint32_t _propertyItemPrefabHandle; // 0x1C4
+        uint32_t _mainPropItemPrefabHandle; // 0x1C8
+    };
+
+    struct MoleMole_EquipLevelUpDialogContext {
+        struct MoleMole_EquipLevelUpDialogContext__Class* klass;
+        MonitorData* monitor;
+        struct MoleMole_EquipLevelUpDialogContext__Fields fields;
+    };
+
     struct TalkDialogContext__Fields {
         //struct BaseDialogContext__Fields _;
         //bool _inCoopSelect;

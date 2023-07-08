@@ -92,3 +92,15 @@ DO_APP_FUNC(0x0202E2A0, app::EntityType__Enum_1, get_entityType, (app::BaseEntit
 DO_APP_FUNC(0x03C2FB90, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
 DO_APP_FUNC(0x07AEB020, void, RenderSettings_set_fog, (bool value));
 DO_APP_FUNC(0x07AFE4E0, Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
+
+// Skip enhance animation
+DO_APP_FUNC(0x01627820, void, MoleMole_EquipLevelUpDialogContext_SetupView, (app::MoleMole_EquipLevelUpDialogContext* __this));
+DO_APP_FUNC(0x01626E70, void, MoleMole_EquipLevelUpDialogContext_ShowReturnedMaterialAndCloseDialog, (/*MoleMole_EquipLevelUpDialogContext*/ void* __this));
+DO_APP_FUNC(0x041093A0, void, MoleMole_EquipOverviewPageContext_PlayExpAddAnimation, (/*MoleMole_EquipOverviewPageContext*/ void* __this, float startPer, float endPer, /*Action*/ void* callback));
+DO_APP_FUNC(0x042CE9A0, void, MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow, (/*MoleMole_EquipOverviewPageContext*/ void* __this, /*Action*/ void* refreshViewAction));
+
+/*
+0x061CFA60
+0x077BB610
+*/
+DO_APP_FUNC(0x061CFA60, void, Action_Invoke, (/*Action*/ void* __this));
