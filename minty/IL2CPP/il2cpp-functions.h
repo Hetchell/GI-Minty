@@ -1,6 +1,7 @@
 #include "il2cpp-types.h"
 using namespace app;
 
+DO_APP_FUNC(0x060613D0, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this)); // no sprint cd
 DO_APP_FUNC(0x01E6D2E0, void*, MoleMole__ActorUtils__ShowMessage, (void* message));
 DO_APP_FUNC(0x00CABB60, void*, MoleMole__DoSitOnChair, ());
 DO_APP_FUNC(0x01E68E30, app::Vector3, MoleMole__ActorUtils__GetAvatarPos, ());
@@ -74,7 +75,7 @@ DO_APP_FUNC(0x079E42A0, void, Rigidbody_set_detectCollisions, (app::Rigidbody* _
 DO_APP_FUNC(0x079E4280, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, app::CollisionDetectionMode__Enum value));
 // 48 89 5c 24 20 41 56 48 83 ec 40 48 8b 05 0e 01 0b 0a 48 8b da 4c 8b f1 4c 8b 40 68 49 8b 00 81
 DO_APP_FUNC(0x10EF960, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
-// 3.7 (check) ÒÌÓ‚‡ ÔÓıÛÈ
+// 3.7 (check) √±√≠√Æ√¢√† √Ø√Æ√µ√≥√©
 DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x016D3350, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
 DO_APP_FUNC(0x07A393B0, void, Transform_Translate, (app::Transform* __this, app::Vector3));
