@@ -17,6 +17,7 @@
 #include "../IL2CPP/Functions/uimisc.h"
 #include "../IL2CPP/Functions/unlockfps.h"
 #include "../IL2CPP/Functions/multihit.h"
+#include "../IL2CPP/Functions/nosprintcd.h"
 
 #include "../Lua/function.h"
 #include "../Utils/GuiUtils.hpp"
@@ -66,6 +67,8 @@ namespace Sections {
         ImGui::SeparatorText("Avatar");
 
         il2fns::Infinity_Stamina();
+
+        il2fns::NoSprintCD();
 
         il2fns::GodMode();
 
