@@ -73,7 +73,64 @@ void MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow_Hook(/*MoleMole_Eq
     CALL_ORIGIN(MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow_Hook, __this, refreshViewAction);
 }
 
+static bool ifoti;
+static bool ifinitoti;
+void* InLevelPlayerProfilePageContext;
+
+static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_Hook(app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this)
+{
+    if (ifoti && !InLevelPlayerProfilePageContext)
+    {
+        __this->fields._levelMainPageContext->fields._countDownTime = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
+    }
+    return CALL_ORIGIN(MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_Hook, __this);
+}
+
+static void MoleMole_InLevelPlayerProfilePageContext_SetupView_Hook(void* __this)
+{
+    InLevelPlayerProfilePageContext = __this;
+    CALL_ORIGIN(MoleMole_InLevelPlayerProfilePageContext_SetupView_Hook, __this);
+}
+
+static void MoleMole_InLevelPlayerProfilePageContext_ClearView_Hook(void* __this)
+{
+    CALL_ORIGIN(MoleMole_InLevelPlayerProfilePageContext_ClearView_Hook, __this);
+    InLevelPlayerProfilePageContext = nullptr;
+}
+
 namespace il2fns {
+    void OpenTeamImm() {
+        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinitoti) {
+            HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_Hook);
+            HookManager::install(app::MoleMole_InLevelPlayerProfilePageContext_ClearView, MoleMole_InLevelPlayerProfilePageContext_ClearView_Hook);
+            HookManager::install(app::MoleMole_InLevelPlayerProfilePageContext_SetupView, MoleMole_InLevelPlayerProfilePageContext_SetupView_Hook);
+            ifinitoti = true;
+        }
+
+        if (ImGui::Checkbox("OTI", &ifoti)) {
+            //saveFuncStateToJson("NoCD", ifzoom);
+        }
+        ImGui::SameLine();
+        HelpMarker("OTI.");
+
+        /*
+        if (value) {
+            if (ifoti) {
+                HookManager::detach(MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff);
+                ifoti = false;
+            }
+            HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, 
+            MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOn);
+        }
+        else {
+            HookManager::detach(LevelSceneElementViewPlugin_Tick_Hook);
+            HookManager::install(app::MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, 
+            MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_HookOff);
+            ifoti = true;
+        }
+        */
+    }
+
     void SkipAnim() {
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinitskipanim) {
             HookManager::install(app::MoleMole_EquipLevelUpDialogContext_SetupView, MoleMole_EquipLevelUpDialogContext_SetupView_Hook);

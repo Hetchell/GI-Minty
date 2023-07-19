@@ -666,10 +666,7 @@ namespace Sections {
         //    il2fns::ElemSight(ifElem);
         //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
 
-        /* static bool ifOTI = false;
-        if (ImGui::Checkbox("Open team immediately", &ifOTI)) {
-            il2fns::OpenTeamImm(ifOTI);
-        }*/
+        // il2fns::OpenTeamImm(); wait upgrade dumper =)
 
         // il2fns::CameraZoom(); ебаные китайцы вы нахуя поля опять перемешали мне че делать с ними пожалуйста засуньте их себе в жопу спасибо за понимание :kissing_heart:
 

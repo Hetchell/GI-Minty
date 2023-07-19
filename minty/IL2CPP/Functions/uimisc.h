@@ -15,4 +15,5 @@ namespace il2fns {
 	void CameraZoom();
 	void SetFov();
 	void SkipAnim();
+	void OpenTeamImm();
 }
