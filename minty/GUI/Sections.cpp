@@ -287,7 +287,7 @@ namespace Sections {
 
         ImGui::TextColored(ImVec4(235.0 / 255.0, 64.0 / 255.0, 52.0 / 255.0, 1.0), "Owner: MintyGingy");
         ImGui::TextColored(ImVec4(219.0 / 255.0, 57.0 / 255.0, 219.0 / 255.0, 1.0), "Co-founder: Moistcrafter");
-        ImGui::TextColored(ImVec4(57.0 / 255.0, 68.0 / 255.0, 219.0 / 255.0, 1.0), "Contributors: EtoShinya, KittyKate, lilmayofuksu, USSY, akioukun, m3gan");
+        ImGui::TextColored(ImVec4(57.0 / 255.0, 68.0 / 255.0, 219.0 / 255.0, 1.0), "Contributors: EtoShinya, KittyKate, lilmayofuksu, USSY, akioukun, sad_akulka");
         ImGui::TextColored(ImVec4(255, 0, 212, 255), "Donaters: EtoShinya <3 <3, Thomas_Heath, Blair, unmeinoshonen, USSY");
         ImGui::TextColored(ImVec4(0, 255, 179, 255), "Special thanks to family: Futchev, yarik0chka, keitaro_gg");
 
