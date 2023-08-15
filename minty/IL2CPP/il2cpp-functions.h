@@ -1,112 +1,117 @@
 #include "il2cpp-types.h"
 using namespace app;
 
-DO_APP_FUNC(0x060613D0, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this)); // no sprint cd
-DO_APP_FUNC(0x01E6D2E0, void*, MoleMole__ActorUtils__ShowMessage, (void* message));
-DO_APP_FUNC(0x00CABB60, void*, MoleMole__DoSitOnChair, ());
-DO_APP_FUNC(0x01E68E30, app::Vector3, MoleMole__ActorUtils__GetAvatarPos, ());
-DO_APP_FUNC(0x07B32DC0, void*, UnityEngine__set__Timescale, (float time));
-DO_APP_FUNC(0x07AFEA70, bool*, UnityEngine__Application__get__isFocused, ());
-DO_APP_FUNC(0x07AFEF60, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
-DO_APP_FUNC(0x07B3B010, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
-DO_APP_FUNC(0x07A387A0, void*, UnityEngine__Transform__set__localScale, (app::Transform* transformComponent, app::Vector3 vectorScale));
-DO_APP_FUNC(0x07B30DC0, app::Transform*, UnityEngine__Component__get__Transform, (app::GameObject* object));
-DO_APP_FUNC(0x07B30840, app::GameObject*, UnityEngine__GameObject__Find, (app::String* nameFind));
-DO_APP_FUNC(0x07B30BE0, void, UnityEngine__GameObject__SetActive, (app::GameObject* object, bool value));
-DO_APP_FUNC(0x02C52B40, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
-DO_APP_FUNC(0x02C50250, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
-DO_APP_FUNC(0x0327B430, float, MoleMole_SafeFloat_get_Value, (SafeFloat safeFloat)); //found with op implicit 
-DO_APP_FUNC(0x0327B370, SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloat)); // same 
-DO_APP_FUNC(0x02C4FB80, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
-DO_APP_FUNC(0x07B30850, app::Component_1*, UnityEngine_GameObject_GetComponent, (app::GameObject* __this, void* type));
-DO_APP_FUNC(0x07B16AA0, void, UnityEngine_Text_setText, (app::Text* __this, void* value)); // set_text
-DO_APP_FUNC(0x06D19EF0, void, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, (MoleMole_VCBaseSetDitherValue* __this, float value));
-DO_APP_FUNC(0x025BCD20, void, MoleMole_DataItem_HandleNormalProp, (DataItem* __this, uint32_t type, int64_t value, DataPropOp__Enum state));
-DO_APP_FUNC(0x07A385A0, app::Transform*, UnityEngine_Transform_GetChild, (Transform* __this, int32_t index));
-DO_APP_FUNC(0x07A38590, int32_t, UnityEngine_Transform_GetChildCount, (Transform* __this));
-DO_APP_FUNC(0x0115D300, void, VCHumanoidMove_NotifyLandVelocity, (VCHumanoidMove* __this, Vector3 velocity, float reachMaxDownVelocityTime));
-DO_APP_FUNC(0x03871680, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (ActorAbilityPlugin* __this, float delay, Object* arg));
-DO_APP_FUNC(0x07B30D10, bool, UnityEngine_GameObject_get_active, (app::GameObject* __this));
-DO_APP_FUNC(0x07B30810, app::GameObject*, UnityEngine_GameObject_CreatePrimitive, (app::PrimitiveType__Enum type));
-DO_APP_FUNC(0x05C1CF90, app::Vector3, GetRelativePosition, (app::Vector3 __this)); // 0x05C1D0C0
-DO_APP_FUNC(0x07A38790, void, set_localPosition, (app::Transform* __this, app::Vector3 value));
-DO_APP_FUNC(0x07A387A0, void, set_localScale, (app::Transform* __this, app::Vector3 value));
-DO_APP_FUNC(0x07A39D10, void, set_localRotation, (app::Transform* __this, app::Quaternion value));
-DO_APP_FUNC(0x07B30790, app::Component_1*, AddComponentInternal, (GameObject* __this, app::String* className));
-DO_APP_FUNC(0x07A345F0, void, Object_1_DestroyImmediate_1, (app::Object_1* obj));
-DO_APP_FUNC(0x07A25EE0, app::GameObject*, Component_1_get_gameObject, (app::Component_1* __this));
-DO_APP_FUNC(0x07A385A0, app::Transform*, Transform_GetChild, (app::Transform* __this, int32_t index));
-DO_APP_FUNC(0x07B30D10, bool, GameObject_get_active, (app::GameObject* __this));
-DO_APP_FUNC(0x07A399B0, app::Transform*, Transform_get_parent, (app::Transform* __this));
-DO_APP_FUNC(0x07A398C0, app::Vector3, Transform_get_localScale, (app::Transform* __this));
-DO_APP_FUNC(0x07A34D60, app::String*, Object_1_get_name, (app::Object_1* __this));
-DO_APP_FUNC(0x07A39A90, app::Quaternion, Transform_get_rotation, (app::Transform* __this));
-DO_APP_FUNC(0x07A399C0, app::Vector3, Transform_get_position, (app::Transform* __this));
-DO_APP_FUNC(0x07A39D30, void, Transform_set_parent, (app::Transform* __this, app::Transform* value));
-DO_APP_FUNC(0x07A39E00, void, Transform_set_rotation, (app::Transform* __this, app::Quaternion value));
-DO_APP_FUNC(0x07A387B0, void, Transform_set_position, (app::Transform* __this, app::Vector3 value));
-DO_APP_FUNC(0x07B30CC0, void, GameObject__ctor, (app::GameObject* __this, void* name));
-DO_APP_FUNC(0x07A60280, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
-DO_APP_FUNC(0x01161080, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
-DO_APP_FUNC(0x02761080, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
-DO_APP_FUNC(0x00DC87D0, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
-DO_APP_FUNC(0x03B6EDB0, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this));
-DO_APP_FUNC(0x03B70770, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this));
-DO_APP_FUNC(0x03B6F550, void, MoleMole_LCIndicatorPlugin_HideIcon, (app::LCIndicatorPlugin* __this));
-DO_APP_FUNC(0x039CFDF0, void, MoleMole_InLevelCutScenePageContext_UpdateView, (app::InLevelCutScenePageContext* __this));
-DO_APP_FUNC(0x039CC4E0, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
-DO_APP_FUNC(0x032D4E50, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
-DO_APP_FUNC(0x032D4D10, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
-DO_APP_FUNC(0x039CDE70, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
+// no sprint cd
+DO_APP_FUNC(0x02E65370, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
+DO_APP_FUNC(0x02D2AFE0, void*, MoleMole__ActorUtils__ShowMessage, (void* message));
+DO_APP_FUNC(0x02D1FF00, void*, MoleMole__DoSitOnChair, ());
+DO_APP_FUNC(0x02D17590, app::Vector3, MoleMole__ActorUtils__GetAvatarPos, ());
+DO_APP_FUNC(0x081B14A0, void*, UnityEngine__set__Timescale, (float time));
+DO_APP_FUNC(0x0818D960, bool*, UnityEngine__Application__get__isFocused, ());
+DO_APP_FUNC(0x0818D680, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
+DO_APP_FUNC(0x081D96A0, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
+DO_APP_FUNC(0x080BF900, void*, UnityEngine__Transform__set__localScale, (app::Transform* transformComponent, app::Vector3 vectorScale));
+DO_APP_FUNC(0x081AF240, app::Transform*, UnityEngine__Component__get__Transform, (app::GameObject* object));
+DO_APP_FUNC(0x081AF280, app::GameObject*, UnityEngine__GameObject__Find, (app::String* nameFind));
+DO_APP_FUNC(0x081AF120, void, UnityEngine__GameObject__SetActive, (app::GameObject* object, bool value));
+DO_APP_FUNC(0x017D01C0, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
+DO_APP_FUNC(0x017CC000, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
+DO_APP_FUNC(0x034D3980, float, MoleMole_SafeFloat_get_Value, (SafeFloat safeFloat));
+DO_APP_FUNC(0x034D3AB0, SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloat));
+DO_APP_FUNC(0x017D46E0, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
+DO_APP_FUNC(0x081AECA0, app::Component_1*, UnityEngine_GameObject_GetComponent, (app::GameObject* __this, void* type));
+// set_text
+DO_APP_FUNC(0x081BB7F0, void, UnityEngine_Text_setText, (app::Text* __this, void* value));
+DO_APP_FUNC(0x02094C40, void, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, (MoleMole_VCBaseSetDitherValue* __this, float value));
+// wtf, need update args xd
+DO_APP_FUNC(0x02242400, void, MoleMole_DataItem_HandleNormalProp, (DataItem* __this, uint32_t type, int64_t value, DataPropOp__Enum state));
+DO_APP_FUNC(0x080BF390, app::Transform*, UnityEngine_Transform_GetChild, (Transform* __this, int32_t index));
+DO_APP_FUNC(0x080BF880, int32_t, UnityEngine_Transform_GetChildCount, (Transform* __this));
+DO_APP_FUNC(0x026C69B0, void, VCHumanoidMove_NotifyLandVelocity, (VCHumanoidMove* __this, Vector3 velocity, float reachMaxDownVelocityTime));
+DO_APP_FUNC(0x03FD4340, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (ActorAbilityPlugin* __this, float delay, Object* arg));
+DO_APP_FUNC(0x081AF010, bool, UnityEngine_GameObject_get_active, (app::GameObject* __this));
+DO_APP_FUNC(0x081AF030, app::GameObject*, UnityEngine_GameObject_CreatePrimitive, (app::PrimitiveType__Enum type));
+// 0x06D09730
+DO_APP_FUNC(0x06D095E0, app::Vector3, GetRelativePosition, (app::Vector3 __this));
+DO_APP_FUNC(0x080BF8E0, void, set_localPosition, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x080BF900, void, set_localScale, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x080BF8F0, void, set_localRotation, (app::Transform* __this, app::Quaternion value));
+DO_APP_FUNC(0x081AEF70, app::Component_1*, AddComponentInternal, (GameObject* __this, app::String* className));
+DO_APP_FUNC(0x080BA410, void, Object_1_DestroyImmediate_1, (app::Object_1* obj));
+DO_APP_FUNC(0x080B0AB0, app::GameObject*, Component_1_get_gameObject, (app::Component_1* __this));
+DO_APP_FUNC(0x080BF390, app::Transform*, Transform_GetChild, (app::Transform* __this, int32_t index));
+DO_APP_FUNC(0x081AF010, bool, GameObject_get_active, (app::GameObject* __this));
+DO_APP_FUNC(0x080BF580, app::Transform*, Transform_get_parent, (app::Transform* __this));
+DO_APP_FUNC(0x080BE330, app::Vector3, Transform_get_localScale, (app::Transform* __this));
+DO_APP_FUNC(0x080BA230, app::String*, Object_1_get_name, (app::Object_1* __this));
+DO_APP_FUNC(0x080BE370, app::Quaternion, Transform_get_rotation, (app::Transform* __this));
+DO_APP_FUNC(0x080BE360, app::Vector3, Transform_get_position, (app::Transform* __this));
+DO_APP_FUNC(0x080BF910, void, Transform_set_parent, (app::Transform* __this, app::Transform* value));
+DO_APP_FUNC(0x080BF9F0, void, Transform_set_rotation, (app::Transform* __this, app::Quaternion value));
+DO_APP_FUNC(0x080BE390, void, Transform_set_position, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x081AF050, void, GameObject__ctor, (app::GameObject* __this, void* name));
+DO_APP_FUNC(0x080EE940, void, Camera_set_fieldOfView, (app::Camera* __this, float value));
+DO_APP_FUNC(0x026C8D30, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
+DO_APP_FUNC(0xEF7EB5B0, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
+DO_APP_FUNC(0x01B06350, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
+DO_APP_FUNC(0x03199A80, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this));
+DO_APP_FUNC(0x03197C80, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this));
+DO_APP_FUNC(0x031993D0, void, MoleMole_LCIndicatorPlugin_HideIcon, (app::LCIndicatorPlugin* __this));
+DO_APP_FUNC(0x0407C6B0, void, MoleMole_InLevelCutScenePageContext_UpdateView, (app::InLevelCutScenePageContext* __this));
+DO_APP_FUNC(0x0407A750, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
+DO_APP_FUNC(0x04636CD0, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
+DO_APP_FUNC(0x04636280, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
+DO_APP_FUNC(0x04079C40, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
 
 // No Clip
-DO_APP_FUNC(0x0605DEF0, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
-//DO_APP_FUNC(0x00D4D2D0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
-DO_APP_FUNC(0x07B246F0, float, Vector3_Distance, (app::Vector3 pos1, app::Vector3 pos2));
-DO_APP_FUNC(0x079E4320, void, Rigidbody_set_position, (app::Rigidbody* __this, app::Vector3 value));
-DO_APP_FUNC(0x079E3FA0, void, Rigidbody_MovePosition, (app::Rigidbody* __this, app::Vector3 value));
-DO_APP_FUNC(0x079E4350, void, Rigidbody_set_velocity, (app::Rigidbody* __this, app::Vector3 value));
-DO_APP_FUNC(0x07B32C30, float, Time_get_deltaTime, ());
-DO_APP_FUNC(0x079E4150, app::Vector3, Rigidbody_get_position, (app::Rigidbody* __this));
-DO_APP_FUNC(0x07A39730, app::Vector3, MoleMole_BaseEntity_GetForward, (app::BaseEntity* __this));
-DO_APP_FUNC(0x07A39A00, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEntity* __this));
-DO_APP_FUNC(0x07A39AE0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
-DO_APP_FUNC(0x079E42A0, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
-DO_APP_FUNC(0x079E4280, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, app::CollisionDetectionMode__Enum value));
-// 48 89 5c 24 20 41 56 48 83 ec 40 48 8b 05 0e 01 0b 0a 48 8b da 4c 8b f1 4c 8b 40 68 49 8b 00 81
+DO_APP_FUNC(0x02E5B050, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
+DO_APP_FUNC(0x081A9180, float, Vector3_Distance, (app::Vector3 pos1, app::Vector3 pos2));
+DO_APP_FUNC(0x080320B0, void, Rigidbody_set_position, (app::Rigidbody* __this, app::Vector3 value));
+DO_APP_FUNC(0x08032000, void, Rigidbody_MovePosition, (app::Rigidbody* __this, app::Vector3 value));
+DO_APP_FUNC(0x08032390, void, Rigidbody_set_velocity, (app::Rigidbody* __this, app::Vector3 value));
+DO_APP_FUNC(0x081B1510, float, Time_get_deltaTime, ());
+DO_APP_FUNC(0x08032050, app::Vector3, Rigidbody_get_position, (app::Rigidbody* __this));
+DO_APP_FUNC(0x080BF660, app::Vector3, MoleMole_BaseEntity_GetForward, (app::BaseEntity* __this));
+DO_APP_FUNC(0x080BF6B0, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEntity* __this));
+DO_APP_FUNC(0x080BF300, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
+DO_APP_FUNC(0x080320B0, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
+DO_APP_FUNC(0x08031F90, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, app::CollisionDetectionMode__Enum value));
+// idk, lmao, ahah, xddd
 DO_APP_FUNC(0x10EF960, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
 DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
-DO_APP_FUNC(0x016D3350, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
-DO_APP_FUNC(0x07A393B0, void, Transform_Translate, (app::Transform* __this, app::Vector3));
-// very old? not used?
+DO_APP_FUNC(0x0461E4C0, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
+DO_APP_FUNC(0x080BEFB0, void, Transform_Translate, (app::Transform* __this, app::Vector3));
+// very old? not used? yeap xdd
 DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
-DO_APP_FUNC(0x01DF9D70, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
-DO_APP_FUNC(0x07410B70, String*, Marshal_PtrToStringAnsi, (void* ptr));
-DO_APP_FUNC(0x0237B090, BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
-DO_APP_FUNC(0x2191C0, void*, Singleton_GetInstance, (app::MethodInfo* method)); //idr
-DO_APP_FUNC(0x0458A7F0, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* attackerEntity, app::BaseEntity* targetEntity, bool idk));
+DO_APP_FUNC(0x03FDB3D0, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
+DO_APP_FUNC(0x07B15200, String*, Marshal_PtrToStringAnsi, (void* ptr));
+DO_APP_FUNC(0x0475FA50, BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
+//idr
+DO_APP_FUNC(0x2191C0, void*, Singleton_GetInstance, (app::MethodInfo* method));
+DO_APP_FUNC(0x0484ED30, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* attackerEntity, app::BaseEntity* targetEntity, bool idk));
 
-DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo); // - not yet
+// - not yet
+DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo);
 
-DO_APP_FUNC(0x0202E2A0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
-DO_APP_FUNC(0x03C2FB90, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
-DO_APP_FUNC(0x07AEB020, void, RenderSettings_set_fog, (bool value));
-DO_APP_FUNC(0x07AFE4E0, Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
+DO_APP_FUNC(0x0701B730, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
+DO_APP_FUNC(0x038BD390, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
+DO_APP_FUNC(0x0816C090, void, RenderSettings_set_fog, (bool value));
+DO_APP_FUNC(0x0818D2E0, Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
 
 // Skip enhance animation
-DO_APP_FUNC(0x01627820, void, MoleMole_EquipLevelUpDialogContext_SetupView, (app::MoleMole_EquipLevelUpDialogContext* __this));
-DO_APP_FUNC(0x01626E70, void, MoleMole_EquipLevelUpDialogContext_ShowReturnedMaterialAndCloseDialog, (/*MoleMole_EquipLevelUpDialogContext*/ void* __this));
-DO_APP_FUNC(0x041093A0, void, MoleMole_EquipOverviewPageContext_PlayExpAddAnimation, (/*MoleMole_EquipOverviewPageContext*/ void* __this, float startPer, float endPer, /*Action*/ void* callback));
-DO_APP_FUNC(0x042CE9A0, void, MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow, (/*MoleMole_EquipOverviewPageContext*/ void* __this, /*Action*/ void* refreshViewAction));
+DO_APP_FUNC(0x0320F780, void, MoleMole_EquipLevelUpDialogContext_SetupView, (app::MoleMole_EquipLevelUpDialogContext* __this));
+DO_APP_FUNC(0x0320F590, void, MoleMole_EquipLevelUpDialogContext_ShowReturnedMaterialAndCloseDialog, (/*MoleMole_EquipLevelUpDialogContext*/ void* __this));
+DO_APP_FUNC(0x03265A90, void, MoleMole_EquipOverviewPageContext_PlayExpAddAnimation, (/*MoleMole_EquipOverviewPageContext*/ void* __this, float startPer, float endPer, /*Action*/ void* callback));
+DO_APP_FUNC(0x0480B360, void, MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow, (/*MoleMole_EquipOverviewPageContext*/ void* __this, /*Action*/ void* refreshViewAction));
 
-DO_APP_FUNC(0x061CFA60, void, Action_Invoke, (/*Action*/ void* __this));
+DO_APP_FUNC(0x07B914E0, void, Action_Invoke, (/*Action*/ void* __this));
 
 // Teleport hooks
-DO_APP_FUNC(0x00D4D2D0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
+DO_APP_FUNC(0x00F9B100, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
 
 // Open team immediately
-DO_APP_FUNC(0x019E8200, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
-DO_APP_FUNC(0x01729240, void, MoleMole_InLevelPlayerProfilePageContext_SetupView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
-DO_APP_FUNC(0x01722490, void, MoleMole_InLevelPlayerProfilePageContext_ClearView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
+DO_APP_FUNC(0x02B963D0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
+DO_APP_FUNC(0x0131DF00, void, MoleMole_InLevelPlayerProfilePageContext_SetupView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
+DO_APP_FUNC(0x0131BB50, void, MoleMole_InLevelPlayerProfilePageContext_ClearView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
 
-DO_APP_FUNC(0x01D7BB30, void, MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, (LevelSyncCombatPlugin* __this, uint32_t entityId, MotionInfo* syncInfo, bool isReliable, uint32_t HAOCOEMOMBG));
+DO_APP_FUNC(0x03D27C70, void, MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, (LevelSyncCombatPlugin* __this, uint32_t entityId, MotionInfo* syncInfo, bool isReliable, uint32_t HAOCOEMOMBG));
