@@ -346,9 +346,43 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size)
 	return ret;
 }
 
+void DisableLogReport()
+{
+	char szProcessPath[MAX_PATH]{};
+	GetModuleFileNameA(nullptr, szProcessPath, MAX_PATH);
+
+	auto path = std::filesystem::path(szProcessPath);
+	auto ProcessName = path.filename().string();
+	ProcessName = ProcessName.substr(0, ProcessName.find_last_of('.'));
+
+	auto Astrolabe = path.parent_path() / (ProcessName + "_Data\\Plugins\\Astrolabe.dll");
+	auto MiHoYoMTRSDK = path.parent_path() / (ProcessName + "_Data\\Plugins\\MiHoYoMTRSDK.dll");
+	auto Telemetry = path.parent_path() / (ProcessName + "_Data\\Plugins\\Telemetry.dll");
+
+	// open exclusive access to these two dlls
+	// so they cannot be loaded
+	auto h1 = CreateFileA(Astrolabe.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	auto h2 = CreateFileA(MiHoYoMTRSDK.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	auto h3 = CreateFileA(Telemetry.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+	/*
+	auto t = thread([](HANDLE h1, HANDLE h2, HANDLE h3) -> void
+		{
+			this_thread::sleep_for(chrono::seconds(60));
+			CloseHandle(h1);
+			CloseHandle(h2);
+			CloseHandle(h3);
+		}, h1, h2, h3);
+	t.detach();
+	*/
+
+	return;
+}
+
 void ProtectionBypass::Init()
 {
-	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+	// need update
+	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 	for (int i = 0; i < 4; i++) {
 		//app::Unity_RecordUserData(i);
 		//std::string cscscs = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
@@ -364,7 +398,8 @@ void ProtectionBypass::Init()
 		util::log(M_Error, "Failed to close mhyprot anticheat. Please report this issue in our Discord server.");
 	}
 
-
+	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
+	DisableLogReport();
 	util::log(M_Info, "Initialized protection bypass");
 	//util::log(M_Info, "sleeping");
 	//Sleep(20000);

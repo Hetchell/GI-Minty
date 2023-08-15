@@ -165,6 +165,7 @@
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
+    <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\GuiUtils.cpp" />
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="IL2CPP\Functions\multihit.h" />
     <ClInclude Include="IL2CPP\Functions\nocd.h" />
     <ClInclude Include="IL2CPP\Functions\noclip.h" />
+    <ClInclude Include="IL2CPP\Functions\nosprintcd.h" />
     <ClInclude Include="IL2CPP\Functions\uimisc.h" />
     <ClInclude Include="IL2CPP\Functions\unlockfps.h" />
     <ClInclude Include="IL2CPP\HookManager.h">

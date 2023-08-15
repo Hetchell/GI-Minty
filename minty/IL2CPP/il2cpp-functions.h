@@ -77,26 +77,27 @@ DO_APP_FUNC(0x080BF300, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntit
 DO_APP_FUNC(0x080320B0, void, Rigidbody_set_detectCollisions, (app::Rigidbody* __this, bool value));
 DO_APP_FUNC(0x08031F90, void, Rigidbody_set_collisionDetectionMode, (app::Rigidbody* __this, app::CollisionDetectionMode__Enum value));
 // idk, lmao, ahah, xddd
-DO_APP_FUNC(0x10EF960, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, Notify* notify));
-DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
-DO_APP_FUNC(0x0461E4C0, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data));
+DO_APP_FUNC(0x10EF960, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, app::Notify* notify));
+// duplicate
+//DO_APP_FUNC(0x30FD0B0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
+DO_APP_FUNC(0x0461E4C0, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data));
 DO_APP_FUNC(0x080BEFB0, void, Transform_Translate, (app::Transform* __this, app::Vector3));
 // very old? not used? yeap xdd
 DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
 DO_APP_FUNC(0x03FDB3D0, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
-DO_APP_FUNC(0x07B15200, String*, Marshal_PtrToStringAnsi, (void* ptr));
-DO_APP_FUNC(0x0475FA50, BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
+DO_APP_FUNC(0x07B15200, app::String*, Marshal_PtrToStringAnsi, (void* ptr));
+DO_APP_FUNC(0x0475FA50, app::BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
 //idr
 DO_APP_FUNC(0x2191C0, void*, Singleton_GetInstance, (app::MethodInfo* method));
 DO_APP_FUNC(0x0484ED30, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* attackerEntity, app::BaseEntity* targetEntity, bool idk));
 
 // - not yet
-DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo);
+//DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo);
 
 DO_APP_FUNC(0x0701B730, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
 DO_APP_FUNC(0x038BD390, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
 DO_APP_FUNC(0x0816C090, void, RenderSettings_set_fog, (bool value));
-DO_APP_FUNC(0x0818D2E0, Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
+DO_APP_FUNC(0x0818D2E0, app::Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
 
 // Skip enhance animation
 DO_APP_FUNC(0x0320F780, void, MoleMole_EquipLevelUpDialogContext_SetupView, (app::MoleMole_EquipLevelUpDialogContext* __this));
@@ -110,8 +111,8 @@ DO_APP_FUNC(0x07B914E0, void, Action_Invoke, (/*Action*/ void* __this));
 DO_APP_FUNC(0x00F9B100, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
 
 // Open team immediately
-DO_APP_FUNC(0x02B963D0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
+DO_APP_FUNC(0x02B963D0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x0131DF00, void, MoleMole_InLevelPlayerProfilePageContext_SetupView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
 DO_APP_FUNC(0x0131BB50, void, MoleMole_InLevelPlayerProfilePageContext_ClearView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
 
-DO_APP_FUNC(0x03D27C70, void, MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, (LevelSyncCombatPlugin* __this, uint32_t entityId, MotionInfo* syncInfo, bool isReliable, uint32_t HAOCOEMOMBG));
+DO_APP_FUNC(0x03D27C70, void, MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, (app::LevelSyncCombatPlugin* __this, uint32_t entityId, app::MotionInfo* syncInfo, bool isReliable, uint32_t HAOCOEMOMBG));

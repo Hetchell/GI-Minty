@@ -80,6 +80,7 @@
     <ClCompile Include="Games\minesweeper.cpp" />
     <ClCompile Include="Games\lightsout.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
+    <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
     <ClInclude Include="Games\wordle.hpp" />
+    <ClInclude Include="IL2CPP\Functions\nosprintcd.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
