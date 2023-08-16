@@ -26,16 +26,13 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
     app::UnityEngine__set__Timescale(value);
     app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
 
-    
-    //util::log(M_Info, "_inSelect: %d", talkDialog->fields.KELIKDHPJPK);
-    //util::log(M_Info, "_inSelect2: %d", talkDialog->fields.BJFNLKBLMJO);
+    /*
+    util::log(M_Info, "_inSelect3: %d", talkDialog->fields.NHPGOHOAFKC);
 
-    //util::log(M_Info, "_inSelect5: %d", talkDialog->fields.MDICEHFCDFM);
-    //util::log(M_Info, "_inSelect6: %d", talkDialog->fields.FJKAFOLGACJ);
-    //util::log(M_Info, "_inSelect7: %d", talkDialog->fields.NGGEFKMIFEK);
-    //util::log(M_Info, "_inSelect8: %d", talkDialog->fields.AGLHKBMMPIL);
+    util::log(M_Info, "_inSelect5: %d", talkDialog->fields.MDICEHFCDFM);
+    util::log(M_Info, "_inSelect11: %d", talkDialog->fields.FNOGAGEDMPP);
     
-    /*if (talkDialog->fields._inSelect/* && f_AutoSelectDialog->enabled() && !isImportantAAA)
+    if (talkDialog->fields.MDICEHFCDFM/* && f_AutoSelectDialog->enabled() && !isImportantAAA)
     {
         int32_t value = 0;
         auto object = il2cpp_value_box((app::Il2CppClass*)*app::Int32__TypeInfo, &value);
@@ -44,8 +41,8 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
         notify.body = (app::Object*)object;
         app::MoleMole_TalkDialogContext_OnDialogSelectItem(talkDialog, &notify);
     }
-    else if (!talkDialog->fields._inSelect)
-        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);*/
+    else if (!talkDialog->fields.MDICEHFCDFM)
+        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context); */
 }
 
 static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)

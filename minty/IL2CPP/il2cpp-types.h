@@ -9183,7 +9183,7 @@ typedef union Il2CppSingle_float
 
     struct TalkDialogContext__Fields {
         struct BaseDialogContext__Fields _;
-        uint64_t LDPHFHDPLIN; // 0x6E40
+        //uint64_t LDPHFHDPLIN; // 0x6E40
         struct DialogAction* FHJKIMOJMNJ; // 0x0198
         struct Action* KCMDHBKICHL; // 0x01A0
         struct Coroutine* PKCELOIKBBP; // 0x01A8
@@ -12587,8 +12587,8 @@ typedef union Il2CppSingle_float
 
 #define IS_SINGLETON_LOADED(className) (/**app::Singleton_1_## className ##___TypeInfo != nullptr &&*/ *app::Singleton_1_ ## className ## __get_Instance__MethodInfo != nullptr)
 #define GET_SINGLETON(tpname) IS_SINGLETON_LOADED(tpname) ? reinterpret_cast<app:: ## tpname ## *>(app::Singleton_GetInstance(*app::Singleton_1_ ## tpname ## __get_Instance__MethodInfo)) : nullptr
-    // 48 89 5c 24 08 57 48 83 ec 20 48 8b 01 48 8b d9 48 89 02 48 8b fa 48 8b 15 6b 5a f4 0a b9 03 00
-    DO_TYPEDEF(0xB18DBB8, Int32);
+    // 18025B080
+    DO_TYPEDEF(0xAB55B98, Int32);
     // 48 89 5c 24 08 57 48 83 ec 20 48 8b 01 48 8b d9 48 89 02 48 8b fa 48 8b 15 b3 23 f7 0a b9 10 00
-    DO_TYPEDEF(0xB18DCB0, Byte);
+    //DO_TYPEDEF(0xB18DCB0, Byte);
 #endif // IL2CPP_TYPES_H
