@@ -40,6 +40,10 @@ bool ShouldShowLevelUpDialog(app::MoleMole_EquipLevelUpDialogContext* dialog)
 {
     if (ifshowlevelup)
     {
+        util::log(M_Info, "DEBUG:");
+        util::log(M_Info, "_equipType: %s", dialog->fields._equipType);
+        util::log(M_Info, "_prevLevel: %s", dialog->fields._prevLevel);
+        util::log(M_Info, "_currLevel: %s", dialog->fields._currLevel);
         if (dialog->fields._equipType == app::MoleMole_Config_ItemType__Enum::ITEM_RELIQUARY)
         {
             const uint32_t prevLvl = dialog->fields._prevLevel;

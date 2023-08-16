@@ -9147,18 +9147,18 @@ typedef union Il2CppSingle_float
 
     struct MoleMole_EquipLevelUpDialogContext__Fields {
         struct MoleMole_BaseDialogContext__Fields _;
-        struct MonoEquipLevelUpDialog* _dialogMono; // 0x188
-        struct MoleMole_BagItem* _equip; // 0x190
-        struct MonoAvatarPropertyItem* _propertyItemPrefab; // 0x198
-        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList; // 0x1A0
-        struct List_1_MoleMole_PropertyChange_* _propertyChange; // 0x1A8
-        uint32_t _powerUpRate; // 0x1B0
-        uint32_t _currLevel; // 0x1B4
-        uint32_t _prevLevel; // 0x1B8
-        MoleMole_Config_ItemType__Enum _equipType; // 0x1BC
-        bool _canClose; // 0x1C0
-        uint32_t _propertyItemPrefabHandle; // 0x1C4
-        uint32_t _mainPropItemPrefabHandle; // 0x1C8
+        struct MoleMole_BagItem* _equip; // 0x0198
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList; // 0x01A0
+        struct MonoEquipLevelUpDialog* _dialogMono; // 0x01A8
+        struct MonoAvatarPropertyItem* _propertyItemPrefab; // 0x01B0
+        struct List_1_MoleMole_PropertyChange_* _propertyChange; // 0x01B8
+        uint32_t _powerUpRate; // 0x01C0
+        uint32_t _currLevel; // 0x01C4
+        uint32_t _prevLevel; // 0x01C8
+        uint32_t _propertyItemPrefabHandle; // 0x01CC
+        MoleMole_Config_ItemType__Enum _equipType; // 0x01D0
+        uint32_t _mainPropItemPrefabHandle; // 0x01D4
+        bool _canClose; // 0x01D8
     };
 
     struct MoleMole_EquipLevelUpDialogContext {
@@ -9168,70 +9168,70 @@ typedef union Il2CppSingle_float
     };
 
     struct TalkDialogContext__Fields {
-        //struct BaseDialogContext__Fields _;
-        //bool _inCoopSelect;
-        //bool _inCoopTemperamentSelect;
-        //bool _coopSelectShow;
-        bool _inSelect;
-        bool _inSelect2;
-        bool _inSelect3;
-        bool _inSelect4;
-        bool _inSelect5;
-        bool _inSelect6;
-        bool _inSelect7;
-        bool _inSelect8;
-        bool _inSelect9;
-        bool _inSelect10;
-        bool _inSelect11;
-        bool _inSelect12;
-        bool _inSelect13;
-        bool _inSelect14;
-        bool _inSelect15;
-        bool _inSelect16;
-        bool _inSelect17;
-        bool _inSelect18;
-        bool _inSelect19;
-        bool _inSelect20;
-        bool _inSelect21;
-        bool _inSelect22;
-        bool _inSelect23;
-        bool _inSelect24;
-        bool _inSelect25;
-        bool _inSelect26;
-        bool _inSelect27;
-        bool _inSelect28;
-        bool _inSelect29;
-        bool _inSelect30;
-        /*
         struct BaseDialogContext__Fields _;
-        bool _inCoopSelect;
-        bool _inCoopTemperamentSelect;
-        bool _coopSelectShow;
-        int32_t _selectCoopIndex;
-        struct List_1_MonoUIContainer_* _confidenceItemArray;
-        struct DialogAction* _currDialogAction;
-        struct DialogSelectAction* _currDialogSelectAction;
-        struct MonoTalkDialog* _dialogMono;
-        struct Config_ConfigDialogScheme* _currDialog;
-        float _protectTime;
-        bool _autoClick;
-        struct String* CountDownProgressPrefab;
-        uint32_t _handle;
-        struct GameObject* _countDownGo;
-        struct MonoTalkCountDownProgress* _countDownScript;
-        struct List_1_SelectItemParam_* _selectParamList;
-        struct Action* _updateGrpSelectBottom;
-        struct List_1_System_UInt32_* _selectDialogIdList;
-        bool OBDPLKKDFBN;
-        bool GGFOHLGGCHI;
-        struct Action* _onFreeClick;
-        float _interactableTime;
-        float _autoTalkInteractableTime;
-        struct Coroutine* _showClickTipCoroutine;
-        bool _differentRole;
-        struct Coroutine* _showSelectOptionsCoroutine;
-        bool _inSelect;
-        struct Coroutine* WaitDialogSelectCoroutine;
+        uint64_t LDPHFHDPLIN; // 0x6E40
+        struct DialogAction* FHJKIMOJMNJ; // 0x0198
+        struct Action* KCMDHBKICHL; // 0x01A0
+        struct Coroutine* PKCELOIKBBP; // 0x01A8
+        struct HashSet_1_* HMPILFDKHFL; // 0x01B0
+        struct List_1_MonoUIContainer_* NNANPHFKCIO; // 0x01B8
+        struct DialogSelectAction* JFGCMPOAPGG; // 0x01C0
+        struct Config_ConfigDialogScheme* HHKBLMCCAAO; // 0x01C8
+        struct GameObject* JIPDLLCCBEO; // 0x01D0
+        struct Action* IFKHNHFDIPF; // 0x01D8
+        struct MonoTalkCountDownProgress* JFKDGIJELLO; // 0x01E0
+        struct MonoTalkDialog* LNPFPMFLGMF; // 0x01E8
+        struct List_1_SelectItemParam_* NDALHGHCFKF; // 0x01F0
+        struct Action* MDHCKFGKMPG; // 0x01F8
+        struct List_1_System_UInt32_* HHLOGEJKJIG; // 0x0200
+        struct Coroutine* CNGKBBHOCEB; // 0x0208
+        struct String* ECJMEKPNLMI; // 0x0210
+        struct Coroutine* PDOHBEJDHLN; // 0x0218
+        bool KELIKDHPJPK; // 0x0220
+        bool BJFNLKBLMJO; // 0x0221
+        bool NHPGOHOAFKC; // 0x0222
+        bool HPDIGGBPKEB; // 0x0223
+        float PKHLKCLLKKM; // 0x0224
+        uint64_t GLDAPCEIMFA; // 0x0228
+        bool MDICEHFCDFM; // 0x0230
+        bool FJKAFOLGACJ; // 0x0231
+        bool NGGEFKMIFEK; // 0x0232
+        bool AGLHKBMMPIL; // 0x0233
+        bool JHCBADDMHFK; // 0x0234
+        bool MCNABHOKLGL; // 0x0235
+        bool FNOGAGEDMPP; // 0x0236
+        struct GGIBOLFLFHB* BHHGJCJNHMB; // 0x0238
+        float OCILKFCPBNC; // 0x023C
+        float HIGIKHOAENG; // 0x0240
+        uint32_t OFBLBMMAENM; // 0x0244
+        int32_t FJOOOFKKNDH; // 0x0248
+        /* old version:
+        struct BaseDialogContext__Fields _;
+        bool _inCoopSelect; // 0x1A8
+        bool _inCoopTemperamentSelect; // 0x1A9
+        bool _coopSelectShow; // 0x1AA
+        int32_t _selectCoopIndex; // 0x1AC
+        struct List_1_MonoUIContainer_* _confidenceItemArray; // 0x1B0
+        struct DialogAction* _currDialogAction; // 0x1B8
+        struct DialogSelectAction* _currDialogSelectAction; // 0x1C0
+        struct MonoTalkDialog* _dialogMono; // 0x1C8
+        struct Config_ConfigDialogScheme* _currDialog; // 0x1D0
+        float _protectTime; // 0x1D8
+        bool _autoClick; // 0x1DC
+        struct List_1_EFHJDLFFCPO_* EIGCPCDAOHO; // 0x1E0
+        struct Action* JEGCFOEACOA; // 0x1E8
+        struct List_1_System_Int32_* KGMFJCLBCEP; // 0x1F0
+        bool OBDPLKKDFBN; // 0x1F8
+        bool GGFOHLGGCHI; // 0x1F9
+        struct GAAFMMJFHNJ* FOAKHOBIOOE; // 0x200
+        struct Action* _onFreeClick; // 0x208
+        float _interactableTime; // 0x210
+        float _autoTalkInteractableTime; // 0x214
+        struct Coroutine* _showClickTipCoroutine; // 0x218
+        bool _differentRole; // 0x220
+        struct Coroutine* _showSelectOptionsCoroutine; // 0x228
+        bool _inSelect; // 0x230
+        struct Coroutine* WaitDialogSelectCoroutine; // 0x238
         */
     };
 
@@ -9271,26 +9271,32 @@ typedef union Il2CppSingle_float
 
     struct InLevelCutScenePageContext__Fields {
         struct BasePageContext__Fields _;
+        struct Action* PPOCOKKGJKE; // 0x01A8
+        struct Image_1* _backImg; // 0x01B0
+        struct GameObject* _loadingAnim; // 0x01B8
+        struct DAPMCCNJAJC* CDGCEHNHMBH; // 0x01C0
+        struct TalkDialogContext* _talkDialog; // 0x01C8
+        struct List_1_System_String_* OFFDKBHKCCN; // 0x01D0
+        struct String FLGEEBHEHBA; // 0x01D8
+        struct MonoInLevelCutScenePage* _pageMono; // 0x01E0
+        struct Animator* _textAnimator; // 0x01E8
+        struct Coroutine* _wait2ShowLoadingDialog; // 0x01F0
+        float EKMFLGMBHHI; // 0x01F8
+        struct Vector2 _lastMousePos; // 0x01FC
+        float GBDDONNDPKN; // 0x0204
+        uint32_t _inteeID; // 0x0208
+        struct Color MNOHOPPCAPH; // 0x020C
+        float DGAPNJFDJEA; // 0x021C
+        bool NDMFIHPFIEA; // 0x0220
+        bool LGDPEHJAMFN; // 0x0221
+        bool BIANKOFEJIJ; // 0x0222
+        bool PDEHFLHLNAJ; // 0x0223
+        bool KNPMICMJAJN; // 0x0224
+        bool NBMHGLDBNCF; // 0x0225
+        float HAAJECCDIKB; // 0x0228
+        /* old version:
         struct MonoInLevelCutScenePage* _pageMono;
         struct TalkDialogContext* _talkDialog;
-        struct TalkDialogContext* _talkDialog2;
-        struct TalkDialogContext* _talkDialog3;
-        struct TalkDialogContext* _talkDialog4;
-        struct TalkDialogContext* _talkDialog5;
-        struct TalkDialogContext* _talkDialog6;
-        struct TalkDialogContext* _talkDialog7;
-        struct TalkDialogContext* _talkDialog8;
-        struct TalkDialogContext* _talkDialog9;
-        struct TalkDialogContext* _talkDialog10;
-        struct TalkDialogContext* _talkDialog11;
-        struct TalkDialogContext* _talkDialog12;
-        struct TalkDialogContext* _talkDialog13;
-        struct TalkDialogContext* _talkDialog14;
-        struct TalkDialogContext* _talkDialog15;
-        struct TalkDialogContext* _talkDialog16;
-        struct TalkDialogContext* _talkDialog17;
-        struct TalkDialogContext* _talkDialog18;
-        struct TalkDialogContext* _talkDialog19;
         struct Image_1* _backImg;
         struct GameObject* _loadingAnim;
         struct Animator* _textAnimator;
@@ -9309,30 +9315,7 @@ typedef union Il2CppSingle_float
         float CLCKJBEKGDE;
         bool DHJFOHOHLAM;
         struct Action* ODGEDLKIJJC;
-        //
-        /*
-        
-        struct BasePageContext__Fields _;
-        struct MonoInLevelCutScenePage* _pageMono;
-        struct TalkDialogContext* _talkDialog;
-        struct Image_1* _backImg;
-        struct GameObject* _loadingAnim;
-        struct Animator* _textAnimator;
-        bool _needFreeClick;
-        bool _isChangingColor;
-        struct Coroutine* _wait2ShowLoadingDialog;
-        bool _talking;
-        uint32_t _inteeID;
-        struct EACLKLIILDA* NDFDCBKOFAO;
-        float _durationToHide;
-        struct Vector2 _lastMousePos;
-        float _lastMouseMoveTime;
-        bool _firstUpdate;
-        bool _needHideMouse;
-        float LENFNMCNKCO;
-        float CLCKJBEKGDE;
-        bool DHJFOHOHLAM;
-        struct Action* ODGEDLKIJJC;*/
+        */
     };
 
     struct InLevelCutScenePageContext {

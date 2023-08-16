@@ -666,10 +666,11 @@ namespace Sections {
         //    il2fns::ElemSight(ifElem);
         //} ImGui::SameLine(); HelpMarker("Infinite duration for Elemental Sight.");
 
-        // il2fns::OpenTeamImm(); wait upgrade dumper =)
+        // wait upgrade dumper =)
+        // il2fns::OpenTeamImm();
 
-        // il2fns::CameraZoom(); ебаные китайцы вы нахуя поля опять перемешали мне че делать с ними пожалуйста засуньте их себе в жопу спасибо за понимание :kissing_heart:
-
+        // ебаные китайцы вы нахуя поля опять перемешали мне че делать с ними пожалуйста засуньте их себе в жопу спасибо за понимание :kissing_heart:
+        // il2fns::CameraZoom();
     }
 
     void Lua() {
