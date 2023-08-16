@@ -26,18 +26,15 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
     app::UnityEngine__set__Timescale(value);
     app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
 
-    util::log(M_Info, "_inSelect: %d", talkDialog->fields.KELIKDHPJPK);
-    util::log(M_Info, "_inSelect2: %d", talkDialog->fields.BJFNLKBLMJO);
-    util::log(M_Info, "_inSelect3: %d", talkDialog->fields.NHPGOHOAFKC);
-    util::log(M_Info, "_inSelect4: %d", talkDialog->fields.HPDIGGBPKEB);
+    
+    //util::log(M_Info, "_inSelect: %d", talkDialog->fields.KELIKDHPJPK);
+    //util::log(M_Info, "_inSelect2: %d", talkDialog->fields.BJFNLKBLMJO);
 
-    util::log(M_Info, "_inSelect5: %d", talkDialog->fields.MDICEHFCDFM);
-    util::log(M_Info, "_inSelect6: %d", talkDialog->fields.FJKAFOLGACJ);
-    util::log(M_Info, "_inSelect7: %d", talkDialog->fields.NGGEFKMIFEK);
-    util::log(M_Info, "_inSelect8: %d", talkDialog->fields.AGLHKBMMPIL);
-    util::log(M_Info, "_inSelect9: %d", talkDialog->fields.JHCBADDMHFK);
-    util::log(M_Info, "_inSelect10: %d", talkDialog->fields.MCNABHOKLGL);
-    util::log(M_Info, "_inSelect11: %d", talkDialog->fields.FNOGAGEDMPP);
+    //util::log(M_Info, "_inSelect5: %d", talkDialog->fields.MDICEHFCDFM);
+    //util::log(M_Info, "_inSelect6: %d", talkDialog->fields.FJKAFOLGACJ);
+    //util::log(M_Info, "_inSelect7: %d", talkDialog->fields.NGGEFKMIFEK);
+    //util::log(M_Info, "_inSelect8: %d", talkDialog->fields.AGLHKBMMPIL);
+    
     /*if (talkDialog->fields._inSelect/* && f_AutoSelectDialog->enabled() && !isImportantAAA)
     {
         int32_t value = 0;

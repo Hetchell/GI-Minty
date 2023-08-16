@@ -9152,13 +9152,27 @@ typedef union Il2CppSingle_float
         struct MonoEquipLevelUpDialog* _dialogMono; // 0x01A8
         struct MonoAvatarPropertyItem* _propertyItemPrefab; // 0x01B0
         struct List_1_MoleMole_PropertyChange_* _propertyChange; // 0x01B8
-        uint32_t _powerUpRate; // 0x01C0
         uint32_t _currLevel; // 0x01C4
+        uint32_t _powerUpRate; // 0x01C0
         uint32_t _prevLevel; // 0x01C8
         uint32_t _propertyItemPrefabHandle; // 0x01CC
         MoleMole_Config_ItemType__Enum _equipType; // 0x01D0
         uint32_t _mainPropItemPrefabHandle; // 0x01D4
         bool _canClose; // 0x01D8
+        /* old version:
+        struct MonoAvatarPropertyItem* _propertyItemPrefab;
+        uint32_t _propertyItemPrefabHandle;
+        uint32_t _mainPropItemPrefabHandle;
+        struct MonoEquipLevelUpDialog* _dialogMono;
+        struct MoleMole_BagItem* _equip;
+        uint32_t _prevLevel;
+        uint32_t _currLevel;
+        uint32_t _powerUpRate;
+        struct List_1_MoleMole_PropertyChange_* _propertyChange;
+        MoleMole_Config_ItemType__Enum _equipType;
+        bool _canClose;
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList;
+        */
     };
 
     struct MoleMole_EquipLevelUpDialogContext {
@@ -9274,8 +9288,8 @@ typedef union Il2CppSingle_float
         struct Action* PPOCOKKGJKE; // 0x01A8
         struct Image_1* _backImg; // 0x01B0
         struct GameObject* _loadingAnim; // 0x01B8
-        struct DAPMCCNJAJC* CDGCEHNHMBH; // 0x01C0
         struct TalkDialogContext* _talkDialog; // 0x01C8
+        struct DAPMCCNJAJC* CDGCEHNHMBH; // 0x01C0
         struct List_1_System_String_* OFFDKBHKCCN; // 0x01D0
         struct String FLGEEBHEHBA; // 0x01D8
         struct MonoInLevelCutScenePage* _pageMono; // 0x01E0

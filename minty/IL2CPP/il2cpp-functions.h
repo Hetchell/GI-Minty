@@ -37,7 +37,7 @@ DO_APP_FUNC(0x034D3F30, float, MoleMole_SafeFloat_get_Value, (app::SafeFloat saf
 // should be 'op_Implicit' not 'set_value'
 DO_APP_FUNC(0x034D3FC0, app::SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloat));
 
-DO_APP_FUNC(0x0701B730, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
+DO_APP_FUNC(0x04A76C90, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
 DO_APP_FUNC(0x07B151F0, app::String*, Marshal_PtrToStringAnsi, (void* ptr));
 
 // Game Object, Component, Transform Utility

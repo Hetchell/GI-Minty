@@ -28,6 +28,9 @@ static float fovval = 45;
 static bool iffov;
 void InLevelCameraSetFov_Hook(app::Camera* __this, float value)
 {
+    if (!iffov)
+        return;
+
     value = iffov ? fovval : 45;
     CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
 }
@@ -40,10 +43,12 @@ bool ShouldShowLevelUpDialog(app::MoleMole_EquipLevelUpDialogContext* dialog)
 {
     if (ifshowlevelup)
     {
+        /*
         util::log(M_Info, "DEBUG:");
-        util::log(M_Info, "_equipType: %s", dialog->fields._equipType);
-        util::log(M_Info, "_prevLevel: %s", dialog->fields._prevLevel);
-        util::log(M_Info, "_currLevel: %s", dialog->fields._currLevel);
+        util::log(M_Info, "_prevLevel: %d", dialog->fields._prevLevel);
+        util::log(M_Info, "_currLevel: %d", dialog->fields._currLevel);
+        util::log(M_Info, "_powerUpRate: %d", dialog->fields._powerUpRate);
+        */
         if (dialog->fields._equipType == app::MoleMole_Config_ItemType__Enum::ITEM_RELIQUARY)
         {
             const uint32_t prevLvl = dialog->fields._prevLevel;
@@ -171,7 +176,8 @@ namespace il2fns {
 
     void ChestIndicator() {
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifchestinit) {
-            HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck); ifchestinit = true;
+            HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck);
+            ifchestinit = true;
         }
 
         ifChest = readBoolFuncStateFromJson("ShowChest");
@@ -185,7 +191,8 @@ namespace il2fns {
 
     void CameraZoom() {
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifzoominit) {
-            HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook); ifzoominit = true;
+            HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook);
+            ifzoominit = true;
         }
 
         //ifzoom = readBoolFuncStateFromJson("NoCD");
@@ -202,7 +209,8 @@ namespace il2fns {
 
     void SetFov() {
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinitfov) {
-            HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook); ifinitfov = true;
+            //HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook);
+            ifinitfov = true;
         }
 
         //ifzoom = readBoolFuncStateFromJson("NoCD");
