@@ -117,7 +117,8 @@ namespace il2fns {
 		//util::log(M_Info, "set vel");
 		app::Rigidbody_MovePosition(rigidbody, newPos);
 		//util::log(M_Info, "mov pos");
-		//app::Rigidbody_set_position(rigidbody, newPos);
+		app::Rigidbody_set_position(rigidbody, newPos);
+		//util::log(M_Info, "set pos");
 	}
 
 	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method)

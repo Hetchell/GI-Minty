@@ -127,7 +127,7 @@ VOID init_il2cpp() {
 		}
 	}
 }
-
+/*
 VOID init_mD(int defind, int getnam, int getmed, int gentyp) {
 	util::log(M_Debug, "Initializing isle too see pipi");
 
@@ -165,7 +165,7 @@ VOID init_mD(int defind, int getnam, int getmed, int gentyp) {
 			#include "mDumper-funcs.h"
 			#undef DO_MD4_FUNC
 				util::log(2, "gentyp defd: %s", util::int_to_hex(gentyp));
-			*/
+			
 		}
 	}
-}
+}*/

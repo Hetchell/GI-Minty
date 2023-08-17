@@ -168,7 +168,6 @@ namespace il2fns {
 
 	void Change_UID(const char* uidText) {
         app::GameObject* uidTextObj = app::UnityEngine__GameObject__Find((app::String*)il2cpp_string_new("/BetaWatermarkCanvas(Clone)/Panel/TxtUID"));
-
         app::Component_1* uidTextComp = app::UnityEngine_GameObject_GetComponent(uidTextObj, il2cpp_string_new("Text"));
 
 		app::UnityEngine_Text_setText(reinterpret_cast<app::Text*>(uidTextComp), il2cpp_string_new(uidText));
@@ -209,7 +208,7 @@ namespace il2fns {
 
     void SetFov() {
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinitfov) {
-            //HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook);
+            HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook);
             ifinitfov = true;
         }
 

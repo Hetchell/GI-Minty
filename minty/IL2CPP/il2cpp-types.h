@@ -12584,11 +12584,6 @@ typedef union Il2CppSingle_float
         MonitorData* monitor;
         struct Proto_SceneEntityAppearNotify__Fields fields;
     };
-
-#define IS_SINGLETON_LOADED(className) (/**app::Singleton_1_## className ##___TypeInfo != nullptr &&*/ *app::Singleton_1_ ## className ## __get_Instance__MethodInfo != nullptr)
-#define GET_SINGLETON(tpname) IS_SINGLETON_LOADED(tpname) ? reinterpret_cast<app:: ## tpname ## *>(app::Singleton_GetInstance(*app::Singleton_1_ ## tpname ## __get_Instance__MethodInfo)) : nullptr
-    // 18025B080
-    DO_TYPEDEF(0xAB55B98, Int32);
-    // 48 89 5c 24 08 57 48 83 ec 20 48 8b 01 48 8b d9 48 89 02 48 8b fa 48 8b 15 b3 23 f7 0a b9 10 00
-    //DO_TYPEDEF(0xB18DCB0, Byte);
+//#define IS_SINGLETON_LOADED(className) (/**app::Singleton_1_## className ##___TypeInfo != nullptr &&*/ *app::Singleton_1_ ## className ## __get_Instance__MethodInfo != nullptr)
+//#define GET_SINGLETON(tpname) IS_SINGLETON_LOADED(tpname) ? reinterpret_cast<app:: ## tpname ## *>(app::Singleton_GetInstance(*app::Singleton_1_ ## tpname ## __get_Instance__MethodInfo)) : nullptr
 #endif // IL2CPP_TYPES_H

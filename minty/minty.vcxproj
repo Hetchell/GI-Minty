@@ -286,6 +286,7 @@
     <ClCompile Include="Lua\lvm.c" />
     <ClCompile Include="Lua\lzio.c" />
     <ClCompile Include="Utils\dllmain.cpp" />
+    <ClInclude Include="IL2CPP\il2cpp-types-ptr.h" />
     <ClInclude Include="IL2CPP\il2cpp-types.h" />
     <ClInclude Include="IL2CPP\il2cppUtils.h" />
     <ClCompile Include="GUI\InitGui.cpp">

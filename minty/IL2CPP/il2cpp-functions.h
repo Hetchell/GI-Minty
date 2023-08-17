@@ -25,7 +25,6 @@ DO_APP_FUNC(0x02D22450, app::Vector3, MoleMole__ActorUtils__GetAvatarPos, ());
 // set_text
 DO_APP_FUNC(0x081BC400, void, UnityEngine_Text_setText, (app::Text* __this, void* value));
 DO_APP_FUNC(0x06D094B0, app::Vector3, GetRelativePosition, (app::Vector3 __this));
-// very old? not used? yeap xdd
 //DO_APP_FUNC(0x01EACE10, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
 //DO_APP_FUNC(0x0475D250, app::BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
 DO_APP_FUNC(0x080BF6B0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
@@ -116,7 +115,7 @@ DO_APP_FUNC(0x02E5F820, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidM
 //idr
 DO_APP_FUNC(0x2191C0, void*, Singleton_GetInstance, (app::MethodInfo* method));
 
-// - not yet
+// not yet
 //DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo);
 
 // Protection bypass

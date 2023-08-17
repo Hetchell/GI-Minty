@@ -205,6 +205,7 @@
     <ClInclude Include="Games\tictactoe.hpp" />
     <ClInclude Include="Games\wordle.hpp" />
     <ClInclude Include="IL2CPP\Functions\nosprintcd.h" />
+    <ClInclude Include="IL2CPP\il2cpp-types-ptr.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
