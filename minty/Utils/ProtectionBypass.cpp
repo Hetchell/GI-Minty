@@ -395,7 +395,7 @@ void ProtectionBypass::Init()
 		util::log(M_Info, "mhyprot anticheat has been killed");
 	}
 	else {
-		util::log(M_Error, "Failed to close mhyprot anticheat. Please report this issue in our Discord server.");
+		//util::log(M_Error, "Failed to close mhyprot anticheat. Please report this issue in our Discord server.");
 	}
 
 	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
