@@ -166,6 +166,7 @@
     <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
     <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
+    <ClCompile Include="IL2CPP\md5.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\GuiUtils.cpp" />
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
@@ -292,6 +293,7 @@
     <ClCompile Include="GUI\InitGui.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
+    <ClInclude Include="IL2CPP\md5.h" />
     <ClInclude Include="IL2CPP\mDumper-funcs.h" />
     <ClCompile Include="IL2CPP\il2cppUtils.cpp">
       <FileType>CppHeader</FileType>

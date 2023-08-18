@@ -654,7 +654,7 @@ namespace Sections {
 
         il2fns::ChestIndicator();
 
-        il2fns::SkipAnim();
+        //il2fns::SkipAnim();
 
         ImGui::SeparatorText("Camera");
 

@@ -17,8 +17,9 @@
 
 #include <tchar.h>
 #include "ImGui/imgui_internal.h"
-
 namespace fs = std::filesystem;
+
+const char* exeNamePath = "exe.exe";
 
 //std::ifstream f("cfg.json");
 float ImLength(const ImVec2& lhs) {
@@ -271,6 +272,7 @@ int main() {
                 printValues();
                 detourDirectXPresent();*/
                 exe_path = cfg["exec_path"];
+                exeNamePath = exe_path.c_str();
                 PROCESS_INFORMATION proc_info{};
                 STARTUPINFOA startup_info{};
                 CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);

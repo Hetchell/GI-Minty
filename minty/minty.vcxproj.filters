@@ -81,6 +81,7 @@
     <ClCompile Include="Games\lightsout.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
     <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
+    <ClCompile Include="IL2CPP\md5.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Games\wordle.hpp" />
     <ClInclude Include="IL2CPP\Functions\nosprintcd.h" />
     <ClInclude Include="IL2CPP\il2cpp-types-ptr.h" />
+    <ClInclude Include="IL2CPP\md5.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

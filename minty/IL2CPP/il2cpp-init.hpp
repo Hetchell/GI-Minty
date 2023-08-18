@@ -1,6 +1,9 @@
 #include <Windows.h>
 #include "../Utils/Utils.hpp"
 #include "../GUI/GuiDefinitions.h"
+#include "../Json/json.hpp"
+#include <sstream>
+#include <fstream>
 
 uintptr_t baseAddress;
 uintptr_t unityPlayerAddress;
@@ -84,9 +87,31 @@ VOID il2cpp_run(void(*il2FN)(Args... argsFN)) {
 
 // bool is_il2cpp_hooked = false;
 
+enum GAMEVER : int {
+	GLOBAL = 1,
+	CHINA = 2
+};
+
+GAMEVER CheckGameVer() {
+	std::ifstream config_file("minty");
+	nlohmann::json config_json;
+	config_file >> config_json;
+	config_file.close();
+
+	static std::string execpath = config_json["exec_path"];
+
+	if (execpath.find("GenshinImpact.exe") != std::string::npos) {
+		return GLOBAL;
+	}
+	if (execpath.find("YuanShen.exe") != std::string::npos) {
+		return CHINA;
+	}
+}
+
 VOID init_il2cpp() {
 //#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + n ## _ptr)
 	util::log(M_Info, "Initializing isle too see pipi");
+	auto gameVer = CheckGameVer();
 
 	while (baseAddress == (uint64_t)nullptr) {
 
@@ -105,23 +130,46 @@ VOID init_il2cpp() {
 			util::log(M_Debug, "UserAssembly ptr: %p", baseAddress);
 			util::log(M_Debug, "UnityPlayer ptr: %p", unityPlayerAddress);
 
-		#define DO_API(a, r, n, p) n = (r (*) p)(baseAddress + a)
-		#include "il2cpp-api-functions.h"
-		#undef DO_API
+			if (gameVer == GAMEVER::GLOBAL) {
+#define DO_API(a, b, r, n, p) n = (r (*) p)(baseAddress + a)
+#include "il2cpp-api-functions.h"
+#undef DO_API
 
-		#define DO_APP_FUNC(a, r, n, p) n = (r (*) p)(baseAddress + a)
-		#define DO_APP_FUNC_METHODINFO(a, n) n = (struct MethodInfo **)(baseAddress + a)
-		#include "il2cpp-functions.h"
-		#undef DO_APP_FUNC
-		#undef DO_APP_FUNC_METHODINFO
+#define DO_APP_FUNC(a, b, r, n, p) n = (r (*) p)(baseAddress + a)
+#define DO_APP_FUNC_METHODINFO(a, b, n) n = (struct MethodInfo **)(baseAddress + a)
+#include "il2cpp-functions.h"
+#undef DO_APP_FUNC
+#undef DO_APP_FUNC_METHODINFO
 
-		#define DO_TYPEDEF(a, n) n ## __TypeInfo = (n ## __Class**) (baseAddress + a)
-		#include "il2cpp-types.h"
-        #undef DO_TYPEDEF
+#define DO_TYPEDEF(a, b, n) n ## __TypeInfo = (n ## __Class**) (baseAddress + a)
+#include "il2cpp-types.h"
+#undef DO_TYPEDEF
 
-		#define DO_UP_FUNC(a, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
-		#include "il2cpp-unityplayer-functions.h"
-		#undef DO_UP_FUNC
+#define DO_UP_FUNC(a, b, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
+#include "il2cpp-unityplayer-functions.h"
+#undef DO_UP_FUNC
+				util::log(M_Info, "Defined GLOBAL game client.");
+			}
+			else if (gameVer == GAMEVER::CHINA) {
+#define DO_API(a, b, r, n, p) n = (r (*) p)(baseAddress + b)
+#include "il2cpp-api-functions.h"
+#undef DO_API
+
+#define DO_APP_FUNC(a, b, r, n, p) n = (r (*) p)(baseAddress + b)
+#define DO_APP_FUNC_METHODINFO(a, b, n) n = (struct MethodInfo **)(baseAddress + b)
+#include "il2cpp-functions.h"
+#undef DO_APP_FUNC
+#undef DO_APP_FUNC_METHODINFO
+
+#define DO_TYPEDEF(a, b, n) n ## __TypeInfo = (n ## __Class**) (baseAddress + b)
+#include "il2cpp-types.h"
+#undef DO_TYPEDEF
+
+#define DO_UP_FUNC(a, b, r, n, p) n = (r (*) p)(unityPlayerAddress + b)
+#include "il2cpp-unityplayer-functions.h"
+#undef DO_UP_FUNC
+				util::log(M_Info, "Defined GLOBAL game client.");
+			}
 		// is_il2cpp_hooked = true;
 
 		}

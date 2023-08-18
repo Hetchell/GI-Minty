@@ -2,11 +2,11 @@
 using namespace app;
 
 // Cooldown cheats
-DO_APP_FUNC(0x02E642E0, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
-DO_APP_FUNC(0x017D46E0, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
-DO_APP_FUNC(0x017CE540, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
-DO_APP_FUNC(0x017D2FE0, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
-DO_APP_FUNC(0x03FB7160, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
+DO_APP_FUNC(0x02E642E0, 0x02EA13F0, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
+DO_APP_FUNC(0x017D46E0, 0x017ECF80, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
+DO_APP_FUNC(0x017CE540, 0x017E6BB0, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
+DO_APP_FUNC(0x017D2FE0, 0x017EB800, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
+DO_APP_FUNC(0x03FB7160, 0x04014F00, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
 
 // Visuals
 DO_APP_FUNC(0x046234E0, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data));
