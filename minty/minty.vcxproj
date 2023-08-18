@@ -172,7 +172,6 @@
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
     <ClCompile Include="Utils\LuaUtils.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
-    <ClCompile Include="Utils\TelemetryBlocker.cpp" />
     <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_register.h" />
     <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_rpc.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
@@ -337,7 +336,6 @@
     <ClInclude Include="Utils\ImageLoader\stb_image.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
-    <ClInclude Include="Utils\TelemetryBlocker.h" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>

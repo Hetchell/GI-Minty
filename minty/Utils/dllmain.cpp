@@ -4,7 +4,6 @@
 #include "../includes.h"
 #include "DiscordRPC/Discord.h"
 #include "ProtectionBypass.h"
-#include "TelemetryBlocker.h"
 
 Discord* g_Discord;
 

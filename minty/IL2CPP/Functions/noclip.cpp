@@ -109,7 +109,7 @@ namespace il2fns {
 		if (prevPos.x == 0 && prevPos.y == 0 && prevPos.z == 0)
 			return;
 
-		float deltaTime = app::Time_get_deltaTime() * 1.5;
+		float deltaTime = app::Time_get_deltaTime() * 1.5F;
 		//util::log(M_Info, "got delt");
 		newPos = prevPos + dir * speed * deltaTime;
 		// if (iNoClipMode == 0) 
@@ -117,8 +117,7 @@ namespace il2fns {
 		//util::log(M_Info, "set vel");
 		app::Rigidbody_MovePosition(rigidbody, newPos);
 		//util::log(M_Info, "mov pos");
-		app::Rigidbody_set_position(rigidbody, newPos);
-		//util::log(M_Info, "set pos");
+		//app::Rigidbody_set_position(rigidbody, newPos);
 	}
 
 	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method)
