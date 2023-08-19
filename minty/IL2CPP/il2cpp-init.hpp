@@ -9,16 +9,16 @@ uintptr_t baseAddress;
 uintptr_t unityPlayerAddress;
 
 // Define IL2CPP API function addresses
-#define DO_API(a, r, n, p) r(*n) p
+#define DO_API(a, b, r, n, p) r(*n) p
 #include "il2cpp-api-functions.h"
 #undef DO_API
 
 // Define function addresses
-#define DO_APP_FUNC(a, r, n, p) r(*n) p
+#define DO_APP_FUNC(a, b, r, n, p) r(*n) p
 #define DO_TYPEDEF(a, n) n ## __Class** n ## __TypeInfo
 #define DO_APP_FUNC_METHODINFO(a, n) struct MethodInfo ** n
 namespace app {
-#include "../IL2CPP/il2cpp-types.h"
+#include "il2cpp-types.h"
 #include "il2cpp-functions.h"
 }
 #undef DO_APP_FUNC
@@ -26,7 +26,7 @@ namespace app {
 #undef DO_APP_FUNC_METHODINFO
 
 // Define UnityPlayer functions
-#define DO_UP_FUNC(a, r, n, p) r(*n) p
+#define DO_UP_FUNC(a, b, r, n, p) r(*n) p
 namespace app {
 #include "il2cpp-unityplayer-functions.h"
 }
