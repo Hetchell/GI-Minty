@@ -17,16 +17,17 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
     if (!ifdia)
         return;
 
-    auto talkDialog = context->fields._talkDialog;
-    if (talkDialog == nullptr) {
-        //util::log(M_Info, "talkDialog == null :cry:");
-        //return;
-    }
-
     app::UnityEngine__set__Timescale(value);
-    //app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
+    app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
 
     /*
+    auto talkDialog = context->fields._talkDialog;
+
+    if (talkDialog == nullptr) {
+        util::log(M_Info, "talkDialog == null :cry:");
+        return;
+    }
+
     util::log(M_Info, "_inSelect3: %d", talkDialog->fields.NHPGOHOAFKC);
 
     util::log(M_Info, "_inSelect5: %d", talkDialog->fields.MDICEHFCDFM);
