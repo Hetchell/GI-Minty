@@ -168,7 +168,7 @@ VOID init_il2cpp() {
 #define DO_UP_FUNC(a, b, r, n, p) n = (r (*) p)(unityPlayerAddress + b)
 #include "il2cpp-unityplayer-functions.h"
 #undef DO_UP_FUNC
-				util::log(M_Info, "Defined GLOBAL game client.");
+				util::log(M_Info, "Defined CHINA game client.");
 			}
 		// is_il2cpp_hooked = true;
 

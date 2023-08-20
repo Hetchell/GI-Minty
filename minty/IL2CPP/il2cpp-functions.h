@@ -65,7 +65,7 @@ DO_APP_FUNC(0x081B13E0, 0x081F5970, float, Time_get_deltaTime, ());
 
 DO_APP_FUNC(0x0818D8D0, 0x081D2090, bool*, UnityEngine__Application__get__isFocused, ());
 DO_APP_FUNC(0x0818DED0, 0x081D2680, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
-DO_APP_FUNC(0x081D98E0, 0x081D98E0, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
+DO_APP_FUNC(0x081D98E0, 0x0821E680, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
 
 DO_APP_FUNC(0x081A8C80, 0x081ED2A0, float, Vector3_Distance, (app::Vector3 pos1, app::Vector3 pos2));
 

@@ -4,7 +4,7 @@ static bool ifdia;
 static bool ifcsc;
 static bool ifdiainit;
 static bool ifcscinit;
-static float diaSpeed;
+static float diaSpeed = 1;
 static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this)
 {
     if (ifcsc)
@@ -19,12 +19,12 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 
     auto talkDialog = context->fields._talkDialog;
     if (talkDialog == nullptr) {
-        util::log(M_Info, "talkDialog == null :cry:");
-        return;
+        //util::log(M_Info, "talkDialog == null :cry:");
+        //return;
     }
 
     app::UnityEngine__set__Timescale(value);
-    app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
+    //app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
 
     /*
     util::log(M_Info, "_inSelect3: %d", talkDialog->fields.NHPGOHOAFKC);
@@ -75,6 +75,7 @@ namespace il2fns {
 
         if (ifDialog) {
             ImGui::Indent();
+            ifdia = true;
             ImGui::SliderFloat("Dialog speed", &diaSpeed, 1.0, 50.0);
             ImGui::Unindent();
         }

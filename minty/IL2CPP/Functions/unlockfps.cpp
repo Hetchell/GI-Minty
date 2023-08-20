@@ -7,7 +7,7 @@ namespace il2fns {
 		static int target = 60;
 		if (ImGui::Checkbox("Unlock FPS", &ifunlock))
 			if (!ifunlock)
-				app::UnityEngine__Application__set__targetFramerate(60); app::UnityEngine__QualitySettings__set__vSyncCount(1);
+				app::UnityEngine__Application__set__targetFramerate(60); /*app::UnityEngine__QualitySettings__set__vSyncCount(1);*/
 		ImGui::SameLine();
 		HelpMarker("Unlocks framerate to target value.");
 		if (ifunlock) {
