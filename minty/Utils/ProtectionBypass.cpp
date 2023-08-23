@@ -365,17 +365,14 @@ void DisableLogReport()
 	auto h2 = CreateFileA(MiHoYoMTRSDK.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	auto h3 = CreateFileA(Telemetry.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-	/*
-	auto t = thread([](HANDLE h1, HANDLE h2, HANDLE h3) -> void
+	auto t = std::thread([](HANDLE h1, HANDLE h2, HANDLE h3) -> void
 		{
-			this_thread::sleep_for(chrono::seconds(60));
+			std::this_thread::sleep_for(std::chrono::seconds(60));
 			CloseHandle(h1);
 			CloseHandle(h2);
 			CloseHandle(h3);
 		}, h1, h2, h3);
 	t.detach();
-	*/
-
 	return;
 }
 
