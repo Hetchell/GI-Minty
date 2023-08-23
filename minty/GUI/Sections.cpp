@@ -279,13 +279,13 @@ namespace Sections {
     void About() {
         ImGui::SeparatorText("About");
 
-        ImGui::Text("Minty version 1.36");
+        ImGui::Text("Minty version 1.37");
         ImGui::Text("ImGui version: %s", ImGui::GetVersion());
         ImGui::Text("Design made with love by KittyKate :3");
 
         ImGui::SeparatorText("Contributors");
 
-        ImGui::TextColored(ImVec4(235.0F / 255.0F, 64.0F / 255.0F, 52.0F / 255.0F, 1.0F), "Owner: MintyGingy");
+        ImGui::TextColored(ImVec4(235.0F / 255.0F, 64.0F / 255.0F, 52.0F / 255.0F, 1.0), "Owner: MintyGingy");
         ImGui::TextColored(ImVec4(219.0F / 255.0F, 57.0F / 255.0F, 219.0F / 255.0F, 1.0), "Co-founder: Moistcrafter");
         ImGui::TextColored(ImVec4(57.0F / 255.0F, 68.0F / 255.0F, 219.0F / 255.0F, 1.0), "Contributors: EtoShinya, KittyKate, lilmayofuksu, USSY, akioukun, sad_akulka");
         ImGui::TextColored(ImVec4(255, 0, 212, 255), "Donaters: EtoShinya <3 <3, Thomas_Heath, Blair, unmeinoshonen, USSY");
