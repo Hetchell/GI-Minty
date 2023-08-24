@@ -99,7 +99,7 @@ DO_APP_FUNC(0x01B06C80, 0x01B228B0, void, MoleMole_LevelSceneElementViewPlugin_T
 
 // Dialog skipping
 DO_APP_FUNC(0x02F6E080, 0x02FACC10, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, app::Notify* notify));
-DO_APP_FUNC(0x040D97E0, 0x040DA9D0, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
+DO_APP_FUNC(0x0407BD70, 0x040D97E0, void, MoleMole_InLevelCutScenePageContext_OnFreeClick, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x0407D0F0, 0x040DACB0, void, MoleMole_InLevelCutScenePageContext_UpdateView, (app::InLevelCutScenePageContext* __this));
 DO_APP_FUNC(0x04079840, 0x040D7220, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
 
