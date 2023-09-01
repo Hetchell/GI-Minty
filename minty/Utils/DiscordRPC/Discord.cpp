@@ -11,7 +11,7 @@ void Discord::Update()
 {
     DiscordRichPresence discordPresence;
     memset(&discordPresence, 0, sizeof(discordPresence));
-    discordPresence.state = "Hacking MHY <333";
+    discordPresence.state = "Exploiting Anime Game <333";
     time_t CurrentTime = time(0);
     discordPresence.startTimestamp = CurrentTime;
     discordPresence.largeImageText = "https://linktr.ee/kindawindytoday";
