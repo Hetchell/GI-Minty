@@ -38,7 +38,7 @@ void TextURL(const char* name_, const char* URL_, bool SameLineBefore_, bool Sam
         ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
     }
 }
-
+/*
 void ShowDebugLog() {
     ImGuiTextFilter Filter;
     ImGui::Begin("Log", &show_debug_log);
@@ -95,7 +95,7 @@ void ShowDebugLog() {
     ImGui::EndChild();
     ImGui::End();
 }
-
+*/
 // Implementation
 bool ImGui::ColoredButtonV1(const char* label, const ImVec2& size_arg, ImU32 text_color, ImU32 bg_color_1, ImU32 bg_color_2) {
     ImGuiWindow* window = GetCurrentWindow();

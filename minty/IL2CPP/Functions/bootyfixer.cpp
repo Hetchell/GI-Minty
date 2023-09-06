@@ -11,8 +11,12 @@ static void MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(app::MoleM
 
 namespace il2fns {
     void BootyFixer() {
-        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {     
-            HookManager::install(app::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue); ifinit = true;
+        app::GameObject* waterPeeking = nullptr;
+
+        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
+            HookManager::install(app::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue);
+            waterPeeking = app::UnityEngine__GameObject__Find(string_to_il2cppi("/EffectPool/Eff_Player_Diving_Root"));
+            ifinit = true;
         }
 
         static bool ifpeeking = readBoolFuncStateFromJson("Booty");
@@ -24,5 +28,17 @@ namespace il2fns {
         }
         ImGui::SameLine();
         HelpMarker(";)");
+
+        while (ifpeeking && ifinit) {
+            if (!waterPeeking) {
+                util::log(M_Info, "waterPeeking == null");
+                return;
+            }
+
+            /*if (!app::GameObject_get_active(waterPeeking))
+                return;*/
+
+            app::UnityEngine__GameObject__SetActive(waterPeeking, false);
+        }
     }
 }

@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <format>
 #include <intsafe.h>
+#include <vector>
 #include "../IL2CPP/il2cpp-appdata.h"
 #include "../IL2CPP/HookManager.h"
 #include "../IL2CPP/il2cppUtils.h"
@@ -27,8 +28,6 @@
 #define ObjectBasicInformation 0
 #define ObjectNameInformation 1
 #define ObjectTypeInformation 2
-
-//#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str())
 
 static int num = 0;
 
@@ -138,7 +137,6 @@ static PVOID GetLibraryProcAddress(LPCSTR LibraryName, LPCSTR ProcName)
 		return nullptr;
 	return GetProcAddress(hModule, ProcName);
 }
-
 
 bool CloseHandleByName(const wchar_t* name)
 {
@@ -285,7 +283,6 @@ void ProtectionBypass::DisableVMP() {
 }
 
 std::map<int32_t, std::string> m_CorrectSignatures;
-
 app::Byte__Array* OnRecordUserData(int32_t nType);
 
 static app::Byte__Array* RecordUserData_Hook(int32_t nType)
@@ -318,7 +315,6 @@ app::Byte__Array* OnRecordUserData(int32_t nType)
 	m_CorrectSignatures[nType] = stringValue;
 
 	util::log(M_Info, "Sniffed correct signature for type %d value '%s'", nType, stringValue.c_str());
-
 	return result;
 }
 
@@ -342,7 +338,6 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size)
 		util::log(M_Error, "Wrong checksum");
 
 	strncpy(out, data[type], out_size);
-
 	return ret;
 }
 
@@ -357,28 +352,78 @@ void DisableLogReport()
 
 	auto Astrolabe = path.parent_path() / (ProcessName + "_Data\\Plugins\\Astrolabe.dll");
 	auto MiHoYoMTRSDK = path.parent_path() / (ProcessName + "_Data\\Plugins\\MiHoYoMTRSDK.dll");
-	auto Telemetry = path.parent_path() / (ProcessName + "_Data\\Plugins\\Telemetry.dll");
+	//auto Telemetry = path.parent_path() / (ProcessName + "_Data\\Plugins\\Telemetry.dll");
 
 	// open exclusive access to these two dlls
 	// so they cannot be loaded
-	auto h1 = CreateFileA(Astrolabe.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	auto h2 = CreateFileA(MiHoYoMTRSDK.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	auto h3 = CreateFileA(Telemetry.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	CreateFileA(Astrolabe.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	CreateFileA(MiHoYoMTRSDK.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	//CreateFileA(Telemetry.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	return;
+}
 
-	auto t = std::thread([](HANDLE h1, HANDLE h2, HANDLE h3) -> void
+static bool report_sent = false;
+void OnReportLuaShell(void* __this, app::String* type, app::String* value);
+
+static void LuaShellManager_ReportLuaShellResult_Hook(void* __this, app::String* type, app::String* value) {
+	OnReportLuaShell(__this, type, value);
+}
+
+std::vector<uint8_t> from_hex(std::string string) {
+	std::vector<uint8_t> ret;
+	auto HexCharToByte = [](char ch) {
+		if (ch <= 0x40)
+			return ch - 48;
+		else
+			return ch - 55;
+		};
+
+	for (int i = 0; i < string.length(); i += 2)
+	{
+		char firstchar = HexCharToByte(string[i]);
+		char secondchar = HexCharToByte(string[i + 1]);
+		char result = (16 * firstchar) | secondchar;
+		ret.push_back(result);
+	}
+	return ret;
+}
+
+void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
+	auto xor_payload = [](std::vector<uint8_t>& value_bytes) -> void
+	{
+		auto length = value_bytes.size() - 1;
+		for (signed long long i = length; i >= 0; i -= 1)
 		{
-			std::this_thread::sleep_for(std::chrono::seconds(60));
-			CloseHandle(h1);
-			CloseHandle(h2);
-			CloseHandle(h3);
-		}, h1, h2, h3);
-	t.detach();
+			if (i == length)
+				value_bytes[i] ^= 0xA3;
+			else
+				value_bytes[i] ^= value_bytes[i + 1];
+		}
+	};
+
+	auto value_bytes = from_hex(il2cppi_to_string(value));
+	xor_payload(value_bytes);
+
+	auto value_string = std::string((char*)value_bytes.data(), value_bytes.size());
+	//util::log(M_Info, "ReportLuaShellResult: %s, %s", il2cppi_to_string(type).c_str(), value_string.c_str());
+
+	auto json_report = nlohmann::json::parse(value_string);
+
+	if (json_report.contains("1"))
+	{
+		util::log(M_Info, "Letting the first LuaShellResult pass, blocking the rest.");
+		report_sent = false;
+	}
+	else
+		report_sent = true;
+
+	if (!report_sent)
+		CALL_ORIGIN(LuaShellManager_ReportLuaShellResult_Hook, __this, type, value);
 	return;
 }
 
 void ProtectionBypass::Init()
 {
-	// need update
 	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 	for (int i = 0; i < 4; i++) {
 		//app::Unity_RecordUserData(i);
@@ -388,21 +433,15 @@ void ProtectionBypass::Init()
 	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
 	util::log(M_Info, "Trying to close mhyprot.");
 
-	if (CloseHandleByName(L"\\Device\\mhyprot2")) {
+	if (CloseHandleByName(L"\\Device\\mhyprot2"))
 		util::log(M_Info, "mhyprot anticheat has been killed");
-	}
-	else {
-		//util::log(M_Error, "Failed to close mhyprot anticheat. Please report this issue in our Discord server.");
-	}
+
+	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 
 	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
 	DisableLogReport();
 	util::log(M_Info, "Initialized protection bypass");
-	//util::log(M_Info, "sleeping");
-	//Sleep(20000);
-	//util::log(M_Info, "slept");
 
 	//HookManager::install(app::CrashReporter, CrashReporter_Hook);
-
 	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 }

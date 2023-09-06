@@ -80,7 +80,6 @@
     <ClCompile Include="Games\lightsout.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
     <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
-    <ClCompile Include="IL2CPP\md5.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -125,7 +124,6 @@
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="IL2CPP\il2cpp-types.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="IL2CPP\mDumper-funcs.h" />
     <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
     <ClInclude Include="IL2CPP\Functions\nocd.h" />
     <ClInclude Include="IL2CPP\Functions\uimisc.h" />
@@ -160,8 +158,6 @@
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClInclude Include="Lua\luahook.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
-    <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_register.h" />
-    <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_rpc.h" />
     <ClInclude Include="Discord SDK\include\discord_register.h" />
     <ClInclude Include="Discord SDK\include\discord_rpc.h" />
     <ClInclude Include="Discord SDK\src\backoff.h" />
@@ -205,15 +201,15 @@
     <ClInclude Include="Games\wordle.hpp" />
     <ClInclude Include="IL2CPP\Functions\nosprintcd.h" />
     <ClInclude Include="IL2CPP\il2cpp-types-ptr.h" />
-    <ClInclude Include="IL2CPP\md5.h" />
+    <ClInclude Include="Utils\util.h" />
+    <ClInclude Include="features\world\ElementalSight.h" />
+    <ClInclude Include="features\Feature.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
     <Library Include="IL2CPP\detours.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Users\Chak\Downloads\virus.png" />
-    <Image Include="virus.png" />
     <Image Include="gato.png" />
   </ItemGroup>
   <ItemGroup>

@@ -1,1 +1,0 @@
-This is the configuration used for Minty's VMProtect setup. See the documentation folder for more information.

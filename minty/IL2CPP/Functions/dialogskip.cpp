@@ -24,7 +24,7 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
     auto talkDialog = context->fields._talkDialog;
 
     if (talkDialog == nullptr) {
-        util::log(M_Info, "talkDialog == null :cry:");
+        util::log(M_Info, "talkDialog == null");
         return;
     }
 
@@ -32,7 +32,6 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
 
     util::log(M_Info, "_inSelect5: %d", talkDialog->fields.MDICEHFCDFM);
     util::log(M_Info, "_inSelect11: %d", talkDialog->fields.FNOGAGEDMPP);
-    
     if (talkDialog->fields.MDICEHFCDFM/* && f_AutoSelectDialog->enabled() && !isImportantAAA)
     {
         int32_t value = 0;

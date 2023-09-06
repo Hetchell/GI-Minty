@@ -166,14 +166,11 @@
     <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
     <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
-    <ClCompile Include="IL2CPP\md5.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\GuiUtils.cpp" />
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
     <ClCompile Include="Utils\LuaUtils.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
-    <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_register.h" />
-    <ClInclude Include="..\..\M — копия\minty\Discord SDK\include\discord_rpc.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClCompile Include="Config\ConfigManager.cpp">
       <FileType>CppHeader</FileType>
@@ -210,6 +207,8 @@
     <ClInclude Include="Discord SDK\src\rapidjson\writer.h" />
     <ClInclude Include="Discord SDK\src\rpc_connection.h" />
     <ClInclude Include="Discord SDK\src\serialization.h" />
+    <ClInclude Include="features\Feature.h" />
+    <ClInclude Include="features\world\ElementalSight.h" />
     <ClInclude Include="Games\lightsout.hpp" />
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
@@ -292,8 +291,6 @@
     <ClCompile Include="GUI\InitGui.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="IL2CPP\md5.h" />
-    <ClInclude Include="IL2CPP\mDumper-funcs.h" />
     <ClCompile Include="IL2CPP\il2cppUtils.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
@@ -336,6 +333,7 @@
     <ClInclude Include="Utils\ImageLoader\stb_image.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
+    <ClInclude Include="Utils\util.h" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -394,9 +392,7 @@
     <Library Include="Lua\lua53.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Users\Chak\Downloads\virus.png" />
     <Image Include="gato.png" />
-    <Image Include="virus.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Themes\Fonts\m-n.otf" />

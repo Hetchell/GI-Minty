@@ -14,7 +14,8 @@ bool OnPropertySet(app::PropType__Enum propType)
 	const bool result = !ifstam ||
 		(propType != PT::PROP_MAX_STAMINA &&
 			propType != PT::PROP_CUR_PERSIST_STAMINA &&
-			propType != PT::PROP_CUR_TEMPORARY_STAMINA);
+			propType != PT::PROP_CUR_TEMPORARY_STAMINA &&
+			propType != PT::PROP_CUR_PERSIST_DIVE_STAMINA);
 
 	if (propType == PT::PROP_MAX_STAMINA)
 		override_cheat = false;
@@ -41,7 +42,8 @@ namespace il2fns {
 	void Infinity_Stamina() {
 		while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
 			HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
-			HookManager::install(app::VCHumanoidMove_Scara, VCHumanoidMove_Scara_Hook); ifinit = true;
+			HookManager::install(app::VCHumanoidMove_Scara, VCHumanoidMove_Scara_Hook);
+			ifinit = true;
 		}
 
 		ifstam = readBoolFuncStateFromJson("InfStamina");

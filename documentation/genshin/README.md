@@ -1,1 +1,0 @@
-Genshin Impact documentation.

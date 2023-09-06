@@ -3,10 +3,13 @@
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
 
 #define DO_API(a, b, r, n, p) extern r(*n) p
+//namespace app
+//{
 	#include "il2cpp-api-functions.h"
 	#include <Windows.h>
-	//#include "il2cpp-types.h"
 	#include <string>
+	//#include "il2cpp-types.h"
+//}
 #undef DO_API
 
 //#include "il2cpp-types.h"
@@ -33,50 +36,9 @@ namespace app
 }
 #undef DO_UP_FUNC
 
-#define DO_MD1_FUNC(a, r, n, p) extern r(*n) p
-namespace app
-{
-#include "mDumper-funcs.h"
-	//#include "il2cpp-types.h"
-#include <Windows.h>
-#include <string>
-}
-#undef DO_MD1_FUNC
-
 #define DO_TYPEDEF(a, n) extern n ## __Class** n ## __TypeInfo
 namespace app
 {
 	#include "il2cpp-types.h"
 }
 #undef DO_TYPEDEF
-/*
-#define DO_MD2_FUNC(a, r, n, p) extern r(*n) p
-namespace app
-{
-#include "mDumper-funcs.h"
-	//#include "il2cpp-types.h"
-#include <Windows.h>
-#include <string>
-}
-#undef DO_MD2_FUNC
-
-#define DO_MD3_FUNC(a, r, n, p) extern r(*n) p
-namespace app
-{
-#include "mDumper-funcs.h"
-	//#include "il2cpp-types.h"
-#include <Windows.h>
-#include <string>
-}
-#undef DO_MD3_FUNC
-
-#define DO_MD4_FUNC(a, r, n, p) extern r(*n) p
-namespace app
-{
-#include "mDumper-funcs.h"
-	//#include "il2cpp-types.h"
-#include <Windows.h>
-#include <string>
-}
-#undef DO_MD4_FUNC
-*/

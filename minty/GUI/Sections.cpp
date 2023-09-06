@@ -279,7 +279,7 @@ namespace Sections {
     void About() {
         ImGui::SeparatorText("About");
 
-        ImGui::Text("Minty version 1.38");
+        ImGui::Text("Minty version 1.39");
         ImGui::Text("ImGui version: %s", ImGui::GetVersion());
         ImGui::Text("Design made with love by KittyKate :3");
 
@@ -682,8 +682,8 @@ namespace Sections {
         if (show_debug_metrics)
             ImGui::ShowMetricsWindow(&show_debug_metrics);
 
-        if (show_debug_log)
-            ShowDebugLog();
+        //if (show_debug_log)
+        //    ShowDebugLog();
 
         /*----------PLACEHOLDER----------*/
         if (show_style_editor) {

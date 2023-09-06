@@ -5,7 +5,7 @@ using namespace app;
 DO_APP_FUNC(0x02E63F50, 0x02EA09F0, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
 DO_APP_FUNC(0x017D4490, 0x017EC200, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
 DO_APP_FUNC(0x017CE2F0, 0x017E5E30, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
-DO_APP_FUNC(0x017D2D90, 0x017EAA80, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
+DO_APP_FUNC(0x017D2D90, 0x017EAA80, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (app::LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
 DO_APP_FUNC(0x03FB79A0, 0x04013D60, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
 
 // Visuals
@@ -16,7 +16,7 @@ DO_APP_FUNC(0x02091360, 0x020B6090, void, MoleMole_VCBaseSetDitherValue_set_Mana
 DO_APP_FUNC(0x026D40E0, 0x027032A0, void, VCHumanoidMove_NotifyLandVelocity, (app::VCHumanoidMove* __this, app::Vector3 velocity, float reachMaxDownVelocityTime));
 DO_APP_FUNC(0x048346B0, 0x0489D100, bool, Miscs_CheckTargetAttackable, (app::BaseEntity* attackerEntity, app::BaseEntity* targetEntity, bool idk));
 DO_APP_FUNC(0x038BD1E0, 0x0390F140, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult));
-DO_APP_FUNC(0x03FD5F00, 0x04032990, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (app::ActorAbilityPlugin* __this, float delay, Object* arg));
+DO_APP_FUNC(0x03FD5F00, 0x04032990, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (app::ActorAbilityPlugin* __this, float delay, app::Object* arg));
 
 // Utility
 DO_APP_FUNC(0x02D1FA80, 0x02D586B0, void*, MoleMole__DoSitOnChair, ());
@@ -89,6 +89,9 @@ DO_APP_FUNC(0x08032910, 0x08076C90, void, Rigidbody_set_position, (app::Rigidbod
 DO_APP_FUNC(0x08032930, 0x08076910, void, Rigidbody_MovePosition, (app::Rigidbody* __this, app::Vector3 value));
 
 DO_APP_FUNC(0x07FD5E70, 0x05937000, void, Action_Invoke, (/*Action*/ void* __this));
+
+// Lua functions
+DO_APP_FUNC(0x03C79100, 0x0, void, MoleMole_LuaShellManager_ReportLuaShellResult, (void* __this, String* type, String* value));
 
 // Free Camera
 DO_APP_FUNC(0x080EE9E0, 0x081333E0, void, Camera_set_fieldOfView, (app::Camera* __this, float value));

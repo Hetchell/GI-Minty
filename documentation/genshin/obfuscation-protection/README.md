@@ -1,1 +1,0 @@
-Information about how Genshin Impact is obfuscated and protected.

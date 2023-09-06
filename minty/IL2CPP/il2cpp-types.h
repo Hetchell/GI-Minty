@@ -6547,6 +6547,12 @@ typedef union Il2CppSingle_float
         PROP_PLAYER_HOME_COIN = 0x0000273a,
         PROP_PLAYER_WAIT_SUB_HOME_COIN = 0x0000273b,
         PROP_IS_AUTO_UNLOCK_SPECIFIC_EQUIP = 0x0000273c,
+        PROP_PLAYER_GCG_COIN = 0x0000273d,
+        PROP_PLAYER_WAIT_SUB_GCG_COIN = 0x0000273e,
+        PROP_PLAYER_ONLINE_TIME = 0x0000273f,
+        PROP_IS_DIVEABLE = 0x00002740,
+        PROP_MAX_DIVE_STAMINA = 0x00002741,
+        PROP_CUR_PERSIST_DIVE_STAMINA = 0x00002742,
     };
 
     struct __declspec(align(8)) BaseComponentPlugin__Fields {
@@ -12246,6 +12252,56 @@ typedef union Il2CppSingle_float
         struct List_1_MoleMole_ActorAbility_* _appliedAbilities;
         struct Dictionary_2_System_UInt32_System_Int32_* _appliedAbilitiesIndex;
         struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_2;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_3;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_4;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_5;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_6;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_7;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_8;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_9;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_10;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_11;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_12;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_13;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_14;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_15;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_16;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_17;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_18;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_19;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_20;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_21;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_22;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_23;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_24;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_25;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_26;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_27;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_28;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_29;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_30;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_31;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_32;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_33;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_34;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_35;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_36;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_37;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_38;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_39;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_40;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_41;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_42;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_43;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_44;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_45;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_46;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_47;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_48;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_49;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_50;
+        struct Dictionary_2_System_String_MoleMole_ActorAbility_* CKDBIBGCPOB_51;
         uint32_t nextValidAbilityID;
     };
 
