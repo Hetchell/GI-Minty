@@ -212,11 +212,12 @@ int main() {
             // Write the executable path to the settings file
             cfg["exec_path"] = exe_path;
             cfg["functions"]["InfBurst"] = false;
+            cfg["functions"]["NoClip"] = false;
             cfg["functions"]["NoCD"] = false;
             cfg["functions"]["InfStamina"] = false;
             cfg["functions"]["NoFallDmg"] = false;
             cfg["functions"]["InstantBow"] = false;
-            cfg["functions"]["DumbEnemy"] = false;
+            cfg["functions"]["DumbEnemies"] = false;
             cfg["functions"]["Booty"] = false;
             cfg["functions"]["AutoTalk"] = false;
             cfg["functions"]["CutsceneSkip"] = false;
@@ -226,6 +227,19 @@ int main() {
             cfg["general"]["showRPC"] = true;
             cfg["general"]["ShowFPS"] = true;
             cfg["general"]["initDelay"] = 15000;
+            // hotkeys
+            cfg["hotkeys"]["InfBurst"] = 0;
+            cfg["hotkeys"]["NoCD"] = 0;
+            cfg["hotkeys"]["NoClip"] = 0;
+            cfg["hotkeys"]["InfStamina"] = 0;
+            cfg["hotkeys"]["NoFallDmg"] = 0;
+            cfg["hotkeys"]["InstantBow"] = 0;
+            cfg["hotkeys"]["DumbEnemies"] = 0;
+            cfg["hotkeys"]["Booty"] = 0;
+            cfg["hotkeys"]["AutoTalk"] = 0;
+            cfg["hotkeys"]["CutsceneSkip"] = 0;
+            cfg["hotkeys"]["ShowChest"] = 0;
+
             settings_file << cfg.dump(4) << std::endl;
             //printf("created");
             exe_path = cfg["exec_path"];

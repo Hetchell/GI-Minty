@@ -16,10 +16,10 @@ namespace il2fns {
             HookManager::install(app::MoleMole_VCMonsterAIController_TryDoSkill, VCMonsterAIController_TryDoSkill_Hook); ifinit = true;
         }
 
-        ifdumb = readBoolFuncStateFromJson("DumbEnemy");
+        ifdumb = readBoolFuncStateFromJson("DumbEnemies");
 
         if (ImGui::Checkbox("Dumb Enemies", &ifdumb)) {
-            saveFuncStateToJson("DumbEnemy", ifdumb);
+            saveFuncStateToJson("DumbEnemies", ifdumb);
         }
         ImGui::SameLine();
         HelpMarker("Make enemies have the same level of intelligence as Congress.");

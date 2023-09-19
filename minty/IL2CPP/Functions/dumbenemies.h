@@ -6,7 +6,9 @@
 #include "../../Utils/GuiUtils.hpp"
 #include "../../Config/ConfigManager.hpp"
 #include "../il2cppUtils.h"
+#include "../../Hotkeys/Hotkey.h"
 
 namespace il2fns {
+	inline Hotkey dumbEnemiesHotkey = Hotkey("DumbEnemies");
 	void DumbEnemies();
 }

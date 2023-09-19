@@ -58,7 +58,8 @@ std::vector<std::string> ModuleOrder = {
     //"Themes",
     //"Debug",
     "About",
-    "Settings"
+    "Settings",
+    "Hotkeys"
 };
 
 namespace Sections {
@@ -800,8 +801,11 @@ namespace Sections {
             ImGui::End();
         }
 
+    }
 
-
+    void Hotkeys() {
+        il2fns::dumbEnemiesHotkey.Draw("Dumb enemies: ");
+        il2fns::noClipHotkey.Draw("NoClip: ");
     }
 
 }// namespace Sections
@@ -832,6 +836,9 @@ void UltraOuter() {
                 il2fns::NoClipSpeed(fNoClip);
         }
     }
+    if (il2fns::noClipHotkey.IsPressed())
+        ifnoclip = !ifnoclip;
+
 }
 
 using DrawFunction = void (*)();
@@ -845,6 +852,7 @@ const std::unordered_map<std::string, DrawFunction> SectionMap = {
     {"About", &Sections::About},
     {"Themes", &Sections::Themes},
     {"Settings", &Sections::Settings},
+    {"Hotkeys", &Sections::Hotkeys},
     {"Debug", &Sections::Debug}
 };
 
