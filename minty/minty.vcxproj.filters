@@ -204,8 +204,6 @@
     <ClInclude Include="IL2CPP\Functions\nosprintcd.h" />
     <ClInclude Include="IL2CPP\il2cpp-types-ptr.h" />
     <ClInclude Include="Utils\util.h" />
-    <ClInclude Include="features\world\ElementalSight.h" />
-    <ClInclude Include="features\Feature.h" />
     <ClInclude Include="Hotkeys\Hotkey.h" />
     <ClInclude Include="Hotkeys\KeyBind.h" />
     <ClInclude Include="Hotkeys\KeyBinds.h" />

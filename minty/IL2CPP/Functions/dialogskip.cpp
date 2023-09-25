@@ -42,7 +42,8 @@ void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
         app::MoleMole_TalkDialogContext_OnDialogSelectItem(talkDialog, &notify);
     }
     else if (!talkDialog->fields.MDICEHFCDFM)
-        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context); */
+        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
+    */
 }
 
 static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)

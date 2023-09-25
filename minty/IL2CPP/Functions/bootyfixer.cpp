@@ -11,11 +11,12 @@ static void MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(app::MoleM
 
 namespace il2fns {
     void BootyFixer() {
-        app::GameObject* waterPeeking = nullptr;
+        //app::GameObject* waterPeeking = nullptr;
 
+        //util::log(M_Info, "inWater: %d", app::Test_inDive);
         while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
             HookManager::install(app::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue);
-            waterPeeking = app::UnityEngine__GameObject__Find(string_to_il2cppi("/EffectPool/Eff_Player_Diving_Root"));
+            //waterPeeking = app::UnityEngine__GameObject__Find(string_to_il2cppi("/EffectPool/Eff_Player_Diving_Root"));
             ifinit = true;
         }
 
@@ -29,6 +30,7 @@ namespace il2fns {
         ImGui::SameLine();
         HelpMarker(";)");
 
+        /*
         while (ifpeeking && ifinit) {
             if (!waterPeeking) {
                 util::log(M_Info, "waterPeeking == null");
@@ -36,9 +38,9 @@ namespace il2fns {
             }
 
             /*if (!app::GameObject_get_active(waterPeeking))
-                return;*/
+                return;
 
             app::UnityEngine__GameObject__SetActive(waterPeeking, false);
-        }
+        }*/
     }
 }

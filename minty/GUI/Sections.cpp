@@ -39,7 +39,6 @@ extern bool is_lua_hooked;
 extern uintptr_t baseAddress;
 extern uintptr_t unityPlayerAddress;
 
-
 std::vector<std::string> lua_list;
 std::string last_lua_string;
 
@@ -58,8 +57,8 @@ std::vector<std::string> ModuleOrder = {
     //"Themes",
     //"Debug",
     "About",
-    "Settings",
-    "Hotkeys"
+    "Settings"
+    //"Hotkeys"
 };
 
 namespace Sections {
@@ -271,9 +270,7 @@ namespace Sections {
         ImGui::PopStyleVar(2);
 
         // ImGui::SeparatorText("Minesweeper");
-
         // ImGui::SeparatorText("Tic-tac-toe");
-
         // ImGui::SeparatorText("Lights out");
     }
 
@@ -289,7 +286,7 @@ namespace Sections {
         ImGui::TextColored(ImVec4(235.0F / 255.0F, 64.0F / 255.0F, 52.0F / 255.0F, 1.0), "Owner: MintyGingy");
         ImGui::TextColored(ImVec4(219.0F / 255.0F, 57.0F / 255.0F, 219.0F / 255.0F, 1.0), "Co-founder: Moistcrafter");
         ImGui::TextColored(ImVec4(57.0F / 255.0F, 68.0F / 255.0F, 219.0F / 255.0F, 1.0), "Contributors: EtoShinya, KittyKate, lilmayofuksu, USSY, akioukun, sad_akulka");
-        ImGui::TextColored(ImVec4(255, 0, 212, 255), "Donaters: EtoShinya <3 <3, Thomas_Heath, Blair, unmeinoshonen, USSY");
+        ImGui::TextColored(ImVec4(255, 0, 212, 255), "Donaters: Thomas_Heath, Blair, unmeinoshonen, USSY");
         ImGui::TextColored(ImVec4(0, 255, 179, 255), "Special thanks to family: Futchev, yarik0chka, keitaro_gg");
 
         ImGui::Text("Minty Github: ");
@@ -852,7 +849,7 @@ const std::unordered_map<std::string, DrawFunction> SectionMap = {
     {"About", &Sections::About},
     {"Themes", &Sections::Themes},
     {"Settings", &Sections::Settings},
-    {"Hotkeys", &Sections::Hotkeys},
+    //{"Hotkeys", &Sections::Hotkeys},
     {"Debug", &Sections::Debug}
 };
 
