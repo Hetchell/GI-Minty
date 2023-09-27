@@ -18,6 +18,7 @@
 #include "../IL2CPP/Functions/unlockfps.h"
 #include "../IL2CPP/Functions/multihit.h"
 #include "../IL2CPP/Functions/nosprintcd.h"
+#include "../IL2CPP/Functions/autotp.h"
 
 #include "../Lua/function.h"
 #include "../Utils/GuiUtils.hpp"
@@ -71,6 +72,8 @@ namespace Sections {
         il2fns::NoSprintCD();
 
         il2fns::GodMode();
+
+        il2fns::autotp::GUI();
 
         static bool show_modelswap = false;
         if (ImGui::Checkbox("Model swapper", &show_modelswap)) {} ImGui::SameLine(); HelpMarker("Swaps your avatars' models. Press Clone to copy current avatar, press paste to apply the original avatar's model onto the current.");

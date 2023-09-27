@@ -82,6 +82,7 @@
     <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
     <ClCompile Include="Hotkeys\Hotkey.cpp" />
     <ClCompile Include="Hotkeys\KeyBind.cpp" />
+    <ClCompile Include="IL2CPP\Functions\autotp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -207,6 +208,9 @@
     <ClInclude Include="Hotkeys\Hotkey.h" />
     <ClInclude Include="Hotkeys\KeyBind.h" />
     <ClInclude Include="Hotkeys\KeyBinds.h" />
+    <ClInclude Include="features\Feature.h" />
+    <ClInclude Include="features\world\ElementalSight.h" />
+    <ClInclude Include="IL2CPP\Functions\autotp.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

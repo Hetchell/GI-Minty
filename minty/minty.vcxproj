@@ -165,6 +165,7 @@
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClCompile Include="Hotkeys\Hotkey.cpp" />
     <ClCompile Include="Hotkeys\KeyBind.cpp" />
+    <ClCompile Include="IL2CPP\Functions\autotp.cpp" />
     <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
     <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
     <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Hotkeys\Hotkey.h" />
     <ClInclude Include="Hotkeys\KeyBind.h" />
     <ClInclude Include="Hotkeys\KeyBinds.h" />
+    <ClInclude Include="IL2CPP\Functions\autotp.h" />
     <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
     <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
     <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
