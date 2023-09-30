@@ -68,7 +68,18 @@ namespace cheat {
     }
 
     void UIMisc::Outer() {
-
+        if (chestIndicHotkey.IsPressed())
+            ifChestIndic = !ifChestIndic;
+        if (cameraZoomHotkey.IsPressed())
+            ifCameraZoom = !ifCameraZoom;
+        if (fovChangerHotkey.IsPressed())
+            ifFovChanger = !ifFovChanger;
+        if (skipAnimHotkey.IsPressed())
+            ifSkipAnim = !ifSkipAnim;
+        if (otiHotkey.IsPressed())
+            ifOTI = !ifOTI;
+        if (uidHotkey.IsPressed())
+            ifUid = !ifUid;
     }
 
     void UIMisc::Status() {

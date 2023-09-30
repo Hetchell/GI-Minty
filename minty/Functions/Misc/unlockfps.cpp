@@ -6,45 +6,36 @@ namespace cheat {
 	}
 
 	void UnlockFPS::GUI() {
-		ImGui::Checkbox("Unlock FPS", &ifUnlockFPS);
+		ImGui::Checkbox(_("Unlock FPS"), &ifUnlockFPS);
+		ImGui::SameLine();
+		HelpMarker(_("Unlocks framerate to target value."));
 		if (ifUnlockFPS) {
 			ImGui::Indent();
-			ImGui::SliderInt("Target FPS", &i_FPS, 10, 360);
+			if (ImGui::SliderInt(_("Target FPS"), &i_FPS, 10, 360))
+				app::UnityEngine__Application__set__targetFramerate(i_FPS);
+
 			ImGui::Unindent();
+		}
+		else {
+			app::UnityEngine__Application__set__targetFramerate(60);
+		}
+
+		ImGui::Checkbox(_("Energy-saving mode"), &ifSavingMode);
+		ImGui::SameLine();
+		HelpMarker(_("Locks FPS to 5 when game is in background."));
+		if (!app::UnityEngine__Application__get__isFocused() && ifSavingMode) {
+			app::UnityEngine__Application__set__targetFramerate(5);
 		}
 	}
 
 	void UnlockFPS::Outer() {
-
+		if (unlockFPSHotkey.IsPressed())
+			ifUnlockFPS = !ifUnlockFPS;
 	}
 
 	void UnlockFPS::Status() {
-
-	}
-}
-
-namespace il2fns {
-	void UnlockFps() {
-		static bool ifunlock;
-		static bool ifsave;
-		static int target = 60;
-		if (ImGui::Checkbox("Unlock FPS", &ifunlock))
-			if (!ifunlock)
-				app::UnityEngine__Application__set__targetFramerate(60); /*app::UnityEngine__QualitySettings__set__vSyncCount(1);*/
-		ImGui::SameLine();
-		HelpMarker("Unlocks framerate to target value.");
-		if (ifunlock) {
-			app::UnityEngine__QualitySettings__set__vSyncCount(0);
-			ImGui::Indent();
-			if (ImGui::SliderInt("Target FPS", &target, 10, 360))
-				app::UnityEngine__Application__set__targetFramerate(target); 
-			ImGui::Unindent();
-		}
-		ImGui::Checkbox("Energy-saving mode", &ifsave);
-		ImGui::SameLine();
-		HelpMarker("Locks FPS to 5 when game is in background.");
-		if (!app::UnityEngine__Application__get__isFocused() && ifsave) {
-			app::UnityEngine__Application__set__targetFramerate(5);
+		if (ifUnlockFPS) {
+			ImGui::Text("Unlock FPS: %i", i_FPS);
 		}
 	}
 }

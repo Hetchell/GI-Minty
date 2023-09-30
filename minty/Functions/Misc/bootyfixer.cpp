@@ -17,16 +17,13 @@ namespace cheat {
     }
 
     void Peeking::Outer() {
-        // hotkey here
+        if (peekingHotkey.IsPressed())
+            ifPeeking = !ifPeeking;
     }
 
     void Peeking::Status() {
         if (ifPeeking) {
             ImGui::Text(_("Enable Peeking"));
         }
-    }
-
-    std::string Peeking::groupName() {
-        return _("Misc");
     }
 }

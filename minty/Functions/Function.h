@@ -5,11 +5,13 @@
 
 class FN {
 public:
-	virtual std::string groupName() {
-		return "NOPE";
-	}
-
+	std::string groupName;
+	
 	virtual void GUI() {};
 	virtual void Outer() {};
 	virtual void Status() {};
+
+	std::string GetGroupName() {
+		return groupName;
+	}
 };

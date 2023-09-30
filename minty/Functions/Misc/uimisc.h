@@ -5,6 +5,7 @@
 #include "../HookManager.h"
 #include "../il2cppUtils.h"
 #include "../Function.h"
+#include "../../Hotkeys/Hotkey.h"
 
 namespace cheat {
 	class UIMisc : public FN {
@@ -15,6 +16,14 @@ namespace cheat {
 		inline static bool ifSkipAnim;
 		inline static bool ifOTI;
 		inline static bool ifUid;
+
+		inline static Hotkey chestIndicHotkey = Hotkey("ChestIndic");
+		inline static Hotkey cameraZoomHotkey = Hotkey("CameraZoom");
+		inline static Hotkey fovChangerHotkey = Hotkey("FovChanger");
+		inline static Hotkey skipAnimHotkey = Hotkey("SkipAnim");
+		inline static Hotkey otiHotkey = Hotkey("OTI");
+		inline static Hotkey uidHotkey = Hotkey("Uid");
+
 
 		inline static float f_CameraZoom;
 		inline static int i_Fov;
@@ -28,17 +37,8 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
-		std::string groupName() override;
+		std::string groupName = _("Misc");
 
 		UIMisc();
 	};
-}
-
-namespace il2fns {
-	//void Change_UID();
-	void ChestIndicator();
-	void CameraZoom();
-	void SetFov();
-	void SkipAnim();
-	void OpenTeamImm();
 }
