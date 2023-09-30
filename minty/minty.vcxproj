@@ -162,13 +162,29 @@
     <ClCompile Include="Discord SDK\src\discord_rpc.cpp" />
     <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
+    <ClCompile Include="Functions\il2cppUtils.cpp" />
+    <ClCompile Include="Functions\Misc\bootyfixer.cpp" />
+    <ClCompile Include="Functions\Misc\uimisc.cpp" />
+    <ClCompile Include="Functions\Misc\unlockfps.cpp" />
+    <ClCompile Include="Functions\Player\autotp.cpp" />
+    <ClCompile Include="Functions\Player\godmode.cpp" />
+    <ClCompile Include="Functions\Player\infinityenergy.cpp" />
+    <ClCompile Include="Functions\Player\infinitystamina.cpp" />
+    <ClCompile Include="Functions\Player\multihit.cpp" />
+    <ClCompile Include="Functions\Player\nocd.cpp" />
+    <ClCompile Include="Functions\Player\noclip.cpp" />
+    <ClCompile Include="Functions\Player\nosprintcd.cpp" />
+    <ClCompile Include="Functions\World\dialogskip.cpp" />
+    <ClCompile Include="Functions\World\dumbenemies.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
+    <ClCompile Include="GUI\Translations.cpp" />
     <ClCompile Include="Hotkeys\Hotkey.cpp" />
     <ClCompile Include="Hotkeys\KeyBind.cpp" />
-    <ClCompile Include="IL2CPP\Functions\autotp.cpp" />
-    <ClCompile Include="IL2CPP\Functions\multihit.cpp" />
-    <ClCompile Include="IL2CPP\Functions\noclip.cpp" />
-    <ClCompile Include="IL2CPP\Functions\nosprintcd.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Function.h" />
+    <ClCompile Include="IL2CPP\Functions\Player\autotp.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Player\multihit.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Player\noclip.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Player\nosprintcd.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\GuiUtils.cpp" />
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
@@ -212,6 +228,30 @@
     <ClInclude Include="Discord SDK\src\serialization.h" />
     <ClInclude Include="features\Feature.h" />
     <ClInclude Include="features\world\ElementalSight.h" />
+    <ClInclude Include="Functions\detours.h" />
+    <ClInclude Include="Functions\Function.h" />
+    <ClInclude Include="Functions\HookManager.h" />
+    <ClInclude Include="Functions\il2cpp-api-functions.h" />
+    <ClInclude Include="Functions\il2cpp-appdata.h" />
+    <ClInclude Include="Functions\il2cpp-functions.h" />
+    <ClInclude Include="Functions\il2cpp-init.hpp" />
+    <ClInclude Include="Functions\il2cpp-types-ptr.h" />
+    <ClInclude Include="Functions\il2cpp-types.h" />
+    <ClInclude Include="Functions\il2cpp-unityplayer-functions.h" />
+    <ClInclude Include="Functions\il2cppUtils.h" />
+    <ClInclude Include="Functions\Misc\bootyfixer.h" />
+    <ClInclude Include="Functions\Misc\uimisc.h" />
+    <ClInclude Include="Functions\Misc\unlockfps.h" />
+    <ClInclude Include="Functions\Player\autotp.h" />
+    <ClInclude Include="Functions\Player\godmode.h" />
+    <ClInclude Include="Functions\Player\infinityenergy.h" />
+    <ClInclude Include="Functions\Player\infinitystamina.h" />
+    <ClInclude Include="Functions\Player\multihit.h" />
+    <ClInclude Include="Functions\Player\nocd.h" />
+    <ClInclude Include="Functions\Player\noclip.h" />
+    <ClInclude Include="Functions\Player\nosprintcd.h" />
+    <ClInclude Include="Functions\World\dialogskip.h" />
+    <ClInclude Include="Functions\World\dumbenemies.h" />
     <ClInclude Include="Games\lightsout.hpp" />
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
@@ -224,31 +264,31 @@
     <ClInclude Include="Hotkeys\Hotkey.h" />
     <ClInclude Include="Hotkeys\KeyBind.h" />
     <ClInclude Include="Hotkeys\KeyBinds.h" />
-    <ClInclude Include="IL2CPP\Functions\autotp.h" />
-    <ClInclude Include="IL2CPP\Functions\bootyfixer.h" />
-    <ClInclude Include="IL2CPP\Functions\dialogskip.h" />
-    <ClInclude Include="IL2CPP\Functions\dumbenemies.h" />
-    <ClInclude Include="IL2CPP\Functions\godmode.h" />
-    <ClInclude Include="IL2CPP\Functions\infinityenergy.h" />
-    <ClInclude Include="IL2CPP\Functions\infinitystamina.h" />
-    <ClInclude Include="IL2CPP\Functions\multihit.h" />
-    <ClInclude Include="IL2CPP\Functions\nocd.h" />
-    <ClInclude Include="IL2CPP\Functions\noclip.h" />
-    <ClInclude Include="IL2CPP\Functions\nosprintcd.h" />
-    <ClInclude Include="IL2CPP\Functions\uimisc.h" />
-    <ClInclude Include="IL2CPP\Functions\unlockfps.h" />
-    <ClInclude Include="IL2CPP\HookManager.h">
+    <ClInclude Include="IL2CPP\Functions\Player\autotp.h" />
+    <ClInclude Include="IL2CPP\Functions\Misc\bootyfixer.h" />
+    <ClInclude Include="IL2CPP\Functions\World\dialogskip.h" />
+    <ClInclude Include="IL2CPP\Functions\World\dumbenemies.h" />
+    <ClInclude Include="IL2CPP\Functions\Player\godmode.h" />
+    <ClInclude Include="IL2CPP\Functions\Player\infinityenergy.h" />
+    <ClInclude Include="IL2CPP\Functions\Player\infinitystamina.h" />
+    <ClInclude Include="IL2CPP\Functions\Player\multihit.h" />
+    <ClInclude Include="IL2CPP\Functions\Player\nocd.h" />
+    <ClInclude Include="IL2CPP\Functions\Player\noclip.h" />
+    <ClInclude Include="IL2CPP\Functions\Player\nosprintcd.h" />
+    <ClInclude Include="IL2CPP\Functions\Misc\uimisc.h" />
+    <ClInclude Include="IL2CPP\Functions\Misc\unlockfps.h" />
+    <ClInclude Include="IL2CPP\Functions\HookManager.h">
       <FileType>CppHeader</FileType>
     </ClInclude>
-    <ClCompile Include="IL2CPP\Functions\bootyfixer.cpp" />
-    <ClCompile Include="IL2CPP\Functions\dialogskip.cpp" />
-    <ClCompile Include="IL2CPP\Functions\dumbenemies.cpp" />
-    <ClCompile Include="IL2CPP\Functions\godmode.cpp" />
-    <ClCompile Include="IL2CPP\Functions\infinitystamina.cpp" />
-    <ClCompile Include="IL2CPP\Functions\nocd.cpp" />
-    <ClCompile Include="IL2CPP\Functions\uimisc.cpp" />
-    <ClCompile Include="IL2CPP\Functions\unlockfps.cpp" />
-    <ClCompile Include="IL2CPP\Functions\infinityenergy.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Misc\bootyfixer.cpp" />
+    <ClCompile Include="IL2CPP\Functions\World\dialogskip.cpp" />
+    <ClCompile Include="IL2CPP\Functions\World\dumbenemies.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Player\godmode.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Player\infinitystamina.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Player\nocd.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Misc\uimisc.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Misc\unlockfps.cpp" />
+    <ClCompile Include="IL2CPP\Functions\Player\infinityenergy.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_draw.cpp" />
@@ -292,13 +332,13 @@
     <ClCompile Include="Lua\lvm.c" />
     <ClCompile Include="Lua\lzio.c" />
     <ClCompile Include="Utils\dllmain.cpp" />
-    <ClInclude Include="IL2CPP\il2cpp-types-ptr.h" />
-    <ClInclude Include="IL2CPP\il2cpp-types.h" />
-    <ClInclude Include="IL2CPP\il2cppUtils.h" />
+    <ClInclude Include="IL2CPP\Functions\il2cpp-types-ptr.h" />
+    <ClInclude Include="IL2CPP\Functions\il2cpp-types.h" />
+    <ClInclude Include="IL2CPP\Functions\il2cppUtils.h" />
     <ClCompile Include="GUI\InitGui.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="IL2CPP\il2cppUtils.cpp">
+    <ClCompile Include="IL2CPP\Functions\il2cppUtils.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
     <ClInclude Include="Lua\function.h" />
@@ -358,12 +398,12 @@
     </ClCompile>
     <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="GUI\MainGUI.h" />
-    <ClInclude Include="IL2CPP\detours.h" />
-    <ClInclude Include="IL2CPP\il2cpp-api-functions.h" />
-    <ClInclude Include="IL2CPP\il2cpp-appdata.h" />
-    <ClInclude Include="IL2CPP\il2cpp-functions.h" />
-    <ClInclude Include="IL2CPP\il2cpp-init.hpp" />
-    <ClInclude Include="IL2CPP\il2cpp-unityplayer-functions.h" />
+    <ClInclude Include="IL2CPP\Functions\detours.h" />
+    <ClInclude Include="IL2CPP\Functions\il2cpp-api-functions.h" />
+    <ClInclude Include="IL2CPP\Functions\il2cpp-appdata.h" />
+    <ClInclude Include="IL2CPP\Functions\il2cpp-functions.h" />
+    <ClInclude Include="IL2CPP\Functions\il2cpp-init.hpp" />
+    <ClInclude Include="IL2CPP\Functions\il2cpp-unityplayer-functions.h" />
     <ClInclude Include="ImGui\ImGuiNotify\fa_solid_900.h" />
     <ClInclude Include="ImGui\ImGuiNotify\font_awesome_5.h" />
     <ClInclude Include="ImGui\ImGuiNotify\imgui_notify.h" />
@@ -395,7 +435,8 @@
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="IL2CPP\detours.lib" />
+    <Library Include="Functions\detours.lib" />
+    <Library Include="IL2CPP\Functions\detours.lib" />
     <Library Include="Lua\lua53.lib" />
   </ItemGroup>
   <ItemGroup>
@@ -409,6 +450,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Lua\lua53.dll" />
+    <None Include="Resources\translations.json" />
   </ItemGroup>
   <!-- <ItemGroup>
     <Library Include="IL2CPP\detours.lib" />

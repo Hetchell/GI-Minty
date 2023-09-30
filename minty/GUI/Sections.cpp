@@ -54,7 +54,7 @@ std::vector<std::string> ModuleOrder = {
     "World",
     "Misc",
     "Lua",
-    "Minigames",
+    //"Minigames",
     //"Themes",
     //"Debug",
     "About",

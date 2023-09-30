@@ -1,5 +1,28 @@
 #include "unlockfps.h"
 
+namespace cheat {
+	UnlockFPS::UnlockFPS() {
+		i_FPS = 60;
+	}
+
+	void UnlockFPS::GUI() {
+		ImGui::Checkbox("Unlock FPS", &ifUnlockFPS);
+		if (ifUnlockFPS) {
+			ImGui::Indent();
+			ImGui::SliderInt("Target FPS", &i_FPS, 10, 360);
+			ImGui::Unindent();
+		}
+	}
+
+	void UnlockFPS::Outer() {
+
+	}
+
+	void UnlockFPS::Status() {
+
+	}
+}
+
 namespace il2fns {
 	void UnlockFps() {
 		static bool ifunlock;
