@@ -35,7 +35,7 @@ namespace cheat {
 
 	void UnlockFPS::Status() {
 		if (ifUnlockFPS) {
-			ImGui::Text("Unlock FPS: %i", i_FPS);
+			ImGui::Text(_("Unlock FPS: %i"), i_FPS);
 		}
 	}
 }
