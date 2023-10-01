@@ -11,7 +11,7 @@ public:
 	virtual void Outer() {};
 	virtual void Status() {};
 
-	std::string GetGroupName() {
-		return groupName;
-	}
+	virtual std::string GetGroupName() {
+		return "groupName";
+	};
 };

@@ -17,6 +17,12 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
+		std::string groupName = "World";
+
 		DumbEnemies();
+
+		std::string GetGroupName() override {
+			return groupName;
+		}
 	};
 }

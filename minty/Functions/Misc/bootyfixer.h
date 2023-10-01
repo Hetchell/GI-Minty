@@ -12,11 +12,15 @@ namespace cheat {
 	public:
 		inline static bool ifPeeking;
 		inline static Hotkey peekingHotkey = Hotkey("Peeking");
-		std::string groupName = _("Misc");
+		std::string groupName = "Misc";
 
 		void GUI() override;
 		void Outer() override;
 		void Status() override;
+
+		std::string GetGroupName() override {
+			return groupName;
+		}
 
 		Peeking();
 	};

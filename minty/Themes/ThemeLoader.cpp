@@ -8,7 +8,7 @@
 #include "Themes.hpp"
 
 void LoadThemes() {
-    std::ifstream config_file("minty");
+    std::ifstream config_file("minty.json");
     nlohmann::json config_json;
     config_file >> config_json;
     config_file.close();

@@ -93,7 +93,7 @@ enum GAMEVER : int {
 };
 
 GAMEVER CheckGameVer() {
-	std::ifstream config_file("minty");
+	std::ifstream config_file("minty.json");
 	nlohmann::json config_json;
 	config_file >> config_json;
 	config_file.close();

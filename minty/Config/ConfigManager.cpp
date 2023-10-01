@@ -3,7 +3,7 @@
 nlohmann::json cfgjsonobj;
 
 void saveFuncStateToJson(std::string funcName, bool state) {
-    std::ifstream config_file("minty");
+    /*std::ifstream config_file("minty");
     nlohmann::json config_json;
     config_file >> config_json;
     config_file.close();
@@ -12,37 +12,37 @@ void saveFuncStateToJson(std::string funcName, bool state) {
     config_json.merge_patch(cfgjsonobj);
     std::ofstream merged_file("minty");
     merged_file << config_json.dump(4);
-    merged_file.close();
+    merged_file.close();*/
 }
 
 void saveFuncStateToJson(std::string funcName, float state) {
-    std::ifstream config_file("minty");
+    std::ifstream config_file("minty.json");
     nlohmann::json config_json;
     config_file >> config_json;
     config_file.close();
 
     cfgjsonobj["functions"][funcName] = state;
     config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
+    std::ofstream merged_file("minty.json");
     merged_file << config_json.dump(4);
     merged_file.close();
 }
 
 void saveFuncStateToJson(std::string funcName, int state) {
-    std::ifstream config_file("minty");
+    std::ifstream config_file("minty.json");
     nlohmann::json config_json;
     config_file >> config_json;
     config_file.close();
 
     cfgjsonobj["functions"][funcName] = state;
     config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
+    std::ofstream merged_file("minty.json");
     merged_file << config_json.dump(4);
     merged_file.close();
 }
 
 bool readBoolFuncStateFromJson(std::string funcName) {
-    std::ifstream config_file("minty");
+    std::ifstream config_file("minty.json");
     nlohmann::json config_json;
     config_file >> config_json;
     config_file.close();
@@ -57,24 +57,29 @@ bool readBoolFuncStateFromJson(std::string funcName) {
 
 int readHotkeyFromJson(std::string hotkeyName)
 {
-    std::ifstream config_file("minty");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
+    try {
+        std::ifstream config_file("minty.json");
+        nlohmann::json config_json;
+        config_file >> config_json;
+        config_file.close();
 
-    return config_json["hotkeys"][hotkeyName];
+        return config_json["hotkeys"][hotkeyName];
+    }
+    catch (nlohmann::json::exception e) {
+        std::cout << e.what();
+    }
 }
 
 void saveHotkeyToJson(std::string hotkeyName, int hotkey)
 {
-    std::ifstream config_file("minty");
+    std::ifstream config_file("minty.json");
     nlohmann::json config_json;
     config_file >> config_json;
     config_file.close();
 
     cfgjsonobj["hotkeys"][hotkeyName] = hotkey;
     config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
+    std::ofstream merged_file("minty.json");
     merged_file << config_json.dump(4);
     merged_file.close();
 }

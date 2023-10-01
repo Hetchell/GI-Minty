@@ -173,14 +173,14 @@ void cozy_square_style() {
 
 void settheme(int themefunc_index) {
     nlohmann::json cfgjsonobj;
-    std::ifstream config_file("minty");
+    std::ifstream config_file("minty.json");
     nlohmann::json config_json;
     config_file >> config_json;
     config_file.close();
 
     cfgjsonobj["theme"]["color"] = themefunc_index;
     config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty");
+    std::ofstream merged_file("minty.json");
     merged_file << config_json.dump(4);
     merged_file.close();
 

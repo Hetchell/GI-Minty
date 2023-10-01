@@ -21,7 +21,7 @@ void InitTR() {
 }
 
 u8string u8result;
-const char* _(string code) {
+const char* _(const char* code) {
     /*nlohmann::json trJson;
     if (result == "") {
         InitTR();
@@ -47,5 +47,5 @@ const char* _(string code) {
     }
     u8result = u8string(retStr.begin(), retStr.end());
     return reinterpret_cast<const char*>(u8result.c_str());*/
-    return code.c_str();
+    return code;
 }

@@ -37,8 +37,12 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
-		std::string groupName = _("Misc");
+		std::string groupName = "Misc";
 
 		UIMisc();
+
+		std::string GetGroupName() override {
+			return groupName;
+		}
 	};
 }

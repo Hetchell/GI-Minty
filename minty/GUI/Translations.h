@@ -10,6 +10,6 @@
 
 using namespace std;
 
-const char* _(string code);
+const char* _(const char* code);
 // 0 - EN, 1 - RU, 2 - CN, 3 - ID
 extern int LangTR;

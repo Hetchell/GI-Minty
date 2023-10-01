@@ -37,6 +37,7 @@ namespace cheat {
 
 	static void LCBaseCombat_FireBeingHitEvent_Hook(app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult)
 	{
+		util::log(M_Info, "maxhp defense: %i", attackResult->fields.defenseCombatProperty->fields.HP._data1);
 		if (ifmh && app::get_entityType(__this->fields._._._entity) == app::EntityType__Enum_1::Avatar) {
 			for (int i = 0; i < MultiHit::ifOnepunch ? 1 : quantityHit; i++) { // 1 is hkjsamfduiewcmgrewrifntmryieuonfceruifnmer humhgrnmuyehrgnmy enemy hp / dmg
 				CALL_ORIGIN(LCBaseCombat_FireBeingHitEvent_Hook, __this, attackeeRuntimeID, attackResult);

@@ -23,15 +23,12 @@ namespace cheat {
         void Outer() override;
         void Status() override;
 
-        Noclip();
-    };
-}
+        std::string groupName = "Player";
 
-namespace il2fns {
-    inline Hotkey noClipHotkey = Hotkey("NoClip");
-    void NoClipSpeed(float f);
-    void noclipmod(int i);
-    void NoClipInit(bool b);
-    void OnNoclip();
-    void colmod(int i);
+        Noclip();
+
+        std::string GetGroupName() override {
+            return groupName;
+        }
+    };
 }

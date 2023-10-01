@@ -18,6 +18,12 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
+		std::string groupName = "World";
+
 		Speedhack();
+
+		std::string GetGroupName() override {
+			return groupName;
+		}
 	};
 }

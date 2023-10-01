@@ -198,7 +198,7 @@ int main() {
         return 0;
     }
     std::string exe_path;
-    fs::path settings_path = fs::current_path() / "minty";
+    fs::path settings_path = fs::current_path() / "minty.json";
 
     /*std::ifstream ifs("cfg.json");
     ifs >> cfg;*/
@@ -245,7 +245,7 @@ int main() {
             exe_path = cfg["exec_path"];
             std::cout << exe_path << std::endl;
             if (!fs::is_regular_file(exe_path)) {
-                std::cout << "File path in settings.exe invalid" << std::endl;
+                std::cout << "File path in minty.json invalid" << std::endl;
                 std::cout << "Please select your Game Executable" << std::endl;
                 /* printf("Target executable not found\n");
                  system("pause");*/
@@ -264,7 +264,7 @@ int main() {
 
                 if (GetOpenFileNameA(&ofn)) {
                     std::string(exe_path) = ofn.lpstrFile;
-                    std::ofstream settings_file("minty", std::ios_base::out);
+                    std::ofstream settings_file("minty.json", std::ios_base::out);
                     if (settings_file.is_open()) {
                         /*settings_file << exe_path << std::endl;
                         settings_file.close();*/
@@ -321,7 +321,7 @@ int main() {
     exe_path = cfg["exec_path"];
     std::cout << exe_path << std::endl;
     if (!fs::is_regular_file(exe_path)) {
-        std::cout << "File path in settings.exe invalid" << std::endl;
+        std::cout << "File path in minty.json invalid" << std::endl;
         std::cout << "Please select your Game Executable" << std::endl;
         /* printf("Target executable not found\n");
          system("pause");*/
@@ -340,7 +340,7 @@ int main() {
 
         if (GetOpenFileNameA(&ofn)) {
             std::string(exe_path) = ofn.lpstrFile;
-            std::ofstream settings_file("minty", std::ios_base::out);
+            std::ofstream settings_file("minty.json", std::ios_base::out);
             if (settings_file.is_open()) {
                 /*settings_file << exe_path << std::endl;
                 settings_file.close();*/

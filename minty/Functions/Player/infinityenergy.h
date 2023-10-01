@@ -17,8 +17,12 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
-		std::string groupName = _("Player");
+		std::string groupName = "Player";
 
 		InfinityEnergy();
+
+		std::string GetGroupName() override {
+			return groupName;
+		}
 	};
 }

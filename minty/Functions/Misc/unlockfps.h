@@ -12,7 +12,7 @@ namespace cheat {
 		inline static bool ifUnlockFPS;
 		inline static bool ifSavingMode;
 		inline static int i_FPS;
-		std::string groupName = _("Misc");
+		std::string groupName = "Misc";
 
 		inline static Hotkey unlockFPSHotkey = Hotkey("UnlockFPS");
 
@@ -21,5 +21,9 @@ namespace cheat {
 		void Status() override;
 
 		UnlockFPS();
+
+		std::string GetGroupName() override {
+			return groupName;
+		}
 	};
 }

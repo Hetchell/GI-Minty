@@ -97,6 +97,7 @@ void Outer() {
 
 void DrawSection(const std::string& sectionName) {
     for (auto& func : All_vec) {
+        util::log(M_Info, "sdfi %s", func->GetGroupName());
         if (func->GetGroupName() != sectionName)
             continue;
 

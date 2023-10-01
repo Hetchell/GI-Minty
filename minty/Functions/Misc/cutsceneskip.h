@@ -9,7 +9,7 @@
 namespace cheat {
 	class CutsceneSkip : public FN {
 	public:
-		std::string groupName = _("Misc");
+		std::string groupName = "Misc";
 		inline static Hotkey skipCutsceneHotkey = Hotkey("CutsceneSkip");
 		inline static bool ifSkipCutscene;
 
@@ -18,5 +18,9 @@ namespace cheat {
 		void Status() override;
 
 		CutsceneSkip();
+
+		std::string GetGroupName() override {
+			return groupName;
+		}
 	};
 }
