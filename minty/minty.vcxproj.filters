@@ -73,15 +73,14 @@
     <ClCompile Include="Functions\Misc\bootyfixer.cpp" />
     <ClCompile Include="Functions\Misc\uimisc.cpp" />
     <ClCompile Include="Functions\Misc\unlockfps.cpp" />
-    <ClCompile Include="Functions\Player\autotp.cpp" />
+    <ClCompile Include="Functions\World\autotp.cpp" />
     <ClCompile Include="Functions\Player\godmode.cpp" />
     <ClCompile Include="Functions\Player\infinityenergy.cpp" />
     <ClCompile Include="Functions\Player\infinitystamina.cpp" />
     <ClCompile Include="Functions\Player\multihit.cpp" />
     <ClCompile Include="Functions\Player\nocd.cpp" />
     <ClCompile Include="Functions\Player\noclip.cpp" />
-    <ClCompile Include="Functions\Player\nosprintcd.cpp" />
-    <ClCompile Include="Functions\World\dialogskip.cpp" />
+    <ClCompile Include="Functions\Misc\dialogskip.cpp" />
     <ClCompile Include="Functions\World\dumbenemies.cpp" />
     <ClCompile Include="GUI\Translations.cpp" />
     <ClCompile Include="IL2CPP\Functions\Function.h" />
@@ -99,6 +98,8 @@
     <ClCompile Include="IL2CPP\Functions\Misc\unlockfps.cpp" />
     <ClCompile Include="IL2CPP\Functions\Player\infinityenergy.cpp" />
     <ClCompile Include="IL2CPP\Functions\il2cppUtils.cpp" />
+    <ClCompile Include="Functions\Misc\cutsceneskip.cpp" />
+    <ClCompile Include="Functions\World\speedhack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -218,15 +219,14 @@
     <ClInclude Include="Functions\Misc\bootyfixer.h" />
     <ClInclude Include="Functions\Misc\uimisc.h" />
     <ClInclude Include="Functions\Misc\unlockfps.h" />
-    <ClInclude Include="Functions\Player\autotp.h" />
+    <ClInclude Include="Functions\World\autotp.h" />
     <ClInclude Include="Functions\Player\godmode.h" />
     <ClInclude Include="Functions\Player\infinityenergy.h" />
     <ClInclude Include="Functions\Player\infinitystamina.h" />
     <ClInclude Include="Functions\Player\multihit.h" />
     <ClInclude Include="Functions\Player\nocd.h" />
     <ClInclude Include="Functions\Player\noclip.h" />
-    <ClInclude Include="Functions\Player\nosprintcd.h" />
-    <ClInclude Include="Functions\World\dialogskip.h" />
+    <ClInclude Include="Functions\Misc\dialogskip.h" />
     <ClInclude Include="Functions\World\dumbenemies.h" />
     <ClInclude Include="IL2CPP\Functions\Player\autotp.h" />
     <ClInclude Include="IL2CPP\Functions\Misc\bootyfixer.h" />
@@ -251,6 +251,8 @@
     <ClInclude Include="IL2CPP\Functions\il2cpp-functions.h" />
     <ClInclude Include="IL2CPP\Functions\il2cpp-init.hpp" />
     <ClInclude Include="IL2CPP\Functions\il2cpp-unityplayer-functions.h" />
+    <ClInclude Include="Functions\Misc\cutsceneskip.h" />
+    <ClInclude Include="Functions\World\speedhack.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

@@ -11,7 +11,7 @@
 #endif
 
 // Detours imports
-#include "../minty/IL2CPP/detours.h"
+#include "../minty/Functions/detours.h"
 
 // DX11 imports
 #include <D3D11.h>

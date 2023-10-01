@@ -44,6 +44,12 @@ namespace cheat {
 		}
 	}
 
+	void Noclip::Status() {
+		if (ifNoclip) {
+			ImGui::Text(_("Noclip (%.1f U/s | %.1f U/s "), f_NoclipSpeed, f_NoclipAltSpeed);
+		}
+	}
+
 	void OnNoclip() {
 		static std::string ActiveHero;
 

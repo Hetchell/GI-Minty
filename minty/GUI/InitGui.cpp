@@ -29,6 +29,8 @@ void gui::InitImGui(HWND window, ID3D11Device* pDevice, ID3D11DeviceContext* pCo
     // init notify
     MergeIconsWithLatestFont(16.f, false);
 
+    Init();
+
     LoadThemes();
     LoadFonts();
 }
@@ -44,7 +46,7 @@ void gui::Render() {
         gui::FrameLoadGui();
     }
     
-    UltraOuter();
+    Outer();
 
     // ImGuiIO& io = ImGui::GetIO();
     if (ImGui::IsKeyPressed(ImGuiKey_F12, false))

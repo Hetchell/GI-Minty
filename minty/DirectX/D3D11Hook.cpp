@@ -9,7 +9,7 @@
 #endif
 
 // Detours imports
-#include "../IL2CPP/detours.h"
+#include "../Functions/detours.h"
 
 // DX11 imports
 #include <D3D11.h>

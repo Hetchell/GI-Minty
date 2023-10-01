@@ -5,6 +5,8 @@
 
 extern std::vector<std::string> ModuleOrder;
 
-void UltraOuter();
+void Outer();
+
+void Init();
 
 void DrawSection(const std::string& sectionName);

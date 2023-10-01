@@ -3,7 +3,7 @@
 namespace cheat {
     void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value)
     {
-        if (!DialogSkip::ifSkipDialog)
+        if (!DialogSkip::ifDialogSkip)
             return;
 
         app::UnityEngine__set__Timescale(value);
@@ -38,7 +38,7 @@ namespace cheat {
     static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this)
     {
         CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
-        OnCutScenePageUpdate(__this, DialogSkip::ifSkipDialog ? DialogSkip::fDialogSpeed : 1.0f);
+        OnCutScenePageUpdate(__this, DialogSkip::ifDialogSkip ? DialogSkip::fDialogSpeed : 1.0f);
     }
 
     static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this)
@@ -53,9 +53,9 @@ namespace cheat {
     }
 
     void DialogSkip::GUI() {
-        ImGui::Checkbox(_("Auto-talk"), &ifSkipDialog);
+        ImGui::Checkbox(_("Auto-talk"), &ifDialogSkip);
         //ImGui::SameLine(); HelpMarker(_("Automatically goes through dialogue."));
-        if (ifSkipDialog) {
+        if (ifDialogSkip) {
             ImGui::Indent();
             ImGui::SliderFloat(_("Dialog speed"), &fDialogSpeed, 1.0, 50.0);
             dialogSkipHotkey.Draw();
@@ -63,13 +63,13 @@ namespace cheat {
         }
     }
     void DialogSkip::Status() {
-        if (ifSkipDialog) {
+        if (ifDialogSkip) {
             ImGui::Text(_("Dialog skip"));
         }
     }
 
     void DialogSkip::Outer() {
         if (dialogSkipHotkey.IsPressed())
-            ifSkipDialog = !ifSkipDialog;
+            ifDialogSkip = !ifDialogSkip;
     }
 }

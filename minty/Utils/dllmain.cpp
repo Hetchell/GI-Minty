@@ -1,5 +1,5 @@
 #include "../DirectX/D3D11Hook.hpp"
-#include "../IL2CPP/il2cpp-init.hpp"
+#include "../Functions/il2cpp-init.hpp"
 #include "../Lua/luahook.hpp"
 #include "../includes.h"
 #include "DiscordRPC/Discord.h"
@@ -55,7 +55,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     if (fdwReason == DLL_PROCESS_ATTACH) {
-        CloseHandle(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
+        //CloseHandle(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
         CreateThread(NULL, 0, &MainThread, NULL, NULL, NULL);
     }
     return TRUE;

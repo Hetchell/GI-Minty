@@ -19,7 +19,7 @@ extern "C" {
 	#include "../lua/lualib.h"
 }
 
-#include "../IL2CPP/HookManager.h"
+#include "../Functions/HookManager.h"
 #include "../Utils/LuaUtils.hpp"
 
 int xluaL_loadbuffer_hook(lua_State* L, const char* chunk, size_t sz, const char* chunkname);

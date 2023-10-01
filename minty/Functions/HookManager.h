@@ -10,7 +10,7 @@
 #include <codecvt>
 #include <map>
 #include "detours.h"
-#pragma comment(lib, "IL2CPP/detours.lib")
+#pragma comment(lib, "Functions/detours.lib")
 
 #define CALL_ORIGIN(function, ...) HookManager::call(function, __func__, __VA_ARGS__)
 

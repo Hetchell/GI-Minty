@@ -20,3 +20,6 @@ static std::vector<std::unique_ptr<FN>> All_vec;
 /*----------IL2CPP----------*/
 
 //extern bool is_il2cpp_hooked = false;
+
+#define PUSH_FUNC(name) std::unique_ptr<cheat::##name> name = std::make_unique<cheat::name>(); \
+All_vec.push_back(std::move(name));

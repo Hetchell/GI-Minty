@@ -15,9 +15,9 @@
 #include <format>
 #include <intsafe.h>
 #include <vector>
-#include "../IL2CPP/il2cpp-appdata.h"
-#include "../IL2CPP/HookManager.h"
-#include "../IL2CPP/il2cppUtils.h"
+#include "../Functions/il2cpp-appdata.h"
+#include "../Functions/HookManager.h"
+#include "../Functions/il2cppUtils.h"
 
 #pragma comment(lib,"ntdll.lib")
 

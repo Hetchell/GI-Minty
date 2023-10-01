@@ -10,15 +10,15 @@ namespace cheat {
 	class DialogSkip : public FN {
 	public:
 		inline static bool ifDialogSkip;
-		std::string groupName = _("Misc");
-		inline static Hotkey dialogSkipHotkey = Hotkey("DialogSkip");
-		static bool ifSkipDialog;
-		static bool ifSkipCutscene;
 		inline static float fDialogSpeed = 1;
+
+		inline static Hotkey dialogSkipHotkey = Hotkey("DialogSkip");
 
 		void GUI() override;
 		void Outer() override;
 		void Status() override;
+
+		std::string groupName = _("Misc");
 
 		DialogSkip();
 	};
