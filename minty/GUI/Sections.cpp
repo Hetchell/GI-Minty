@@ -205,15 +205,6 @@ namespace Sections {
                 ImGui::Unindent();
             }
 
-            if (ImGui::Checkbox("Ignore Collisions", &ignoreCol)) {
-                if (ignoreCol) {
-                    il2fns::colmod(0);
-                }
-                else {
-                    il2fns::colmod(1);
-                }
-            }
-
             if (ignoreCol) {
 
             }

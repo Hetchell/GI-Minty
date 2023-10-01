@@ -70,15 +70,7 @@ namespace il2fns {
 		isApplied = true;
 
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
-		//util::log(M_Info, "coli det");
-		if (iColMode == 1) {
-			app::Rigidbody_set_detectCollisions(rigidbody, true);
-			//util::log(M_Info, "coli det2");
-		}
-		else if (iColMode == 0) {
-			app::Rigidbody_set_detectCollisions(rigidbody, false);
-			///util::log(M_Info, "coli det3");
-		}
+		//util::log(M_Info, "coli det")
 
 		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::UnityEngine__Component__get__Transform(app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
 		//util::log(M_Info, "found transfom cam");

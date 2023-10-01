@@ -1,12 +1,24 @@
 #include "../il2cpp-appdata.h"
-#include "../HookManager.h"
 #include "../il2cpp-types.h"
-#define IMGUI_DEFINE_MATH_OPERATORS
-#include "../../ImGui/ImGui/imgui.h"
-#include "../../Utils/GuiUtils.hpp"
-#include "../../Config/ConfigManager.hpp"
 #include "../il2cppUtils.h"
+#include "../HookManager.h"
+#include "../../Hotkeys/Hotkey.h"
+#include "../../Hotkeys/KeyBind.h"
+#include "../Function.h"
 
-namespace il2fns {
-	void Infinity_Stamina();
+namespace cheat {
+	class InfStamina : public FN {
+	public:
+		inline static bool ifInfStamina;
+
+		inline static Hotkey infStaminaHotkey = Hotkey("InfStamina");
+
+		void GUI() override;
+		void Outer() override;
+		void Status() override;
+
+		std::string groupName = _("Player");
+
+		InfStamina();
+	};
 }

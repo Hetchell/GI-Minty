@@ -2,12 +2,21 @@
 #include "../il2cpp-types.h"
 #include "../il2cppUtils.h"
 #include "../HookManager.h"
-#define IMGUI_DEFINE_MATH_OPERATORS
-#include "../../ImGui/ImGui/imgui.h"
-#include "../../Utils/GuiUtils.hpp"
-#include "../../Config/ConfigManager.hpp"
-#include "../il2cppUtils.h"
+#include "../../Hotkeys/Hotkey.h"
+#include "../../Hotkeys/KeyBind.h"
+#include "../Function.h"
 
-namespace il2fns {
-	void GodMode();
+namespace cheat {
+	class Godmode : public FN {
+	public:
+		inline static bool ifGodmode;
+
+		inline static Hotkey godModeHotkey = Hotkey("Godmode");
+
+		void GUI() override;
+		void Outer() override;
+		void Status() override;
+
+		Godmode();
+	};
 }
