@@ -12,19 +12,16 @@
 #include "../../Hotkeys/Hotkey.h"
 
 namespace cheat {
-	class DialogSkip : public FN {
+	class CutsceneSkip : public FN {
 	public:
-		inline static bool ifDialogSkip;
 		std::string groupName = _("World");
-		inline static Hotkey dialogSkipHotkey = Hotkey("DialogSkip");
-		static bool ifSkipDialog;
+		inline static Hotkey unlockFPSHotkey = Hotkey("CutsceneSkip");
 		static bool ifSkipCutscene;
-		inline static float fDialogSpeed = 1;
 
 		void GUI() override;
 		void Outer() override;
 		void Status() override;
 
-		DialogSkip();
+		CutsceneSkip();
 	};
 }

@@ -1,27 +1,30 @@
 #include "dumbenemies.h"
 
-static bool ifdumb;
-static bool ifinit;
+namespace cheat {
+    static void VCMonsterAIController_TryDoSkill_Hook(void* __this, uint32_t skillID)
+    {
+        if (DumbEnemies::ifDumbEnemies)
+            return;
+        CALL_ORIGIN(VCMonsterAIController_TryDoSkill_Hook, __this, skillID);
+    }
+    
+    DumbEnemies::DumbEnemies() {
+        HookManager::install(app::MoleMole_VCMonsterAIController_TryDoSkill, VCMonsterAIController_TryDoSkill_Hook);
+    }
 
-static void VCMonsterAIController_TryDoSkill_Hook(void* __this, uint32_t skillID)
-{
-	if (ifdumb)
-		return;
-	CALL_ORIGIN(VCMonsterAIController_TryDoSkill_Hook, __this, skillID);
-}
-
-namespace il2fns {
-	void DumbEnemies() {
-        while (app::UnityEngine__GameObject__Find(string_to_il2cppi("EntityRoot/AvatarRoot")) && !ifinit) {
-            HookManager::install(app::MoleMole_VCMonsterAIController_TryDoSkill, VCMonsterAIController_TryDoSkill_Hook); ifinit = true;
+    void DumbEnemies::Status() {
+        if (DumbEnemies::ifDumbEnemies) {
+            ImGui::Text(_("Dumb enemies"));
         }
+    }
 
-        ifdumb = readBoolFuncStateFromJson("DumbEnemies");
-
-        if (ImGui::Checkbox("Dumb Enemies", &ifdumb)) {
-            saveFuncStateToJson("DumbEnemies", ifdumb);
-        }
-        ImGui::SameLine();
+    void DumbEnemies::GUI() {
+        ImGui::Checkbox("Dumb Enemies", &DumbEnemies::ifDumbEnemies)) {
         HelpMarker("Make enemies have the same level of intelligence as Congress.");
-	}
+    }
+
+    void DumbEnemies::Outer() {
+        if (dumbEnemiesHotkey.IsPressed())
+            ifDumbEnemies = !ifDumbEnemies;
+    }
 }

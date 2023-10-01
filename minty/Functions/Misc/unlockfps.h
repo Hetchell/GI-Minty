@@ -23,7 +23,3 @@ namespace cheat {
 		UnlockFPS();
 	};
 }
-
-namespace il2fns {
-	void UnlockFps();
-}

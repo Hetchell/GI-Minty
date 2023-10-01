@@ -23,7 +23,7 @@ namespace cheat {
 
     void Peeking::Status() {
         if (ifPeeking) {
-            ImGui::Text(_("Enable Peeking"));
+            ImGui::Text(_("Peeking"));
         }
     }
 }
