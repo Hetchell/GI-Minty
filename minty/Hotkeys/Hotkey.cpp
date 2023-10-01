@@ -18,10 +18,15 @@ bool Hotkey::IsPressed()
 	return ImGui::IsKeyPressed(static_cast<ImGuiKey>(this->m_nHkey), false);
 }
 
-void Hotkey::Draw(const char *label)
+bool Hotkey::IsDown()
 {
-	ImGui::PushID(label);
-	ImGui::TextUnformatted(label);
+	return ImGui::IsKeyDown(static_cast<ImGuiKey>(this->m_nHkey));
+}
+
+void Hotkey::Draw()
+{
+	ImGui::PushID(this->hotkeyJsonName);
+	ImGui::TextUnformatted(this->hotkeyJsonName);
 	ImGui::SameLine();
 	if (!this->bWaitsInput && ImGui::Button(KeyNames[this->m_nHkey], ImVec2(100.0f, 0.0f)))
 		this->bWaitsInput = true;

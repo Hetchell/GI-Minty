@@ -35,10 +35,23 @@ namespace cheat {
 
     void UIMisc::GUI() {
         ImGui::Checkbox("Opem Team Immediately", &ifOTI);
+        if (ifOTI) {
+            ImGui::Indent();
+            otiHotkey.Draw();
+            ImGui::Unindent();
+        }
+
+        ImGui::Checkbox("Show chest indicators", &ifChestIndic);
+        if (ifOTI) {
+            ImGui::Indent();
+            otiHotkey.Draw();
+            ImGui::Unindent();
+        }
 
         ImGui::Checkbox("Skip enhance animation", &ifSkipAnim);
         if (ifSkipAnim) {
             ImGui::Indent();
+            skipAnimHotkey.Draw();
             ImGui::Checkbox("Show level up screens", &showLevelUp);
             ImGui::Unindent();
         }
@@ -46,6 +59,7 @@ namespace cheat {
         ImGui::Checkbox("Change camera zoom", &ifCameraZoom);
         if (ifCameraZoom) {
             ImGui::Indent();
+            cameraZoomHotkey.Draw();
             ImGui::SliderFloat("Zoom value", &f_CameraZoom, 10, 500);
             ImGui::Unindent();
         }
@@ -94,6 +108,12 @@ namespace cheat {
         }
         if (ifCameraZoom) {
             ImGui::Text("Camera zoom (%.1f)", f_CameraZoom);
+        }
+        if (ifChestIndic) {
+            ImGui::Text("Show Chest Indicators");
+        }
+        if (ifUid) {
+            ImGui::Text("Show Chest Indicators");
         }
 
     }

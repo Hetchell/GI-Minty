@@ -11,6 +11,11 @@ namespace cheat {
 
 	void Godmode::GUI() {
 		ImGui::Checkbox("Godmode", &ifGodmode);
+		if (ifGodmode) {
+			ImGui::Indent();
+			godModeHotkey.Draw();
+			ImGui::Unindent();
+		}
 	}
 
 	void Godmode::Outer() {

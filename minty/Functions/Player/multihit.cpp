@@ -18,7 +18,20 @@ namespace cheat {
 			ImGui::Indent();
 			ImGui::SliderInt("Number of hits", &hitQuantity, 1, 50);
 			ImGui::Checkbox("One-punch mode (overrides manual Multi-hit)", &ifOnepunch);
+			multiHitHotkey.Draw();
 			ImGui::Unindent();
+		}
+	}
+
+	void MultiHit::Outer() {
+		if (multiHitHotkey.IsPressed()) {
+			ifMultiHit = !ifMultiHit;
+		}
+	}
+
+	void MultiHit::Status() {
+		if (ifMultiHit) {
+			ImGui::Text("Multi-hit (%s)", ifOnepunch ? std::string("One-punch") : std::string(hitQuantity + " hits"));
 		}
 	}
 

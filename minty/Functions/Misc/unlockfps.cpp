@@ -13,7 +13,7 @@ namespace cheat {
 			ImGui::Indent();
 			if (ImGui::SliderInt(_("Target FPS"), &i_FPS, 10, 360))
 				app::UnityEngine__Application__set__targetFramerate(i_FPS);
-
+			unlockFPSHotkey.Draw();
 			ImGui::Unindent();
 		}
 		else {

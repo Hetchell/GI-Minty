@@ -143,7 +143,7 @@ DO_APP_FUNC(0x0412CAA0, 0x041ADB50, void, MoleMole_EquipOverviewPageContext_Play
 DO_APP_FUNC(0x01D60090, 0x01D93A10, void, MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow, (/*MoleMole_EquipOverviewPageContext*/ void* __this, /*Action*/ void* refreshViewAction));
 
 // Teleport hooks
-DO_APP_FUNC(0x02609F70, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
+DO_APP_FUNC(0x02609F70, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this));
 
 // Open team immediately
 DO_APP_FUNC(0x012B43E0, 0x012CC050, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));

@@ -19,8 +19,8 @@ namespace cheat {
     }
 
     void DumbEnemies::GUI() {
-        ImGui::Checkbox("Dumb Enemies", &DumbEnemies::ifDumbEnemies)) {
-        HelpMarker("Make enemies have the same level of intelligence as Congress.");
+        ImGui::Checkbox("Dumb Enemies", &DumbEnemies::ifDumbEnemies);
+        //HelpMarker("Make enemies have the same level of intelligence as Congress.");
     }
 
     void DumbEnemies::Outer() {

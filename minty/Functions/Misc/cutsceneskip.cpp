@@ -7,17 +7,19 @@ namespace cheat {
             app::CriwareMediaPlayer_Skip(__this);
         return CALL_ORIGIN(CriwareMediaPlayer_Update, __this);
     }
+
     CutsceneSkip::CutsceneSkip() {
         HookManager::install(app::CriwareMediaPlayer_Update, CriwareMediaPlayer_Update);
     }
+
     void CutsceneSkip::GUI() {
         ifSkipCutscene = readBoolFuncStateFromJson("CutsceneSkip");
 
-        if (ImGui::Checkbox(_("Skip cutscene"), &ifSkipCutscene)) {
-            saveFuncStateToJson("CutsceneSkip", ifSkipCutscene);
+        ImGui::Checkbox(_("Skip cutscene"), &ifSkipCutscene);
+        if (ifSkipCutscene) {
+            skipCutsceneHotkey.Draw();
         }
-        ImGui::SameLine();
-        HelpMarker(_("Skips cutscene. May break some game mechanics."));
+        //HelpMarker(_("Skips cutscene. May break some game mechanics."));
     }
 
     void CutsceneSkip::Status() {

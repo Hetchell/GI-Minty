@@ -12,6 +12,7 @@ public:
 	Hotkey(const char* jsonStateName);
 
 	bool IsPressed();
-	void Draw(const char* label);
+	bool IsDown();
+	void Draw();
 	void Rebind();
 };

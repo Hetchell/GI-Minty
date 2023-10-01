@@ -7,16 +7,16 @@
 #include "../Function.h"
 
 namespace cheat {
-	class DumbEnemies : public FN {
+	class CutsceneSkip : public FN {
 	public:
-		inline static bool ifDumbEnemies;
-
-		inline static Hotkey dumbEnemiesHotkey = Hotkey("DumbEnemies");
+		std::string groupName = _("Misc");
+		inline static Hotkey skipCutsceneHotkey = Hotkey("CutsceneSkip");
+		inline static bool ifSkipCutscene;
 
 		void GUI() override;
 		void Outer() override;
 		void Status() override;
 
-		DumbEnemies();
+		CutsceneSkip();
 	};
 }

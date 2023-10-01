@@ -12,6 +12,11 @@ namespace cheat {
 
 	void InfStamina::GUI() {
 		ImGui::Checkbox("Infinity stamina", &ifInfStamina);
+		if (ifInfStamina) {
+			ImGui::Indent();
+			infStaminaHotkey.Draw();
+			ImGui::Unindent();
+		}
 	}
 
 	void InfStamina::Outer() {

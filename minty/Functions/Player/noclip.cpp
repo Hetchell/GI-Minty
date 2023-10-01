@@ -1,19 +1,47 @@
 #include "noclip.h"
 
-namespace il2fns {
-	static bool ifnoclip, bInitNoClip, isApplied;
-	static int iNoClipMode;
-	int iColMode;
-	static float speed = 10;
+namespace cheat {
 	app::Vector3 prevPos, newPos;
 	app::Vector3 posCheck;
 
-	void noclipmod(int i) {
-		iNoClipMode = i;
+	void GameManager_Update_Hook(app::GameManager* __this);
+	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method);
+
+	Noclip::Noclip() {
+		f_NoclipSpeed = 5;
+		f_NoclipAltSpeed = 10;
+
+		HookManager::install(app::GameManager_Update, GameManager_Update_Hook);
+		HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
 	}
-	
-	void colmod(int i) {
-		iColMode = i;
+
+	void Noclip::GUI() {
+		ImGui::Checkbox("Noclip", &ifNoclip);
+		if (ifNoclip) {
+			ImGui::Indent();
+			ImGui::SliderFloat("Noclip speed", &f_NoclipSpeed, 1, 50);
+			ImGui::Checkbox("Alt speed", &ifAltSpeed);
+			if (ifAltSpeed) {
+				ImGui::Indent();
+				ImGui::SliderFloat("Alt Speed (HOLD HOTKEY)", &f_NoclipAltSpeed, 1, 50);
+				noClipAltHotkey.Draw();
+				ImGui::Unindent();
+			}
+			noClipHotkey.Draw();
+			ImGui::Unindent();
+		}
+	}
+
+	void Noclip::Outer() {
+		if (noClipHotkey.IsPressed()) {
+			ifNoclip = !ifNoclip;
+		}
+		if (ifAltSpeed && noClipAltHotkey.IsDown()) {
+			f_finalSpeed = f_NoclipAltSpeed;
+		}
+		else {
+			f_finalSpeed = f_NoclipSpeed;
+		}
 	}
 
 	void OnNoclip() {
@@ -57,18 +85,6 @@ namespace il2fns {
 			}
 		}
 
-		if (!ifnoclip && isApplied)
-		{
-			if (rigidbody == nullptr)
-				return;
-			prevPos = { 0, 0, 0 };
-			app::Rigidbody_set_detectCollisions(rigidbody, true);
-			//util::log(M_Info, "dete coli");
-			isApplied = false;
-		}
-
-		isApplied = true;
-
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
 		//util::log(M_Info, "coli det")
 
@@ -103,7 +119,7 @@ namespace il2fns {
 
 		float deltaTime = app::Time_get_deltaTime() * 1.5F;
 		//util::log(M_Info, "got delt");
-		newPos = prevPos + dir * speed * deltaTime;
+		newPos = prevPos + dir * Noclip::f_finalSpeed * deltaTime;
 		// if (iNoClipMode == 0) 
 		app::Rigidbody_set_velocity(rigidbody, { 0,0,0 });
 		//util::log(M_Info, "set vel");
@@ -112,21 +128,21 @@ namespace il2fns {
 		//app::Rigidbody_set_position(rigidbody, newPos);
 	}
 
-	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method)
+	void GameManager_Update_Hook(app::GameManager* __this)
 	{
 		__try {
-			//if (ifnoclip) OnNoclip();
+			if (Noclip::ifNoclip) OnNoclip();
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
 			util::log(M_Error, "Exception 0x%08x.", _exception_code());
 		}
 
-		CALL_ORIGIN(GameManager_Update_Hook, __this, method);
+		CALL_ORIGIN(GameManager_Update_Hook, __this);
 	}
 
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method)
 	{
-		if (ifnoclip && iNoClipMode == 0) {
+		if (Noclip::ifNoclip) {
 			if (app::Vector3_Distance(posCheck, newPos) > 3.f) {
 				posCheck = newPos;
 			}
@@ -136,18 +152,5 @@ namespace il2fns {
 		}
 
 		CALL_ORIGIN(HumanoidMoveFSM_LateTick_Hook, __this, deltaTime, method);
-	}
-
-	void NoClipInit(bool b) {
-		ifnoclip = b;
-		if (!bInitNoClip) {
-			//HookManager::install(app::GameManager_Update, GameManager_Update_Hook);
-			HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
-			bInitNoClip = true;
-		}
-	}
-
-	void NoClipSpeed(float f) {
-		speed = f;
 	}
 }

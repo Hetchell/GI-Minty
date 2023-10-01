@@ -7,16 +7,17 @@
 #include "../Function.h"
 
 namespace cheat {
-	class DumbEnemies : public FN {
+	class Speedhack : public FN {
 	public:
-		inline static bool ifDumbEnemies;
+		inline static bool ifSpeedhack;
+		inline static float f_Speedhack;
 
-		inline static Hotkey dumbEnemiesHotkey = Hotkey("DumbEnemies");
+		inline static Hotkey speedHackHotkey = Hotkey("Speedhack");
 
 		void GUI() override;
 		void Outer() override;
 		void Status() override;
 
-		DumbEnemies();
+		Speedhack();
 	};
 }

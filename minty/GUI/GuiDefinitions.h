@@ -1,5 +1,6 @@
 #pragma once
 #include "../Utils/Utils.hpp"
+#include "../Functions/Function.h"
 /*----------GUI----------*/
 static bool g_ShowMenu = true;
 static bool block_input = true;
@@ -10,6 +11,8 @@ static bool show_debug_log;
 static bool show_lua_editor = false;
 extern bool show_rpc;
 extern int init_delay;
+
+static std::vector<std::unique_ptr<FN>> All_vec;
 /*----------THEME----------*/
 
 /*----------LUA----------*/

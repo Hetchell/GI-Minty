@@ -14,6 +14,9 @@ namespace cheat {
 
     void Peeking::GUI() {
         ImGui::Checkbox(_("Enable peeking"), &ifPeeking);
+        if (ifPeeking) {
+            Peeking::peekingHotkey.Draw();
+        }
     }
 
     void Peeking::Outer() {

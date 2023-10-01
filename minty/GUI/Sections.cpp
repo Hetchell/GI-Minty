@@ -6,19 +6,19 @@
 
 #include "../Games/games.h"
 
-#include "../IL2CPP/Functions/bootyfixer.h"
-#include "../IL2CPP/Functions/dialogskip.h"
-#include "../IL2CPP/Functions/dumbenemies.h"
-#include "../IL2CPP/Functions/godmode.h"
-#include "../IL2CPP/Functions/infinityenergy.h"
-#include "../IL2CPP/Functions/infinitystamina.h"
-#include "../IL2CPP/Functions/nocd.h"
-#include "../IL2CPP/Functions/noclip.h"
-#include "../IL2CPP/Functions/uimisc.h"
-#include "../IL2CPP/Functions/unlockfps.h"
-#include "../IL2CPP/Functions/multihit.h"
-#include "../IL2CPP/Functions/nosprintcd.h"
-#include "../IL2CPP/Functions/autotp.h"
+#include "../Functions/Misc/bootyfixer.h"
+#include "../Functions/Misc/dialogskip.h"
+#include "../Functions/World/dumbenemies.h"
+#include "../Functions/Player/godmode.h"
+#include "../Functions/Player/infinityenergy.h"
+#include "../Functions/Player/infinitystamina.h"
+#include "../Functions/Player/nocd.h"
+#include "../Functions/Player/noclip.h"
+#include "../Functions/Misc/uimisc.h"
+#include "../Functions/Misc/unlockfps.h"
+#include "../Functions/Player/multihit.h"
+#include "../Functions/Player/nosprintcd.h"
+#include "../Functions/World/autotp.h"
 
 #include "../Lua/function.h"
 #include "../Utils/GuiUtils.hpp"
@@ -53,7 +53,7 @@ std::vector<std::string> ModuleOrder = {
     "Player",
     "World",
     "Misc",
-    "Lua",
+    //"Lua",
     //"Minigames",
     //"Themes",
     //"Debug",
@@ -848,11 +848,10 @@ const std::unordered_map<std::string, DrawFunction> SectionMap = {
 };
 
 void DrawSection(const std::string& sectionName) {
-    auto it = SectionMap.find(sectionName);
-    if (it != SectionMap.end()) {
-        Sections::Outer();
-        it->second();
-    } else {
-        ImGui::TextDisabled("No section matches name");
+    for (auto& func : All_vec) {
+        if (func->getModule() != sectionName)
+            continue;
+
+        func->GUI();
     }
 }

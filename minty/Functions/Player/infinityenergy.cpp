@@ -9,6 +9,11 @@ namespace cheat {
 
 	void InfinityEnergy::GUI() {
 		ImGui::Checkbox(_("Infinity Burst"), &ifInfEnergy);
+		if (ifInfEnergy) {
+			ImGui::Indent();
+			infEnergyHotkey.Draw();
+			ImGui::Unindent();
+		}
 	}
 
 	void InfinityEnergy::Outer() {

@@ -46,24 +46,19 @@ namespace cheat {
         app::UnityEngine__set__Timescale(1.f);
         CALL_ORIGIN(InLevelCutScenePageContext_ClearView_Hook, __this);
     }
+
     DialogSkip::DialogSkip() {
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
     }
 
     void DialogSkip::GUI() {
-        ifSkipDialog = readBoolFuncStateFromJson("AutoTalk");
-
-        if (ImGui::Checkbox(_("Auto-talk"), &ifSkipDialog)) {
-            saveFuncStateToJson("AutoTalk", ifSkipDialog);
-            if (!ifSkipDialog)
-                fDialogSpeed = 1; 
-            ifSkipDialog = false;
-        } ImGui::SameLine(); HelpMarker(_("Automatically goes through dialogue."));
-
+        ImGui::Checkbox(_("Auto-talk"), &ifSkipDialog);
+        //ImGui::SameLine(); HelpMarker(_("Automatically goes through dialogue."));
         if (ifSkipDialog) {
             ImGui::Indent();
             ImGui::SliderFloat(_("Dialog speed"), &fDialogSpeed, 1.0, 50.0);
+            dialogSkipHotkey.Draw();
             ImGui::Unindent();
         }
     }
