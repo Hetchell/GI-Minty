@@ -1,8 +1,11 @@
 #include "unlockfps.h"
 
 namespace cheat {
+	void GameManager_UpdateH(app::GameManager* __this);
+
 	UnlockFPS::UnlockFPS() {
 		i_FPS = 60;
+		HookManager::install(app::GameManager_Update, GameManager_UpdateH);
 	}
 
 	void UnlockFPS::GUI() {
@@ -11,20 +14,9 @@ namespace cheat {
 		HelpMarker(_("Unlocks framerate to target value."));
 		if (ifUnlockFPS) {
 			ImGui::Indent();
-			if (ImGui::SliderInt(_("Target FPS"), &i_FPS, 10, 360))
-				app::UnityEngine__Application__set__targetFramerate(i_FPS);
+			ImGui::SliderInt(_("Target FPS"), &i_FPS, 10, 360);
 			unlockFPSHotkey.Draw();
 			ImGui::Unindent();
-		}
-		else {
-			app::UnityEngine__Application__set__targetFramerate(60);
-		}
-
-		ImGui::Checkbox(_("Energy-saving mode"), &ifSavingMode);
-		ImGui::SameLine();
-		HelpMarker(_("Locks FPS to 5 when game is in background."));
-		if (!app::UnityEngine__Application__get__isFocused() && ifSavingMode) {
-			app::UnityEngine__Application__set__targetFramerate(5);
 		}
 	}
 
@@ -37,5 +29,16 @@ namespace cheat {
 		if (ifUnlockFPS) {
 			ImGui::Text(_("Unlock FPS: %i"), i_FPS);
 		}
+	}
+
+	void GameManager_UpdateH(app::GameManager* __this) {
+		__try {
+			app::UnityEngine__Application__set__targetFramerate(UnlockFPS::ifUnlockFPS ? UnlockFPS::i_FPS : 60);
+			app::UnityEngine__QualitySettings__set__vSyncCount(UnlockFPS::ifUnlockFPS ? 0 : 1);
+		}
+		__except (1) {
+			util::log(M_Info, "lol");
+		}
+		CALL_ORIGIN(GameManager_UpdateH, __this);
 	}
 }

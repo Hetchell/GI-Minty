@@ -3,7 +3,15 @@
 namespace cheat {
     static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this);
     void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data);
-    void InLevelCameraSetFov_Hook(app::Camera* __this, float value);
+    void InLevelCameraSetFov_Hook(app::Camera* __this, float value)
+    {
+        printf("boba");
+        if (!UIMisc::ifFovChanger)
+            return;
+
+        value = UIMisc::ifFovChanger ? UIMisc::i_Fov : 45;
+        CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
+    }
     bool ShouldShowLevelUpDialog(app::MoleMole_EquipLevelUpDialogContext* dialog);
     void MoleMole_EquipLevelUpDialogContext_SetupView_Hook(app::MoleMole_EquipLevelUpDialogContext* __this);
     void MoleMole_EquipOverviewPageContext_PlayExpAddAnimation_Hook(void* __this, float startPer, float endPer, void* callback);
@@ -42,9 +50,9 @@ namespace cheat {
         }
 
         ImGui::Checkbox("Show chest indicators", &ifChestIndic);
-        if (ifOTI) {
+        if (ifChestIndic) {
             ImGui::Indent();
-            otiHotkey.Draw();
+            chestIndicHotkey.Draw();
             ImGui::Unindent();
         }
 
@@ -115,7 +123,6 @@ namespace cheat {
         if (ifUid) {
             ImGui::Text("Show Chest Indicators");
         }
-
     }
 
     static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this) {
@@ -133,15 +140,6 @@ namespace cheat {
     {
         data->currentWarningLocateRatio = static_cast<double>(UIMisc::ifCameraZoom ? UIMisc::f_CameraZoom : 1.f);
         CALL_ORIGIN(SCameraModuleInitialize_SetWarningLocateRatio_Hook, __this, deltaTime, data);
-    }
-
-    void InLevelCameraSetFov_Hook(app::Camera* __this, float value)
-    {
-        if (!UIMisc::ifFovChanger)
-            return;
-
-        value = UIMisc::ifFovChanger ? UIMisc::i_Fov : 45;
-        CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
     }
 
     static uint32_t substatRollLevels[] = { 5, 9, 13, 17, 21 }; // artifact levels from the field go from 1 to 21, so we do +1
