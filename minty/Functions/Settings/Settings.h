@@ -1,11 +1,7 @@
-#pragma once
-
 #include "../Function.h"
 #include "../../Utils/GuiUtils.hpp"
 #include "../../Config/ConfigManager.hpp"
 #include "../../Themes/themes.hpp"
-
-
 
 namespace cheat {
 	class Settings : public FN {
@@ -20,6 +16,5 @@ namespace cheat {
 		std::string GetGroupName() override {
 			return groupName;
 		}
-
 	};
 }

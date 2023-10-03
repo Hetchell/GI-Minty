@@ -2,27 +2,27 @@
 
 namespace cheat {
 	void Settings::GUI() {
-        initDelay = getSmthFromJson(0, "general", "initDelay");
-        show_rpc = getSmthFromJson(0, "general", "showRPC");
+        initDelay = config::getValue("general", "initDelay", 15000);
+        bool show_rpc = config::getValue("general", "showRPC", true);
 
         ImGui::SeparatorText("General");
 
         ImGui::Checkbox("Show ImGui's cursor", &ImGui::GetIO().MouseDrawCursor);
 
         if (ImGui::Checkbox("Show current FPS", &ifShowFPS)) {
-            saveSmthToJson(ifShowFPS, "general", "ShowFPS");
+            config::setValue("general", "ShowFPS", ifShowFPS);
         }
 
         //ImGui::Checkbox("Block input", &block_input);
 
         if (ImGui::Checkbox("Show Discord RPC", &show_rpc)) {
-            saveSmthToJson(show_rpc, "general", "showRPC");
+            config::setValue("general", "showRPC", show_rpc);
         }
         ImGui::SameLine(); 
         HelpMarker("Turn Discord custom RPC on/off. Requires re-entering game.");
 
         if (ImGui::SliderInt("Initialization delay (ms)", &initDelay, 0, 60000)) {
-            saveSmthToJson(initDelay, "general", "initDelay");
+            config::setValue("general", "initDelay", initDelay);
         }
         ImGui::SameLine(); 
         HelpMarker("Change delay before showing menu. May cause lags while opening, so try to change this value in case.");
@@ -33,13 +33,13 @@ namespace cheat {
 
         if (ImGui::RadioButton("Dark", &themeIndex, 1)) {
             settheme(1);
-            saveSmthToJson(1, "theme", "color");
+            config::setValue("theme", "color", 1);
 
         }
 
         if (ImGui::RadioButton("Light", &themeIndex, 2)) {
             settheme(2);
-            saveSmthToJson(2, "theme", "color");
+            config::setValue("theme", "color", 2);
 
         }
 
@@ -58,13 +58,13 @@ namespace cheat {
 
         if (ImGui::RadioButton("Cozy", &themestyleindex, 1)) {
             setstyle(1);
-            saveSmthToJson(1, "theme", "style");
+            config::setValue("theme", "style", 1);
 
         }
 
         if (ImGui::RadioButton("Cozy Squared", &themestyleindex, 2)) {
             setstyle(2);
-            saveSmthToJson(2, "theme", "style");
+            config::setValue("theme", "style", 2);
 
         }
 

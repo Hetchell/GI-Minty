@@ -226,7 +226,7 @@ const char* KeyNames[] = {
   "Unknown",
   "Unknown",
   "[{",
-  "\\|",
+  "\\",
   "]}",
   "'\"",
   "Unknown",

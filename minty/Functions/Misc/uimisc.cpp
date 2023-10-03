@@ -39,57 +39,62 @@ namespace cheat {
         i_Fov = 45;
 
         showLevelUp = true;
+
+        ifOTI = config::getValue("functions", "OTI", false);
+        ifChestIndic = config::getValue("functions", "ShowChest", false);
+        ifSkipAnim = config::getValue("functions", "SkipAnim", false);
+        ifCameraZoom = config::getValue("functions", "CameraZoom", false);
+        ifFovChanger = config::getValue("functions", "FOVChanger", false);
+        ifUid = config::getValue("functions", "CustomUDDDDDDID", false);
     }
 
     void UIMisc::GUI() {
-        ImGui::Checkbox("Opem Team Immediately", &ifOTI);
+        CheckBoxFN("Open team immediately", ifOTI, "OTI")
         if (ifOTI) {
             ImGui::Indent();
             otiHotkey.Draw();
             ImGui::Unindent();
         }
 
-        ImGui::Checkbox("Show chest indicators", &ifChestIndic);
+        CheckBoxFN("Show chest indicators", ifChestIndic, "ShowChest")
         if (ifChestIndic) {
             ImGui::Indent();
             chestIndicHotkey.Draw();
             ImGui::Unindent();
         }
 
-        ImGui::Checkbox("Skip enhance animation", &ifSkipAnim);
+        CheckBoxFN("Skip enhance animations", ifSkipAnim, "SkipAnim")
         if (ifSkipAnim) {
             ImGui::Indent();
-            skipAnimHotkey.Draw();
             ImGui::Checkbox("Show level up screens", &showLevelUp);
+            skipAnimHotkey.Draw();
             ImGui::Unindent();
         }
 
-        ImGui::Checkbox("Change camera zoom", &ifCameraZoom);
+        CheckBoxFN("Camera zoom", ifCameraZoom, "CameraZoom")
         if (ifCameraZoom) {
             ImGui::Indent();
-            cameraZoomHotkey.Draw();
             ImGui::SliderFloat("Zoom value", &f_CameraZoom, 10, 500);
+            cameraZoomHotkey.Draw();
             ImGui::Unindent();
         }
 
-        ImGui::Checkbox("FOV changer", &ifFovChanger);
+        CheckBoxFN("FOV changer", ifFovChanger, "FOVChanger")
         if (ifFovChanger) {
             ImGui::Indent();
             ImGui::SliderInt("FOV value", &i_Fov, 10, 170);
+            fovChangerHotkey.Draw();
             ImGui::Unindent();
         }
 
-        ImGui::Checkbox("UID changer", &ifUid);
+        CheckBoxFN("Custom UID", ifUid, "CustomUID")
         if (ifUid) {
             ImGui::Indent();
             if (ImGui::InputText("Custom UID", Uid_buf, sizeof(Uid_buf))) {
                 Change_UID(Uid_buf);
             }
+            uidHotkey.Draw();
             ImGui::Unindent();
-        }
-        
-        if (ImGui::Button("kojdsf")) {
-            app::UnityEngine__set__Timescale(5);
         }
     }
 

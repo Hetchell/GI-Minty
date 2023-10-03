@@ -1,7 +1,7 @@
+#include <Windows.h>
 #include "Hotkey.h"
 #include "KeyBind.h"
 #include "../ImGui/ImGui/imgui.h"
-#include <Windows.h>
 #include <thread>
 
 Hotkey::Hotkey()

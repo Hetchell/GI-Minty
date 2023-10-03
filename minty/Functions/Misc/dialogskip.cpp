@@ -48,12 +48,13 @@ namespace cheat {
     }
 
     DialogSkip::DialogSkip() {
+        ifDialogSkip = config::getValue("functions", "AutoTalk", false);
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
     }
 
     void DialogSkip::GUI() {
-        ImGui::Checkbox(_("Auto-talk"), &ifDialogSkip);
+        CheckBoxFN("Auto-talk", ifDialogSkip, "AutoTalk")
         //ImGui::SameLine(); HelpMarker(_("Automatically goes through dialogue."));
         if (ifDialogSkip) {
             ImGui::Indent();

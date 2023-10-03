@@ -4,6 +4,7 @@
 #include "../../Hotkeys/Hotkey.h"
 #include "../../Utils/GuiUtils.hpp"
 #include "../HookManager.h"
+#include "../../GUI/GuiDefinitions.h"
 
 namespace cheat {
 	class UnlockFPS : public FN {

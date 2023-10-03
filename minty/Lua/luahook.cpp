@@ -7,7 +7,6 @@
 
 // HANDLE mainluathread;
 extern std::vector<std::string> lua_list;
-extern std::string last_lua_string;
 
 namespace fs = std::filesystem;
 
@@ -134,14 +133,14 @@ DWORD WINAPI initLua(LPVOID lpReserved) {
     //util::log(M_Info, "should call now!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     //luahookfunc("CS.MoleMole.ActorUtils.ShowMessage(\"Lua initialized!\")");
     while (true) {
-        if (!last_lua_string.empty()) {
-            luahookfunc(last_lua_string.c_str());
-            util::log(M_Info, "Lua executed from s.");
-            last_lua_string.clear();
-            util::log(M_Info, "Lua deleted from s.");
-        }
-        Sleep(100);
-        //util::log(M_Info, "checked");
+        //if (!last_lua_string.empty()) {
+        //    luahookfunc(last_lua_string.c_str());
+        //    util::log(M_Info, "Lua executed from s.");
+        //    last_lua_string.clear();
+        //    util::log(M_Info, "Lua deleted from s.");
+        //}
+        //Sleep(100);
+        ////util::log(M_Info, "checked");
     }
     return 0;
 }

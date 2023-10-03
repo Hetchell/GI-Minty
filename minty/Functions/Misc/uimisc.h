@@ -1,11 +1,10 @@
-#pragma once
-
 #include "../il2cpp-appdata.h"
 #include "../il2cpp-types.h"
 #include "../HookManager.h"
 #include "../il2cppUtils.h"
 #include "../Function.h"
 #include "../../Hotkeys/Hotkey.h"
+#include "../../GUI/GuiDefinitions.h"
 
 namespace cheat {
 	class UIMisc : public FN {

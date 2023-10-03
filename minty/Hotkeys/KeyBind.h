@@ -1,5 +1,6 @@
 #pragma once
 #include "KeyBinds.h"
+#include <fstream>
 
 namespace KeyBind
 {

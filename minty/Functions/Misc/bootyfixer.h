@@ -1,11 +1,9 @@
-#pragma once
-
 #include "../il2cpp-appdata.h"
 #include "../HookManager.h"
 #include "../il2cpp-types.h"
 #include "../Function.h"
 #include "../../Hotkeys/Hotkey.h"
-
+#include "../../GUI/GuiDefinitions.h"
 
 namespace cheat {
 	class Peeking : public FN {

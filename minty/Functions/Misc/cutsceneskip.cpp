@@ -9,13 +9,12 @@ namespace cheat {
     }
 
     CutsceneSkip::CutsceneSkip() {
+        ifSkipCutscene = config::getValue("functions", "CutsceneSkip", false);
         HookManager::install(app::CriwareMediaPlayer_Update, CriwareMediaPlayer_Update);
     }
 
     void CutsceneSkip::GUI() {
-        ifSkipCutscene = readBoolFuncStateFromJson("CutsceneSkip");
-
-        ImGui::Checkbox(_("Skip cutscene"), &ifSkipCutscene);
+        CheckBoxFN("Skip cutscenes", ifSkipCutscene, "CutsceneSkip")
         if (ifSkipCutscene) {
             skipCutsceneHotkey.Draw();
         }

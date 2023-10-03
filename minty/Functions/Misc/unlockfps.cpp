@@ -5,11 +5,12 @@ namespace cheat {
 
 	UnlockFPS::UnlockFPS() {
 		i_FPS = 60;
+		ifUnlockFPS = config::getValue("functions", "UnlockFPS", false);
 		HookManager::install(app::GameManager_Update, GameManager_UpdateH);
 	}
 
 	void UnlockFPS::GUI() {
-		ImGui::Checkbox(_("Unlock FPS"), &ifUnlockFPS);
+		CheckBoxFN("Unlock FPS", ifUnlockFPS, "UnlockFPS")
 		ImGui::SameLine();
 		HelpMarker(_("Unlocks framerate to target value."));
 		if (ifUnlockFPS) {

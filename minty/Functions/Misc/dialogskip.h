@@ -5,6 +5,7 @@
 #include "../../Hotkeys/Hotkey.h"
 #include "../../Hotkeys/KeyBind.h"
 #include "../Function.h"
+#include "../../GUI/GuiDefinitions.h"
 
 namespace cheat {
 	class DialogSkip : public FN {
