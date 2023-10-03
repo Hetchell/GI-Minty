@@ -157,11 +157,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Functions\Settings\Settings.cpp" />
     <ClCompile Include="Discord SDK\src\connection_win.cpp" />
     <ClCompile Include="Discord SDK\src\discord_register_win.cpp" />
     <ClCompile Include="Discord SDK\src\discord_rpc.cpp" />
     <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
+    <ClCompile Include="Functions\About\About.cpp" />
     <ClCompile Include="Functions\il2cppUtils.cpp" />
     <ClCompile Include="Functions\Misc\bootyfixer.cpp" />
     <ClCompile Include="Functions\Misc\uimisc.cpp" />
@@ -186,6 +188,7 @@
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
     <ClCompile Include="Utils\LuaUtils.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
+    <ClInclude Include="Functions\Settings\Settings.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClCompile Include="Config\ConfigManager.cpp">
       <FileType>CppHeader</FileType>
@@ -224,6 +227,7 @@
     <ClInclude Include="Discord SDK\src\serialization.h" />
     <ClInclude Include="features\Feature.h" />
     <ClInclude Include="features\world\ElementalSight.h" />
+    <ClInclude Include="Functions\About\About.h" />
     <ClInclude Include="Functions\detours.h" />
     <ClInclude Include="Functions\Function.h" />
     <ClInclude Include="Functions\HookManager.h" />
