@@ -130,7 +130,7 @@ DO_APP_FUNC(0x033EC7D0, 0x03452BC0, void, MoleMole_HumanoidMoveFSM_LateTick, (ap
 //idr
 //DO_APP_FUNC(0x2191C0, 0x0, void*, Singleton_GetInstance, (app::MethodInfo* method));
 
-// not yet
+// penis id say
 //DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo);
 
 // Protection bypass
@@ -143,7 +143,7 @@ DO_APP_FUNC(0x0412CAA0, 0x041ADB50, void, MoleMole_EquipOverviewPageContext_Play
 DO_APP_FUNC(0x01D60090, 0x01D93A10, void, MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow, (/*MoleMole_EquipOverviewPageContext*/ void* __this, /*Action*/ void* refreshViewAction));
 
 // Teleport hooks
-DO_APP_FUNC(0x02609F70, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this));
+DO_APP_FUNC(0x02607CF0, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this));
 
 // Open team immediately
 DO_APP_FUNC(0x012B43E0, 0x012CC050, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));

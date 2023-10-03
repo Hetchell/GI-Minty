@@ -87,6 +87,10 @@ namespace cheat {
             }
             ImGui::Unindent();
         }
+        
+        if (ImGui::Button("kojdsf")) {
+            app::UnityEngine__set__Timescale(5);
+        }
     }
 
     void UIMisc::Outer() {

@@ -32,7 +32,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     util::log(M_Info, "Initializing IL2CPP...");
     // Initialize all offsets.
     init_il2cpp();
-    // Sleep(5000);
+    Sleep(5000);
     ProtectionBypass::Init();
 
     util::log(M_Info, "Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initde / 1000);
@@ -55,7 +55,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     if (fdwReason == DLL_PROCESS_ATTACH) {
-        //CloseHandle(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
+        CloseHandle(CreateThread(NULL, 0, &initLua, NULL, NULL, NULL));
         CreateThread(NULL, 0, &MainThread, NULL, NULL, NULL);
     }
     return TRUE;
