@@ -1,10 +1,9 @@
-#pragma once
-
 #include "../il2cpp-appdata.h"
 #include "../il2cppUtils.h"
 #include "../Function.h"
 #include "../../Hotkeys/Hotkey.h"
 #include "../../Utils/GuiUtils.hpp"
+#include "../HookManager.h"
 
 namespace cheat {
 	class UnlockFPS : public FN {

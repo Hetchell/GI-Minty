@@ -3,6 +3,7 @@
 namespace cheat {
     static void MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue(app::MoleMole_VCBaseSetDitherValue* __this, float value)
     {
+        util::log(M_Info, "pekeisek!");
         if (Peeking::ifPeeking)
             value = 1;
         CALL_ORIGIN(MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, __this, value);
