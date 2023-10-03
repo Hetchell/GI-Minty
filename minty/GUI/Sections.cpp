@@ -20,6 +20,8 @@
 #include "../Functions/World/autotp.h"
 #include "../Functions/Misc/cutsceneskip.h"
 #include "../Functions/World/speedhack.h"
+#include "../Functions/About/About.h"
+#include "../Functions/Settings/Settings.h"
 
 #include "../Lua/function.h"
 #include "../Utils/GuiUtils.hpp"
@@ -33,22 +35,6 @@
 #include "../Utils/Utils.hpp"
 #include "../Themes/Themes.hpp"
 
-bool show_rpc = true;
-ImGuiID textureID = 0;
-
-extern bool is_lua_hooked;
-
-extern uintptr_t baseAddress;
-extern uintptr_t unityPlayerAddress;
-
-std::vector<std::string> lua_list;
-std::string last_lua_string;
-
-static bool ifshowfps;
-
-static bool ifnoclip, ifaltSpeed = false;
-static float fNoClip = 10.f;
-static float faltNoClip = 25.f;
 
 std::vector<std::string> ModuleOrder = {
     "Player",
@@ -72,6 +58,8 @@ void Init() {
     PUSH_FUNC(Noclip);
     PUSH_FUNC(DumbEnemies);
     PUSH_FUNC(Speedhack);
+    PUSH_FUNC(About);
+    PUSH_FUNC(Settings);
 }
 
 void Outer() {

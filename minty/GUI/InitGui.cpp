@@ -1,5 +1,7 @@
 #include "InitGui.hpp"
 
+
+float alpha = 0;
 void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas) {
     static const ImWchar icons_ranges[] = {ICON_MIN_FA, ICON_MAX_FA, 0};
 
@@ -34,23 +36,54 @@ void gui::InitImGui(HWND window, ID3D11Device* pDevice, ID3D11DeviceContext* pCo
     LoadThemes();
     LoadFonts();
 }
+//fade in/out anim, i was interested in this topic so i wrote this, looks good.
+//void gui::Render() {
+//    ImGui_ImplWin32_NewFrame();
+//    ImGui_ImplDX11_NewFrame();
+//    ImGui::NewFrame();
+//    
+//    static float startTime = ImGui::GetTime(); // Initialize startTime when the program starts
+//    static bool prevShowMenu = g_ShowMenu;
+//    const float animDuration = 0.2f; // Adjust the animation duration as needed (shorter duration makes it faster)
+//
+//    if (g_ShowMenu != prevShowMenu) {
+//        startTime = ImGui::GetTime(); // Reset startTime when the menu state changes
+//        prevShowMenu = g_ShowMenu;
+//    }
+//
+//    float alpha = (g_ShowMenu) ? min(1.0f, (ImGui::GetTime() - startTime) / animDuration) : max(0.0f, 1.0f - (ImGui::GetTime() - startTime) / animDuration);
+//
+//    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, alpha);
+//
+//    if (g_ShowMenu || alpha > 0.0f) {
+//        gui::FrameLoadGui();
+//    }
+//
+//    ImGui::PopStyleVar();
+//
+//    Outer();
+//
+//    if (ImGui::IsKeyPressed(ImGuiKey_F12, false)) {
+//        g_ShowMenu = !g_ShowMenu;
+//    }
+//
+//    ImGui::Render();
+//}
 
 void gui::Render() {
     ImGui_ImplWin32_NewFrame();
     ImGui_ImplDX11_NewFrame();
-
     ImGui::NewFrame();
 
     if (g_ShowMenu) {
-        // bool bShow = true;
         gui::FrameLoadGui();
     }
-    
+
     Outer();
 
-    // ImGuiIO& io = ImGui::GetIO();
-    if (ImGui::IsKeyPressed(ImGuiKey_F12, false))
+    if (ImGui::IsKeyPressed(ImGuiKey_F12, false)) {
         g_ShowMenu = !g_ShowMenu;
+    }
 
     ImGui::Render();
 }

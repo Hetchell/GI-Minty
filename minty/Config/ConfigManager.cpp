@@ -83,3 +83,54 @@ void saveHotkeyToJson(std::string hotkeyName, int hotkey)
     merged_file << config_json.dump(4);
     merged_file.close();
 }
+
+template <typename T, typename... Args>
+T getSmthFromJson(const T& defaultValue, const Args&... args) {
+    try {
+        std::ifstream config_file("minty.json");
+        nlohmann::json config_json;
+        config_file >> config_json;
+        config_file.close();
+
+        nlohmann::json* currentNode = &config_json;
+        // Traverse through the key parts
+        ((currentNode = &(*currentNode)[args]), ...);
+
+        if (currentNode->is_null()) {
+            return defaultValue;
+        }
+
+        return currentNode->get<T>();
+    }
+    catch (nlohmann::json::exception e) {
+        std::cout << e.what();
+        return defaultValue;
+    }
+}
+
+template <typename T, typename... Args>
+void saveSmthToJson(const T& value, const Args&... args) {
+    try {
+        std::ifstream config_file("minty.json");
+        nlohmann::json config_json;
+        config_file >> config_json;
+        config_file.close();
+
+        nlohmann::json* currentNode = &config_json;
+        const auto lastKey = std::get<sizeof...(Args) - 1>(std::make_tuple(args...));
+
+        // Traverse through the key parts except the last one
+        ((currentNode = &(*currentNode)[args]), ...);
+
+        // Set the value using the last key
+        (*currentNode)[lastKey] = value;
+
+        std::ofstream merged_file("minty.json");
+        merged_file << config_json.dump(4);
+        merged_file.close();
+    }
+    catch (nlohmann::json::exception e) {
+        std::cout << e.what();
+    }
+}
+
