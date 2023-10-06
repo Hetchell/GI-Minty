@@ -12,6 +12,7 @@ namespace cheat {
 		inline static int initDelay = 15;
 		
 		void GUI() override;
+		void Outer() override;
 
 		std::string GetGroupName() override {
 			return groupName;

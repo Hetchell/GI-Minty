@@ -1,6 +1,14 @@
 #include "Settings.h"
 
 namespace cheat {
+    void DrawFPS() {
+        ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize;
+
+        ImGui::Begin("##FPS", NULL, flags);
+        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::End();
+    }
+
 	void Settings::GUI() {
         initDelay = config::getValue("general", "initDelay", 15000);
         bool show_rpc = config::getValue("general", "showRPC", true);
@@ -83,4 +91,9 @@ namespace cheat {
         //ImGui::TextDisabled("DEBUG");
         ImGui::Checkbox("Show Style Editor", &show_style_editor);
 	}
+
+    void Settings::Outer() {
+        if (ifShowFPS)
+            DrawFPS();
+    }
 }

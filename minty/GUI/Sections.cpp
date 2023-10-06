@@ -1,8 +1,8 @@
-﻿#include <string>
+﻿//#include <string>
 #include <unordered_map>
 
-#define IMGUI_DEFINE_MATH_OPERATORS
-#include "../ImGui/ImGui/imgui.h"
+//#define IMGUI_DEFINE_MATH_OPERATORS
+//#include "../ImGui/ImGui/imgui.h"
 
 #include "../Games/games.h"
 
@@ -23,17 +23,17 @@
 #include "../Functions/About/About.h"
 #include "../Functions/Settings/Settings.h"
 
-#include "../Lua/function.h"
-#include "../Utils/GuiUtils.hpp"
-#include "MainGUI.h"
-#include "../ImGui/ImGuiNotify/imgui_notify.h"
-#include "GuiDefinitions.h"
-#include "../Config/ConfigManager.hpp"
-#include "../Json/json.hpp"
-#include "../Lua/luahook.hpp"
-#include "../Utils/LuaUtils.hpp"
-#include "../Utils/Utils.hpp"
-#include "../Themes/Themes.hpp"
+//#include "../Lua/function.h"
+//#include "../Utils/GuiUtils.hpp"
+//#include "MainGUI.h"
+//#include "../ImGui/ImGuiNotify/imgui_notify.h"
+//#include "GuiDefinitions.h"
+//#include "../Config/ConfigManager.hpp"
+//#include "../Json/json.hpp"
+//#include "../Lua/luahook.hpp"
+//#include "../Utils/LuaUtils.hpp"
+//#include "../Utils/Utils.hpp"
+//#include "../Themes/Themes.hpp"
 
 
 std::vector<std::string> ModuleOrder = {
