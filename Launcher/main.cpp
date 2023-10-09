@@ -257,7 +257,7 @@ int main() {
                 ofn.lpstrFile[0] = '\0';
                 ofn.hwndOwner = NULL;
                 ofn.nMaxFile = sizeof(szFile);
-                ofn.lpstrFilter = "Executable Files (*.exe)\0*.exe\0All Files (*.*)\0*.*\0";
+                ofn.lpstrFilter = "Genshin Impact\0GenshinImpact.exe;YuanShen.exe\0All Files(*.*)\0*.*\0\0";
                 ofn.nFilterIndex = 1;
                 ofn.lpstrTitle = "Select Genshin Impact game executable";
                 ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
@@ -333,7 +333,7 @@ int main() {
         ofn.lpstrFile[0] = '\0';
         ofn.hwndOwner = NULL;
         ofn.nMaxFile = sizeof(szFile);
-        ofn.lpstrFilter = "Executable Files (*.exe)\0*.exe\0All Files (*.*)\0*.*\0";
+        ofn.lpstrFilter = "Genshin Impact\0GenshinImpact.exe;YuanShen.exe\0All Files(*.*)\0*.*\0\0";
         ofn.nFilterIndex = 1;
         ofn.lpstrTitle = "Select Genshin Impact game executable";
         ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
