@@ -32,12 +32,12 @@ namespace cheat {
 	}
 
 	void SetSpeed() {
-		util::log(M_Info, "sdkfljsdfjk %f", Speedhack::f_Speedhack);
+		//util::log(M_Info, "sdkfljsdfjk %f", Speedhack::f_Speedhack);
 		app::UnityEngine__set__Timescale(Speedhack::ifSpeedhack ? Speedhack::f_Speedhack : 1.f);
 	}
 
 	void GameManager_Update_h(app::GameManager* __this) {
-		util::log(M_Info, "sdkfljsdfjk %f", Speedhack::f_Speedhack);
+		//util::log(M_Info, "sdkfljsdfjk %f", Speedhack::f_Speedhack);
 		__try {
 			SetSpeed();
 		} __except (EXCEPTION_EXECUTE_HANDLER) {

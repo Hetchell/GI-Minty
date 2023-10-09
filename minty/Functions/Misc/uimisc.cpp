@@ -5,7 +5,7 @@ namespace cheat {
     void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data);
     void InLevelCameraSetFov_Hook(app::Camera* __this, float value)
     {
-        printf("boba");
+        //printf("boba");
         if (!UIMisc::ifFovChanger)
             return;
 

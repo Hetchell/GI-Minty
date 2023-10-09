@@ -1,10 +1,5 @@
 #include "nocd.h"
 
-static bool ifnocd;
-static bool ifinit;
-static bool ifbowinit;
-static bool ifbow;
-
 namespace cheat {
 	static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float cdMultipler);
 	static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minValue, float maxValue, bool forceDoAtRemote);
@@ -62,7 +57,7 @@ namespace cheat {
 	}
 
 	static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float cdMultipler) {
-		if (ifnocd)
+		if (NoCD::ifNoSkillCD)
 		{
 			cdMultipler = 0;
 		}
@@ -70,7 +65,7 @@ namespace cheat {
 	}
 
 	static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minValue, float maxValue, bool forceDoAtRemote) {
-		if (ifbow && il2cppi_to_string(key) == "_Enchanted_Time")
+		if (NoCD::ifNoBowCD && il2cppi_to_string(key) == "_Enchanted_Time")
 		{
 			value = maxValue;
 			//util::log(M_Info, "value: %d, minValue: %d, maxValue: %d, nextValidAbilityID: %d", value, minValue, maxValue, __this->fields.nextValidAbilityID);
