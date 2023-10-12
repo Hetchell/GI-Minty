@@ -22,6 +22,7 @@
 #include "../Functions/World/speedhack.h"
 #include "../Functions/About/About.h"
 #include "../Functions/Settings/Settings.h"
+#include "../Functions/World/AutoTP.h"
 
 //#include "../Lua/function.h"
 //#include "../Utils/GuiUtils.hpp"
@@ -45,6 +46,7 @@ std::vector<std::string> ModuleOrder = {
 };
 
 void Init() {
+    PUSH_FUNC(AutoTP);
     PUSH_FUNC(Peeking);
     PUSH_FUNC(CutsceneSkip);
     PUSH_FUNC(DialogSkip);

@@ -1,82 +1,154 @@
 #include "autotp.h"
 
-static bool ifAutoTP;
-static bool ifAutomatic;
-static bool ifManual;
-static char folderpathBuf[1024] = "";
-static float timerWait;
+namespace cheat {
+    std::vector<AutoTP::TP> AutoTP::parseds;
+    std::atomic<bool> stopThread(false);
 
-app::Vector3 parsedPos;
-std::string parsedName;
-std::string parsedDesc;
+    void TeleportToCurrentPoint() {
+        if (AutoTP::currentPointIndex >= 0 && AutoTP::currentPointIndex < AutoTP::parseds.size()) {
+            AutoTP::currentPoint = AutoTP::parseds[AutoTP::currentPointIndex];
+            util::log(M_Info, "Teleporting to point: %s", AutoTP::currentPoint.name.c_str());
 
-std::vector<il2fns::autotp::TP> parseds;
+            // teleportation logic here
+            // same code here and in AutoTpThread so u might rewrite this part
 
-int currPos;
-int allPos;
+            util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
+        }
+    }
 
-namespace il2fns {
-	namespace autotp {
-		HANDLE autoTpThread();
-		void GUI() {
-			ImGui::Checkbox("Auto TP", &ifAutoTP);
-			if (ifAutoTP) {
-				ImGui::InputText("Json folder", folderpathBuf, sizeof(folderpathBuf));
-				if (ImGui::Button("Read jsons")) {
-					std::ifstream stream;
-					stream.open(folderpathBuf);
-					nlohmann::json parsed = nlohmann::json::parse(stream);
+    void AutoTpThread() {
+        while (!stopThread.load()) {
+            if (AutoTP::ifAutoTP && AutoTP::b_startTeleporting) {
+                for (int i = 0; i < AutoTP::parseds.size(); i++) {
+                    if (!AutoTP::b_startTeleporting)
+                        break;
+                    AutoTP::currentPoint = AutoTP::parseds.at(i);
+                    util::log(M_Info, "Teleporting to point: %s", AutoTP::currentPoint.name.c_str());
 
-					try {
-						TP tp;
-						tp.name = parsed["name"];
-						tp.desc = parsed["description"];
-						tp.pos = { parsed["position"][0], parsed["position"][1] , parsed["position"][2] };
-						parseds.push_back(tp);
-					}
-					catch (nlohmann::json::exception e) {
-						std::cout << e.what() << std::endl;
-					}
-				}
-				if (!parseds.empty()) {
-					util::log(M_Info, "name: %s", parseds.back().name);
-					util::log(M_Info, "desc: %S", parseds.back().desc);
-					ImGui::Text("Files found: %i", 5);
-					ImGui::Separator();
-					ImGui::Text("Current point name: %s", parseds.back().name);
-					ImGui::Text("Current point description: %s", parseds.back().desc);
-					ImGui::Text("Current point pos: %f, %f, %f", parseds.back().pos.x, parseds.back().pos.y, parseds.back().pos.z);
-					ImGui::Separator();
-					ImGui::Checkbox("TP automatically through all points", &ifAutomatic);
-					if (ifAutomatic) {
-						ImGui::SliderFloat("Time to wait", &timerWait, 1, 100);
-						autoTpThread();
-					}
-					ImGui::Separator();
-					ImGui::Checkbox("TP manually", &ifManual);
-					if (ifManual) {
-						if (ImGui::Button("<")) {
-							if (currPos < allPos) {
-								currPos--;
-							}
-						}
+                    // teleportation logic here
 
-						if (ImGui::Button(">")) {
-							if (currPos < allPos) {
-								currPos++;
-							}
-						}
-					}
-				}
-			}
-		}
+                    util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
+                    if (AutoTP::parseds.size() - i != 1) {
+                        Sleep(static_cast<DWORD>(AutoTP::timerWait * 1000));
+                    }
+                }
+                AutoTP::b_startTeleporting = false;
+            }
+        }
+    }
 
-		HANDLE autoTpThread() {
-			if (ifAutoTP && ifAutomatic) {
-				//app::ActorUtiils_SetAvatarPos(parsedPos);
-				Sleep(timerWait);
-			}
-			return 0;
-		}
-	}
+    void AutoTP::Status() {}
+
+    void AutoTP::Outer() {
+        if (teleportBackHotkey.IsPressed()) {
+            if (currentPointIndex > 0) {
+                currentPointIndex--;
+                TeleportToCurrentPoint();
+            }
+        }
+        if (teleportForwardHotkey.IsPressed()) {
+            if (currentPointIndex < parseds.size() - 1) {
+                currentPointIndex++;
+                TeleportToCurrentPoint();
+            }
+        }
+        if (autoTeleportHotkey.IsPressed())
+            b_startTeleporting = !b_startTeleporting;
+    }
+
+    AutoTP::AutoTP() {
+        std::thread thread(AutoTpThread);
+        thread.detach();
+    }
+
+    void AutoTP::GUI() {
+        ImGui::Checkbox("Auto TP", &ifAutoTP);
+        if (ifAutoTP) {
+            ImGui::InputText("Json folder", folderPathBuffer, sizeof(folderPathBuffer));
+
+            if (ImGui::Button("Read jsons")) {
+                parseds.clear();
+                std::string folderPath = folderPathBuffer;
+                if (!std::filesystem::exists(folderPath)) {
+                    std::filesystem::path path = std::filesystem::current_path() / folderPath;
+                    folderPath = path.string();
+                    if (!std::filesystem::exists(path)) {
+                        util::log(M_Error, "Folder not found: %s", folderPath); // Use %s for string format
+                        return;
+                    }
+                }
+                for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
+                    if (entry.is_regular_file() && entry.path().extension() == ".json") {
+                        std::ifstream stream(entry.path());
+                        if (stream.good()) {
+                            nlohmann::json parsed;
+                            try {
+                                stream >> parsed;
+                                TP tp;
+                                tp.name = parsed["name"];
+                                tp.description = parsed["description"];
+                                tp.position = { parsed["position"][0], parsed["position"][1], parsed["position"][2] };
+                                parseds.push_back(tp);
+                            }
+                            catch (const nlohmann::json::exception& e) {
+                                std::cout << e.what() << std::endl;
+                            }
+                        }
+                        else {
+                            std::cout << "Failed to open file: " << entry.path() << std::endl;
+                        }
+                    }
+                }
+            }
+
+            if (!parseds.empty()) {
+                ImGui::Text("Amount of loaded points: %zu", parseds.size());
+                ImGui::Separator();
+                ImGui::Text("Current point name: %s", currentPoint.name.c_str());
+                ImGui::Text("Current point description: %s", currentPoint.description.c_str());
+                ImGui::Text("Current point pos: %f, %f, %f", currentPoint.position.x, currentPoint.position.y, currentPoint.position.z);
+                ImGui::Separator();
+                ImGui::Checkbox("TP automatically through all points", &ifAutomatic);
+
+                if (ifAutomatic) {
+                    if (ImGui::Button("Start teleporting")) {
+                        b_startTeleporting = true;
+                        util::log(M_Debug, "Start teleporting pressed");
+                    }
+                    if (b_startTeleporting) {
+                        if (ImGui::Button("Stop teleporting")) {
+                            b_startTeleporting = false;
+                            util::log(M_Debug, "Stop teleporting pressed");
+                        }
+                    }
+                    ImGui::SliderFloat("Time to wait", &timerWait, 0.f, 100.0f);
+                    autoTeleportHotkey.Draw();
+
+                }
+
+                ImGui::Checkbox("TP manually", &ifManual);
+                if (ifManual) {
+                    ImGui::Text("Manual TP Controls:");
+                    ImGui::SameLine();
+                    if (ImGui::Button("<")) {
+                        if (currentPointIndex > 0) {
+                            currentPointIndex--;
+                            TeleportToCurrentPoint();
+                        }
+                    }
+                    ImGui::SameLine();
+                    if (ImGui::Button(">")) {
+                        if (currentPointIndex < parseds.size() - 1) {
+                            currentPointIndex++;
+                            TeleportToCurrentPoint();
+                        }
+                    }
+                    teleportForwardHotkey.Draw();
+                    ImGui::SameLine();
+                    teleportBackHotkey.Draw();
+                }
+                ImGui::Separator();
+            }
+        }
+    }
 }

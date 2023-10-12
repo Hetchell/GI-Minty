@@ -2,6 +2,8 @@
 
 using namespace app;
 
+DO_APP_FUNC(0x03C81080, 0x0, void, ActorUtils_SetAvatarPos, (Vector3 pos));
+
 // Cooldown cheats
 DO_APP_FUNC(0x012FDB00, 0x01315C70, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
 DO_APP_FUNC(0x044CE4F0, 0x04555D40, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
