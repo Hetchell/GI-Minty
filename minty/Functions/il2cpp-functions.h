@@ -2,7 +2,7 @@
 
 using namespace app;
 
-DO_APP_FUNC(0x03C81080, 0x0, void, ActorUtils_SetAvatarPos, (Vector3 pos));
+DO_APP_FUNC(0x03C67F70, 0x03CDDBA0, void, ActorUtils_SetAvatarPos, (Vector3 pos));
 
 // Cooldown cheats
 DO_APP_FUNC(0x012FDB00, 0x01315C70, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));

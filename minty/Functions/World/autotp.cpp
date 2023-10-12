@@ -4,13 +4,12 @@ namespace cheat {
     std::vector<AutoTP::TP> AutoTP::parseds;
     std::atomic<bool> stopThread(false);
 
-    void TeleportToCurrentPoint() {
-        if (AutoTP::currentPointIndex >= 0 && AutoTP::currentPointIndex < AutoTP::parseds.size()) {
-            AutoTP::currentPoint = AutoTP::parseds[AutoTP::currentPointIndex];
-            util::log(M_Info, "Teleporting to point: %s", AutoTP::currentPoint.name.c_str());
+    void TeleportToCurrentPoint(int point) {
+        if (point >= 0 && point < AutoTP::parseds.size()) {
+            AutoTP::currentPoint = AutoTP::parseds[point];
+            util::log(M_Info, "Teleporting to point: %s", AutoTP::parseds[point].name.c_str());
 
-            // teleportation logic here
-            // same code here and in AutoTpThread so u might rewrite this part
+            app::ActorUtils_SetAvatarPos(AutoTP::parseds[point].position);
 
             util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
         }
@@ -22,12 +21,9 @@ namespace cheat {
                 for (int i = 0; i < AutoTP::parseds.size(); i++) {
                     if (!AutoTP::b_startTeleporting)
                         break;
-                    AutoTP::currentPoint = AutoTP::parseds.at(i);
-                    util::log(M_Info, "Teleporting to point: %s", AutoTP::currentPoint.name.c_str());
+                    
+                    TeleportToCurrentPoint(i);
 
-                    // teleportation logic here
-
-                    util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
                     if (AutoTP::parseds.size() - i != 1) {
                         Sleep(static_cast<DWORD>(AutoTP::timerWait * 1000));
                     }
@@ -43,13 +39,13 @@ namespace cheat {
         if (teleportBackHotkey.IsPressed()) {
             if (currentPointIndex > 0) {
                 currentPointIndex--;
-                TeleportToCurrentPoint();
+                TeleportToCurrentPoint(currentPointIndex);
             }
         }
         if (teleportForwardHotkey.IsPressed()) {
             if (currentPointIndex < parseds.size() - 1) {
                 currentPointIndex++;
-                TeleportToCurrentPoint();
+                TeleportToCurrentPoint(currentPointIndex);
             }
         }
         if (autoTeleportHotkey.IsPressed())
@@ -64,6 +60,7 @@ namespace cheat {
     void AutoTP::GUI() {
         ImGui::Checkbox("Auto TP", &ifAutoTP);
         if (ifAutoTP) {
+            ImGui::Indent();
             ImGui::InputText("Json folder", folderPathBuffer, sizeof(folderPathBuffer));
 
             if (ImGui::Button("Read jsons")) {
@@ -111,9 +108,11 @@ namespace cheat {
                 ImGui::Checkbox("TP automatically through all points", &ifAutomatic);
 
                 if (ifAutomatic) {
-                    if (ImGui::Button("Start teleporting")) {
-                        b_startTeleporting = true;
-                        util::log(M_Debug, "Start teleporting pressed");
+                    if (!b_startTeleporting) {
+                        if (ImGui::Button("Start teleporting")) {
+                            b_startTeleporting = true;
+                            util::log(M_Debug, "Start teleporting pressed");
+                        }
                     }
                     if (b_startTeleporting) {
                         if (ImGui::Button("Stop teleporting")) {
@@ -133,14 +132,14 @@ namespace cheat {
                     if (ImGui::Button("<")) {
                         if (currentPointIndex > 0) {
                             currentPointIndex--;
-                            TeleportToCurrentPoint();
+                            TeleportToCurrentPoint(currentPointIndex);
                         }
                     }
                     ImGui::SameLine();
                     if (ImGui::Button(">")) {
                         if (currentPointIndex < parseds.size() - 1) {
                             currentPointIndex++;
-                            TeleportToCurrentPoint();
+                            TeleportToCurrentPoint(currentPointIndex);
                         }
                     }
                     teleportForwardHotkey.Draw();
@@ -149,6 +148,7 @@ namespace cheat {
                 }
                 ImGui::Separator();
             }
+            ImGui::Unindent();
         }
     }
 }
