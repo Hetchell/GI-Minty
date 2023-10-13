@@ -60,10 +60,6 @@ IDI_ICON1               ICON                    "virus.ico"
 // RCDATA
 //
 
-IDR_RCDATA1             RCDATA                  "kts-t.ttf"
-
-IDR_RCDATA2             RCDATA                  "m-n.otf"
-
 #endif    // Русский (Россия) resources
 /////////////////////////////////////////////////////////////////////////////
 

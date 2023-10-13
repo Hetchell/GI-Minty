@@ -3,8 +3,6 @@
 // Используется Launcher.rc
 //
 #define IDI_ICON1                       104
-#define IDR_RCDATA1                     107
-#define IDR_RCDATA2                     108
 
 // Next default values for new objects
 // 
