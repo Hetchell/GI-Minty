@@ -15,6 +15,7 @@
 #include "../Functions/Player/nocd.h"
 #include "../Functions/Player/noclip.h"
 #include "../Functions/Misc/uimisc.h"
+#include "../Functions/Misc/ProfileChanger.h"
 #include "../Functions/Misc/unlockfps.h"
 #include "../Functions/Player/multihit.h"
 #include "../Functions/World/autotp.h"
@@ -51,6 +52,7 @@ void Init() {
     PUSH_FUNC(CutsceneSkip);
     PUSH_FUNC(DialogSkip);
     PUSH_FUNC(UIMisc);
+    PUSH_FUNC(ProfileChanger);
     PUSH_FUNC(UnlockFPS);
     PUSH_FUNC(Godmode);
     PUSH_FUNC(InfinityEnergy);

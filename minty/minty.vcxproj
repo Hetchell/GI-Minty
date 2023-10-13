@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Functions\Misc\ProfileChanger.cpp" />
     <ClCompile Include="Functions\Settings\Settings.cpp" />
     <ClCompile Include="Discord SDK\src\connection_win.cpp" />
     <ClCompile Include="Discord SDK\src\discord_register_win.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
     <ClCompile Include="Utils\LuaUtils.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
+    <ClInclude Include="Functions\Misc\ProfileChanger.h" />
     <ClInclude Include="Functions\Settings\Settings.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClCompile Include="Config\ConfigManager.cpp">
@@ -352,7 +354,6 @@
     <ClInclude Include="Utils\ImageLoader\stb_image.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
-    <ClInclude Include="Utils\util.h" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>

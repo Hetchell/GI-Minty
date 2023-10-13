@@ -87,6 +87,7 @@
     <ClCompile Include="Functions\World\speedhack.cpp" />
     <ClCompile Include="Functions\About\About.cpp" />
     <ClCompile Include="Functions\Settings\Settings.cpp" />
+    <ClCompile Include="Functions\Misc\ProfileChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -186,7 +187,6 @@
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
     <ClInclude Include="Games\wordle.hpp" />
-    <ClInclude Include="Utils\util.h" />
     <ClInclude Include="Hotkeys\Hotkey.h" />
     <ClInclude Include="Hotkeys\KeyBind.h" />
     <ClInclude Include="Hotkeys\KeyBinds.h" />
@@ -219,6 +219,7 @@
     <ClInclude Include="Functions\World\speedhack.h" />
     <ClInclude Include="Functions\About\About.h" />
     <ClInclude Include="Functions\Settings\Settings.h" />
+    <ClInclude Include="Functions\Misc\ProfileChanger.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
