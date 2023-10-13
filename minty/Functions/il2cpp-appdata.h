@@ -1,15 +1,13 @@
+#pragma once
+
+#include <cstdint>
+
 //#include "il2cpp-types.h"
 #include "../includes.h"
 #include "../ImGui/ImGuiNotify/imgui_notify.h"
 
 #define DO_API(a, b, r, n, p) extern r(*n) p
-//namespace app
-//{
-	#include "il2cpp-api-functions.h"
-	#include <Windows.h>
-	#include <string>
-	//#include "il2cpp-types.h"
-//}
+#include "il2cpp-api-functions.h"
 #undef DO_API
 
 //#include "il2cpp-types.h"

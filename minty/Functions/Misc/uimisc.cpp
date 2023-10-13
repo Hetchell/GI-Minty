@@ -9,7 +9,7 @@ namespace cheat {
         if (!UIMisc::ifFovChanger)
             return;
 
-        value = UIMisc::ifFovChanger ? UIMisc::i_Fov : 45;
+        value = UIMisc::ifFovChanger ? UIMisc::i_Fov : 45.0f;
         CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
     }
     bool ShouldShowLevelUpDialog(app::MoleMole_EquipLevelUpDialogContext* dialog);
@@ -222,9 +222,12 @@ namespace cheat {
     app::GameObject* uidTextObj;
     app::Component_1* uidTextComp;
 	void Change_UID(const char* uidText) {
-        while (!uidTextObj) uidTextObj = app::UnityEngine__GameObject__Find((app::String*)il2cpp_string_new("/BetaWatermarkCanvas(Clone)/Panel/TxtUID"));
-        while (!uidTextComp) uidTextComp = app::UnityEngine_GameObject_GetComponent(uidTextObj, il2cpp_string_new("Text"));
+        while (!uidTextObj)
+            uidTextObj = app::UnityEngine__GameObject__Find(string_to_il2cppi("/BetaWatermarkCanvas(Clone)/Panel/TxtUID"));
 
-		app::UnityEngine_Text_setText(reinterpret_cast<app::Text*>(uidTextComp), il2cpp_string_new(uidText));
+        while (!uidTextComp)
+            uidTextComp = app::UnityEngine_GameObject_GetComponent(uidTextObj, string_to_il2cppi("Text"));
+
+		app::UnityEngine_Text_setText(reinterpret_cast<app::Text*>(uidTextComp), string_to_il2cppi(uidText));
 	}
 }

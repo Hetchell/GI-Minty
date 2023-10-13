@@ -42,7 +42,7 @@ void gui::Render() {
     ImGui_ImplDX11_NewFrame();
     ImGui::NewFrame();
     
-    static float startTime = ImGui::GetTime(); // Initialize startTime when the program starts
+    static double startTime = ImGui::GetTime(); // Initialize startTime when the program starts
     static bool prevShowMenu = g_ShowMenu;
     const float animDuration = 0.2f; // Adjust the animation duration as needed (shorter duration makes it faster)
 

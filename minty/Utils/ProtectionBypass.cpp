@@ -290,44 +290,42 @@ static app::Byte__Array* RecordUserData_Hook(int32_t nType)
 	return OnRecordUserData(nType);
 }
 
-app::Byte__Array* OnRecordUserData(int32_t nType)
-{
-	if (m_CorrectSignatures.count(nType))
-	{
+app::Byte__Array* OnRecordUserData(int32_t nType) {
+	if (m_CorrectSignatures.count(nType)) {
 		auto byteClass = app::GetIl2Classes()[0x25];
-
 		auto& content = m_CorrectSignatures[nType];
-		//auto newArrayNotByte = (app::Il2CppArray*)il2cpp_array_new(byteClass, content.size());
-		//auto newArray = (app::Byte__Array*)newArrayNotByte;
-		//memmove_s(newArray->vector, content.size(), content.data(), content.size());
-
-		//return newArray;
+		auto newArrayNotByte = (app::Il2CppArray*) il2cpp_array_new(byteClass, content.size());
+		auto newArray = (app::Byte__Array*) newArrayNotByte;
+		
+		memmove_s(newArray->vector, content.size(), content.data(), content.size());
+		return newArray;
 	}
 
 	app::Byte__Array* result = CALL_ORIGIN(RecordUserData_Hook, nType);
 	auto resultArray = TO_UNI_ARRAY(result, byte);
-
 	auto length = resultArray->length();
+
 	if (length == 0)
 		return result;
 
 	auto stringValue = std::string((char*)result->vector, length);
 	m_CorrectSignatures[nType] = stringValue;
 
-	util::log(M_Info, "Sniffed correct signature for type %d value '%s'", nType, stringValue.c_str());
+	util::log(M_Debug, "Sniffed correct signature for type %d value '%s'", nType, stringValue.c_str());
 	return result;
 }
 
-static int RecordChecksumUserData_Hook(int type, char* out, int out_size)
-{
+static int RecordChecksumUserData_Hook(int type, char* out, int out_size) {
 	auto ret = CALL_ORIGIN(RecordChecksumUserData_Hook, type, out, out_size);
+
 	while (true) {
 		util::log(M_Info, "type %d\nret %d: %s", type, ret, out);
 		Sleep(10);
 	}
+
 	const char* data[] = {
-		"08126aeb28524e7b05d718826b6c5e4e",
-		"6c86749942cd7201a2e77266e1a3977128",
+		"b62db48c3c79e59b1d3f7a14afdf74e3",
+		"160617b76cc7b25dd378308d7840cc1925",
 		"",
 		""
 	};
@@ -341,8 +339,7 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size)
 	return ret;
 }
 
-void DisableLogReport()
-{
+void DisableLogReport() {
 	char szProcessPath[MAX_PATH]{};
 	GetModuleFileNameA(nullptr, szProcessPath, MAX_PATH);
 
@@ -422,26 +419,26 @@ void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 	return;
 }
 
-void ProtectionBypass::Init()
-{
-	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+void ProtectionBypass::Init() {
+	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+
 	for (int i = 0; i < 4; i++) {
-		//app::Unity_RecordUserData(i);
-		//std::string cscscs = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
-		//util::log(M_Info, "type %i checksum: %s", i, cscscs);
+		app::Unity_RecordUserData(i);
+		std::string cscscs = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
+		//util::log(M_Debug, "type %i checksum: %s", i, cscscs);
+		std::cout << "checksum: " << cscscs << "\n";
 	}
-	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
-	util::log(M_Info, "Trying to close mhyprot.");
+	//HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
+	//HookManager::install(app::CrashReporter, CrashReporter_Hook);
+	//util::log(M_Info, "Trying to close mhyprot.");
 
 	if (CloseHandleByName(L"\\Device\\mhyprot2"))
 		util::log(M_Info, "mhyprot anticheat has been killed");
 
-	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 
 	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
 	DisableLogReport();
 	util::log(M_Info, "Initialized protection bypass");
 
-	//HookManager::install(app::CrashReporter, CrashReporter_Hook);
-	//HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 }
