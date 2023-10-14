@@ -204,7 +204,6 @@
     <ClInclude Include="Functions\Misc\ShowChestIndicator.h" />
     <ClInclude Include="Functions\Misc\SkipEnhanceAnimation.h" />
     <ClInclude Include="Functions\Settings\Settings.h" />
-    <ClInclude Include="Config\ConfigManager.hpp" />
     <ClCompile Include="Config\ConfigManager.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
@@ -240,8 +239,6 @@
     <ClInclude Include="Discord SDK\src\rapidjson\writer.h" />
     <ClInclude Include="Discord SDK\src\rpc_connection.h" />
     <ClInclude Include="Discord SDK\src\serialization.h" />
-    <ClInclude Include="features\Feature.h" />
-    <ClInclude Include="features\world\ElementalSight.h" />
     <ClInclude Include="Functions\About\About.h" />
     <ClInclude Include="Functions\detours.h" />
     <ClInclude Include="Functions\Function.h" />
@@ -381,7 +378,6 @@
     <ClCompile Include="Games\wordle.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="GUI\MainGUI.h" />
     <ClInclude Include="ImGui\ImGuiNotify\fa_solid_900.h" />
     <ClInclude Include="ImGui\ImGuiNotify\font_awesome_5.h" />
