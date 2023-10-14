@@ -1,6 +1,11 @@
 #include "About.h"
 
 namespace cheat {
+    About& About::getInstance() {
+        static About instance;
+        return instance;
+    }
+
 	void About::GUI() {
         ImGui::SeparatorText("About");
 

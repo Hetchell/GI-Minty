@@ -1,7 +1,7 @@
 #include "GameSpeed.h"
 
 namespace cheat {
-	void onUpdate_3(app::GameManager* __this, app::MethodInfo* methodInfo);
+	void onUpdate_3(app::GameManager* __this, app::MethodInfo* method);
 
 	GameSpeed::GameSpeed() {
 		f_Enabled = config::getValue("functions:GameSpeed", "enabled", false);
@@ -16,7 +16,7 @@ namespace cheat {
 	}
 
 	void GameSpeed::GUI() {
-		ConfigCheckbox(_("GameSpeed"), f_Enabled);
+		ConfigCheckbox("Game Speed", f_Enabled);
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
@@ -46,11 +46,11 @@ namespace cheat {
 		app::UnityEngine__set__Timescale(GameSpeed.f_Enabled.getValue() ? GameSpeed.f_Speed.getValue() : 1.0f);
 	}
 
-	void onUpdate_3(app::GameManager* __this, app::MethodInfo* methodInfo) {
+	void onUpdate_3(app::GameManager* __this, app::MethodInfo* method) {
 		__try {
 			changeGameSpeed();
 		} __except (1) {}
 
-		CALL_ORIGIN(onUpdate_3, __this, methodInfo);
+		CALL_ORIGIN(onUpdate_3, __this, method);
 	}
 }

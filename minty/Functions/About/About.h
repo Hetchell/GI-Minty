@@ -9,5 +9,7 @@ namespace cheat {
 		void GUI() override;
 
 		std::string getModule() override;
+
+		static About& getInstance();
 	};
 }

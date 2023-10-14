@@ -4,7 +4,7 @@ namespace cheat {
 	app::Vector3 prevPos, newPos;
 	app::Vector3 posCheck;
 
-	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* methodInfo);
+	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method);
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method);
 
 	NoClip::NoClip() {
@@ -23,7 +23,7 @@ namespace cheat {
 	}
 
 	void NoClip::GUI() {
-		ConfigCheckbox("NoClip", f_Enabled);
+		ConfigCheckbox("No Clip", f_Enabled);
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
@@ -53,7 +53,7 @@ namespace cheat {
 
 	void NoClip::Status() {
 		if (f_Enabled.getValue())
-			ImGui::Text(_("Noclip (%.1f U/s | %.1f U/s "), f_Speed.getValue(), f_AltSpeed.getValue());
+			ImGui::Text("Noclip (%.1f U/s | %.1f U/s ", f_Speed.getValue(), f_AltSpeed.getValue());
 	}
 
 	std::string NoClip::getModule() {
@@ -140,7 +140,7 @@ namespace cheat {
 		app::Rigidbody_MovePosition(rigidbody, newPos);
 	}
 
-	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* methodInfo) {
+	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method) {
 		auto& NoClip = NoClip::getInstance();
 
 		__try {
@@ -151,7 +151,7 @@ namespace cheat {
 			util::log(M_Error, "Exception 0x%08x.", _exception_code());
 		}
 
-		CALL_ORIGIN(GameManager_Update_Hook, __this, methodInfo);
+		CALL_ORIGIN(GameManager_Update_Hook, __this, method);
 	}
 
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method) {

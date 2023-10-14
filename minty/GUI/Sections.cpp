@@ -1,8 +1,4 @@
-﻿#include <unordered_map>
-
-//#include "../Games/games.h"
-
-#include "../Functions/About/About.h"
+﻿#include "../Functions/About/About.h"
 
 #include "../Functions/Misc/AutoTalk.h"
 #include "../Functions/Misc/CameraZoom.h"
@@ -37,45 +33,41 @@ std::vector<std::string> ModuleOrder = {
 };
 
 void Init() {
+    INIT_FUNC(About);
+
+    INIT_FUNC(AutoTalk);
+    //INIT_FUNC(CameraZoom);
+    INIT_FUNC(CutsceneSkip);
+    INIT_FUNC(FovChanger);
+    //INIT_FUNC(OpenTeamImmediately);
+    INIT_FUNC(Peeking);
     INIT_FUNC(ProfileChanger);
+    INIT_FUNC(ShowChestIndicator);
+    //INIT_FUNC(SkipEnhanceAnimation);
+    INIT_FUNC(UnlockFPS);
 
-    PUSH_FUNC(About);
+    INIT_FUNC(GodMode);
+    INIT_FUNC(InfinityEnergy);
+    INIT_FUNC(InfinityStamina);
+    INIT_FUNC(MultiHit);
+    INIT_FUNC(NoClip);
+    INIT_FUNC(NoCooldown);
 
-    PUSH_FUNC(AutoTalk);
-    //PUSH_FUNC(CameraZoom);
-    PUSH_FUNC(CutsceneSkip);
-    PUSH_FUNC(FovChanger);
-    //PUSH_FUNC(OpenTeamImmediately);
-    PUSH_FUNC(Peeking);
-    PUSH_FUNC(ProfileChanger);
-    PUSH_FUNC(ShowChestIndicator);
-    //PUSH_FUNC(SkipEnhanceAnimation);
-    PUSH_FUNC(UnlockFPS);
+    INIT_FUNC(Settings);
 
-    PUSH_FUNC(GodMode);
-    PUSH_FUNC(InfinityEnergy);
-    PUSH_FUNC(InfinityStamina);
-    PUSH_FUNC(MultiHit);
-    //PUSH_FUNC(NoClip);
-    PUSH_FUNC(NoCooldown);
-
-    PUSH_FUNC(Settings);
-
-    //PUSH_FUNC(AutoTP);
-    PUSH_FUNC(DumbEnemies);
-    //PUSH_FUNC(GameSpeed);
+    //INIT_FUNC(AutoTP);
+    INIT_FUNC(DumbEnemies);
+    INIT_FUNC(GameSpeed);
 }
 
 void Outer() {
-    for (auto& func : All_vec) {
-        __try {
-            func->Outer();
-        } __except(1) {}
+    for (auto& func : functions) {
+        func->Outer();
     }
 }
 
 void DrawSection(const std::string& moduleName) {
-    for (auto& func : All_vec) {
+    for (auto& func : functions) {
         if (func->getModule() != moduleName)
             continue;
 

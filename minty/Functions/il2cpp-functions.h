@@ -108,7 +108,7 @@ DO_APP_FUNC(0x02A3C480, 0x02A8E660, void, MoleMole_VCMonsterAIController_TryDoSk
 DO_APP_FUNC(0x01D243D0, 0x01D56FF0, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
 
 // Testing.. (401)
-//DO_APP_FUNC(0x02D24290, 0x0, bool, Test_inDive, (app::MethodInfo methodInfo));
+//DO_APP_FUNC(0x02D24290, 0x0, bool, Test_inDive, (app::MethodInfo method));
 
 // Dialog skipping
 DO_APP_FUNC(0x02F87B00, 0x02FE38C0, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, app::Notify* notify));
@@ -145,8 +145,7 @@ DO_APP_FUNC(0x0412CAA0, 0x041ADB50, void, MoleMole_EquipOverviewPageContext_Play
 DO_APP_FUNC(0x01D60090, 0x01D93A10, void, MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow, (/*MoleMole_EquipOverviewPageContext*/ void* __this, /*Action*/ void* refreshViewAction));
 
 // Teleport hooks
-DO_APP_FUNC(0x02607CF0, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* methodInfo));
-DO_APP_FUNC(0x02607CF0, 0x02652AF0, void, GameManager_Update2, (app::GameManager* __this));
+DO_APP_FUNC(0x02607CF0, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
 
 // Open team immediately
 DO_APP_FUNC(0x012B43E0, 0x012CC050, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
@@ -159,6 +158,4 @@ DO_APP_FUNC(0x02746CC0, 0x02792100, void, MoleMole_DataItem_HandleNormalProp, (a
 // Wanderer E Stamina
 DO_APP_FUNC(0x01C04300, 0x01C34160, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
 
-DO_APP_FUNC(0x03D9C9F0, 0x0, void, DoHitEntity, (uint32_t id, app::AttackResult* res, bool ifif));
-
-DO_APP_FUNC(0x07BFD960, 0x0, app::Vector3, Vector3_Slerp, (app::Vector3 start, app::Vector3 end, float time));
+DO_APP_FUNC(0x07BFD960, 0x07C8C0B0, app::Vector3, Vector3_Slerp, (app::Vector3 start, app::Vector3 end, float time));

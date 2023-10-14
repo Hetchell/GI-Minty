@@ -15,7 +15,7 @@ namespace cheat {
 	}
 
 	void InfinityEnergy::GUI() {
-		ConfigCheckbox(_("InfinityEnergy"), f_Enabled);
+		ConfigCheckbox(_("Infinity Energy"), f_Enabled);
 		ImGui::SameLine();
 		HelpMarker("Removes energy requirement for elemental bursts.\n"
 			"(Energy bubble may appear incomplete but still usable)");

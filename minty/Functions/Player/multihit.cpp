@@ -16,7 +16,7 @@ namespace cheat {
 	}
 
 	void MultiHit::GUI() {
-		ConfigCheckbox("MultiHit", f_Enabled);
+		ConfigCheckbox("Multi Hit", f_Enabled);
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();

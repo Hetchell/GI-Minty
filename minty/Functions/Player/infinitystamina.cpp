@@ -16,7 +16,7 @@ namespace cheat {
 	}
 
 	void InfinityStamina::GUI() {
-		ConfigCheckbox("InfinityStamina", f_Enabled);
+		ConfigCheckbox("Infinity Stamina", f_Enabled);
 		ImGui::SameLine();
 		HelpMarker("Enables infinite stamina option.");
 

@@ -17,7 +17,7 @@ namespace cheat {
 	}
 
 	void GodMode::GUI() {
-		ConfigCheckbox("GodMode", f_Enabled);
+		ConfigCheckbox("God Mode", f_Enabled);
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();

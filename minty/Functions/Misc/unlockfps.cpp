@@ -1,7 +1,7 @@
 #include "UnlockFPS.h"
 
 namespace cheat {
-	static void onUpdate_2(app::GameManager* __this, app::MethodInfo* methodInfo);
+	static void onUpdate_2(app::GameManager* __this, app::MethodInfo* method);
 
 	UnlockFPS::UnlockFPS() {
 		f_Enabled = config::getValue("functions:UnlockFPS", "enabled", false);
@@ -42,12 +42,9 @@ namespace cheat {
 		return _("Misc");
 	}
 
-	void onUpdate_2(app::GameManager* __this, app::MethodInfo* methodInfo) {
+	void onUpdate_2(app::GameManager* __this, app::MethodInfo* method) {
 		auto& UnlockFPS = UnlockFPS::getInstance();
 		bool enabled = UnlockFPS.f_Enabled.getValue();
-
-		if (!enabled)
-			return;
 
 		__try {
 			app::UnityEngine__Application__set__targetFramerate(enabled ? UnlockFPS.f_Fps.getValue() : 60);
@@ -57,6 +54,6 @@ namespace cheat {
 			util::log(M_Info, "lol");
 		}
 
-		CALL_ORIGIN(onUpdate_2, __this, methodInfo);
+		CALL_ORIGIN(onUpdate_2, __this, method);
 	}
 }

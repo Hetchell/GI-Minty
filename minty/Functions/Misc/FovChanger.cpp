@@ -16,11 +16,15 @@ namespace cheat {
     }
 
     void FovChanger::GUI() {
-        ConfigCheckbox("FOV Changer", f_Enabled);
+        ConfigCheckbox("Fov Changer", f_Enabled);
+        ImGui::SameLine();
+        HelpMarker("Custom camera field of view.");
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
             ConfigSliderFloat("FOV value", f_Fov, 10.0f, 170.0f);
+            ImGui::SameLine();
+            HelpMarker("Set a field of view value.");
             fovChangerHotkey.Draw();
             ImGui::Unindent();
         }
@@ -42,12 +46,9 @@ namespace cheat {
 
     void InLevelCameraSetFov_Hook(app::Camera* __this, float value) {
         auto& FovChanger = FovChanger::getInstance();
-        bool enabled = FovChanger.f_Enabled.getValue();
 
-        if (!enabled)
-            return;
-
-        value = enabled ? FovChanger.f_Fov.getValue() : 45.0f;
+        if (FovChanger.f_Enabled.getValue())
+            value = FovChanger.f_Fov.getValue();
         CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
     }
 }
