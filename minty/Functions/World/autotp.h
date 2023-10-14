@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class AutoTP : public FN {
+	class AutoTP : public Function {
 	public:
 		struct TP {
 			std::string name;

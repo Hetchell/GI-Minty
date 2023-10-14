@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class ProfileChanger : public FN {
+	class ProfileChanger : public Function {
 	public:
 		ConfigField<bool> f_EnabledUid;
 		ConfigField<std::string> f_Uid;

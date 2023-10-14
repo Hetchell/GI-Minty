@@ -112,18 +112,6 @@ BOOL g_bInitialised = false;
 //bool g_ShowMenu = true; -> defined in GUIDefinitions
 bool g_PresentHooked = false;
 
-//std::thread log_thread([]() {
-//	while (true) {
-//		// log the state of block_input to the console or a log file
-//		if (block_input)
-//			util::log(2, "blockinput is true");
-//		else
-//			util::log(2, "blockinput is false");
-//
-//		std::this_thread::sleep_for(std::chrono::milliseconds(2000)); // wait for 2 seconds
-//	}
-//});
-
 LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	if (block_input) {
 		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam) && ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard) {

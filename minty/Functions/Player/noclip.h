@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-    class NoClip : public FN {
+    class NoClip : public Function {
     public:
         ConfigField<bool> f_Enabled;
         ConfigField<bool> f_EnabledAltSpeed;

@@ -4,7 +4,7 @@ namespace cheat {
 	app::Vector3 prevPos, newPos;
 	app::Vector3 posCheck;
 
-	void GameManager_Update_Hook(app::GameManager* __this);
+	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* methodInfo);
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method);
 
 	NoClip::NoClip() {
@@ -140,7 +140,7 @@ namespace cheat {
 		app::Rigidbody_MovePosition(rigidbody, newPos);
 	}
 
-	void GameManager_Update_Hook(app::GameManager* __this) {
+	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* methodInfo) {
 		auto& NoClip = NoClip::getInstance();
 
 		__try {
@@ -151,7 +151,7 @@ namespace cheat {
 			util::log(M_Error, "Exception 0x%08x.", _exception_code());
 		}
 
-		CALL_ORIGIN(GameManager_Update_Hook, __this);
+		CALL_ORIGIN(GameManager_Update_Hook, __this, methodInfo);
 	}
 
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method) {

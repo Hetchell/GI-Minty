@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class UnlockFPS : public FN {
+	class UnlockFPS : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		ConfigField<int> f_Fps;

@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class NoCooldown : public FN {
+	class NoCooldown : public Function {
 	public:
 		ConfigField<bool> f_EnabledSkill;
 		ConfigField<bool> f_EnabledBow;

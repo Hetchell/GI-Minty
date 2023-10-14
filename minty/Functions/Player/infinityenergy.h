@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class InfinityEnergy : public FN {
+	class InfinityEnergy : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 

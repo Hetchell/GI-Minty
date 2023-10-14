@@ -1,15 +1,15 @@
 #include "ProfileChanger.h"
 
 namespace cheat {
-    void onUpdate_1(app::GameManager* __this);
+    static void InstallHooks();
     void Change_UID(const char* uidText);
 
-    static char Uid_buf[512] = "";
+    char Uid_buf[512] = "";
 
-    ProfileChanger::ProfileChanger() {
+    ProfileChanger::ProfileChanger(): Function() {
         f_EnabledUid = config::getValue("functions:ProfileChanger:UID", "enabled", false);
 
-        HookManager::install(app::GameManager_Update, onUpdate_1);
+        InstallHooks();
     }
 
     ProfileChanger& ProfileChanger::getInstance() {
@@ -19,6 +19,7 @@ namespace cheat {
 
     void ProfileChanger::GUI() {
         ConfigCheckbox("Profile Changer", f_EnabledUid);
+
         if (f_EnabledUid.getValue()) {
             ImGui::Indent();
             ImGui::InputText("Custom UID", Uid_buf, sizeof(Uid_buf));
@@ -53,8 +54,11 @@ namespace cheat {
         app::UnityEngine_Text_setText(reinterpret_cast<app::Text*>(uidTextComp), string_to_il2cppi(uidText));
     }
 
-    void onUpdate_1(app::GameManager* __this) {
+    static void onUpdate_1(app::GameManager* __this) {
+        util::log(M_Debug, "ProfileChanger onUpdate!");
         auto& ProfileChanger = ProfileChanger::getInstance();
+
+        util::log(M_Debug, "enabledUid: %d", ProfileChanger.f_EnabledUid.getValue());
 
         __try {
             if (ProfileChanger.f_EnabledUid.getValue()) 
@@ -65,5 +69,9 @@ namespace cheat {
         }
 
         CALL_ORIGIN(onUpdate_1, __this);
+    }
+
+    static void InstallHooks() {
+        HookManager::install(app::GameManager_Update2, onUpdate_1);
     }
 }

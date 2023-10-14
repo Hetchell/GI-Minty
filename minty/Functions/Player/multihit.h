@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class MultiHit : public FN {
+	class MultiHit : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		ConfigField<int> f_Hits;

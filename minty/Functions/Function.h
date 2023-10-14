@@ -4,10 +4,8 @@
 
 #include "../GUI/Translations.h"
 
-class FN {
+class Function {
 public:
-	std::string groupName;
-	
 	virtual std::string getModule() {
 		return "Nothing";
 	};

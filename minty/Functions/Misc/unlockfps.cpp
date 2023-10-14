@@ -1,7 +1,7 @@
 #include "UnlockFPS.h"
 
 namespace cheat {
-	static void onUpdate_2(app::GameManager* __this);
+	static void onUpdate_2(app::GameManager* __this, app::MethodInfo* methodInfo);
 
 	UnlockFPS::UnlockFPS() {
 		f_Enabled = config::getValue("functions:UnlockFPS", "enabled", false);
@@ -42,7 +42,7 @@ namespace cheat {
 		return _("Misc");
 	}
 
-	void onUpdate_2(app::GameManager* __this) {
+	void onUpdate_2(app::GameManager* __this, app::MethodInfo* methodInfo) {
 		auto& UnlockFPS = UnlockFPS::getInstance();
 		bool enabled = UnlockFPS.f_Enabled.getValue();
 
@@ -57,6 +57,6 @@ namespace cheat {
 			util::log(M_Info, "lol");
 		}
 
-		CALL_ORIGIN(onUpdate_2, __this);
+		CALL_ORIGIN(onUpdate_2, __this, methodInfo);
 	}
 }

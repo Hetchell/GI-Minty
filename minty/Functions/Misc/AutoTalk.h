@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class AutoTalk : public FN {
+	class AutoTalk : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_TalkSpeed;

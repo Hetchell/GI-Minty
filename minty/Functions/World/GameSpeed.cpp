@@ -1,7 +1,7 @@
 #include "GameSpeed.h"
 
 namespace cheat {
-	void onUpdate_3(app::GameManager* __this);
+	void onUpdate_3(app::GameManager* __this, app::MethodInfo* methodInfo);
 
 	GameSpeed::GameSpeed() {
 		f_Enabled = config::getValue("functions:GameSpeed", "enabled", false);
@@ -46,11 +46,11 @@ namespace cheat {
 		app::UnityEngine__set__Timescale(GameSpeed.f_Enabled.getValue() ? GameSpeed.f_Speed.getValue() : 1.0f);
 	}
 
-	void onUpdate_3(app::GameManager* __this) {
+	void onUpdate_3(app::GameManager* __this, app::MethodInfo* methodInfo) {
 		__try {
 			changeGameSpeed();
 		} __except (1) {}
 
-		CALL_ORIGIN(onUpdate_3, __this);
+		CALL_ORIGIN(onUpdate_3, __this, methodInfo);
 	}
 }

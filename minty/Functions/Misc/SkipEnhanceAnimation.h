@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class SkipEnhanceAnimation : public FN {
+	class SkipEnhanceAnimation : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		ConfigField<bool> f_ShowLevelUp;

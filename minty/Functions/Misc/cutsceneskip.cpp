@@ -16,10 +16,11 @@ namespace cheat {
 
     void CutsceneSkip::GUI() {
         ConfigCheckbox("Skip cutscenes", f_Enabled);
+        ImGui::SameLine();
+        HelpMarker(_("Skips cutscene. May break some game mechanics."));
 
         if (f_Enabled.getValue())
             skipCutsceneHotkey.Draw();
-        HelpMarker(_("Skips cutscene. May break some game mechanics."));
     }
 
     void CutsceneSkip::Status() {

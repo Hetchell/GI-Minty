@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class DumbEnemies : public FN {
+	class DumbEnemies : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 

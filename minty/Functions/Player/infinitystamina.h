@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class InfinityStamina : public FN {
+	class InfinityStamina : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 

@@ -4,7 +4,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class About : public FN {
+	class About : public Function {
 	public:
 		void GUI() override;
 

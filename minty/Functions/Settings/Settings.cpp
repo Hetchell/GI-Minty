@@ -30,12 +30,12 @@ namespace cheat {
 
         static int themeIndex = 1;
         if (ImGui::RadioButton("Dark", &themeIndex, 1)) {
-            settheme(1);
+            setTheme(1);
             config::setValue("general:theme", "color", 1);
         }
 
         if (ImGui::RadioButton("Light", &themeIndex, 2)) {
-            settheme(2);
+            setTheme(2);
             config::setValue("general:theme", "color", 2);
         }
 
@@ -43,12 +43,12 @@ namespace cheat {
 
         static int themestyleindex = 1;
         if (ImGui::RadioButton("Cozy", &themestyleindex, 1)) {
-            setstyle(1);
+            setStyle(1);
             config::setValue("theme", "style", 1);
         }
 
         if (ImGui::RadioButton("Cozy Squared", &themestyleindex, 2)) {
-            setstyle(2);
+            setStyle(2);
             config::setValue("theme", "style", 2);
         }
 
@@ -56,10 +56,10 @@ namespace cheat {
 
         static int fontSelectionIndex = 0;
         if (ImGui::RadioButton("Normal", &fontSelectionIndex, 0))
-            setfont(1);
+            setFont(1);
 
         if (ImGui::RadioButton("Bold", &fontSelectionIndex, 1))
-            setfont(2);
+            setFont(2);
 
         ImGui::SeparatorText("Customize");
         ImGui::Checkbox("Show Style Editor", &show_style_editor);

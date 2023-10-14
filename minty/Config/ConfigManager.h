@@ -17,24 +17,23 @@ namespace config {
 
     template <typename T>
     ConfigField<T> getValue(const std::string& path, const std::string& key, const T& defaultValue) {
-        /*auto section = path;
         std::ifstream configFile("minty.json");
 
         configFile >> configRoot;
         configFile.close();
 
-        if (section.find(":") != std::string::npos) {
-            auto sectionParts = util::split(section, ":");
+        if (path.find(":") != std::string::npos) {
+            auto sections = util::split(path, ":");
 
-            for (auto& part : sectionParts)
-                configRoot = configRoot[part];
+            for (auto& section : sections)
+                configRoot = configRoot[section];
 
             if (configRoot.find(key) != configRoot.end())
                 return ConfigField<T>(path, key, configRoot[key]);
         }
 
-        if (configRoot.find(section) != configRoot.end() && configRoot[section].find(key) != configRoot[section].end())
-            return ConfigField<T>(path, key, configRoot[section][key]);*/
+        if (configRoot.find(path) != configRoot.end() && configRoot[path].find(key) != configRoot[path].end())
+            return ConfigField<T>(path, key, configRoot[path][key]);
         return ConfigField<T>(path, key, defaultValue);
     }
 
@@ -58,7 +57,8 @@ namespace config {
             return;
         }
 
-        configRoot[path][key] = newValue;
+        if (configRoot.find(path) != configRoot.end() && configRoot[path].find(key) != configRoot[path].end())
+            configRoot[path][key] = newValue;
         save(configRoot);*/
     }
 

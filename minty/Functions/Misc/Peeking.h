@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class Peeking : public FN {
+	class Peeking : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		inline static Hotkey peekingHotkey = Hotkey("Peeking");

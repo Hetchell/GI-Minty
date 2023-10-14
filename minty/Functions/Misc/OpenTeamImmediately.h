@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class OpenTeamImmediately : public FN {
+	class OpenTeamImmediately : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 

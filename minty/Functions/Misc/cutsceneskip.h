@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class CutsceneSkip : public FN {
+	class CutsceneSkip : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 

@@ -18,7 +18,8 @@ void ConfigCheckbox(const char* name, ConfigField<T>& field) {
     T& value = field.getValue();
 
     if (ImGui::Checkbox(name, &value)) {
-        config::setValue(field, value);
+        field.setValue(value);
+        //config::setValue(field, value);
     }
 }
 
@@ -27,7 +28,8 @@ void ConfigSliderInt(const char* name, ConfigField<T>& field, const int min, con
     T& value = field.getValue();
 
     if (ImGui::SliderInt(name, &value, min, max)) {
-        config::setValue(field, value);
+        field.setValue(value);
+        //config::setValue(field, value);
     }
 }
 
@@ -36,6 +38,7 @@ void ConfigSliderFloat(const char* name, ConfigField<T>& field, const float min,
     T& value = field.getValue();
 
     if (ImGui::SliderFloat(name, &value, min, max)) {
-        config::setValue(field, value);
+        field.setValue(value);
+        //config::setValue(field, value);
     }
 }

@@ -1,9 +1,11 @@
+#pragma once
+
 #include <Windows.h>
 #include <sstream>
 #include <fstream>
 
 #include "../Utils/Utils.hpp"
-#include "../GUI/GuiDefinitions.h"
+//#include "../GUI/GuiDefinitions.h"
 #include "../Json/json.hpp"
 
 uintptr_t baseAddress;
@@ -44,7 +46,7 @@ GAMEVER CheckGameVer() {
 	config_file >> config_json;
 	config_file.close();
 
-	static std::string execpath = config_json["exec_path"];
+	std::string execpath = config_json["exec_path"];
 
 	if (execpath.find("GenshinImpact.exe") != std::string::npos) {
 		return GLOBAL;

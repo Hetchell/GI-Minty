@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class GameSpeed : public FN {
+	class GameSpeed : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_Speed;

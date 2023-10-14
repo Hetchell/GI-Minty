@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class FovChanger : public FN {
+	class FovChanger : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_Fov;

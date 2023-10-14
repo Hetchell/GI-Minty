@@ -6,7 +6,7 @@
 #include "../../Themes/themes.hpp"
 
 namespace cheat {
-	class Settings : public FN {
+	class Settings : public Function {
 	public:
 		ConfigField<bool> f_ShowFps;
 		ConfigField<bool> f_ShowRpc;

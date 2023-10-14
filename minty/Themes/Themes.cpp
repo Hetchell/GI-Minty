@@ -1,11 +1,9 @@
-#include <iostream>
-#include <fstream>
+//#include <iostream>
+//#include <fstream>
 
 #include "../ImGui/ImGui/imgui.h"
 #include "../Json/json.hpp"
 #include "Themes.hpp"
-
-//namespace {
 
 void dark_theme() {
     ImGui::StyleColorsDark();
@@ -41,8 +39,7 @@ void dark_theme() {
     style.FrameBorderSize = 0.0f;
 }
 
-void light_theme()
-{
+void light_theme() {
     ImGui::StyleColorsLight();
     ImGuiStyle& style = ImGui::GetStyle();
     ImVec4* colors = ImGui::GetStyle().Colors;
@@ -76,8 +73,8 @@ void light_theme()
     style.FrameBorderSize = 0.0f;
 }
 
-/*void red_theme() // i will update this theme later
-{
+// i will update this theme later
+/*void red_theme() {
     ImGui::StyleColorsDark();
     ImGuiStyle& style = ImGui::GetStyle();
     ImVec4* colors = ImGui::GetStyle().Colors;
@@ -171,8 +168,8 @@ void cozy_square_style() {
     style.TabRounding = 0.0f;
 }
 
-void settheme(int themefunc_index) {
-    nlohmann::json cfgjsonobj;
+void setTheme(int themeIndex) {
+    /*nlohmann::json cfgjsonobj;
     std::ifstream config_file("minty.json");
     nlohmann::json config_json;
     config_file >> config_json;
@@ -182,9 +179,9 @@ void settheme(int themefunc_index) {
     config_json.merge_patch(cfgjsonobj);
     std::ofstream merged_file("minty.json");
     merged_file << config_json.dump(4);
-    merged_file.close();
+    merged_file.close();*/
 
-    switch (themefunc_index) {
+    switch (themeIndex) {
     case 1:
         dark_theme();
         theme_index = 1;
@@ -202,8 +199,8 @@ void settheme(int themefunc_index) {
     }
 }
 
-void setstyle(int stylefunc_index) {
-    switch (stylefunc_index) {
+void setStyle(int styleIndex) {
+    switch (styleIndex) {
         case 1:
             style_index = 1;
             cozy_style();
@@ -217,8 +214,8 @@ void setstyle(int stylefunc_index) {
     }
 }
 
-void setfont(int fontfunc_index) {
-    switch (fontfunc_index) {
+void setFont(int fontIndex) {
+    switch (fontIndex) {
         case 1:
             fontindex_menu = 1;
             break;
@@ -232,5 +229,3 @@ void setfont(int fontfunc_index) {
             break;
     }
 }
-
-//}  // namespace

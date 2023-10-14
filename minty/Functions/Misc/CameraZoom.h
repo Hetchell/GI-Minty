@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class CameraZoom : public FN {
+	class CameraZoom : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_CameraZoom;

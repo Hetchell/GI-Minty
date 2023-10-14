@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class ShowChestIndicator : public FN {
+	class ShowChestIndicator : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 

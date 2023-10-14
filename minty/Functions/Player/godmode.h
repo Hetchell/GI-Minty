@@ -8,7 +8,7 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class GodMode : public FN {
+	class GodMode : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 
