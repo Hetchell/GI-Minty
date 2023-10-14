@@ -34,6 +34,8 @@ namespace cheat {
         HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook);
         // FOV hooks
         HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook);
+        // Chest indic
+        HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck);
 
         f_CameraZoom = 10;
         i_Fov = 45;
@@ -45,7 +47,7 @@ namespace cheat {
         ifSkipAnim = config::getValue("functions", "SkipAnim", false);
         ifCameraZoom = config::getValue("functions", "CameraZoom", false);
         ifFovChanger = config::getValue("functions", "FOVChanger", false);
-        ifUid = config::getValue("functions", "CustomUDDDDDDID", false);
+        ifUid = config::getValue("functions", "CustomUID", false);
     }
 
     void UIMisc::GUI() {
@@ -87,7 +89,7 @@ namespace cheat {
             ImGui::Unindent();
         }
 
-        CheckBoxFN("Custom UID", ifUid, "CustomUID")
+        /*CheckBoxFN("Custom UID", ifUid, "CustomUID")
         if (ifUid) {
             ImGui::Indent();
             if (ImGui::InputText("Custom UID", Uid_buf, sizeof(Uid_buf))) {
@@ -95,7 +97,7 @@ namespace cheat {
             }
             uidHotkey.Draw();
             ImGui::Unindent();
-        }
+        }*/
     }
 
     void UIMisc::Outer() {
@@ -219,7 +221,7 @@ namespace cheat {
         InLevelPlayerProfilePageContext = nullptr;
     }
 
-    app::GameObject* uidTextObj;
+    /*app::GameObject* uidTextObj;
     app::Component_1* uidTextComp;
 	void Change_UID(const char* uidText) {
         while (!uidTextObj)
@@ -229,5 +231,5 @@ namespace cheat {
             uidTextComp = app::UnityEngine_GameObject_GetComponent(uidTextObj, string_to_il2cppi("Text"));
 
 		app::UnityEngine_Text_setText(reinterpret_cast<app::Text*>(uidTextComp), string_to_il2cppi(uidText));
-	}
+	}*/
 }

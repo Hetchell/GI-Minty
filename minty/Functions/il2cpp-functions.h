@@ -157,3 +157,7 @@ DO_APP_FUNC(0x0300BA90, 0x03068F50, void, MoleMole_LevelSyncCombatPlugin_Request
 DO_APP_FUNC(0x02746CC0, 0x02792100, void, MoleMole_DataItem_HandleNormalProp, (app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state));
 // Wanderer E Stamina
 DO_APP_FUNC(0x01C04300, 0x01C34160, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
+
+DO_APP_FUNC(0x03D9C9F0, 0x0, void, DoHitEntity, (uint32_t id, app::AttackResult* res, bool ifif));
+
+DO_APP_FUNC(0x07BFD960, 0x0, app::Vector3, Vector3_Slerp, (app::Vector3 start, app::Vector3 end, float time));

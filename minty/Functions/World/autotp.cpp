@@ -8,9 +8,21 @@ namespace cheat {
         if (point >= 0 && point < AutoTP::parseds.size()) {
             AutoTP::currentPoint = AutoTP::parseds[point];
             util::log(M_Info, "Teleporting to point: %s", AutoTP::parseds[point].name.c_str());
-
-            app::ActorUtils_SetAvatarPos(AutoTP::parseds[point].position);
-
+            auto avatarPos = app::MoleMole__ActorUtils__GetAvatarPos();
+            auto endPos = AutoTP::parseds[point].position;
+            std::thread interpolate([avatarPos, endPos]()
+                {
+                    float t = 0.0f;
+                    app::Vector3 zero = { 0,0,0 };
+                    auto newPos = zero;
+                    while (t < 1.0f) {
+                        newPos = app::Vector3_Slerp(avatarPos, endPos, t);
+                        app::ActorUtils_SetAvatarPos(newPos);
+                        t += 5 / 100.0f;
+                        util::log(M_Info, "time; %f", t);
+                        Sleep(10);
+                    } });
+            interpolate.detach();
             util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
         }
     }
