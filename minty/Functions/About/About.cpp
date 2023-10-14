@@ -4,7 +4,7 @@ namespace cheat {
 	void About::GUI() {
         ImGui::SeparatorText("About");
 
-        ImGui::Text("Minty version 1.39.51");
+        ImGui::Text("Minty version 1.39.52");
         ImGui::Text("ImGui version: %s", ImGui::GetVersion());
         ImGui::Text("Design made with love by KittyKate :3");
 
@@ -22,4 +22,8 @@ namespace cheat {
         ImGui::Text("KWT Discord: ");
         TextURL("Link", "https://discord.gg/kindawindytoday", true, false);
 	}
+
+    std::string About::getModule() {
+        return _("About");
+    }
 }

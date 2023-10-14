@@ -1,15 +1,16 @@
+#pragma once
+
 #include "../il2cpp-appdata.h"
-#include "../il2cpp-types.h"
 #include "../il2cppUtils.h"
-#include "../HookManager.h"
-#include "../../Hotkeys/Hotkey.h"
-#include "../../Hotkeys/KeyBind.h"
 #include "../Function.h"
+#include "../../Hotkeys/Hotkey.h"
+#include "../HookManager.h"
+#include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class Godmode : public FN {
+	class GodMode : public FN {
 	public:
-		inline static bool ifGodmode;
+		ConfigField<bool> f_Enabled;
 
 		inline static Hotkey godModeHotkey = Hotkey("Godmode");
 
@@ -17,12 +18,10 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
-		std::string groupName = "Player";
+		std::string getModule() override;
 
-		Godmode();
+		static GodMode& getInstance();
 
-		std::string GetGroupName() override {
-			return groupName;
-		}
+		GodMode();
 	};
 }

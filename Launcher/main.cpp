@@ -12,7 +12,6 @@
 #include "../minty/json/json.hpp"
 
 namespace fs = std::filesystem;
-const char* exeNamePath = "exe.exe";
 
 bool InjectStandard(HANDLE hTarget, const char* dllpath) {
     LPVOID loadlib = GetProcAddress(GetModuleHandle(L"kernel32"), "LoadLibraryA");
@@ -117,22 +116,6 @@ int main() {
         if (settings_file.is_open()) {
             // Write the executable path to the settings file
             cfg["exec_path"] = exe_path;
-            cfg["functions"]["InfBurst"] = false;
-            cfg["functions"]["NoClip"] = false;
-            cfg["functions"]["NoCD"] = false;
-            cfg["functions"]["InfStamina"] = false;
-            cfg["functions"]["NoFallDmg"] = false;
-            cfg["functions"]["InstantBow"] = false;
-            cfg["functions"]["DumbEnemies"] = false;
-            cfg["functions"]["Booty"] = false;
-            cfg["functions"]["AutoTalk"] = false;
-            cfg["functions"]["CutsceneSkip"] = false;
-            cfg["functions"]["ShowChest"] = false;
-            cfg["theme"]["style"] = 1;
-            cfg["theme"]["color"] = 1;
-            cfg["general"]["showRPC"] = true;
-            cfg["general"]["ShowFPS"] = true;
-            cfg["general"]["initDelay"] = 15000;
             // hotkeys
             cfg["hotkeys"]["InfBurst"] = 0;
             cfg["hotkeys"]["NoCD"] = 0;
@@ -187,7 +170,6 @@ int main() {
                 }
 
                 exe_path = cfg["exec_path"];
-                exeNamePath = exe_path.c_str();
                 PROCESS_INFORMATION proc_info{};
                 STARTUPINFOA startup_info{};
                 CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);

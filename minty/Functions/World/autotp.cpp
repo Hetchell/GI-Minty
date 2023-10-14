@@ -1,77 +1,28 @@
-#include "autotp.h"
+#include "AutoTP.h"
 
 namespace cheat {
     std::vector<AutoTP::TP> AutoTP::parseds;
     std::atomic<bool> stopThread(false);
 
-    void TeleportToCurrentPoint(int point) {
-        if (point >= 0 && point < AutoTP::parseds.size()) {
-            AutoTP::currentPoint = AutoTP::parseds[point];
-            util::log(M_Info, "Teleporting to point: %s", AutoTP::parseds[point].name.c_str());
-            auto avatarPos = app::MoleMole__ActorUtils__GetAvatarPos();
-            auto endPos = AutoTP::parseds[point].position;
-            std::thread interpolate([avatarPos, endPos]()
-                {
-                    float t = 0.0f;
-                    app::Vector3 zero = { 0,0,0 };
-                    auto newPos = zero;
-                    while (t < 1.0f) {
-                        newPos = app::Vector3_Slerp(avatarPos, endPos, t);
-                        app::ActorUtils_SetAvatarPos(newPos);
-                        t += 5 / 100.0f;
-                        util::log(M_Info, "time; %f", t);
-                        Sleep(10);
-                    } });
-            interpolate.detach();
-            util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
-        }
-    }
-
-    void AutoTpThread() {
-        while (!stopThread.load()) {
-            if (AutoTP::ifAutoTP && AutoTP::b_startTeleporting) {
-                for (int i = 0; i < AutoTP::parseds.size(); i++) {
-                    if (!AutoTP::b_startTeleporting)
-                        break;
-                    
-                    TeleportToCurrentPoint(i);
-
-                    if (AutoTP::parseds.size() - i != 1) {
-                        Sleep(static_cast<DWORD>(AutoTP::timerWait * 1000));
-                    }
-                }
-                AutoTP::b_startTeleporting = false;
-            }
-        }
-    }
-
-    void AutoTP::Status() {}
-
-    void AutoTP::Outer() {
-        if (teleportBackHotkey.IsPressed()) {
-            if (currentPointIndex > 0) {
-                currentPointIndex--;
-                TeleportToCurrentPoint(currentPointIndex);
-            }
-        }
-        if (teleportForwardHotkey.IsPressed()) {
-            if (currentPointIndex < parseds.size() - 1) {
-                currentPointIndex++;
-                TeleportToCurrentPoint(currentPointIndex);
-            }
-        }
-        if (autoTeleportHotkey.IsPressed())
-            b_startTeleporting = !b_startTeleporting;
-    }
+    static void TeleportToCurrentPoint(int point);
+    static void AutoTpThread();
 
     AutoTP::AutoTP() {
+        f_Enabled = config::getValue("functions:AutoTP", "enabled", false);
+
         std::thread thread(AutoTpThread);
         thread.detach();
     }
 
+    AutoTP& AutoTP::getInstance() {
+        static AutoTP instance;
+        return instance;
+    }
+
     void AutoTP::GUI() {
-        ImGui::Checkbox("Auto TP", &ifAutoTP);
-        if (ifAutoTP) {
+        ConfigCheckbox("Auto TP", f_Enabled);
+
+        if (f_Enabled.getValue()) {
             ImGui::Indent();
             ImGui::InputText("Json folder", folderPathBuffer, sizeof(folderPathBuffer));
 
@@ -134,7 +85,6 @@ namespace cheat {
                     }
                     ImGui::SliderFloat("Time to wait", &timerWait, 0.f, 100.0f);
                     autoTeleportHotkey.Draw();
-
                 }
 
                 ImGui::Checkbox("TP manually", &ifManual);
@@ -161,6 +111,75 @@ namespace cheat {
                 ImGui::Separator();
             }
             ImGui::Unindent();
+        }
+    }
+
+    void AutoTP::Outer() {
+        if (teleportBackHotkey.IsPressed()) {
+            if (currentPointIndex > 0) {
+                currentPointIndex--;
+                TeleportToCurrentPoint(currentPointIndex);
+            }
+        }
+        if (teleportForwardHotkey.IsPressed()) {
+            if (currentPointIndex < parseds.size() - 1) {
+                currentPointIndex++;
+                TeleportToCurrentPoint(currentPointIndex);
+            }
+        }
+        if (autoTeleportHotkey.IsPressed())
+            b_startTeleporting = !b_startTeleporting;
+    }
+
+    void AutoTP::Status() {
+        if (f_Enabled.getValue())
+            ImGui::Text("AutoTP");
+    }
+
+    std::string AutoTP::getModule() {
+        return _("World");
+    }
+
+    void TeleportToCurrentPoint(int point) {
+        if (point >= 0 && point < AutoTP::parseds.size()) {
+            AutoTP::currentPoint = AutoTP::parseds[point];
+            util::log(M_Info, "Teleporting to point: %s", AutoTP::parseds[point].name.c_str());
+            auto avatarPos = app::MoleMole__ActorUtils__GetAvatarPos();
+            auto endPos = AutoTP::parseds[point].position;
+            std::thread interpolate([avatarPos, endPos]() {
+                    float t = 0.0f;
+                    app::Vector3 zero = { 0,0,0 };
+                    auto newPos = zero;
+                    while (t < 1.0f) {
+                        newPos = app::Vector3_Slerp(avatarPos, endPos, t);
+                        app::ActorUtils_SetAvatarPos(newPos);
+                        t += 5 / 100.0f;
+                        util::log(M_Info, "time; %f", t);
+                        Sleep(10);
+                    } });
+            interpolate.detach();
+            util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
+        }
+    }
+
+    void AutoTpThread() {
+        auto& AutoTP = AutoTP::getInstance();
+
+        while (!stopThread.load()) {
+            if (!AutoTP.f_Enabled.getValue() || !AutoTP::b_startTeleporting)
+                return;
+
+            for (int i = 0; i < AutoTP::parseds.size(); i++) {
+                if (!AutoTP::b_startTeleporting)
+                    break;
+
+                TeleportToCurrentPoint(i);
+
+                if (AutoTP::parseds.size() - i != 1) {
+                    Sleep(static_cast<DWORD>(AutoTP::timerWait * 1000));
+                }
+            }
+            AutoTP::b_startTeleporting = false;
         }
     }
 }

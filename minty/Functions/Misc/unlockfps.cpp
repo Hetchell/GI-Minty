@@ -1,21 +1,28 @@
-#include "unlockfps.h"
+#include "UnlockFPS.h"
 
 namespace cheat {
-	void GameManager_UpdateH(app::GameManager* __this);
+	static void onUpdate_2(app::GameManager* __this);
 
 	UnlockFPS::UnlockFPS() {
-		i_FPS = 60;
-		ifUnlockFPS = config::getValue("functions", "UnlockFPS", false);
-		HookManager::install(app::GameManager_Update, GameManager_UpdateH);
+		f_Enabled = config::getValue("functions:UnlockFPS", "enabled", false);
+		f_Fps = config::getValue("functions:UnlockFPS", "value", 60);
+
+		HookManager::install(app::GameManager_Update, onUpdate_2);
+	}
+
+	UnlockFPS& UnlockFPS::getInstance() {
+		static UnlockFPS instance;
+		return instance;
 	}
 
 	void UnlockFPS::GUI() {
-		CheckBoxFN("Unlock FPS", ifUnlockFPS, "UnlockFPS")
+		ConfigCheckbox("Unlock FPS", f_Enabled);
 		ImGui::SameLine();
 		HelpMarker(_("Unlocks framerate to target value."));
-		if (ifUnlockFPS) {
+
+		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			ImGui::SliderInt(_("Target FPS"), &i_FPS, 10, 360);
+			ConfigSliderInt(_("Target FPS"), f_Fps, 10, 360);
 			unlockFPSHotkey.Draw();
 			ImGui::Unindent();
 		}
@@ -23,23 +30,33 @@ namespace cheat {
 
 	void UnlockFPS::Outer() {
 		if (unlockFPSHotkey.IsPressed())
-			ifUnlockFPS = !ifUnlockFPS;
+			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 
 	void UnlockFPS::Status() {
-		if (ifUnlockFPS) {
-			ImGui::Text(_("Unlock FPS: %i"), i_FPS);
-		}
+		if (f_Enabled.getValue())
+			ImGui::Text(_("Unlock FPS: %i"), f_Fps);
 	}
 
-	void GameManager_UpdateH(app::GameManager* __this) {
+	std::string UnlockFPS::getModule() {
+		return _("Misc");
+	}
+
+	void onUpdate_2(app::GameManager* __this) {
+		auto& UnlockFPS = UnlockFPS::getInstance();
+		bool enabled = UnlockFPS.f_Enabled.getValue();
+
+		if (!enabled)
+			return;
+
 		__try {
-			app::UnityEngine__Application__set__targetFramerate(UnlockFPS::ifUnlockFPS ? UnlockFPS::i_FPS : 60);
-			app::UnityEngine__QualitySettings__set__vSyncCount(UnlockFPS::ifUnlockFPS ? 0 : 1);
+			app::UnityEngine__Application__set__targetFramerate(enabled ? UnlockFPS.f_Fps.getValue() : 60);
+			app::UnityEngine__QualitySettings__set__vSyncCount(enabled ? 0 : 1);
 		}
 		__except (1) {
 			util::log(M_Info, "lol");
 		}
-		CALL_ORIGIN(GameManager_UpdateH, __this);
+
+		CALL_ORIGIN(onUpdate_2, __this);
 	}
 }

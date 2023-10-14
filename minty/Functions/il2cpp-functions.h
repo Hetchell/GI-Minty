@@ -7,7 +7,7 @@ DO_APP_FUNC(0x03C67F70, 0x03CDDBA0, void, ActorUtils_SetAvatarPos, (Vector3 pos)
 // Cooldown cheats
 DO_APP_FUNC(0x012FDB00, 0x01315C70, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
 DO_APP_FUNC(0x044CE4F0, 0x04555D40, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
-DO_APP_FUNC(0x044C7450, 0x0454EB20, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float cdmulti));
+DO_APP_FUNC(0x044C7450, 0x0454EB20, bool, LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float multipler));
 DO_APP_FUNC(0x044CB6E0, 0x04552E80, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (app::LCAvatarCombat* __this, LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
 DO_APP_FUNC(0x029B13B0, 0x02A02890, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
 

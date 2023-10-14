@@ -1,31 +1,28 @@
+#pragma once
+
 #include "../il2cpp-appdata.h"
-#include "../il2cpp-types.h"
 #include "../il2cppUtils.h"
-#include "../HookManager.h"
-#include "../../Hotkeys/Hotkey.h"
-#include "../../Hotkeys/KeyBind.h"
 #include "../Function.h"
+#include "../../Hotkeys/Hotkey.h"
+#include "../HookManager.h"
+#include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
 	class MultiHit : public FN {
 	public:
-		inline static bool ifMultiHit;
-		inline static bool ifOnepunch;
+		ConfigField<bool> f_Enabled;
+		ConfigField<int> f_Hits;
 
 		inline static Hotkey multiHitHotkey;
-
-		inline static int hitQuantity;
 
 		void GUI() override;
 		void Outer() override;
 		void Status() override;
 
-		std::string groupName = "Player";
+		std::string getModule() override;
+
+		static MultiHit& getInstance();
 
 		MultiHit();
-
-		std::string GetGroupName() override {
-			return groupName;
-		}
 	};
 }

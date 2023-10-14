@@ -1,18 +1,17 @@
+#pragma once
+
 #include "../il2cpp-appdata.h"
 #include "../il2cppUtils.h"
 #include "../Function.h"
 #include "../../Hotkeys/Hotkey.h"
-#include "../../Utils/GuiUtils.hpp"
 #include "../HookManager.h"
-#include "../../GUI/GuiDefinitions.h"
+#include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
 	class UnlockFPS : public FN {
 	public:
-		inline static bool ifUnlockFPS;
-		inline static bool ifSavingMode;
-		inline static int i_FPS;
-		std::string groupName = "Misc";
+		ConfigField<bool> f_Enabled;
+		ConfigField<int> f_Fps;
 
 		inline static Hotkey unlockFPSHotkey = Hotkey("UnlockFPS");
 
@@ -20,10 +19,10 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
-		UnlockFPS();
+		std::string getModule() override;
 
-		std::string GetGroupName() override {
-			return groupName;
-		}
+		static UnlockFPS& getInstance();
+
+		UnlockFPS();
 	};
 }

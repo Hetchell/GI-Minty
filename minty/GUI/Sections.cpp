@@ -1,42 +1,32 @@
-﻿//#include <string>
-#include <unordered_map>
-
-//#define IMGUI_DEFINE_MATH_OPERATORS
-//#include "../ImGui/ImGui/imgui.h"
+﻿#include <unordered_map>
 
 #include "../Games/games.h"
 
-#include "../Functions/Misc/bootyfixer.h"
-#include "../Functions/Misc/dialogskip.h"
-#include "../Functions/World/dumbenemies.h"
-#include "../Functions/Player/godmode.h"
-#include "../Functions/Player/infinityenergy.h"
-#include "../Functions/Player/infinitystamina.h"
-#include "../Functions/Player/nocd.h"
-#include "../Functions/Player/noclip.h"
-#include "../Functions/Misc/uimisc.h"
-#include "../Functions/Misc/ProfileChanger.h"
-#include "../Functions/Misc/unlockfps.h"
-#include "../Functions/Player/multihit.h"
-#include "../Functions/World/autotp.h"
-#include "../Functions/Misc/cutsceneskip.h"
-#include "../Functions/World/speedhack.h"
 #include "../Functions/About/About.h"
+
+#include "../Functions/Misc/AutoTalk.h"
+#include "../Functions/Misc/CameraZoom.h"
+#include "../Functions/Misc/CutsceneSkip.h"
+#include "../Functions/Misc/FovChanger.h"
+#include "../Functions/Misc/OpenTeamImmediately.h"
+#include "../Functions/Misc/Peeking.h"
+#include "../Functions/Misc/ProfileChanger.h"
+#include "../Functions/Misc/ShowChestIndicator.h"
+#include "../Functions/Misc/SkipEnhanceAnimation.h"
+#include "../Functions/Misc/UnlockFPS.h"
+
+#include "../Functions/Player/GodMode.h"
+#include "../Functions/Player/InfinityEnergy.h"
+#include "../Functions/Player/InfinityStamina.h"
+#include "../Functions/Player/MultiHit.h"
+#include "../Functions/Player/NoClip.h"
+#include "../Functions/Player/NoCooldown.h"
+
 #include "../Functions/Settings/Settings.h"
+
 #include "../Functions/World/AutoTP.h"
-
-//#include "../Lua/function.h"
-//#include "../Utils/GuiUtils.hpp"
-//#include "MainGUI.h"
-//#include "../ImGui/ImGuiNotify/imgui_notify.h"
-//#include "GuiDefinitions.h"
-//#include "../Config/ConfigManager.hpp"
-//#include "../Json/json.hpp"
-//#include "../Lua/luahook.hpp"
-//#include "../Utils/LuaUtils.hpp"
-//#include "../Utils/Utils.hpp"
-//#include "../Themes/Themes.hpp"
-
+#include "../Functions/World/DumbEnemies.h"
+#include "../Functions/World/GameSpeed.h"
 
 std::vector<std::string> ModuleOrder = {
     "Player",
@@ -47,23 +37,31 @@ std::vector<std::string> ModuleOrder = {
 };
 
 void Init() {
-    PUSH_FUNC(AutoTP);
-    PUSH_FUNC(Peeking);
-    PUSH_FUNC(CutsceneSkip);
-    PUSH_FUNC(DialogSkip);
-    PUSH_FUNC(UIMisc);
-    PUSH_FUNC(ProfileChanger);
-    PUSH_FUNC(UnlockFPS);
-    PUSH_FUNC(Godmode);
-    PUSH_FUNC(InfinityEnergy);
-    PUSH_FUNC(InfStamina);
-    PUSH_FUNC(MultiHit);
-    PUSH_FUNC(NoCD);
-    PUSH_FUNC(Noclip);
-    PUSH_FUNC(DumbEnemies);
-    PUSH_FUNC(Speedhack);
-    PUSH_FUNC(About);
-    PUSH_FUNC(Settings);
+    //PUSH_FUNC(About);
+
+    //PUSH_FUNC(AutoTalk);
+    //PUSH_FUNC(CameraZoom);
+    //PUSH_FUNC(CutsceneSkip);
+    //PUSH_FUNC(FovChanger);
+    //PUSH_FUNC(OpenTeamImmediately);
+    //PUSH_FUNC(Peeking);
+    //PUSH_FUNC(ProfileChanger);
+    //PUSH_FUNC(ShowChestIndicator);
+    //PUSH_FUNC(SkipEnhanceAnimation);
+    //PUSH_FUNC(UnlockFPS);
+
+    //PUSH_FUNC(GodMode);
+    //PUSH_FUNC(InfinityEnergy);
+    //PUSH_FUNC(InfinityStamina);
+    //PUSH_FUNC(MultiHit);
+    //PUSH_FUNC(NoClip);
+    //PUSH_FUNC(NoCooldown);
+
+    //PUSH_FUNC(Settings);
+
+    //PUSH_FUNC(AutoTP);
+    //PUSH_FUNC(DumbEnemies);
+    //PUSH_FUNC(GameSpeed);
 }
 
 void Outer() {
@@ -72,24 +70,11 @@ void Outer() {
             func->Outer();
         } __except(1) {}
     }
-    /*std::ifstream config_file("minty");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
-
-    ifshowfps = config_json["general"]["ShowFPS"];
-    if (ifshowfps) {
-        ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize;
-
-        ImGui::Begin("##FPS", NULL, flags);
-        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-        ImGui::End();
-    }*/
 }
 
-void DrawSection(const std::string& sectionName) {
+void DrawSection(const std::string& moduleName) {
     for (auto& func : All_vec) {
-        if (func->GetGroupName() != sectionName)
+        if (func->getModule() != moduleName)
             continue;
 
         func->GUI();

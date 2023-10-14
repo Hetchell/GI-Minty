@@ -159,7 +159,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Functions\Misc\CameraZoom.cpp" />
+    <ClCompile Include="Functions\Misc\OpenTeamImmediately.cpp" />
     <ClCompile Include="Functions\Misc\ProfileChanger.cpp" />
+    <ClCompile Include="Functions\Misc\ShowChestIndicator.cpp" />
+    <ClCompile Include="Functions\Misc\SkipEnhanceAnimation.cpp" />
     <ClCompile Include="Functions\Settings\Settings.cpp" />
     <ClCompile Include="Discord SDK\src\connection_win.cpp" />
     <ClCompile Include="Discord SDK\src\discord_register_win.cpp" />
@@ -168,20 +172,20 @@
     <ClCompile Include="Discord SDK\src\serialization.cpp" />
     <ClCompile Include="Functions\About\About.cpp" />
     <ClCompile Include="Functions\il2cppUtils.cpp" />
-    <ClCompile Include="Functions\Misc\bootyfixer.cpp" />
-    <ClCompile Include="Functions\Misc\uimisc.cpp" />
-    <ClCompile Include="Functions\Misc\unlockfps.cpp" />
-    <ClCompile Include="Functions\World\autotp.cpp" />
-    <ClCompile Include="Functions\Player\godmode.cpp" />
-    <ClCompile Include="Functions\Player\infinityenergy.cpp" />
-    <ClCompile Include="Functions\Player\infinitystamina.cpp" />
-    <ClCompile Include="Functions\Player\multihit.cpp" />
-    <ClCompile Include="Functions\Player\nocd.cpp" />
-    <ClCompile Include="Functions\Player\noclip.cpp" />
-    <ClCompile Include="Functions\Misc\cutsceneskip.cpp" />
-    <ClCompile Include="Functions\Misc\dialogskip.cpp" />
-    <ClCompile Include="Functions\World\dumbenemies.cpp" />
-    <ClCompile Include="Functions\World\speedhack.cpp" />
+    <ClCompile Include="Functions\Misc\Peeking.cpp" />
+    <ClCompile Include="Functions\Misc\FovChanger.cpp" />
+    <ClCompile Include="Functions\Misc\UnlockFPS.cpp" />
+    <ClCompile Include="Functions\World\AutoTP.cpp" />
+    <ClCompile Include="Functions\Player\GodMode.cpp" />
+    <ClCompile Include="Functions\Player\InfinityEnergy.cpp" />
+    <ClCompile Include="Functions\Player\InfinityStamina.cpp" />
+    <ClCompile Include="Functions\Player\MultiHit.cpp" />
+    <ClCompile Include="Functions\Player\NoCooldown.cpp" />
+    <ClCompile Include="Functions\Player\NoClip.cpp" />
+    <ClCompile Include="Functions\Misc\CutsceneSkip.cpp" />
+    <ClCompile Include="Functions\Misc\AutoTalk.cpp" />
+    <ClCompile Include="Functions\World\DumbEnemies.cpp" />
+    <ClCompile Include="Functions\World\GameSpeed.cpp" />
     <ClCompile Include="GUI\MainGUI.cpp" />
     <ClCompile Include="GUI\Translations.cpp" />
     <ClCompile Include="Hotkeys\Hotkey.cpp" />
@@ -191,7 +195,14 @@
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
     <ClCompile Include="Utils\LuaUtils.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
+    <ClCompile Include="Utils\util.cpp" />
+    <ClInclude Include="Config\ConfigField.h" />
+    <ClInclude Include="Config\ConfigManager.h" />
+    <ClInclude Include="Functions\Misc\CameraZoom.h" />
+    <ClInclude Include="Functions\Misc\OpenTeamImmediately.h" />
     <ClInclude Include="Functions\Misc\ProfileChanger.h" />
+    <ClInclude Include="Functions\Misc\ShowChestIndicator.h" />
+    <ClInclude Include="Functions\Misc\SkipEnhanceAnimation.h" />
     <ClInclude Include="Functions\Settings\Settings.h" />
     <ClInclude Include="Config\ConfigManager.hpp" />
     <ClCompile Include="Config\ConfigManager.cpp">
@@ -243,20 +254,20 @@
     <ClInclude Include="Functions\il2cpp-types.h" />
     <ClInclude Include="Functions\il2cpp-unityplayer-functions.h" />
     <ClInclude Include="Functions\il2cppUtils.h" />
-    <ClInclude Include="Functions\Misc\bootyfixer.h" />
-    <ClInclude Include="Functions\Misc\uimisc.h" />
-    <ClInclude Include="Functions\Misc\unlockfps.h" />
-    <ClInclude Include="Functions\World\autotp.h" />
-    <ClInclude Include="Functions\Player\godmode.h" />
-    <ClInclude Include="Functions\Player\infinityenergy.h" />
-    <ClInclude Include="Functions\Player\infinitystamina.h" />
-    <ClInclude Include="Functions\Player\multihit.h" />
-    <ClInclude Include="Functions\Player\nocd.h" />
-    <ClInclude Include="Functions\Player\noclip.h" />
-    <ClInclude Include="Functions\Misc\cutsceneskip.h" />
-    <ClInclude Include="Functions\Misc\dialogskip.h" />
-    <ClInclude Include="Functions\World\dumbenemies.h" />
-    <ClInclude Include="Functions\World\speedhack.h" />
+    <ClInclude Include="Functions\Misc\Peeking.h" />
+    <ClInclude Include="Functions\Misc\FovChanger.h" />
+    <ClInclude Include="Functions\Misc\UnlockFPS.h" />
+    <ClInclude Include="Functions\World\AutoTP.h" />
+    <ClInclude Include="Functions\Player\GodMode.h" />
+    <ClInclude Include="Functions\Player\InfinityEnergy.h" />
+    <ClInclude Include="Functions\Player\InfinityStamina.h" />
+    <ClInclude Include="Functions\Player\MultiHit.h" />
+    <ClInclude Include="Functions\Player\NoCooldown.h" />
+    <ClInclude Include="Functions\Player\NoClip.h" />
+    <ClInclude Include="Functions\Misc\CutsceneSkip.h" />
+    <ClInclude Include="Functions\Misc\AutoTalk.h" />
+    <ClInclude Include="Functions\World\DumbEnemies.h" />
+    <ClInclude Include="Functions\World\GameSpeed.h" />
     <ClInclude Include="Games\lightsout.hpp" />
     <ClInclude Include="Games\minesweeper.hpp" />
     <ClInclude Include="Games\tictactoe.hpp" />
@@ -354,6 +365,7 @@
     <ClInclude Include="Utils\ImageLoader\stb_image.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
+    <ClInclude Include="Utils\util.h" />
     <ClInclude Include="Utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>

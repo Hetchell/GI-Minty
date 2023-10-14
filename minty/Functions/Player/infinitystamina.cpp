@@ -1,45 +1,55 @@
-#include "infinitystamina.h"
+#include "InfinityStamina.h"
 
 namespace cheat {
-	bool OnPropertySet(app::PropType__Enum propType);
-	void DataItem_HandleNormalProp_Hook(app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state);
-	void VCHumanoidMove_Scara_Hook(app::VCHumanoidMove* __this, float somevalue);
+	static bool OnPropertySet(app::PropType__Enum propType);
+	static void DataItem_HandleNormalProp_Hook(app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state);
+	static void VCHumanoidMove_Scara_Hook(app::VCHumanoidMove* __this, float value);
 
-	InfStamina::InfStamina() {
+	InfinityStamina::InfinityStamina() {
 		HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
 		HookManager::install(app::VCHumanoidMove_Scara, VCHumanoidMove_Scara_Hook);
 	}
 
-	void InfStamina::GUI() {
-		ImGui::Checkbox("Infinity stamina", &ifInfStamina);
-		if (ifInfStamina) {
+	InfinityStamina& InfinityStamina::getInstance() {
+		static InfinityStamina instance;
+		return instance;
+	}
+
+	void InfinityStamina::GUI() {
+		ConfigCheckbox("InfinityStamina", f_Enabled);
+		ImGui::SameLine();
+		HelpMarker("Enables infinite stamina option.");
+
+		if (f_Enabled.getValue()) {
 			ImGui::Indent();
 			infStaminaHotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
-	void InfStamina::Outer() {
-		if (infStaminaHotkey.IsPressed()) {
-			ifInfStamina = !ifInfStamina;
-		}
+	void InfinityStamina::Outer() {
+		if (infStaminaHotkey.IsPressed())
+			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 
-	void InfStamina::Status() {
-		if (ifInfStamina) {
-			ImGui::Text("InfStamina");
-		}
+	void InfinityStamina::Status() {
+		if (f_Enabled.getValue())
+			ImGui::Text("InfinityStamina");
 	}
 
-	bool OnPropertySet(app::PropType__Enum propType)
-	{
+	std::string InfinityStamina::getModule() {
+		return _("Player");
+	}
+
+	bool OnPropertySet(app::PropType__Enum propType) {
+		auto& InfinityStamina = InfinityStamina::getInstance();
 		using PT = app::PropType__Enum;
 		static bool override_cheat = true;
 
 		if (propType == PT::PROP_CUR_TEMPORARY_STAMINA)
 			override_cheat = true;
 
-		const bool result = !InfStamina::ifInfStamina ||
+		const bool result = !InfinityStamina.f_Enabled.getValue() ||
 			(propType != PT::PROP_MAX_STAMINA &&
 				propType != PT::PROP_CUR_PERSIST_STAMINA &&
 				propType != PT::PROP_CUR_TEMPORARY_STAMINA &&
@@ -47,22 +57,22 @@ namespace cheat {
 
 		if (propType == PT::PROP_MAX_STAMINA)
 			override_cheat = false;
-
 		return result;
 	}
 
-	void DataItem_HandleNormalProp_Hook(app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state)
-	{
+	void DataItem_HandleNormalProp_Hook(app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state) {
 		auto propType = static_cast<app::PropType__Enum>(type);
 		bool isValid = OnPropertySet(propType);
+
 		if (isValid)
 			CALL_ORIGIN(DataItem_HandleNormalProp_Hook, __this, type, value, state);
 	}
 
-	void VCHumanoidMove_Scara_Hook(app::VCHumanoidMove* __this, float somevalue)
-	{
-		if (InfStamina::ifInfStamina)
-			somevalue = 34028234663852885981170418348451692544.f;
-		CALL_ORIGIN(VCHumanoidMove_Scara_Hook, __this, somevalue);
+	void VCHumanoidMove_Scara_Hook(app::VCHumanoidMove* __this, float value) {
+		auto& InfinityStamina = InfinityStamina::getInstance();
+
+		if (InfinityStamina.f_Enabled.getValue())
+			value = 34028234663852885981170418348451692544.f;
+		CALL_ORIGIN(VCHumanoidMove_Scara_Hook, __this, value);
 	}
 }

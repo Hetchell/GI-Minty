@@ -23,5 +23,3 @@ static std::vector<std::unique_ptr<FN>> All_vec;
 
 #define PUSH_FUNC(name) std::unique_ptr<cheat::##name> name = std::make_unique<cheat::name>(); \
 All_vec.push_back(std::move(name));
-
-#define CheckBoxFN(name, var, cfgName) if (ImGui::Checkbox(##name, &##var##)) config::setValue("functions", ##cfgName, ##var);

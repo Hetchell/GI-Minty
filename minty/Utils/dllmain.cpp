@@ -3,7 +3,9 @@
 #include "../Lua/luahook.hpp"
 #include "../includes.h"
 #include "DiscordRPC/Discord.h"
+
 #include "ProtectionBypass.h"
+#include "../Functions/Settings/Settings.h"
 
 Discord* g_Discord;
 
@@ -14,30 +16,23 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     freopen("CONOUT$", "w", stderr);
 
     util::log(M_Info, "Starting...");
-
-    std::ifstream config_file("minty.json");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
-
-    bool showrpc = config_json["general"]["showRPC"];
-    int initde = config_json["general"]["initDelay"];
-
-    if (showrpc) {
-        g_Discord->Initialize();
-        g_Discord->Update();
-        util::log(M_Info, "Showing RPC...");
-    }
-
     util::log(M_Info, "Initializing IL2CPP...");
-    // Initialize all offsets.
     init_il2cpp();
     Sleep(5000);
     ProtectionBypass::Init();
 
-    util::log(M_Info, "Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initde / 1000);
-    Sleep(initde);
+    int initDelay = 15000;
+    /*auto& Settings = cheat::Settings::getInstance();
+    int initDelay = Settings.f_InitDelay.getValue();
 
+    if (Settings.f_ShowRpc.getValue()) {
+        g_Discord->Initialize();
+        g_Discord->Update();
+        util::log(M_Info, "Showing RPC...");
+    }*/
+
+    util::log(M_Info, "Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initDelay / 1000);
+    Sleep(initDelay);
     util::log(M_Info, "Waited, assuming that your game already opened. Opening menu...");
 
     try {
@@ -45,11 +40,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
         DetourDirectXPresent();
     } catch (const std::exception& e) {
         util::log(M_Error, "Unhandled exception in opening menu. Please report this issue in our Discord server.");
-        // util::log(M_Error, e);
     }
-
-    // PrintValues(); // do we even need prntvalues, keep the comment here might be useful for later debug
-
     return 0;
 }
 

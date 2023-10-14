@@ -319,7 +319,7 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size) {
 	auto ret = CALL_ORIGIN(RecordChecksumUserData_Hook, type, out, out_size);
 
 	while (true) {
-		util::log(M_Info, "type %d\nret %d: %s", type, ret, out);
+		util::log(M_Debug, "type %d\nret %d: %s", type, ret, out);
 		Sleep(10);
 	}
 
@@ -419,26 +419,28 @@ void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 	return;
 }
 
+static int CrashReporter_Hook(__int64 a1, __int64 a2, const char* a3) {
+	return 0;
+}
+
 void ProtectionBypass::Init() {
 	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 
 	for (int i = 0; i < 4; i++) {
 		app::Unity_RecordUserData(i);
-		std::string cscscs = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
-		//util::log(M_Debug, "type %i checksum: %s", i, cscscs);
-		std::cout << "checksum: " << cscscs << "\n";
+		//std::string checksum = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
+		//std::cout << "checksum #" << i << ": " << checksum << "\n";
 	}
-	//HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
-	//HookManager::install(app::CrashReporter, CrashReporter_Hook);
+
+	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
+	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 	//util::log(M_Info, "Trying to close mhyprot.");
 
 	if (CloseHandleByName(L"\\Device\\mhyprot2"))
 		util::log(M_Info, "mhyprot anticheat has been killed");
 
-
 	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
 	DisableLogReport();
 	util::log(M_Info, "Initialized protection bypass");
-
 	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 }

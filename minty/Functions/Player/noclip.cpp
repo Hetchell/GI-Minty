@@ -1,4 +1,4 @@
-#include "noclip.h"
+#include "NoClip.h"
 
 namespace cheat {
 	app::Vector3 prevPos, newPos;
@@ -7,23 +7,32 @@ namespace cheat {
 	void GameManager_Update_Hook(app::GameManager* __this);
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method);
 
-	Noclip::Noclip() {
-		f_NoclipSpeed = 5;
-		f_NoclipAltSpeed = 10;
+	NoClip::NoClip() {
+		f_Enabled = config::getValue("functions:NoClip", "enabled", false);
+		f_EnabledAltSpeed = config::getValue("functions:NoClip", "enabledAltSpeed", false);
+		f_Speed = config::getValue("functions:NoClip", "speed", 5.0f);
+		f_AltSpeed = config::getValue("functions:NoClip", "altSpeed", 10.0f);
 
 		HookManager::install(app::GameManager_Update, GameManager_Update_Hook);
 		HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
 	}
 
-	void Noclip::GUI() {
-		ImGui::Checkbox("Noclip", &ifNoclip);
-		if (ifNoclip) {
+	NoClip& NoClip::getInstance() {
+		static NoClip instance;
+		return instance;
+	}
+
+	void NoClip::GUI() {
+		ConfigCheckbox("NoClip", f_Enabled);
+
+		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			ImGui::SliderFloat("Noclip speed", &f_NoclipSpeed, 1, 50);
-			ImGui::Checkbox("Alt speed", &ifAltSpeed);
-			if (ifAltSpeed) {
+			ConfigSliderFloat("Speed", f_Speed, 0.1f, 100.0f);
+			ConfigCheckbox("Alternate NoClip", f_EnabledAltSpeed);
+
+			if (f_EnabledAltSpeed.getValue()) {
 				ImGui::Indent();
-				ImGui::SliderFloat("Alt Speed (HOLD HOTKEY)", &f_NoclipAltSpeed, 1, 50);
+				ConfigSliderFloat("Alternate Speed (HOLD HOTKEY)", f_AltSpeed, 0.1f, 100.0f);
 				noClipAltHotkey.Draw();
 				ImGui::Unindent();
 			}
@@ -32,25 +41,26 @@ namespace cheat {
 		}
 	}
 
-	void Noclip::Outer() {
-		if (noClipHotkey.IsPressed()) {
-			ifNoclip = !ifNoclip;
-		}
-		if (ifAltSpeed && noClipAltHotkey.IsDown()) {
-			f_finalSpeed = f_NoclipAltSpeed;
-		}
-		else {
-			f_finalSpeed = f_NoclipSpeed;
-		}
+	void NoClip::Outer() {
+		if (noClipHotkey.IsPressed())
+			f_Enabled.setValue(!f_Enabled.getValue());
+
+		if (f_EnabledAltSpeed.getValue() && noClipAltHotkey.IsDown())
+			f_finalSpeed = f_Speed.getValue();
+		else
+			f_finalSpeed = f_AltSpeed.getValue();
 	}
 
-	void Noclip::Status() {
-		if (ifNoclip) {
-			ImGui::Text(_("Noclip (%.1f U/s | %.1f U/s "), f_NoclipSpeed, f_NoclipAltSpeed);
-		}
+	void NoClip::Status() {
+		if (f_Enabled.getValue())
+			ImGui::Text(_("Noclip (%.1f U/s | %.1f U/s "), f_Speed.getValue(), f_AltSpeed.getValue());
 	}
 
-	void OnNoclip() {
+	std::string NoClip::getModule() {
+		return _("Player");
+	}
+
+	void OnNoClip() {
 		static std::string ActiveHero;
 
 		app::Rigidbody* rigidbody = nullptr;
@@ -61,21 +71,21 @@ namespace cheat {
 
 		AvatarRoot = app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
 		//util::log(M_Info, "found avatar");
-		if (!AvatarRoot) return;
+		if (!AvatarRoot)
+			return;
+
 		auto Transform = app::UnityEngine_GameObject_GetComponent(AvatarRoot, string_to_il2cppi("Transform"));
 		//util::log(M_Info, "found transform");
 		auto HeroCount = app::UnityEngine_Transform_GetChildCount(reinterpret_cast<app::Transform*>(Transform));
 		//util::log(M_Info, "found count");
-		for (int i = 0; i <= HeroCount - 1; i++)
-		{
+		for (int i = 0; i <= HeroCount - 1; i++) {
 			auto HeroComponent = app::Transform_GetChild(reinterpret_cast<app::Transform*>(Transform), i);
 			//util::log(M_Info, "found child");
 			HeroGameObject = app::Component_1_get_gameObject(reinterpret_cast<app::Component_1*>(HeroComponent));
 			//util::log(M_Info, "found gameobj");
 			auto isActiveHero = app::GameObject_get_active(HeroGameObject);
 			//util::log(M_Info, "found active");
-			if (isActiveHero)
-			{
+			if (isActiveHero) {
 				auto GameObjectName = app::Object_1_get_name(reinterpret_cast<app::Object_1*>(HeroGameObject));
 				//util::log(M_Info, "found name");
 				ActiveHero = il2cppi_to_string(GameObjectName);
@@ -87,17 +97,16 @@ namespace cheat {
 				//util::log(M_Info, "found transfor2");
 				rigidbody = reinterpret_cast<app::Rigidbody*>(app::UnityEngine_GameObject_GetComponent(HeroGameObject, string_to_il2cppi("Rigidbody")));
 				//util::log(M_Info, "found rb");
-				if (rigidbody != 0) break;
+				if (rigidbody != 0)
+					break;
 			}
 		}
 
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
 		//util::log(M_Info, "coli det")
-
 		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::UnityEngine__Component__get__Transform(app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
 		//util::log(M_Info, "found transfom cam");
 		auto avatarEntity = reinterpret_cast<app::BaseEntity*>(avatarTransform);
-
 		app::Vector3 dir = {};
 
 		if (ImGui::IsKeyDown(ImGuiKey_W))
@@ -125,19 +134,18 @@ namespace cheat {
 
 		float deltaTime = app::Time_get_deltaTime() * 1.5F;
 		//util::log(M_Info, "got delt");
-		newPos = prevPos + dir * Noclip::f_finalSpeed * deltaTime;
+		newPos = prevPos + dir * NoClip::f_finalSpeed * deltaTime;
 		// if (iNoClipMode == 0) 
 		app::Rigidbody_set_velocity(rigidbody, { 0,0,0 });
-		//util::log(M_Info, "set vel");
 		app::Rigidbody_MovePosition(rigidbody, newPos);
-		//util::log(M_Info, "mov pos");
-		//app::Rigidbody_set_position(rigidbody, newPos);
 	}
 
-	void GameManager_Update_Hook(app::GameManager* __this)
-	{
+	void GameManager_Update_Hook(app::GameManager* __this) {
+		auto& NoClip = NoClip::getInstance();
+
 		__try {
-			if (Noclip::ifNoclip) OnNoclip();
+			if (NoClip.f_Enabled.getValue())
+				OnNoClip();
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
 			util::log(M_Error, "Exception 0x%08x.", _exception_code());
@@ -146,15 +154,14 @@ namespace cheat {
 		CALL_ORIGIN(GameManager_Update_Hook, __this);
 	}
 
-	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method)
-	{
-		if (Noclip::ifNoclip) {
-			if (app::Vector3_Distance(posCheck, newPos) > 3.f) {
+	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method) {
+		auto& NoClip = NoClip::getInstance();
+
+		if (NoClip.f_Enabled.getValue()) {
+			if (app::Vector3_Distance(posCheck, newPos) > 3.f)
 				posCheck = newPos;
-			}
-			else {
+			else
 				return;
-			}
 		}
 
 		CALL_ORIGIN(HumanoidMoveFSM_LateTick_Hook, __this, deltaTime, method);

@@ -1,10 +1,9 @@
 #include <Windows.h>
+
 #include "../ImGui/ImGui/imgui.h"
-
 #include "../ImGui/ImGui/imgui_internal.h"
-
 #include "KeyBind.h"
-#include "../Config/ConfigManager.hpp"
+#include "../Config/ConfigManager.h"
 
 
 // Checks key press passed in first parameter

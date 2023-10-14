@@ -1,8 +1,8 @@
-#include "ConfigManager.hpp"
+#include "ConfigManager.h"
 
 namespace config {
     void save(json config) {
-        ofstream configFile("minty.json");
+        std::ofstream configFile("minty");
 
         configFile << config.dump(4);
         configFile.close();

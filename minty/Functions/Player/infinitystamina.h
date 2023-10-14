@@ -1,15 +1,16 @@
+#pragma once
+
 #include "../il2cpp-appdata.h"
-#include "../il2cpp-types.h"
 #include "../il2cppUtils.h"
-#include "../HookManager.h"
-#include "../../Hotkeys/Hotkey.h"
-#include "../../Hotkeys/KeyBind.h"
 #include "../Function.h"
+#include "../../Hotkeys/Hotkey.h"
+#include "../HookManager.h"
+#include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class InfStamina : public FN {
+	class InfinityStamina : public FN {
 	public:
-		inline static bool ifInfStamina;
+		ConfigField<bool> f_Enabled;
 
 		inline static Hotkey infStaminaHotkey = Hotkey("InfStamina");
 
@@ -17,12 +18,10 @@ namespace cheat {
 		void Outer() override;
 		void Status() override;
 
-		std::string groupName = "Player";
+		std::string getModule() override;
 
-		InfStamina();
+		static InfinityStamina& getInstance();
 
-		std::string GetGroupName() override {
-			return groupName;
-		}
+		InfinityStamina();
 	};
 }

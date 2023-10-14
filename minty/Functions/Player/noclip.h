@@ -1,19 +1,20 @@
+#pragma once
+
 #include "../il2cpp-appdata.h"
-#include "../il2cpp-types.h"
 #include "../il2cppUtils.h"
-#include "../HookManager.h"
-#include "../../Hotkeys/Hotkey.h"
-#include "../../Hotkeys/KeyBind.h"
 #include "../Function.h"
+#include "../../Hotkeys/Hotkey.h"
+#include "../HookManager.h"
+#include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-    class Noclip : public FN {
+    class NoClip : public FN {
     public:
-        inline static bool ifNoclip;
-        inline static bool ifAltSpeed;
+        ConfigField<bool> f_Enabled;
+        ConfigField<bool> f_EnabledAltSpeed;
+        ConfigField<float> f_Speed;
+        ConfigField<float> f_AltSpeed;
 
-        inline static float f_NoclipSpeed;
-        inline static float f_NoclipAltSpeed;
         inline static float f_finalSpeed;
 
         inline static Hotkey noClipHotkey = Hotkey("Noclip");
@@ -23,12 +24,10 @@ namespace cheat {
         void Outer() override;
         void Status() override;
 
-        std::string groupName = "Player";
+        std::string getModule() override;
 
-        Noclip();
+        static NoClip& getInstance();
 
-        std::string GetGroupName() override {
-            return groupName;
-        }
+        NoClip();
     };
 }

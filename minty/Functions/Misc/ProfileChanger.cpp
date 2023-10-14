@@ -5,21 +5,21 @@ namespace cheat {
     void Change_UID(const char* uidText);
 
     static char Uid_buf[512] = "";
+
     ProfileChanger::ProfileChanger() {
-        ifUid = config::getValue("functions", "CustomUDDDDDDID", false);
+        f_EnabledUid = config::getValue("functions:ProfileChanger:UID", "enabled", false);
 
         HookManager::install(app::GameManager_Update, onUpdate_1);
     }
 
-    ProfileChanger& ProfileChanger::getInstance()
-    {
+    ProfileChanger& ProfileChanger::getInstance() {
         static ProfileChanger instance;
         return instance;
     }
 
     void ProfileChanger::GUI() {
-        CheckBoxFN("Profile Changer", ifUid, "ProfileChanger")
-        if (ifUid) {
+        ConfigCheckbox("Profile Changer", f_EnabledUid);
+        if (f_EnabledUid.getValue()) {
             ImGui::Indent();
             ImGui::InputText("Custom UID", Uid_buf, sizeof(Uid_buf));
             uidHotkey.Draw();
@@ -29,12 +29,16 @@ namespace cheat {
 
     void ProfileChanger::Outer() {
         if (uidHotkey.IsPressed())
-            ifUid = !ifUid;
+            f_EnabledUid.setValue(!f_EnabledUid.getValue());
     }
 
     void ProfileChanger::Status() {
-        if (ifUid)
-            ImGui::Text("ProfileChanger");
+        if (f_EnabledUid.getValue())
+            ImGui::Text("Profile Changer");
+    }
+
+    std::string ProfileChanger::getModule() {
+        return _("Misc");
     }
 
     app::GameObject* uidTextObj;
@@ -50,8 +54,10 @@ namespace cheat {
     }
 
     void onUpdate_1(app::GameManager* __this) {
+        auto& ProfileChanger = ProfileChanger::getInstance();
+
         __try {
-            if (ProfileChanger::ifUid) 
+            if (ProfileChanger.f_EnabledUid.getValue()) 
                 Change_UID(Uid_buf);
         }
         __except (EXCEPTION_EXECUTE_HANDLER) {

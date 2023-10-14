@@ -1,21 +1,24 @@
+#pragma once
+
 #include "../Function.h"
 #include "../../Utils/GuiUtils.hpp"
-#include "../../Config/ConfigManager.hpp"
+#include "../../Config/ConfigManager.h"
 #include "../../Themes/themes.hpp"
 
 namespace cheat {
 	class Settings : public FN {
 	public:
-		std::string groupName = "Settings";
-		inline static bool ifShowFPS;
-		inline static bool ifShowRPC;
-		inline static int initDelay = 15;
+		ConfigField<bool> f_ShowFps;
+		ConfigField<bool> f_ShowRpc;
+		ConfigField<int> f_InitDelay;
 		
 		void GUI() override;
 		void Outer() override;
 
-		std::string GetGroupName() override {
-			return groupName;
-		}
+		std::string getModule() override;
+
+		static Settings& getInstance();
+
+		Settings();
 	};
 }

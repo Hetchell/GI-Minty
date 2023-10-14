@@ -1,6 +1,5 @@
 #include "InitGui.hpp"
 
-
 float alpha = 0;
 void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas) {
     static const ImWchar icons_ranges[] = {ICON_MIN_FA, ICON_MAX_FA, 0};
@@ -51,7 +50,7 @@ void gui::Render() {
         prevShowMenu = g_ShowMenu;
     }
 
-    float alpha = (g_ShowMenu) ? min(1.0f, (ImGui::GetTime() - startTime) / animDuration) : max(0.0f, 1.0f - (ImGui::GetTime() - startTime) / animDuration);
+    float alpha = g_ShowMenu ? min(1.0f, (ImGui::GetTime() - startTime) / animDuration) : max(0.0f, 1.0f - (ImGui::GetTime() - startTime) / animDuration);
 
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, alpha);
 

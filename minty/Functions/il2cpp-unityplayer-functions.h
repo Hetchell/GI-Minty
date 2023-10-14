@@ -2,4 +2,5 @@ DO_UP_FUNC(0x00CEEF40, 0x00CEEF40, app::Byte__Array*, Unity_RecordUserData, (int
 DO_UP_FUNC(0x00C7A950, 0x00C7A950, app::Il2CppClass**, GetIl2Classes, ());
 
 DO_UP_FUNC(0x019A5070, 0x019A5070, int, RecordChecksumUserData, (int type, char* out, int out_size));
+DO_UP_FUNC(0x012A0390, 0x012A0390, int, CrashReporter, (__int64 a1, __int64 a2, const char* a3));
 //DO_UP_FUNC(0x00DF6130, 0x0, void, Animator_set_avatar, (LPVOID __this, LPVOID value, LPVOID method));

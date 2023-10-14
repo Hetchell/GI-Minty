@@ -1,11 +1,11 @@
 #pragma once
 
 #include "../il2cpp-appdata.h"
-#include "../il2cpp-types.h"
 #include "../il2cppUtils.h"
 #include "../Function.h"
 #include "../../Hotkeys/Hotkey.h"
-
+#include "../HookManager.h"
+#include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
 	class AutoTP : public FN {
@@ -16,7 +16,8 @@ namespace cheat {
 			app::Vector3 position;
 		};
 
-		inline static bool ifAutoTP = false;
+		ConfigField<bool> f_Enabled;
+
 		inline static bool ifAutomatic = false;
 		inline static bool ifManual = false;
 		inline static float timerWait = 0.0f;
@@ -30,17 +31,14 @@ namespace cheat {
 		inline static Hotkey teleportForwardHotkey = Hotkey("TeleportForward");
 		inline static Hotkey autoTeleportHotkey = Hotkey("ToggleAutomatic");
 
-
-		std::string groupName = "World";
-
-		std::string GetGroupName() override {
-			return groupName;
-		}
-
-		AutoTP();
-
-		void GUI();
+		void GUI() override;
 		void Outer() override;
 		void Status() override;
+
+		std::string getModule() override;
+
+		static AutoTP& getInstance();
+
+		AutoTP();
 	};
 }
