@@ -17,8 +17,8 @@ namespace config {
 
     template <typename T>
     ConfigField<T> getValue(const std::string& path, const std::string& key, const T& defaultValue) {
-        auto section = path;
-        std::ifstream configFile("minty");
+        /*auto section = path;
+        std::ifstream configFile("minty.json");
 
         configFile >> configRoot;
         configFile.close();
@@ -34,13 +34,13 @@ namespace config {
         }
 
         if (configRoot.find(section) != configRoot.end() && configRoot[section].find(key) != configRoot[section].end())
-            return ConfigField<T>(path, key, configRoot[section][key]);
+            return ConfigField<T>(path, key, configRoot[section][key]);*/
         return ConfigField<T>(path, key, defaultValue);
     }
 
     template<typename T>
     void setValue(const std::string& path, const std::string key, const T& newValue) {
-        /*std::ifstream configFile("minty");
+        /*std::ifstream configFile("minty.json");
 
         configFile >> configRoot;
         configFile.close();

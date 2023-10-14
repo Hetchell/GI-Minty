@@ -1,43 +1,43 @@
 ﻿#include <unordered_map>
 
-#include "../Games/games.h"
+//#include "../Games/games.h"
 
 #include "../Functions/About/About.h"
 
-#include "../Functions/Misc/AutoTalk.h"
-#include "../Functions/Misc/CameraZoom.h"
-#include "../Functions/Misc/CutsceneSkip.h"
-#include "../Functions/Misc/FovChanger.h"
-#include "../Functions/Misc/OpenTeamImmediately.h"
-#include "../Functions/Misc/Peeking.h"
-#include "../Functions/Misc/ProfileChanger.h"
-#include "../Functions/Misc/ShowChestIndicator.h"
-#include "../Functions/Misc/SkipEnhanceAnimation.h"
-#include "../Functions/Misc/UnlockFPS.h"
-
-#include "../Functions/Player/GodMode.h"
-#include "../Functions/Player/InfinityEnergy.h"
-#include "../Functions/Player/InfinityStamina.h"
-#include "../Functions/Player/MultiHit.h"
-#include "../Functions/Player/NoClip.h"
-#include "../Functions/Player/NoCooldown.h"
-
-#include "../Functions/Settings/Settings.h"
-
-#include "../Functions/World/AutoTP.h"
-#include "../Functions/World/DumbEnemies.h"
-#include "../Functions/World/GameSpeed.h"
+//#include "../Functions/Misc/AutoTalk.h"
+//#include "../Functions/Misc/CameraZoom.h"
+//#include "../Functions/Misc/CutsceneSkip.h"
+//#include "../Functions/Misc/FovChanger.h"
+//#include "../Functions/Misc/OpenTeamImmediately.h"
+//#include "../Functions/Misc/Peeking.h"
+//#include "../Functions/Misc/ProfileChanger.h"
+//#include "../Functions/Misc/ShowChestIndicator.h"
+//#include "../Functions/Misc/SkipEnhanceAnimation.h"
+//#include "../Functions/Misc/UnlockFPS.h"
+//
+//#include "../Functions/Player/GodMode.h"
+//#include "../Functions/Player/InfinityEnergy.h"
+//#include "../Functions/Player/InfinityStamina.h"
+//#include "../Functions/Player/MultiHit.h"
+//#include "../Functions/Player/NoClip.h"
+//#include "../Functions/Player/NoCooldown.h"
+//
+//#include "../Functions/Settings/Settings.h"
+//
+//#include "../Functions/World/AutoTP.h"
+//#include "../Functions/World/DumbEnemies.h"
+//#include "../Functions/World/GameSpeed.h"
 
 std::vector<std::string> ModuleOrder = {
-    "Player",
-    "World",
-    "Misc",
-    "About",
-    "Settings"
+    //"Player",
+    //"World",
+    //"Misc",
+    "About"//,
+    //"Settings"
 };
 
 void Init() {
-    //PUSH_FUNC(About);
+    PUSH_FUNC(About);
 
     //PUSH_FUNC(AutoTalk);
     //PUSH_FUNC(CameraZoom);

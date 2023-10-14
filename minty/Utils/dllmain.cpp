@@ -21,15 +21,15 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     Sleep(5000);
     ProtectionBypass::Init();
 
-    int initDelay = 15000;
-    /*auto& Settings = cheat::Settings::getInstance();
+    //int initDelay = 15000;
+    auto& Settings = cheat::Settings::getInstance();
     int initDelay = Settings.f_InitDelay.getValue();
 
     if (Settings.f_ShowRpc.getValue()) {
         g_Discord->Initialize();
         g_Discord->Update();
         util::log(M_Info, "Showing RPC...");
-    }*/
+    }
 
     util::log(M_Info, "Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initDelay / 1000);
     Sleep(initDelay);
