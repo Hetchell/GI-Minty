@@ -35,15 +35,14 @@ void gui::InitImGui(HWND window, ID3D11Device* pDevice, ID3D11DeviceContext* pCo
     LoadThemes();
     LoadFonts();
 }
-//fade in/out anim, i was interested in this topic so i wrote this, looks good.
 void gui::Render() {
     ImGui_ImplWin32_NewFrame();
     ImGui_ImplDX11_NewFrame();
     ImGui::NewFrame();
     
-    static double startTime = ImGui::GetTime(); // Initialize startTime when the program starts
+    static double startTime = ImGui::GetTime();
     static bool prevShowMenu = g_ShowMenu;
-    const float animDuration = 0.2f; // Adjust the animation duration as needed (shorter duration makes it faster)
+    const float animDuration = cheat::Settings::getInstance().f_animationDuration.getValue();
 
     if (g_ShowMenu != prevShowMenu) {
         startTime = ImGui::GetTime(); // Reset startTime when the menu state changes

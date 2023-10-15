@@ -5,6 +5,7 @@
 #include "DiscordRPC/Discord.h"
 
 #include "ProtectionBypass.h"
+#include "DisableLogReport/DisableLogReport.h"
 #include "../Functions/Settings/Settings.h"
 
 Discord* g_Discord;
@@ -16,6 +17,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     freopen("CONOUT$", "w", stderr);
 
     util::log(M_Info, "Starting...");
+    util::log(M_Info, "Disabling spam logs...");
+    DisableLogReport();
     util::log(M_Info, "Initializing IL2CPP...");
     init_il2cpp();
     Sleep(5000);

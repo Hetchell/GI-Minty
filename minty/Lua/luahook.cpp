@@ -94,16 +94,16 @@ void get_gi_L() {
     il2cpp_base = (uintptr_t)ua;
     g_xluaL_loadbuffer = PatternScan("UserAssembly.dll", "48 83 EC 38 E9");
     g_lua_pcall = PatternScan("UserAssembly.dll", "48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3");
-    printf("xluaL_loadbuffer: %p, rva: %p\n", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
-    printf("lua_pcall: %p, rva: %p\n", g_lua_pcall, g_lua_pcall - il2cpp_base);
+    util::log(M_Debug, "xluaL_loadbuffer: %p, rva: %p", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
+    util::log(M_Debug, "lua_pcall: %p, rva: %p", g_lua_pcall, g_lua_pcall - il2cpp_base);
 
     HookManager::install((loadbuffer_ftn)g_xluaL_loadbuffer, xluaL_loadbuffer_hook);
-    printf("Hooked xluaL_loadbuffer, org: at %p\n", HookManager::getOrigin(xluaL_loadbuffer_hook));
 
     while (!gi_L)
         Sleep(50);
 
-    printf("L: %p\n", gi_L);
+    util::log(M_Debug, "L: %p", gi_L);
+
 }
 
 void luahookfunc(const char* charLuaScript) {

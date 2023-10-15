@@ -11,6 +11,7 @@ namespace cheat {
 		ConfigField<bool> f_ShowFps;
 		ConfigField<bool> f_ShowRpc;
 		ConfigField<int> f_InitDelay;
+		ConfigField<float> f_animationDuration;
 		
 		void GUI() override;
 		void Outer() override;

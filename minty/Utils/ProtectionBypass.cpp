@@ -339,26 +339,6 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size) {
 	return ret;
 }
 
-void DisableLogReport() {
-	char szProcessPath[MAX_PATH]{};
-	GetModuleFileNameA(nullptr, szProcessPath, MAX_PATH);
-
-	auto path = std::filesystem::path(szProcessPath);
-	auto ProcessName = path.filename().string();
-	ProcessName = ProcessName.substr(0, ProcessName.find_last_of('.'));
-
-	auto Astrolabe = path.parent_path() / (ProcessName + "_Data\\Plugins\\Astrolabe.dll");
-	auto MiHoYoMTRSDK = path.parent_path() / (ProcessName + "_Data\\Plugins\\MiHoYoMTRSDK.dll");
-	//auto Telemetry = path.parent_path() / (ProcessName + "_Data\\Plugins\\Telemetry.dll");
-
-	// open exclusive access to these two dlls
-	// so they cannot be loaded
-	CreateFileA(Astrolabe.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	CreateFileA(MiHoYoMTRSDK.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	//CreateFileA(Telemetry.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	return;
-}
-
 static bool report_sent = false;
 void OnReportLuaShell(void* __this, app::String* type, app::String* value);
 
@@ -422,7 +402,6 @@ void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 static int CrashReporter_Hook(__int64 a1, __int64 a2, const char* a3) {
 	return 0;
 }
-
 void ProtectionBypass::Init() {
 	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 
@@ -439,8 +418,7 @@ void ProtectionBypass::Init() {
 	if (CloseHandleByName(L"\\Device\\mhyprot2"))
 		util::log(M_Info, "mhyprot anticheat has been killed");
 
-	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
-	DisableLogReport();
+	
 	util::log(M_Info, "Initialized protection bypass");
 	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 }

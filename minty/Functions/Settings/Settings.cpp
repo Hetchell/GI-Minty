@@ -7,6 +7,7 @@ namespace cheat {
         f_ShowFps = config::getValue("functions:Settings", "showFps", true);
         f_ShowRpc = config::getValue("functions:Settings", "showRpc", true);
         f_InitDelay = config::getValue("functions:Settings", "initDelay", 15000);
+        f_animationDuration = config::getValue("functions:Settings", "animationDuration", 0.2f);
     }
 
     Settings& Settings::getInstance() {
@@ -63,6 +64,11 @@ namespace cheat {
 
         ImGui::SeparatorText("Customize");
         ImGui::Checkbox("Show Style Editor", &show_style_editor);
+
+        ConfigSliderFloat("Duration of animation (s)", f_animationDuration, 0, 5.f);
+        ImGui::SameLine();
+        HelpMarker(_("Window appearance animation duration."));
+
 	}
 
     void Settings::Outer() {

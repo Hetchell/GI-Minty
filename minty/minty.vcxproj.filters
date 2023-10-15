@@ -93,6 +93,7 @@
     <ClCompile Include="Functions\Misc\CameraZoom.cpp" />
     <ClCompile Include="Functions\Misc\OpenTeamImmediately.cpp" />
     <ClCompile Include="Functions\Misc\SkipEnhanceAnimation.cpp" />
+    <ClCompile Include="Utils\DisableLogReport\DisableLogReport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -106,7 +107,6 @@
     <ClInclude Include="ImGui\ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\ImGui\imstb_truetype.h" />
-    <ClInclude Include="GUI\includeFunctions.h" />
     <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
     <ClInclude Include="Json\json.hpp" />
     <ClInclude Include="DirectX\shadez.h" />
@@ -149,7 +149,6 @@
     <ClInclude Include="Lua\lua.hpp" />
     <ClInclude Include="Lua\lundump.h" />
     <ClInclude Include="Lua\lvm.h" />
-    <ClInclude Include="Config\ConfigManager.hpp" />
     <ClInclude Include="Lua\luahook.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
     <ClInclude Include="Discord SDK\include\discord_register.h" />
@@ -195,8 +194,6 @@
     <ClInclude Include="Hotkeys\Hotkey.h" />
     <ClInclude Include="Hotkeys\KeyBind.h" />
     <ClInclude Include="Hotkeys\KeyBinds.h" />
-    <ClInclude Include="features\Feature.h" />
-    <ClInclude Include="features\world\ElementalSight.h" />
     <ClInclude Include="Functions\detours.h" />
     <ClInclude Include="Functions\Function.h" />
     <ClInclude Include="Functions\HookManager.h" />
@@ -232,6 +229,7 @@
     <ClInclude Include="Functions\Misc\CameraZoom.h" />
     <ClInclude Include="Functions\Misc\OpenTeamImmediately.h" />
     <ClInclude Include="Functions\Misc\SkipEnhanceAnimation.h" />
+    <ClInclude Include="Utils\DisableLogReport\DisableLogReport.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

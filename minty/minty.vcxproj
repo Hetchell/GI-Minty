@@ -190,6 +190,7 @@
     <ClCompile Include="GUI\Translations.cpp" />
     <ClCompile Include="Hotkeys\Hotkey.cpp" />
     <ClCompile Include="Hotkeys\KeyBind.cpp" />
+    <ClCompile Include="Utils\DisableLogReport\DisableLogReport.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\GuiUtils.cpp" />
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
@@ -356,6 +357,7 @@
       <FileType>CppHeader</FileType>
     </ClCompile>
     <ClInclude Include="Themes\Themes.hpp" />
+    <ClInclude Include="Utils\DisableLogReport\DisableLogReport.h" />
     <ClInclude Include="Utils\DiscordRPC\Discord.h" />
     <ClInclude Include="Utils\GuiUtils.hpp" />
     <ClInclude Include="Utils\ImageLoader\ImageLoader.hpp" />
