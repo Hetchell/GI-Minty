@@ -5,7 +5,7 @@ namespace cheat {
 
     CameraZoom::CameraZoom() {
         f_Enabled = config::getValue("functions:CameraZoom", "enabled", false);
-        f_CameraZoom = config::getValue("functions:CameraZoom", "cameraZoom", 10.0f);
+        f_CameraZoom = config::getValue("functions:CameraZoom", "cameraZoom", 1.0f);
 
         HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook);
     }
@@ -20,7 +20,7 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            ConfigSliderFloat("Zoom value", f_CameraZoom, 10.0f, 500.0f);
+            ConfigSliderFloat("Zoom value", f_CameraZoom, 0.1f, 500.0f);
             cameraZoomHotkey.Draw();
             ImGui::Unindent();
         }

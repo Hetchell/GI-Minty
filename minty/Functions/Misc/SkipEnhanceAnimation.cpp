@@ -22,7 +22,9 @@ namespace cheat {
 	}
 
 	void SkipEnhanceAnimation::GUI() {
-		ConfigCheckbox("Skip enhance animations", f_Enabled);
+		ConfigCheckbox("Skip Enhance Animation", f_Enabled);
+        ImGui::SameLine();
+        HelpMarker("Skip weapon and artifact enhancement animation.");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
@@ -55,8 +57,8 @@ namespace cheat {
         if (SkipEnhanceAnimation.f_ShowLevelUp.getValue()) {
             /*
             util::log(M_Debug, "_prevLevel: %d", dialog->fields._prevLevel);
-            util::log(M_Debug, "_currLevel: %d", dialog->fields._currLevel);
             util::log(M_Debug, "_powerUpRate: %d", dialog->fields._powerUpRate);
+            util::log(M_Debug, "_currLevel: %d", dialog->fields._currLevel);
             */
             if (dialog->fields._equipType == app::MoleMole_Config_ItemType__Enum::ITEM_RELIQUARY) {
                 const uint32_t prevLvl = dialog->fields._prevLevel;

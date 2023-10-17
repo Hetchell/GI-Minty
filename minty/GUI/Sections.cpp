@@ -36,14 +36,14 @@ void Init() {
     INIT_FUNC(About);
 
     INIT_FUNC(AutoTalk);
-    //INIT_FUNC(CameraZoom);
+    INIT_FUNC(CameraZoom);
     INIT_FUNC(CutsceneSkip);
     INIT_FUNC(FovChanger);
     //INIT_FUNC(OpenTeamImmediately);
     INIT_FUNC(Peeking);
     INIT_FUNC(ProfileChanger);
     INIT_FUNC(ShowChestIndicator);
-    //INIT_FUNC(SkipEnhanceAnimation);
+    INIT_FUNC(SkipEnhanceAnimation);
     INIT_FUNC(UnlockFPS);
 
     INIT_FUNC(GodMode);
@@ -55,7 +55,7 @@ void Init() {
 
     INIT_FUNC(Settings);
 
-    //INIT_FUNC(AutoTP);
+    INIT_FUNC(AutoTP);
     INIT_FUNC(DumbEnemies);
     INIT_FUNC(GameSpeed);
 }

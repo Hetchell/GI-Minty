@@ -15,7 +15,7 @@ namespace cheat {
     }
 
     void Peeking::GUI() {
-        ConfigCheckbox("Enable peeking", f_Enabled);
+        ConfigCheckbox("Enable Peeking", f_Enabled);
 
         if (f_Enabled.getValue())
             Peeking::peekingHotkey.Draw();

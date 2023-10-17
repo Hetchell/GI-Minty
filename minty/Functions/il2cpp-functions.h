@@ -96,7 +96,7 @@ DO_APP_FUNC(0x07A938E0, 0x07B235E0, app::Vector3, Rigidbody_get_position, (app::
 DO_APP_FUNC(0x07A937C0, 0x07B23500, void, Rigidbody_set_position, (app::Rigidbody* __this, app::Vector3 value));
 DO_APP_FUNC(0x07A93800, 0x07B23460, void, Rigidbody_MovePosition, (app::Rigidbody* __this, app::Vector3 value));
 
-DO_APP_FUNC(0x075BD460, 0x07A954B0, void, Action_Invoke, (/*Action*/ void* __this));
+DO_APP_FUNC(0x07AF9CD0, 0x079793E0, void, Action_Invoke, (/*Action*/ void* __this));
 
 // Lua functions
 DO_APP_FUNC(0x041A8330, 0x0422AA80, void, MoleMole_LuaShellManager_ReportLuaShellResult, (void* __this, app::String* type, app::String* value));
@@ -118,8 +118,8 @@ DO_APP_FUNC(0x01B1CC90, 0x01B4A4E0, void, MoleMole_InLevelCutScenePageContext_Up
 DO_APP_FUNC(0x01B197B0, 0x01B46DF0, void, MoleMole_InLevelCutScenePageContext_ClearView, (app::InLevelCutScenePageContext* __this));
 
 // Skip Cutscene
-DO_APP_FUNC(0x04922690, 0x049B1B70, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this));
-DO_APP_FUNC(0x04922550, 0x049B1A30, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this));
+DO_APP_FUNC(0x04922690, 0x049B1B70, void, CriwareMediaPlayer_Update, (app::CriwareMediaPlayer* __this, app::MethodInfo* method));
+DO_APP_FUNC(0x04922550, 0x049B1A30, void, CriwareMediaPlayer_Skip, (app::CriwareMediaPlayer* __this, app::MethodInfo* method));
 
 // Chest Indicator
 DO_APP_FUNC(0x020D8A30, 0x021165E0, bool, MoleMole_LCIndicatorPlugin_DoCheck, (app::LCIndicatorPlugin* __this));

@@ -9154,16 +9154,16 @@ typedef union Il2CppSingle_float
     struct MoleMole_EquipLevelUpDialogContext__Fields {
         struct MoleMole_BaseDialogContext__Fields _;
         struct MoleMole_BagItem* _equip; // 0x0198
-        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList; // 0x01A0
+        struct List_1_MoleMole_PropertyChange_* _propertyChange; // 0x01B8
         struct MonoEquipLevelUpDialog* _dialogMono; // 0x01A8
         struct MonoAvatarPropertyItem* _propertyItemPrefab; // 0x01B0
-        struct List_1_MoleMole_PropertyChange_* _propertyChange; // 0x01B8
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList; // 0x01A0
         uint32_t _currLevel; // 0x01C4
-        uint32_t _powerUpRate; // 0x01C0
-        uint32_t _prevLevel; // 0x01C8
-        uint32_t _propertyItemPrefabHandle; // 0x01CC
+        uint32_t _prevLevel; // 0x01C0
+        uint32_t _propertyItemPrefabHandle; // 0x01C8
+        uint32_t _mainPropItemPrefabHandle; // 0x01CC
+        uint32_t _powerUpRate; // 0x01D4
         MoleMole_Config_ItemType__Enum _equipType; // 0x01D0
-        uint32_t _mainPropItemPrefabHandle; // 0x01D4
         bool _canClose; // 0x01D8
         /* old version:
         struct MonoAvatarPropertyItem* _propertyItemPrefab;
@@ -11352,6 +11352,7 @@ typedef union Il2CppSingle_float
         bool isBackground;
         bool isBlending;
         bool disableProtect;
+        bool DMJBHNAIBOG; // Offset: 0x7
 #if defined(_CPLUSPLUS_)
         CameraModuleState__Enum state;
 #else
@@ -11394,6 +11395,10 @@ typedef union Il2CppSingle_float
         struct Vector3d_1 lastFrameFilterLookAtPosition;
         struct Vector3d_1 lastFrameLookAtPosition;
         struct Vector3d_1 lastFrameTransformLookAtPosition;
+        double PDBOKPDCGKG; // Offset: 0x270
+        struct Vector3d_1 JCDMFKBLPLA; // Offset: 0x278
+        bool ALBCKHJEHFK; // Offset: 0x290
+        bool HPMGBDMLELB; // Offset: 0x291
         double additionalRadius;
         double globalDefaultCameraLocateRatio;
         double currentManualLocateRatio;

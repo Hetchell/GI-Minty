@@ -1,7 +1,7 @@
 #include "CutsceneSkip.h"
 
 namespace cheat {
-    static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this);
+    static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this, app::MethodInfo* method);
 
     CutsceneSkip::CutsceneSkip() {
         f_Enabled = config::getValue("functions:CutsceneSkip", "enabled", false);
@@ -15,7 +15,7 @@ namespace cheat {
     }
 
     void CutsceneSkip::GUI() {
-        ConfigCheckbox("Skip cutscenes", f_Enabled);
+        ConfigCheckbox("Skip Cutscene", f_Enabled);
         ImGui::SameLine();
         HelpMarker(_("Skips cutscene. May break some game mechanics."));
 
@@ -25,7 +25,7 @@ namespace cheat {
 
     void CutsceneSkip::Status() {
         if (f_Enabled.getValue())
-            ImGui::Text(_("Cutscene skip"));
+            ImGui::Text(_("Skip Cutscene"));
     }
 
     void CutsceneSkip::Outer() {
@@ -37,11 +37,13 @@ namespace cheat {
         return _("Misc");
     }
 
-    static void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this) {
+    void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this, app::MethodInfo* method) {
         auto& CutsceneSkip = CutsceneSkip::getInstance();
 
+        util::log(M_Debug, "Skip Cutscene enabled: %d", CutsceneSkip.f_Enabled.getValue());
         if (CutsceneSkip.f_Enabled.getValue())
-            app::CriwareMediaPlayer_Skip(__this);
-        return CALL_ORIGIN(CriwareMediaPlayer_Update, __this);
+            app::CriwareMediaPlayer_Skip(__this, method);
+        util::log(M_Debug, "skipped!");
+        return CALL_ORIGIN(CriwareMediaPlayer_Update, __this, method);
     }
 }

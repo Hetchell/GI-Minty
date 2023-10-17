@@ -323,10 +323,10 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size) {
 	}
 
 	const char* data[] = {
-		"b62db48c3c79e59b1d3f7a14afdf74e3",
-		"160617b76cc7b25dd378308d7840cc1925",
-		"",
+		"08126aeb28524e7b05d718826b6c5e4e",
+		"b8c1d4c0f687df999270a5c2ece67e6c27",
 		""
+		//""
 	};
 
 	assert(type < sizeof(data) / sizeof(const char*));
@@ -424,15 +424,14 @@ static __int64 __fastcall sub_18012A580_Hook(__int64 a1, __int64 a2) {
 uintptr_t hTelemetry;
 void ProtectionBypass::Init() {
 	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 
 	for (int i = 0; i < 4; i++) {
-		app::Unity_RecordUserData(i);
+		app::Application_RecordUserData(i, nullptr);
 		//std::string checksum = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
 		//std::cout << "checksum #" << i << ": " << checksum << "\n";
 	}
-
 	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
-	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 	//util::log(M_Info, "Trying to close mhyprot.");
 
 	if (CloseHandleByName(L"\\Device\\mhyprot2"))
