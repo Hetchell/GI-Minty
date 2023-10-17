@@ -49,8 +49,7 @@ namespace cheat {
 		__try {
 			app::UnityEngine__Application__set__targetFramerate(enabled ? UnlockFPS.f_Fps.getValue() : 60);
 			app::UnityEngine__QualitySettings__set__vSyncCount(enabled ? 0 : 1);
-		}
-		__except (1) {
+		} __except (1) {
 			util::log(M_Info, "lol");
 		}
 

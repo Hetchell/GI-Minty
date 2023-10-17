@@ -5,7 +5,7 @@ namespace cheat {
 
 	GameSpeed::GameSpeed() {
 		f_Enabled = config::getValue("functions:GameSpeed", "enabled", false);
-		f_Speed = config::getValue("functions:GameSpeed", "speed" , 2.0f);
+		f_Speed = config::getValue("functions:GameSpeed", "speed", 5.0f);
 
 		HookManager::install(app::GameManager_Update, onUpdate_3);
 	}
@@ -20,7 +20,7 @@ namespace cheat {
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			ConfigSliderFloat("Speed value", f_Speed, 0.0f, 10.0f);
+			ConfigSliderFloat("Speed value", f_Speed, 1.0f, 20.0f);
 			speedHackHotkey.Draw();
 			ImGui::Unindent();
 		}
@@ -40,17 +40,10 @@ namespace cheat {
 		return _("World");
 	}
 
-	void changeGameSpeed() {
+	void onUpdate_3(app::GameManager* __this, app::MethodInfo* method) {
 		auto& GameSpeed = GameSpeed::getInstance();
 
-		app::UnityEngine__set__Timescale(GameSpeed.f_Enabled.getValue() ? GameSpeed.f_Speed.getValue() : 1.0f);
-	}
-
-	void onUpdate_3(app::GameManager* __this, app::MethodInfo* method) {
-		__try {
-			changeGameSpeed();
-		} __except (1) {}
-
+		app::Time_set_timeScale(GameSpeed.f_Enabled.getValue() ? GameSpeed.f_Speed.getValue() : 1.0f);
 		CALL_ORIGIN(onUpdate_3, __this, method);
 	}
 }

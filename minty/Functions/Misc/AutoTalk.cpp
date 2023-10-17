@@ -1,9 +1,8 @@
 #include "AutoTalk.h"
 
 namespace cheat {
-    static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this);
-    static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this);
-    static void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value);
+    void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this);
+    void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this);
 
     AutoTalk::AutoTalk() {
         f_Enabled = config::getValue("functions:AutoTalk", "enabled", false);
@@ -44,25 +43,27 @@ namespace cheat {
         return _("Misc");
     }
 
+    void AutoTalk::OnCutScenePageUpdate(app::InLevelCutScenePageContext* context) {
+        auto& AutoTalk = AutoTalk::getInstance();
+        bool enabled = AutoTalk.f_Enabled.getValue();
+
+        if (!enabled)
+            return;
+
+        app::Time_set_timeScale(enabled ? AutoTalk.f_TalkSpeed.getValue() : 1.0f);
+        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
+    }
+
     void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this) {
+        CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
+
         auto& AutoTalk = AutoTalk::getInstance();
 
-        CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
-        OnCutScenePageUpdate(__this, AutoTalk.f_Enabled.getValue() ? AutoTalk.f_TalkSpeed.getValue() : 1.0f);
+        AutoTalk.OnCutScenePageUpdate(__this);
     }
 
     void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this) {
-        app::UnityEngine__set__Timescale(1.0f);
+        app::Time_set_timeScale(1.0f);
         CALL_ORIGIN(InLevelCutScenePageContext_ClearView_Hook, __this);
-    }
-
-    void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context, float value) {
-        auto& AutoTalk = AutoTalk::getInstance();
-
-        if (!AutoTalk.f_Enabled.getValue())
-            return;
-
-        app::UnityEngine__set__Timescale(value);
-        app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
     }
 }

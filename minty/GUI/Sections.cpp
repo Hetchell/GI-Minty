@@ -61,9 +61,8 @@ void Init() {
 }
 
 void Outer() {
-    for (auto& func : functions) {
+    for (auto& func : functions)
         func->Outer();
-    }
 }
 
 void DrawSection(const std::string& moduleName) {

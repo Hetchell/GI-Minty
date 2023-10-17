@@ -46,9 +46,9 @@ namespace cheat {
 			f_Enabled.setValue(!f_Enabled.getValue());
 
 		if (f_EnabledAltSpeed.getValue() && noClipAltHotkey.IsDown())
-			f_finalSpeed = f_Speed.getValue();
-		else
 			f_finalSpeed = f_AltSpeed.getValue();
+		else
+			f_finalSpeed = f_Speed.getValue();
 	}
 
 	void NoClip::Status() {

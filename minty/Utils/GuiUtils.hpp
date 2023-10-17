@@ -19,7 +19,7 @@ void ConfigCheckbox(const char* name, ConfigField<T>& field) {
 
     if (ImGui::Checkbox(name, &value)) {
         field.setValue(value);
-        //config::setValue(field, value);
+        config::setValue(field, value);
     }
 }
 

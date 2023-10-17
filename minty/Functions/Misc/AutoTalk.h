@@ -23,6 +23,8 @@ namespace cheat {
 
 		static AutoTalk& getInstance();
 
+		void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context);
+
 		AutoTalk();
 	};
 }

@@ -43,10 +43,7 @@ namespace cheat {
 	void LCBaseCombat_FireBeingHitEvent_Hook(app::LCBaseCombat* __this, uint32_t attackeeRuntimeID, app::AttackResult* attackResult) {
 		auto& MultiHit = MultiHit::getInstance();
 
-		if (!MultiHit.f_Enabled.getValue())
-			return;
-
-		if (app::get_entityType(__this->fields._._._entity) == app::EntityType__Enum_1::Avatar) {
+		if (MultiHit.f_Enabled.getValue() && app::get_entityType(__this->fields._._._entity) == app::EntityType__Enum_1::Avatar) {
 			for (int i = 0; i < MultiHit.f_Hits.getValue(); i++)
 				CALL_ORIGIN(LCBaseCombat_FireBeingHitEvent_Hook, __this, attackeeRuntimeID, attackResult);
 		} else 

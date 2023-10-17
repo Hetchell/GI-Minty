@@ -133,7 +133,6 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ProgramDatabaseFile>No</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +154,6 @@
       <AdditionalDependencies>d3d11.lib;dxgi.lib;lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(projectDir)lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>No</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -190,7 +188,6 @@
     <ClCompile Include="GUI\Translations.cpp" />
     <ClCompile Include="Hotkeys\Hotkey.cpp" />
     <ClCompile Include="Hotkeys\KeyBind.cpp" />
-    <ClCompile Include="Utils\DisableLogReport\DisableLogReport.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\GuiUtils.cpp" />
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
@@ -357,7 +354,6 @@
       <FileType>CppHeader</FileType>
     </ClCompile>
     <ClInclude Include="Themes\Themes.hpp" />
-    <ClInclude Include="Utils\DisableLogReport\DisableLogReport.h" />
     <ClInclude Include="Utils\DiscordRPC\Discord.h" />
     <ClInclude Include="Utils\GuiUtils.hpp" />
     <ClInclude Include="Utils\ImageLoader\ImageLoader.hpp" />

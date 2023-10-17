@@ -6552,7 +6552,7 @@ typedef union Il2CppSingle_float
         PROP_PLAYER_ONLINE_TIME = 0x0000273f,
         PROP_IS_DIVEABLE = 0x00002740,
         PROP_MAX_DIVE_STAMINA = 0x00002741,
-        PROP_CUR_PERSIST_DIVE_STAMINA = 0x00002742,
+        PROP_CUR_PERSIST_DIVE_STAMINA = 0x00002742
     };
 
     struct __declspec(align(8)) BaseComponentPlugin__Fields {

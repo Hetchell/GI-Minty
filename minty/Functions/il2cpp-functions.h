@@ -68,7 +68,8 @@ DO_APP_FUNC(0x07AF2B50, 0x07B82150, app::GameObject*, Component_1_get_gameObject
 // UnityEngine
 DO_APP_FUNC(0x07BBA680, 0x07C49720, void, RenderSettings_set_fog, (bool value));
 DO_APP_FUNC(0x07C01DB0, 0x07C90500, float, Time_get_deltaTime, ());
-DO_APP_FUNC(0x07C01F40, 0x07C90690, void*, UnityEngine__set__Timescale, (float time));
+DO_APP_FUNC(0x07C01F40, 0x07C90690, void*, Time_set_timeScale, (float time));
+DO_APP_FUNC(0x07C01E90, 0x07C905E0, float, Time_get_timeScale, ());
 
 DO_APP_FUNC(0x07BDEF60, 0x07C6D7E0, bool*, UnityEngine__Application__get__isFocused, ());
 DO_APP_FUNC(0x07BDF5F0, 0x07C6DE70, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
@@ -145,7 +146,7 @@ DO_APP_FUNC(0x0412CAA0, 0x041ADB50, void, MoleMole_EquipOverviewPageContext_Play
 DO_APP_FUNC(0x01D60090, 0x01D93A10, void, MoleMole_EquipOverviewPageContext_PlayLevelUpSuccessShow, (/*MoleMole_EquipOverviewPageContext*/ void* __this, /*Action*/ void* refreshViewAction));
 
 // Teleport hooks
-DO_APP_FUNC(0x02607CF0, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
+DO_APP_FUNC(0x02609F70, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
 
 // Open team immediately
 DO_APP_FUNC(0x012B43E0, 0x012CC050, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));

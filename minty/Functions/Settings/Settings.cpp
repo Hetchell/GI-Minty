@@ -7,7 +7,7 @@ namespace cheat {
         f_ShowFps = config::getValue("functions:Settings", "showFps", true);
         f_ShowRpc = config::getValue("functions:Settings", "showRpc", true);
         f_InitDelay = config::getValue("functions:Settings", "initDelay", 15000);
-        f_animationDuration = config::getValue("functions:Settings", "animationDuration", 0.2f);
+        f_AnimationDuration = config::getValue("functions:Settings", "animationDuration", 0.2f);
     }
 
     Settings& Settings::getInstance() {
@@ -15,7 +15,7 @@ namespace cheat {
         return instance;
     }
 
-	void Settings::GUI() {
+    void Settings::GUI() {
         ImGui::SeparatorText("General");
 
         ConfigCheckbox("Show current FPS", f_ShowFps);
@@ -24,7 +24,7 @@ namespace cheat {
         HelpMarker("Turn Discord custom RPC on/off. Requires re-entering game.");
 
         ConfigSliderInt("Initialization delay (ms)", f_InitDelay, 0, 60000);
-        ImGui::SameLine(); 
+        ImGui::SameLine();
         HelpMarker("Change delay before showing menu. May cause lags while opening, so try to change this value in case.");
 
         ImGui::SeparatorText("Theme");
@@ -64,16 +64,20 @@ namespace cheat {
 
         ImGui::SeparatorText("Customize");
         ImGui::Checkbox("Show Style Editor", &show_style_editor);
-
-        ConfigSliderFloat("Duration of animation (s)", f_animationDuration, 0, 5.f);
+        ConfigSliderFloat("Duration of animation (s)", f_AnimationDuration, 0, 5.0f);
         ImGui::SameLine();
         HelpMarker(_("Window appearance animation duration."));
-
 	}
 
     void Settings::Outer() {
         if (f_ShowFps.getValue())
             DrawFPS();
+
+        if (show_style_editor) {
+            ImGui::Begin("Style Editor", &show_style_editor);
+            ImGui::ShowStyleEditor();
+            ImGui::End();
+        }
     }
 
     std::string Settings::getModule() {

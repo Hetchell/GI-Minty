@@ -60,8 +60,7 @@ namespace cheat {
         __try {
             if (ProfileChanger.f_EnabledUid.getValue()) 
                 Change_UID(Uid_buf);
-        }
-        __except (EXCEPTION_EXECUTE_HANDLER) {
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
             util::log(M_Error, "Exception 0x%08x.", _exception_code());
         }
 

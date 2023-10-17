@@ -35,6 +35,7 @@ void gui::InitImGui(HWND window, ID3D11Device* pDevice, ID3D11DeviceContext* pCo
     LoadThemes();
     LoadFonts();
 }
+
 void gui::Render() {
     ImGui_ImplWin32_NewFrame();
     ImGui_ImplDX11_NewFrame();
@@ -42,7 +43,7 @@ void gui::Render() {
     
     static double startTime = ImGui::GetTime();
     static bool prevShowMenu = g_ShowMenu;
-    const float animDuration = cheat::Settings::getInstance().f_animationDuration.getValue();
+    const float animDuration = cheat::Settings::getInstance().f_AnimationDuration.getValue();
 
     if (g_ShowMenu != prevShowMenu) {
         startTime = ImGui::GetTime(); // Reset startTime when the menu state changes

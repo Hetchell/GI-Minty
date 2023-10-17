@@ -1,4 +1,3 @@
-// https://github.com/xTaiwanPingLord/GenshinDebuggerBypass
 #ifndef UNICODE
 #define UNICODE
 #endif
@@ -339,13 +338,6 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size) {
 	return ret;
 }
 
-static bool report_sent = false;
-void OnReportLuaShell(void* __this, app::String* type, app::String* value);
-
-static void LuaShellManager_ReportLuaShellResult_Hook(void* __this, app::String* type, app::String* value) {
-	OnReportLuaShell(__this, type, value);
-}
-
 std::vector<uint8_t> from_hex(std::string string) {
 	std::vector<uint8_t> ret;
 	auto HexCharToByte = [](char ch) {
@@ -365,9 +357,14 @@ std::vector<uint8_t> from_hex(std::string string) {
 	return ret;
 }
 
+static void OnReportLuaShell(void* __this, app::String* type, app::String* value);
+static void LuaShellManager_ReportLuaShellResult_Hook(void* __this, app::String* type, app::String* value) {
+	OnReportLuaShell(__this, type, value);
+}
+
+static bool report_sent = false;
 void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
-	auto xor_payload = [](std::vector<uint8_t>& value_bytes) -> void
-	{
+	auto xor_payload = [](std::vector<uint8_t>& value_bytes) -> void {
 		auto length = value_bytes.size() - 1;
 		for (signed long long i = length; i >= 0; i -= 1)
 		{
@@ -402,6 +399,29 @@ void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 static int CrashReporter_Hook(__int64 a1, __int64 a2, const char* a3) {
 	return 0;
 }
+
+void DisableLogReport() {
+	char szProcessPath[MAX_PATH]{};
+
+	GetModuleFileNameA(nullptr, szProcessPath, MAX_PATH);
+
+	auto path = std::filesystem::path(szProcessPath);
+	auto ProcessName = path.filename().string();
+	ProcessName = ProcessName.substr(0, ProcessName.find_last_of('.'));
+	auto Astrolabe = path.parent_path() / (ProcessName + "_Data\\Plugins\\Astrolabe.dll");
+	auto MiHoYoMTRSDK = path.parent_path() / (ProcessName + "_Data\\Plugins\\MiHoYoMTRSDK.dll");
+
+	CreateFileA(Astrolabe.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	CreateFileA(MiHoYoMTRSDK.string().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	return;
+}
+
+typedef __int64 (*sub_18012A580)(__int64 a1, __int64 a2);
+static __int64 __fastcall sub_18012A580_Hook(__int64 a1, __int64 a2) {
+	return 0;
+}
+
+uintptr_t hTelemetry;
 void ProtectionBypass::Init() {
 	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 
@@ -418,7 +438,13 @@ void ProtectionBypass::Init() {
 	if (CloseHandleByName(L"\\Device\\mhyprot2"))
 		util::log(M_Info, "mhyprot anticheat has been killed");
 
-	
+	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
+	DisableLogReport();
+
+	while (hTelemetry == (uint64_t) nullptr)
+		hTelemetry = (uint64_t) GetModuleHandleA("telemetry.dll");
+
+	HookManager::install((sub_18012A580)(hTelemetry + 0x12A580), sub_18012A580_Hook);
 	util::log(M_Info, "Initialized protection bypass");
 	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 }

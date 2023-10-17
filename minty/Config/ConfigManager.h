@@ -39,27 +39,39 @@ namespace config {
 
     template<typename T>
     void setValue(const std::string& path, const std::string key, const T& newValue) {
-        /*std::ifstream configFile("minty.json");
+        //std::ifstream configFile("minty.json");
 
-        configFile >> configRoot;
-        configFile.close();
+        //configFile >> configRoot;
+        //configFile.close();
 
-        if (path.find(":") != std::string::npos) {
-            auto sections = util::split(path, ":");
+        //json* rootContainer = &configRoot;
 
-            for (auto& section : sections)
-                configRoot = configRoot[section];
+        //if (path.find(":") != std::string::npos) {
+        //    auto sections = util::split(path, ":");
+        //    const auto lastKey = sections.back();
+        //    std::cout << "lastKey: " << lastKey << "\n";
 
-            if (configRoot.find(key) != configRoot.end()) {
-                configRoot[key] = newValue;
-                save(configRoot);
-            }
-            return;
-        }
+        //    for (auto& section : sections) {
+        //        std::cout << "section: " << section << "\n";
 
-        if (configRoot.find(path) != configRoot.end() && configRoot[path].find(key) != configRoot[path].end())
-            configRoot[path][key] = newValue;
-        save(configRoot);*/
+        //        if (!rootContainer->contains(section)) {
+        //            std::cout << "1 rootContainer: " << rootContainer->dump(4) << "\n";
+        //            (*rootContainer)[section] = {};
+        //            std::cout << "2 rootContainer: " << rootContainer->dump(4) << "\n";
+        //        }
+        //        
+        //        rootContainer = &(*rootContainer)[section];
+        //        //configRoot = configRoot[section];
+        //        std::cout << "FINAL rootContainer: " << rootContainer->dump(4) << "\n";
+        //    }
+
+        //    //configRoot[key] = newValue;
+        //    //save(configRoot);
+        //    return;
+        //}
+
+        //configRoot[path][key] = newValue;
+        //save(configRoot);
     }
 
     template<typename T>

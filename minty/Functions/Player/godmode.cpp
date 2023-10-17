@@ -28,7 +28,7 @@ namespace cheat {
 
 	void GodMode::Outer() {
 		if (godModeHotkey.IsPressed())
-			f_Enabled.setValue(f_Enabled.getValue());
+			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 
 	void GodMode::Status() {

@@ -93,7 +93,6 @@
     <ClCompile Include="Functions\Misc\CameraZoom.cpp" />
     <ClCompile Include="Functions\Misc\OpenTeamImmediately.cpp" />
     <ClCompile Include="Functions\Misc\SkipEnhanceAnimation.cpp" />
-    <ClCompile Include="Utils\DisableLogReport\DisableLogReport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -229,7 +228,6 @@
     <ClInclude Include="Functions\Misc\CameraZoom.h" />
     <ClInclude Include="Functions\Misc\OpenTeamImmediately.h" />
     <ClInclude Include="Functions\Misc\SkipEnhanceAnimation.h" />
-    <ClInclude Include="Utils\DisableLogReport\DisableLogReport.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />
