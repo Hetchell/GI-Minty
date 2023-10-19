@@ -55,7 +55,7 @@ void Init() {
 
     INIT_FUNC(Settings);
 
-    INIT_FUNC(AutoTP);
+    //INIT_FUNC(AutoTP);
     INIT_FUNC(DumbEnemies);
     INIT_FUNC(GameSpeed);
 }

@@ -40,10 +40,10 @@ namespace cheat {
     void CriwareMediaPlayer_Update(app::CriwareMediaPlayer* __this, app::MethodInfo* method) {
         auto& CutsceneSkip = CutsceneSkip::getInstance();
 
-        util::log(M_Debug, "Skip Cutscene enabled: %d", CutsceneSkip.f_Enabled.getValue());
+        LOG_DEBUG("Skip Cutscene enabled: %d", CutsceneSkip.f_Enabled.getValue());
         if (CutsceneSkip.f_Enabled.getValue())
             app::CriwareMediaPlayer_Skip(__this, method);
-        util::log(M_Debug, "skipped!");
+        LOG_DEBUG("skipped!");
         return CALL_ORIGIN(CriwareMediaPlayer_Update, __this, method);
     }
 }

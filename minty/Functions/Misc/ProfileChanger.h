@@ -11,7 +11,7 @@ namespace cheat {
 	class ProfileChanger : public Function {
 	public:
 		ConfigField<bool> f_EnabledUid;
-		ConfigField<std::string> f_Uid;
+		ConfigField<std::string> f_UidValue;
 
 		inline static Hotkey uidHotkey = Hotkey("Uid");
 

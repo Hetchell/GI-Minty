@@ -45,8 +45,10 @@ namespace cheat {
 	static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_Hook(app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this) {
 		auto& OpenTeamImmediately = OpenTeamImmediately::getInstance();
 
-		if (OpenTeamImmediately.f_Enabled.getValue() && !OpenTeamImmediately.InLevelPlayerProfilePageContext)
-			__this->fields._levelMainPageContext->fields._countDownTime = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
+		LOG_DEBUG("OTI!");
+		//LOG_DEBUG("EnterCountDown: %f", *(float*)(((uintptr_t) __this->fields._levelMainPageContext) + 0x530));
+		//if (OpenTeamImmediately.f_Enabled.getValue() && !OpenTeamImmediately.InLevelPlayerProfilePageContext)
+			//__this->fields._levelMainPageContext->fields._countDownTime = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 		return CALL_ORIGIN(MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_Hook, __this);
 	}
 

@@ -2,8 +2,6 @@
 
 using namespace app;
 
-DO_APP_FUNC(0x03C67F70, 0x03CDDBA0, void, ActorUtils_SetAvatarPos, (Vector3 pos));
-
 // Cooldown cheats
 DO_APP_FUNC(0x012FDB00, 0x01315C70, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
 DO_APP_FUNC(0x044CE4F0, 0x04555D40, bool, LCAvatarCombat_IsEnergyMax, (void* __this));
@@ -76,6 +74,7 @@ DO_APP_FUNC(0x07BDF5F0, 0x07C6DE70, void*, UnityEngine__Application__set__target
 DO_APP_FUNC(0x07C245D0, 0x07CB2B20, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
 
 DO_APP_FUNC(0x07BFD530, 0x07C8BC80, float, Vector3_Distance, (app::Vector3 pos1, app::Vector3 pos2));
+DO_APP_FUNC(0x07BFD960, 0x07C8C0B0, app::Vector3, Vector3_Slerp, (app::Vector3 start, app::Vector3 end, float time));
 
 DO_APP_FUNC(0x07B1A4F0, 0x07BA99D0, bool, Cursor_get_visible, (app::MethodInfo* method));
 DO_APP_FUNC(0x07B1A510, 0x07BA99F0, void, Cursor_set_visible, (bool value));
@@ -126,6 +125,9 @@ DO_APP_FUNC(0x020D8A30, 0x021165E0, bool, MoleMole_LCIndicatorPlugin_DoCheck, (a
 DO_APP_FUNC(0x020D9DC0, 0x02117970, void, MoleMole_LCIndicatorPlugin_ShowIcon, (app::LCIndicatorPlugin* __this));
 DO_APP_FUNC(0x020D8BC0, 0x02116770, void, MoleMole_LCIndicatorPlugin_HideIcon, (app::LCIndicatorPlugin* __this));
 
+// Profile Changer
+DO_APP_FUNC(0x02EC4030, 0x02F1E7B0, app::Button_1*, ProfilePage, (app::MonoInLevelPlayerProfilePage* __this, app::MethodInfo* method));
+
 // Modify
 DO_APP_FUNC(0x033EC7D0, 0x03452BC0, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
 
@@ -147,6 +149,7 @@ DO_APP_FUNC(0x01D60090, 0x01D93A10, void, MoleMole_EquipOverviewPageContext_Play
 
 // Teleport hooks
 DO_APP_FUNC(0x02609F70, 0x02652AF0, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
+DO_APP_FUNC(0x03C67F70, 0x03CDDBA0, void, ActorUtils_SetAvatarPos, (Vector3 pos));
 
 // Open team immediately
 DO_APP_FUNC(0x012B43E0, 0x012CC050, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
@@ -158,5 +161,3 @@ DO_APP_FUNC(0x0300BA90, 0x03068F50, void, MoleMole_LevelSyncCombatPlugin_Request
 DO_APP_FUNC(0x02746CC0, 0x02792100, void, MoleMole_DataItem_HandleNormalProp, (app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state));
 // Wanderer E Stamina
 DO_APP_FUNC(0x01C04300, 0x01C34160, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));
-
-DO_APP_FUNC(0x07BFD960, 0x07C8C0B0, app::Vector3, Vector3_Slerp, (app::Vector3 start, app::Vector3 end, float time));
