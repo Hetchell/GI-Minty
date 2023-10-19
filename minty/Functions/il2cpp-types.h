@@ -10531,8 +10531,7 @@ typedef union Il2CppSingle_float
         struct Behaviour__Fields fields;
     };
 
-    struct IGKEDHHIDMA__Fields
-    {
+    struct IGKEDHHIDMA__Fields {
         struct BasePageContext__Fields _;
         float EnterCountDown;
         struct String* CountDownPrefab;

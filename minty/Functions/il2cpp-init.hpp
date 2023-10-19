@@ -7,12 +7,9 @@
 #include "../Utils/Utils.hpp"
 #include "../Json/json.hpp"
 
-uintptr_t baseAddress;
-uintptr_t unityPlayerAddress;
-
 // Define IL2CPP API function addresses
 #define DO_API(a, b, r, n, p) r(*n) p
-#include "il2cpp-api-functions.h"
+	#include "il2cpp-api-functions.h"
 #undef DO_API
 
 // Define function addresses
@@ -20,8 +17,8 @@ uintptr_t unityPlayerAddress;
 #define DO_TYPEDEF(a, n) n ## __Class** n ## __TypeInfo
 #define DO_APP_FUNC_METHODINFO(a, n) struct MethodInfo ** n
 namespace app {
-#include "il2cpp-types.h"
-#include "il2cpp-functions.h"
+	#include "il2cpp-types.h"
+	#include "il2cpp-functions.h"
 }
 #undef DO_APP_FUNC
 #undef DO_TYPEDEF
@@ -30,16 +27,20 @@ namespace app {
 // Define UnityPlayer functions
 #define DO_UP_FUNC(a, b, r, n, p) r(*n) p
 namespace app {
-#include "il2cpp-unityplayer-functions.h"
+	#include "il2cpp-unityplayer-functions.h"
 }
 #undef DO_UP_FUNC
 
-enum GAMEVER : int {
-	GLOBAL = 1,
-	CHINA = 2
+#define SELECT_VERSION(VERSION, OS_OFFSET, CN_OFFSET) (VERSION == GameVersion::GLOBAL ? OS_OFFSET : CN_OFFSET)
+
+enum class GameVersion {
+	NONE,
+	GLOBAL,
+	CHINA
 };
 
-GAMEVER CheckGameVer() {
+GameVersion getGameVersion() {
+	//std::string execPath = config::getValue("exec_path", "", "").getValue();
 	std::ifstream config_file("minty.json");
 	nlohmann::json config_json;
 	config_file >> config_json;
@@ -48,22 +49,35 @@ GAMEVER CheckGameVer() {
 	std::string execpath = config_json["exec_path"];
 
 	if (execpath.find("GenshinImpact.exe") != std::string::npos) {
-		return GLOBAL;
+		return GameVersion::GLOBAL;
 	}
 	if (execpath.find("YuanShen.exe") != std::string::npos) {
-		return CHINA;
+		return GameVersion::CHINA;
 	}
+	return GameVersion::NONE;
 }
 
+uintptr_t baseAddress;
+uintptr_t unityPlayerAddress;
+
 VOID init_il2cpp() {
-	auto gameVer = CheckGameVer();
+	auto gameVersion = getGameVersion();
+
+	if (gameVersion != GameVersion::NONE)
+		util::log(M_Info, "Detected %s version.", gameVersion == GameVersion::GLOBAL ? "GLOBAL" : "CHINA");
+	else {
+		util::log(M_Error, "Failed to detect any game version. If you sure that cheat has updated for current game version, and you downloaded the correct one.");
+		system("pause");
+		exit(0);
+		return;
+	}
 
 	while (baseAddress == (uint64_t) nullptr) {
 		static bool repeat = false;
 
 		if (!repeat) {
 			repeat = true;
-			util::log(M_Warning, "UA is still very not real. wawiting..");
+			util::log(M_Warning, "UserAssembly is still null. waiting..");
 		}
 
 		Sleep(1000);
@@ -75,46 +89,23 @@ VOID init_il2cpp() {
 			util::log(M_Debug, "UserAssembly ptr: %p", baseAddress);
 			util::log(M_Debug, "UnityPlayer ptr: %p", unityPlayerAddress);
 
-			if (gameVer == GAMEVER::GLOBAL) {
-#define DO_API(a, b, r, n, p) n = (r (*) p)(baseAddress + a)
-#include "il2cpp-api-functions.h"
-#undef DO_API
+			#define DO_API(a, b, r, n, p) n = (r (*) p)(baseAddress + SELECT_VERSION(gameVersion, a, b))
+				#include "il2cpp-api-functions.h"
+			#undef DO_API
 
-#define DO_APP_FUNC(a, b, r, n, p) n = (r (*) p)(baseAddress + a)
-#define DO_APP_FUNC_METHODINFO(a, b, n) n = (struct MethodInfo **)(baseAddress + a)
-#include "il2cpp-functions.h"
-#undef DO_APP_FUNC
-#undef DO_APP_FUNC_METHODINFO
+			#define DO_APP_FUNC(a, b, r, n, p) n = (r (*) p)(baseAddress + SELECT_VERSION(gameVersion, a, b))
+			#define DO_APP_FUNC_METHODINFO(a, b, n) n = (struct MethodInfo **)(baseAddress + SELECT_VERSION(gameVersion, a, b))
+				#include "il2cpp-functions.h"
+			#undef DO_APP_FUNC
+			#undef DO_APP_FUNC_METHODINFO
 
-#define DO_TYPEDEF(a, b, n) n ## __TypeInfo = (n ## __Class**) (baseAddress + a)
-#include "il2cpp-types.h"
-#undef DO_TYPEDEF
+			#define DO_TYPEDEF(a, b, n) n ## __TypeInfo = (n ## __Class**) (baseAddress + SELECT_VERSION(gameVersion, a, b))
+				#include "il2cpp-types.h"
+			#undef DO_TYPEDEF
 
-#define DO_UP_FUNC(a, b, r, n, p) n = (r (*) p)(unityPlayerAddress + a)
-#include "il2cpp-unityplayer-functions.h"
-#undef DO_UP_FUNC
-				util::log(M_Info, "Defined GLOBAL game client.");
-			}
-			else if (gameVer == GAMEVER::CHINA) {
-#define DO_API(a, b, r, n, p) n = (r (*) p)(baseAddress + b)
-#include "il2cpp-api-functions.h"
-#undef DO_API
-
-#define DO_APP_FUNC(a, b, r, n, p) n = (r (*) p)(baseAddress + b)
-#define DO_APP_FUNC_METHODINFO(a, b, n) n = (struct MethodInfo **)(baseAddress + b)
-#include "il2cpp-functions.h"
-#undef DO_APP_FUNC
-#undef DO_APP_FUNC_METHODINFO
-
-#define DO_TYPEDEF(a, b, n) n ## __TypeInfo = (n ## __Class**) (baseAddress + b)
-#include "il2cpp-types.h"
-#undef DO_TYPEDEF
-
-#define DO_UP_FUNC(a, b, r, n, p) n = (r (*) p)(unityPlayerAddress + b)
-#include "il2cpp-unityplayer-functions.h"
-#undef DO_UP_FUNC
-				util::log(M_Info, "Defined CHINA game client.");
-			}
+			#define DO_UP_FUNC(a, b, r, n, p) n = (r (*) p)(unityPlayerAddress + SELECT_VERSION(gameVersion, a, b))
+				#include "il2cpp-unityplayer-functions.h"
+			#undef DO_UP_FUNC
 		}
 	}
 }

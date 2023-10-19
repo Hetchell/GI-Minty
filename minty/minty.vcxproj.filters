@@ -93,6 +93,8 @@
     <ClCompile Include="Functions\Misc\CameraZoom.cpp" />
     <ClCompile Include="Functions\Misc\OpenTeamImmediately.cpp" />
     <ClCompile Include="Functions\Misc\SkipEnhanceAnimation.cpp" />
+    <ClCompile Include="Utils\Logger.cpp" />
+    <ClCompile Include="ImGui\ImGui\imgui_stdlib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -228,6 +230,8 @@
     <ClInclude Include="Functions\Misc\CameraZoom.h" />
     <ClInclude Include="Functions\Misc\OpenTeamImmediately.h" />
     <ClInclude Include="Functions\Misc\SkipEnhanceAnimation.h" />
+    <ClInclude Include="Utils\Logger.h" />
+    <ClInclude Include="ImGui\ImGui\imgui_stdlib.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

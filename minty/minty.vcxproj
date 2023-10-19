@@ -188,9 +188,11 @@
     <ClCompile Include="GUI\Translations.cpp" />
     <ClCompile Include="Hotkeys\Hotkey.cpp" />
     <ClCompile Include="Hotkeys\KeyBind.cpp" />
+    <ClCompile Include="ImGui\ImGui\imgui_stdlib.cpp" />
     <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
     <ClCompile Include="Utils\GuiUtils.cpp" />
     <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
+    <ClCompile Include="Utils\Logger.cpp" />
     <ClCompile Include="Utils\LuaUtils.cpp" />
     <ClCompile Include="Utils\ProtectionBypass.cpp" />
     <ClCompile Include="Utils\util.cpp" />
@@ -321,6 +323,7 @@
     <ClCompile Include="GUI\InitGui.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
+    <ClInclude Include="ImGui\ImGui\imgui_stdlib.h" />
     <ClInclude Include="Lua\function.h" />
     <ClInclude Include="Lua\lapi.h" />
     <ClInclude Include="Lua\lcode.h" />
@@ -358,6 +361,7 @@
     <ClInclude Include="Utils\GuiUtils.hpp" />
     <ClInclude Include="Utils\ImageLoader\ImageLoader.hpp" />
     <ClInclude Include="Utils\ImageLoader\stb_image.h" />
+    <ClInclude Include="Utils\Logger.h" />
     <ClInclude Include="Utils\LuaUtils.hpp" />
     <ClInclude Include="Utils\ProtectionBypass.h" />
     <ClInclude Include="Utils\util.h" />

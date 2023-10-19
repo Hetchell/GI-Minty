@@ -13,7 +13,7 @@ Hotkey::Hotkey()
 
 Hotkey::Hotkey(const char* jsonStateName)
 {
-    this->m_nHkey = readHotkeyFromJson(jsonStateName);
+    this->m_nHkey = 0;
     this->hotkeyJsonName = jsonStateName;
     this->bWaitsInput = false;
 }

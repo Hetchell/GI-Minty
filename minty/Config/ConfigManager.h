@@ -2,15 +2,13 @@
 
 #include <string>
 #include <fstream>
-#include <iostream>
 
 #include "../Json/json.hpp"
 #include "../Utils/util.h"
 #include "ConfigField.h"
+#include "../Utils/Logger.h"
 
 using json = nlohmann::json;
-
-static json configRoot;
 
 namespace config {
     void save(json config);
@@ -18,6 +16,7 @@ namespace config {
     template <typename T>
     ConfigField<T> getValue(const std::string& path, const std::string& key, const T& defaultValue) {
         std::ifstream configFile("minty.json");
+        json configRoot;
 
         configFile >> configRoot;
         configFile.close();
@@ -39,39 +38,31 @@ namespace config {
 
     template<typename T>
     void setValue(const std::string& path, const std::string key, const T& newValue) {
-        //std::ifstream configFile("minty.json");
+        std::ifstream configFile("minty.json");
+        json configRoot;
+        
+        configFile >> configRoot;
+        configFile.close();
 
-        //configFile >> configRoot;
-        //configFile.close();
+        json* configTemp = &configRoot;
 
-        //json* rootContainer = &configRoot;
+        if (path.find(":") != std::string::npos) {
+            auto sections = util::split(path, ":");
 
-        //if (path.find(":") != std::string::npos) {
-        //    auto sections = util::split(path, ":");
-        //    const auto lastKey = sections.back();
-        //    std::cout << "lastKey: " << lastKey << "\n";
+            for (auto& section : sections) {
+                if (!configTemp->contains(section))
+                    (*configTemp)[section] = {};
 
-        //    for (auto& section : sections) {
-        //        std::cout << "section: " << section << "\n";
+                configTemp = &(*configTemp)[section];
+            }
 
-        //        if (!rootContainer->contains(section)) {
-        //            std::cout << "1 rootContainer: " << rootContainer->dump(4) << "\n";
-        //            (*rootContainer)[section] = {};
-        //            std::cout << "2 rootContainer: " << rootContainer->dump(4) << "\n";
-        //        }
-        //        
-        //        rootContainer = &(*rootContainer)[section];
-        //        //configRoot = configRoot[section];
-        //        std::cout << "FINAL rootContainer: " << rootContainer->dump(4) << "\n";
-        //    }
+            (*configTemp)[key] = newValue;
+            save(configRoot);
+            return;
+        }
 
-        //    //configRoot[key] = newValue;
-        //    //save(configRoot);
-        //    return;
-        //}
-
-        //configRoot[path][key] = newValue;
-        //save(configRoot);
+        configRoot[path][key] = newValue;
+        save(configRoot);
     }
 
     template<typename T>

@@ -23,9 +23,8 @@ namespace cheat {
         ImGui::SameLine();
         HelpMarker("Turn Discord custom RPC on/off. Requires re-entering game.");
 
-        ConfigSliderInt("Initialization delay (ms)", f_InitDelay, 0, 60000);
-        ImGui::SameLine();
-        HelpMarker("Change delay before showing menu. May cause lags while opening, so try to change this value in case.");
+        ConfigSliderInt("Initialization delay (ms)", f_InitDelay, 0, 60000,
+            "Change delay before showing menu. May cause lags while opening, so try to change this value in case.");
 
         ImGui::SeparatorText("Theme");
 
@@ -64,9 +63,8 @@ namespace cheat {
 
         ImGui::SeparatorText("Customize");
         ImGui::Checkbox("Show Style Editor", &show_style_editor);
-        ConfigSliderFloat("Duration of animation (s)", f_AnimationDuration, 0, 5.0f);
-        ImGui::SameLine();
-        HelpMarker(_("Window appearance animation duration."));
+        ConfigSliderFloat("Duration of animation (s)", f_AnimationDuration, 0, 5.0f,
+            "Window appearance animation duration.");
 	}
 
     void Settings::Outer() {

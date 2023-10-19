@@ -347,8 +347,7 @@ std::vector<uint8_t> from_hex(std::string string) {
 			return ch - 55;
 		};
 
-	for (int i = 0; i < string.length(); i += 2)
-	{
+	for (int i = 0; i < string.length(); i += 2) {
 		char firstchar = HexCharToByte(string[i]);
 		char secondchar = HexCharToByte(string[i + 1]);
 		char result = (16 * firstchar) | secondchar;
@@ -424,13 +423,14 @@ static __int64 __fastcall sub_18012A580_Hook(__int64 a1, __int64 a2) {
 uintptr_t hTelemetry;
 void ProtectionBypass::Init() {
 	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
-	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 
 	for (int i = 0; i < 4; i++) {
 		app::Application_RecordUserData(i, nullptr);
 		//std::string checksum = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
 		//std::cout << "checksum #" << i << ": " << checksum << "\n";
 	}
+
+	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
 	//util::log(M_Info, "Trying to close mhyprot.");
 
@@ -440,8 +440,10 @@ void ProtectionBypass::Init() {
 	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
 	DisableLogReport();
 
-	while (hTelemetry == (uint64_t) nullptr)
+	while (hTelemetry == (uint64_t) nullptr) {
+		Sleep(1000);
 		hTelemetry = (uint64_t) GetModuleHandleA("telemetry.dll");
+	}
 
 	HookManager::install((sub_18012A580)(hTelemetry + 0x12A580), sub_18012A580_Hook);
 	util::log(M_Info, "Initialized protection bypass");
