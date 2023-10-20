@@ -95,6 +95,9 @@
     <ClCompile Include="Functions\Misc\SkipEnhanceAnimation.cpp" />
     <ClCompile Include="Utils\Logger.cpp" />
     <ClCompile Include="ImGui\ImGui\imgui_stdlib.cpp" />
+    <ClCompile Include="Functions\Misc\ElementalSight.cpp" />
+    <ClCompile Include="Functions\Misc\HideUI.cpp" />
+    <ClCompile Include="Functions\Misc\HideDamage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -232,6 +235,9 @@
     <ClInclude Include="Functions\Misc\SkipEnhanceAnimation.h" />
     <ClInclude Include="Utils\Logger.h" />
     <ClInclude Include="ImGui\ImGui\imgui_stdlib.h" />
+    <ClInclude Include="Functions\Misc\ElementalSight.h" />
+    <ClInclude Include="Functions\Misc\HideUI.h" />
+    <ClInclude Include="Functions\Misc\HideDamage.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

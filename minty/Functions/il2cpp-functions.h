@@ -128,6 +128,11 @@ DO_APP_FUNC(0x020D8BC0, 0x02116770, void, MoleMole_LCIndicatorPlugin_HideIcon, (
 // Profile Changer
 DO_APP_FUNC(0x02EC4030, 0x02F1E7B0, app::Button_1*, ProfilePage, (app::MonoInLevelPlayerProfilePage* __this, app::MethodInfo* method));
 
+// Visuals
+DO_APP_FUNC(0x0349D9D0, 0x0, void, MonoParticleDamageTextContainer_ShowDamageText, (void* __this, void* MPNOONEAJLB, void* AKFGHNDBADA));
+DO_APP_FUNC(0x012141B0, 0x0, float, get_gammaValue, (app::MethodInfo* method));
+DO_APP_FUNC(0x06A40B80, 0x0, void, set_gammaValue, (float value));
+
 // Modify
 DO_APP_FUNC(0x033EC7D0, 0x03452BC0, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
 

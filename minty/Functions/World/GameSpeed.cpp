@@ -5,7 +5,7 @@ namespace cheat {
 
 	GameSpeed::GameSpeed() {
 		f_Enabled = config::getValue("functions:GameSpeed", "enabled", false);
-		f_Speed = config::getValue("functions:GameSpeed", "speed", 5.0f);
+		f_Speed = config::getValue("functions:GameSpeed", "multiplier", 5.0f);
 
 		HookManager::install(app::GameManager_Update, onUpdate_3);
 	}
@@ -16,11 +16,11 @@ namespace cheat {
 	}
 
 	void GameSpeed::GUI() {
-		ConfigCheckbox("Game Speed", f_Enabled);
+		ConfigCheckbox("Game Speed", f_Enabled, "Speeds up game.");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			ConfigSliderFloat("Speed value", f_Speed, 1.0f, 20.0f);
+			ConfigSliderFloat("Multiplier", f_Speed, 1.0f, 20.0f, "Set GameSpeed Multiplier");
 			speedHackHotkey.Draw();
 			ImGui::Unindent();
 		}

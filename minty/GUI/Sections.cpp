@@ -3,7 +3,10 @@
 #include "../Functions/Misc/AutoTalk.h"
 #include "../Functions/Misc/CameraZoom.h"
 #include "../Functions/Misc/CutsceneSkip.h"
+#include "../Functions/Misc/ElementalSight.h"
 #include "../Functions/Misc/FovChanger.h"
+#include "../Functions/Misc/HideDamage.h"
+#include "../Functions/Misc/HideUI.h"
 #include "../Functions/Misc/OpenTeamImmediately.h"
 #include "../Functions/Misc/Peeking.h"
 #include "../Functions/Misc/ProfileChanger.h"
@@ -38,7 +41,10 @@ void Init() {
     INIT_FUNC(AutoTalk);
     INIT_FUNC(CameraZoom);
     INIT_FUNC(CutsceneSkip);
+    //INIT_FUNC(ElementalSight);
     INIT_FUNC(FovChanger);
+    INIT_FUNC(HideDamage);
+    INIT_FUNC(HideUI);
     //INIT_FUNC(OpenTeamImmediately);
     INIT_FUNC(Peeking);
     INIT_FUNC(ProfileChanger);

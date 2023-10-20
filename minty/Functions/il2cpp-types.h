@@ -7404,9 +7404,20 @@ typedef union Il2CppSingle_float
         MotionFlyIdle = 0x00000033,
         MotionFlySlow = 0x00000034,
         MotionFlyFast = 0x00000035,
-        MotionNum = 0x00000036,
-        OOFNNHKLEFE = 0x00000037,
-        KMIGLMEGNOK = 0x00000038,
+        MotionAimMove = 0x00000036,
+        MotionAirCompensation = 0x00000037,
+        MotionSorushNormal = 0x00000038,
+        MotionRollerCoaster = 0x00000039,
+        MotionDiveIdle = 0x0000003a,
+        MotionDiveMove = 0x0000003b,
+        MotionDiveDash = 0x0000003c,
+        MotionDiveDolphine = 0x0000003d,
+        MotionDebug = 0x0000003e,
+        MotionOceanCurrent = 0x0000003f,
+        MotionDiveSwimMove = 0x00000040,
+        MotionDiveSwimIdle = 0x00000041,
+        MotionDiveSwimDash = 0x00000042,
+        MotionNum = 0x00000043,
     };
 
     struct MotionInfo__Fields {
@@ -10533,181 +10544,186 @@ typedef union Il2CppSingle_float
 
     struct IGKEDHHIDMA__Fields {
         struct BasePageContext__Fields _;
-        float EnterCountDown;
-        struct String* CountDownPrefab;
-        struct GameObject* _CountDownGo;
-        struct MonoInLevelProgressBar* _script;
-        float _countDownTime;
-        uint32_t _handle;
-        struct Image* _fillImage;
-        struct Coroutine* countCoroutine;
-        bool _panelActive;
-        bool _countDownAcitve;
-        bool _isEndingCountdown;
-        struct Nullable_1_MoleMole_AsyncJob_ _countDownLoadingJob;
-        int32_t _versusBattleTotle;
-        struct CNCFAOMBJIP* _countDown;
-        struct EAPNPEGAAII* _inteePanelCom;
-        struct AJEAPLJOAON* _directionIndicator;
-        struct ELCMPFBKPBA* _targetIndicator;
-        struct GDIAIBAJMDC* _gadgetIndicator;
-        struct OOKIJPIAEGD* _navigationIndicator;
-        struct LNBLFPFIGFF* _galleryPlay;
-        struct BPJHCKHOCIO* _quickChangeTeamCom;
-        struct MonoParticleDamageTextContainer* _damageParticleTextContainer;
-        void* _pageMono;
-        struct MonoInLevelLimitRegion* _monoBlackMask;
-        struct BEJJFHHKIBA* _newItemDialog;
-        struct NBMGJNBMIOA* _specialItemDialog;
-        struct MLHLCCGMGOP* _galleryDialog;
-        struct GJPBGPGKGNN* _localAvatar;
-        struct Button* _transBtn;
-        int32_t _lastLayoutVersion;
-        bool _canChangeMoveType;
-        bool _autoOpenedDungeonFactor;
-        bool _forbiddenToggleMoveByState;
-        bool _isPaimonNormal;
-        bool _isChatEnabled;
-        struct MBKDBIHKAGD* chatBubbleDisplayer;
-        bool _chatPanelResolved;
-        bool _mapActive;
-        bool _transAppear;
-        struct DateTime _rttRefreshTime;
-        struct Color _rttGreen;
-        struct Color _rttYellow;
-        struct Color _rttRed;
-        uint32_t _rttLowLimit;
-        uint32_t _rttMidLimit;
-        uint32_t _rttHighLimit;
-        uint32_t _rttRefreshDeltaTime;
-        struct String* KMBJFGJMNMH;
-        struct Coroutine* _dungeonItemCoroutine;
-        bool _isOpenInputContainer;
-        bool _isOpenActionContainer;
-        bool _isOpenMessageContainer;
-        uint32_t _lastTimeLeft;
-        uint32_t _lastCount;
-        int32_t combatBarType;
-        struct List_1_EJFOBCPHDFP_* _saveCombatsData;
-        struct GameObject* m_LightingInfoUI;
-        struct GameObject* m_TreeOverdrawInfoUI;
-        struct GameObject* m_QuickRenderMenu;
-        bool _inShakeOff;
-        struct OKGLPFDFCPK* _challengeConfig;
-        struct Coroutine* _blossomBeginCoroutine;
-        struct MonoTowerHintText* _hintPage;
-        struct Coroutine* fleurFairDungeonStartAnimCoroutine;
-        float _curFleurFairDungeonBarValue;
-        bool _isInFlightChallenge;
-        bool _isShowFlightChallengeHint;
-        struct OKGLPFDFCPK* _flightSubChallengeConfig;
-        bool _waitStart;
-        struct Coroutine* _startCoroutine;
-        struct Coroutine* _uidCoroutine;
-        bool _playUidOpEnd;
-        uint32_t _curStage;
-        struct HDMIAHJPLCJ* _combat;
-        struct Coroutine* _altPressCoroutine;
-        struct Coroutine* _cameraLookEndCoroutine;
-        bool _disableSkillInput;
-        bool _disableMoveInput;
-        bool _disableActionInput;
-        bool _mapInfoVisible;
-        bool _chatInfoVisible;
-        struct Dictionary_2_System_Int32_HashSet_1_System_Int32_* _uiDisableStateDic;
-        struct Dictionary_2_System_Int32_HashSet_1_System_Int32_* _inputEnableStateDic;
-        struct HashSet_1_System_Int32_* _mainPageDisableSet;
-        struct DODHAKHMNDK* zoomSmoother;
-        struct KOOFBIDHECP* _virtualDialDialog;
-        struct NOIFCOKPBBI* AEKMPNKPJCK;
-        int32_t _prevState;
-        bool _changeWithSkill;
-        struct DINCOJBJLML* _messageDialog;
-        bool showHazadousWarning;
-        struct List_1_DINCOJBJLML_PGCPDEKPCKM_* HGLADPDCIEO;
-        struct IKECDNKKMJM* _questHintDialog;
-        struct FBCIMPOLFEI* _questProgressDialog;
-        struct ECDKKGFNMNF* _rewardDialogGeneral;
-        struct ECDKKGFNMNF* _rewardDialogQuest;
-        struct ECDKKGFNMNF* _rewardDialogDailyTask;
-        struct ECDKKGFNMNF* _rewardDialogRandTask;
-        struct ECDKKGFNMNF* _rewardDialogGather;
-        struct GCMPGGFPHDJ* _deblockingDialog;
-        struct OEBIPCONBLK* _taskTitleDialog;
-        struct Coroutine* _templateReminderCoroutine;
-        struct PCIKGHOIFOO* _reminderDialog;
-        bool HICPKFKAOCK;
-        struct Nullable_1_UnityEngine_Vector3_ _targetPos;
-        int32_t _lastIntDst;
-        bool _pushtipsShowed;
-        bool BPENOEMPIBP;
-        uint32_t APGMBPPFPDH;
-        struct PGGJOHPFKCO* HIJIBGFKGAC;
-        bool NLNAHEMFIDM;
-        struct MonoMiniMap* _miniMap;
-        struct MonoMapFogAreaGrp* _miniMapFog;
-        bool _mapImgReady;
-        uint32_t _mapImageHandle;
-        uint32_t _mapFogHandle;
-        struct Dictionary_2_System_Int32_Dictionary_2_System_UInt32_MoleMole_MonoMapMark_* _marks;
-        struct HashSet_1_MoleMole_MonoMapMark_* _activeMarks;
-        struct HashSet_1_MoleMole_MonoMapMark_* _candidateMarks;
-        struct Vector2 _searchRegionCenter;
-        struct MonoMapMark* _mapMarkPrefab;
-        uint32_t _sceneID;
-        float _sqrUpdateSearchDistance;
-        float _sqrSearchRegionRadius;
-        struct GameObject* _mapImageInst;
-        float _miniMapScale;
-        float _defaultMiniMapScale;
-        struct RectTransform* _miniMapBackImg;
-        struct MonoLevelMap* _levelMap;
-        struct RectTransform* _levelMapTrans;
-        struct Vector2 rectSize;
-        struct Coroutine* _setScaleCoroutine;
-        float _currTime;
-        float _tweenTime;
-        float _targetScale;
-        float _preScale;
-        bool _forceUpdateMark;
-        struct Vector3 _lastPlayerPos;
-        float _lastCameraAngle;
-        float _lastAvatarAngle;
-        struct BaseEntity* _teamEntity;
-        struct Transform* _cameraTrans;
-        float _markContainerLocalEulerAngleZ;
-        bool updateCamera;
-        struct Vector3 newEulerAngle;
-        int32_t _lastFixType;
-        struct HashSet_1_System_UInt32_* _fakemarkTobeRemoved;
-        bool _mapBackRotateDirty;
-        bool _mapContainerDiry;
-        bool _isSignalActive;
-        float _checkInterval;
-        float _checkTime;
-        float _lastDistance;
-        float _audioTime;
-        float _audioPeriod;
-        uint32_t _signalAudioID;
-        struct String* miniMapQuestMarkPath;
-        struct Dictionary_2_System_UInt32_MoleMole_MonoMapMark_* _fakeMarkDic;
-        uint32_t _fakeMarkHandle;
-        float _sightWorldRadius_k__BackingField;
-        float _markReachToUIRatio_k__BackingField;
-        float _worldUnitPerPixel_k__BackingField;
-        bool _questEnable;
-        struct Coroutine* _spPresstartCoroutine;
-        uint64_t _currentAvatarID;
-        struct List_1_MoleMole_MonoTeamBtn_* _buttonList;
-        struct List_1_System_UInt64_* _avatarGuidList;
-        bool _showChangeAvatarCDText;
-        int32_t _count;
-        struct List_1_MoleMole_MonoMPTeamBtn_* teamBtnList;
-        bool _hideTeamBtnName;
-        float HFFMDBPJNCL;
-        struct Dictionary_2_System_Int32_Queue_1_MoleMole_BaseContext_* _widgetQueueDic;
-        float DELAY_TIME;
-        struct Action* _onSetActiveHandler;
+        struct String* PKPAIENHLNL; // Offset: 0x1A8
+        void* KHEMOIHABFB; // Offset: 0x1B0
+        struct BGPOFBNGMHD* FFICGALLCBM; // Offset: 0x1B8
+        struct CCBABCLHDMO* ADNKDCPJAIC; // Offset: 0x1C0
+        struct FCEJMGNJMKG* DLGLBHCKECJ; // Offset: 0x1C8
+        struct Coroutine* DBANPKDEDNM; // Offset: 0x1D0
+        struct Dictionary_2_System_UInt32_MoleMole_MonoMapMark_* MODELIDLEJP; // Offset: 0x1D8
+        struct GameObject* EIJGOKAPICD; // Offset: 0x1E0
+        struct DGFMCHNMMLD* JJGAMDDDKFK; // Offset: 0x1E8
+        struct KHIJINBLHHL* CAOLEBBGIAC; // Offset: 0x1F0
+        struct HashSet_1_MoleMole_MonoMapMark_* NOHBIJMPBNP; // Offset: 0x1F8
+        struct NEELAJGIFLM* GOOJHOMLLFJ; // Offset: 0x200
+        void* BBDNLBAIFDB; // Offset: 0x208
+        void* _pageMono; // Offset: 0x210
+        struct Coroutine* ACAIDFDELCF; // Offset: 0x218
+        struct Coroutine* CGLCOJKEEDI; // Offset: 0x220
+        struct Dictionary_2_System_Int32_Dictionary_2_System_UInt32_MoleMole_MonoMapMark_* NIONNIBIEGG; // Offset: 0x228
+        struct GameObject* GLGFEHOABLD; // Offset: 0x230
+        struct ABEAIABHCNF* FMGINGCJKBH; // Offset: 0x238
+        struct DMHAAPABAMM* JHIKAIODDHC; // Offset: 0x240
+        struct RectTransform* APCDMBNHECP; // Offset: 0x248
+        struct Action* PPDOGGPBDMK; // Offset: 0x250
+        struct Coroutine* CDMAHHICJIK; // Offset: 0x258
+        struct HHKLIBIAKLJ* IJLMKDABECH; // Offset: 0x260
+        struct EOELGFKGCHB* HHGPDMPKNEE; // Offset: 0x268
+        struct List_1_MoleMole_MonoMPTeamBtn_* AHEEPBNLMEK; // Offset: 0x270
+        struct List_1_MoleMole_MonoTeamBtn_* ALDOBPFGBIJ; // Offset: 0x278
+        struct GameObject* BNGJOBCABML; // Offset: 0x280
+        struct APLIGEIBABO* PNEKICIAAGN; // Offset: 0x288
+        struct FOMMIKMHPLE* IMONGABMCPA; // Offset: 0x290
+        struct OECLPONJANO* MGOBOFDINPB; // Offset: 0x298
+        struct Image* OGNECIDHGDH; // Offset: 0x2A0
+        struct OPJDELACPHH* KENPACDMKIN; // Offset: 0x2A8
+        struct Dictionary_2_System_Int32_Queue_1_MoleMole_BaseContext_* LKIGJHAOFGM; // Offset: 0x2B0
+        struct Button* FACNJAHAGFH; // Offset: 0x2B8
+        struct HEPHDFKHNJJ* DADNCGNFMKM; // Offset: 0x2C0
+        struct MLHJHKLMIMO* FNABAIHPMHC; // Offset: 0x2C8
+        struct RectTransform* HPNBLBCPBAD; // Offset: 0x2D0
+        struct HashSet_1_System_Int32_* IFPCOKHKNHI; // Offset: 0x2D8
+        struct MonoInLevelLimitRegion* CHDMJJMMGHL; // Offset: 0x2E0
+        struct MonoParticleDamageTextContainer* NMMGMHBIKAI; // Offset: 0x2E8
+        void* GHKNEADCPEC; // Offset: 0x2F0
+        struct List_1_DINCOJBJLML_PGCPDEKPCKM_* IJCMAEAOJJL; // Offset: 0x2F8
+        struct MonoLevelMap* PIAINIOAPEG; // Offset: 0x300
+        struct GameObject* OMKFFHNKHKL; // Offset: 0x308
+        struct EAHEKNAAMGM* GFEABNFAEFN; // Offset: 0x310
+        struct String* IDFOMLNBLCP; // Offset: 0x318
+        struct JOPHNLEHHHO* MIFBKLLIMJK; // Offset: 0x320
+        struct PNGGFHGPLKJ* GBMHHHOMLON; // Offset: 0x328
+        struct MonoInLevelProgressBar* HFPFLOLNLHB; // Offset: 0x330
+        struct KLHJFLFMCHG* NBPGAIIJCKB; // Offset: 0x338
+        struct JBJJHKCPJKO* GHLNMGBOMKO; // Offset: 0x340
+        struct BGIOMKFNIMI* FHHKJAAEMCO; // Offset: 0x348
+        struct MonoMapMark* LMAAAIHAKGP; // Offset: 0x350
+        struct String* OJCLDLPMFJL; // Offset: 0x358
+        struct MonoTowerHintText* MHMFAGDMEGA; // Offset: 0x360
+        struct PGCGABKJGGP* IGFPFHFHLKL; // Offset: 0x368
+        struct IFEPJDAFLOH* NFMCMDDPEDM; // Offset: 0x370
+        struct Coroutine* DPJNODGMHNJ; // Offset: 0x378
+        struct CBAGMFGOEJB* LBBKDPDCONC; // Offset: 0x380
+        struct HLIFJCNFPAI* NDONDIOOFMH; // Offset: 0x388
+        struct GameObject* PPLMAAEKPDJ; // Offset: 0x390
+        struct Transform* JFNCFFBICDN; // Offset: 0x398
+        struct Dictionary_2_System_Int32_HashSet_1_System_Int32_* OMCFBEJNMIL; // Offset: 0x3A0
+        struct HashSet_1_MoleMole_MonoMapMark_* MHOPDHHHBPP; // Offset: 0x3A8
+        struct Dictionary_2_System_Int32_HashSet_1_System_Int32_* AJKHBAKKEHE; // Offset: 0x3B0
+        struct List_1_EJFOBCPHDFP_* AACEOMMNECD; // Offset: 0x3B8
+        struct GameObject* FGGDONABIGI; // Offset: 0x3C0
+        struct MonoMapFogAreaGrp* NPKHJOBOILI; // Offset: 0x3C8
+        struct KGKBEDGHGEJ* GFEMJPMBKJA; // Offset: 0x3D0
+        struct HashSet_1_System_UInt32_* IDFBCPOOINM; // Offset: 0x3D8
+        struct BDDEBBGMGLM* MKPIPJGOIMA; // Offset: 0x3E0
+        struct JNGAMNPONEJ* MOAFNEIEPGO; // Offset: 0x3E8
+        struct MonoMiniMap* LJAFLBHDLEI; // Offset: 0x3F0
+        struct DBNHENGKHHE* KAJFBPPMAMP; // Offset: 0x3F8
+        struct Coroutine* NNKEANIOMJE; // Offset: 0x400
+        struct EICDIGMODCP* DDHKMDKMDIJ; // Offset: 0x408
+        struct Nullable_1_MoleMole_AsyncJob_* GIEAAMIFBIB; // Offset: 0x410
+        struct BKMILNBPLHE* FLPFPBPJGMD; // Offset: 0x428
+        struct GameObject* MOEFLJAIFKL; // Offset: 0x430
+        struct GameObject* GGKBHCIHNKO; // Offset: 0x438
+        struct Coroutine* JGKMJFNBDNC; // Offset: 0x440
+        struct List_1_System_UInt64_* ELEILBABOBJ; // Offset: 0x448
+        int32_t EOAPKPAHDMJ; // Offset: 0x450
+        void* OGNHGAMHGAF; // Offset: 0x454
+        float LBENNACEFMN; // Offset: 0x458
+        uint32_t MGPNBHPIMBC; // Offset: 0x45C
+        float EIKHAEMJIIN; // Offset: 0x460
+        uint32_t KOBKEHPGBFJ; // Offset: 0x464
+        struct Vector3 JMOCFNAJJMJ; // Offset: 0x468
+        float BEMNEGGOOAJ; // Offset: 0x474
+        bool PPPICHOFLOH; // Offset: 0x478
+        bool IGKFKAJMMEF; // Offset: 0x479
+        bool DGNFPGCIKDA; // Offset: 0x47A
+        bool KANAKIIBGHL; // Offset: 0x47B
+        float KLGJDCPGLKL; // Offset: 0x47C
+        float GBCCEOBJOMO; // Offset: 0x480
+        bool BDFPGOOCBAG; // Offset: 0x484
+        bool GDNNIEAMEHN; // Offset: 0x485
+        bool OEKABIDNPAP; // Offset: 0x486
+        bool OGKFOEDKDON; // Offset: 0x487
+        bool CFKGDINNLFC; // Offset: 0x488
+        bool CEFPBILHOFN; // Offset: 0x489
+        bool GDLMDDNIKMK; // Offset: 0x48A
+        bool HPKALCKJHLO; // Offset: 0x48B
+        void* GICDHPBOKNB; // Offset: 0x48C
+        float PNONLMKONHN; // Offset: 0x490
+        float KJCGOMNIEOM; // Offset: 0x494
+        struct DateTime IIHANGOPGJH; // Offset: 0x498
+        float NMNOKLKCLBD_k__BackingField; // Offset: 0x4A0
+        float PNHDLHHINJP_k__BackingField; // Offset: 0x4A4
+        bool PLAIOEPNJMD; // Offset: 0x4A8
+        bool FGAIMENDLMC; // Offset: 0x4A9
+        bool MLPOFDLAKPI; // Offset: 0x4AA
+        bool MJEMBDDDHHP; // Offset: 0x4AB
+        struct Color OAEKHNLOLKO; // Offset: 0x4AC
+        uint32_t BPPEHHMIBAB; // Offset: 0x4BC
+        uint32_t MMCJIPIHOAF; // Offset: 0x4C0
+        uint32_t HHMHMGCFAKC; // Offset: 0x4C4
+        float IMJOJMPCECK_k__BackingField; // Offset: 0x4C8
+        bool LJIMHICHOFK; // Offset: 0x4CC
+        bool DGEJOEIMLKK; // Offset: 0x4CD
+        bool BMAPOCKINCB; // Offset: 0x4CE
+        bool AMKPDPMNIOB; // Offset: 0x4CF
+        float EMJGCLKKODO; // Offset: 0x4D0
+        uint32_t AHIMHNCEHGL; // Offset: 0x4D4
+        uint32_t KALBBCOLBHD; // Offset: 0x4D8
+        void* KIFEBKFGAFJ; // Offset: 0x4DC
+        struct Vector2 LHPKDLMPDFB; // Offset: 0x4E0
+        int32_t IKFPKJEFFNH; // Offset: 0x4E8
+        float GPIEGIOKFDB; // Offset: 0x4EC
+        uint32_t PKEEAHMCEBK; // Offset: 0x4F0
+        bool EFEDOJJAEMA; // Offset: 0x4F4
+        bool LILBCNHMCNB; // Offset: 0x4F5
+        bool PDEINPMFHAA; // Offset: 0x4F6
+        bool HADHLOFACEO; // Offset: 0x4F7
+        int32_t EIBJBDHFBKE; // Offset: 0x4F8
+        struct Nullable_1_UnityEngine_Vector3_ KDMGFPACMON; // Offset: 0x4FC
+        struct Vector3 OMJABADFDFN; // Offset: 0x50C
+        int32_t PLJLLLAOBMN; // Offset: 0x518
+        uint32_t JCEHMBCBHDB; // Offset: 0x51C
+        float OHANLENNCBK; // Offset: 0x520
+        uint64_t _currentAvatarID; // Offset: 0x528
+        float EnterCountDown; // Offset: 0x530
+        uint32_t NDFCAMGKBNL; // Offset: 0x534
+        bool KNIAGMFGDAM; // Offset: 0x538
+        bool GNHAKLOKNEG; // Offset: 0x539
+        bool EDKNDGOCCJB; // Offset: 0x53A
+        bool LNMLEOKLMPE; // Offset: 0x53B
+        float LLBIKOPGGMI; // Offset: 0x53C
+        float LFMONKCFECA; // Offset: 0x540
+        float CJGHFCAFNAK; // Offset: 0x544
+        float MAHPMFPBMLN; // Offset: 0x548
+        struct GIJAJLEEHCN* HGIKGDCFLBI; // Offset: 0x54C
+        struct Vector2 DINEDMKMAPJ; // Offset: 0x550
+        float INKOBGEGJDO; // Offset: 0x558
+        float FDKENNLAOEM; // Offset: 0x55C
+        bool JDNJIEONOGC; // Offset: 0x560
+        bool FIHDJIPCCKD; // Offset: 0x561
+        bool INOAAJGKHPL; // Offset: 0x562
+        bool PNMHGKIMIKA; // Offset: 0x563
+        uint32_t HHMMINIIELI; // Offset: 0x564
+        float DJENJPHNCAK; // Offset: 0x568
+        bool KBCHOMDGMAE; // Offset: 0x56C
+        bool DEBLAHOJMKN; // Offset: 0x56D
+        bool BPHCIEJBBKF; // Offset: 0x56E
+        bool NLCLBMNPLAM; // Offset: 0x56F
+        uint32_t KDPGKBNLLPN; // Offset: 0x570
+        float OMDENNKLIGB; // Offset: 0x574
+        float DMIDIKDLGCC; // Offset: 0x578
+        uint32_t KOHGKALKBGA; // Offset: 0x57C
+        struct Color PAEIPGBCKFJ; // Offset: 0x580
+        float HCCKIJEIKGM; // Offset: 0x590
+        struct Color CJHJIMNILLC; // Offset: 0x594
+        uint32_t BJBFOAHAKJC; // Offset: 0x5A4
+        bool JOHEBFIANOO; // Offset: 0x5A8
+        bool OMMNDMOJOEF; // Offset: 0x5A9
+        bool MIKFDMMNIGB; // Offset: 0x5AA
+        bool MMIDFMOKKCO; // Offset: 0x5AB
+        uint32_t BGJCNDDACFH; // Offset: 0x5A
     };
 
     struct InLevelMainPageContext
@@ -10719,9 +10735,9 @@ typedef union Il2CppSingle_float
 
     struct __declspec(align(8)) InLevelMainPageContext_DoTeamCountDown_Iterator__Fields
     {
-        int32_t HGCHJINEMCM;
         struct Object* KOBKOALABHL;
         struct InLevelMainPageContext* _levelMainPageContext;
+        int32_t HGCHJINEMCM;
     };
 
     struct InLevelMainPageContext_DoTeamCountDown_Iterator

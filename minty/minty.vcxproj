@@ -158,6 +158,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Functions\Misc\CameraZoom.cpp" />
+    <ClCompile Include="Functions\Misc\ElementalSight.cpp" />
+    <ClCompile Include="Functions\Misc\HideDamage.cpp" />
+    <ClCompile Include="Functions\Misc\HideUI.cpp" />
     <ClCompile Include="Functions\Misc\OpenTeamImmediately.cpp" />
     <ClCompile Include="Functions\Misc\ProfileChanger.cpp" />
     <ClCompile Include="Functions\Misc\ShowChestIndicator.cpp" />
@@ -199,6 +202,9 @@
     <ClInclude Include="Config\ConfigField.h" />
     <ClInclude Include="Config\ConfigManager.h" />
     <ClInclude Include="Functions\Misc\CameraZoom.h" />
+    <ClInclude Include="Functions\Misc\ElementalSight.h" />
+    <ClInclude Include="Functions\Misc\HideDamage.h" />
+    <ClInclude Include="Functions\Misc\HideUI.h" />
     <ClInclude Include="Functions\Misc\OpenTeamImmediately.h" />
     <ClInclude Include="Functions\Misc\ProfileChanger.h" />
     <ClInclude Include="Functions\Misc\ShowChestIndicator.h" />

@@ -38,9 +38,10 @@ void Logger::log(Logger::Level logLevel, const char* format, ...) {
 	auto prefix = getLevelPrefix(logLevel);
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	SetConsoleTextAttribute(hConsole, 15);
 	std::cout << "[Minty:";
 	SetConsoleTextAttribute(hConsole, prefix.color);
 	std::cout << prefix.text;
-	SetConsoleTextAttribute(hConsole, 0x00);
-	std::cout << "] " << buffer << std::endl;
+	SetConsoleTextAttribute(hConsole, 15);
+	std::cout << "] " << buffer << "\n";
 }
