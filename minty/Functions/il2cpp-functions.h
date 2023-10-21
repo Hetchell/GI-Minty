@@ -20,11 +20,18 @@ DO_APP_FUNC(0x03D98130, 0x03E12370, void, MoleMole_LCBaseCombat_FireBeingHitEven
 DO_APP_FUNC(0x029A8090, 0x029F9460, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (app::ActorAbilityPlugin* __this, float delay, app::Object* arg));
 
 // Utility
-DO_APP_FUNC(0x0319A2C0, 0x031F9710, void*, MoleMole__DoSitOnChair, ());
-DO_APP_FUNC(0x0319D7E0, 0x031FCE90, void*, MoleMole__ActorUtils__ShowMessage, (void* message));
-DO_APP_FUNC(0x03C61C20, 0x03CEF350, app::Vector3, MoleMole__ActorUtils__GetAvatarPos, ());
-// set_text
-DO_APP_FUNC(0x07C08140, 0x07C96770, void, UnityEngine_Text_setText, (app::Text* __this, void* value));
+DO_APP_FUNC(0x03C61C20, 0x03CEF350, app::Vector3, MoleMole_ActorUtils_GetAvatarPos, ());
+
+DO_APP_FUNC(0x07C08140, 0x07C96770, void, Text_set_text, (app::Text* __this, app::String* value));
+DO_APP_FUNC(0x07C07CC0, 0x07C962F0, void, Text_set_alignment, (Text* __this, app::TextAnchor__Enum value));
+DO_APP_FUNC(0x07C07F00, 0x07C96530, void, Text_set_horizontalOverflow, (app::Text* __this, app::HorizontalWrapMode__Enum value));
+DO_APP_FUNC(0x07C08230, 0x07C96860, void, Text_set_verticalOverflow, (app::Text* __this, app::VerticalWrapMode__Enum value));
+DO_APP_FUNC(0x07C07FC0, 0x07C965F0, void, Text_set_resizeTextForBestFit, (app::Text* __this, bool value));
+DO_APP_FUNC(0x07C07DC0, 0x07C963F0, void, Text_set_fontSize, (app::Text* __this, int32_t value));
+
+DO_APP_FUNC(0x07B632C0, 0x07BF20F0, void, Slider_1_set_minValue, (app::Slider_1* __this, float value));
+DO_APP_FUNC(0x07B63270, 0x07BF20A0, void, Slider_1_set_maxValue, (app::Slider_1* __this, float value));
+DO_APP_FUNC(0x07B62900, 0x07BF1740, void, Slider_1_set_value, (app::Slider_1* __this, float value));
 
 DO_APP_FUNC(0x06102B40, 0x06191D30, app::Vector3, GetRelativePosition, (app::Vector3 __this));
 
@@ -35,28 +42,27 @@ DO_APP_FUNC(0x07AFEE20, 0x07B8E370, app::Vector3, MoleMole_BaseEntity_GetForward
 // should be 'op_Implicit' not 'get_value'
 DO_APP_FUNC(0x02DDE280, 0x02E36240, float, MoleMole_SafeFloat_get_Value, (app::SafeFloat safeFloat));
 // should be 'op_Implicit' not 'set_value'
-DO_APP_FUNC(0x02DDE1C0, 0x02E36180, app::SafeFloat, MoleMole_SafeFloat_set_Value, (float safeFloat));
+DO_APP_FUNC(0x02DDE1C0, 0x02E36180, app::SafeFloat, MoleMole_SafeFloat_set_Value, (float value));
 
-DO_APP_FUNC(0x0150C6B0, 0x02AA34D0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* ent));
+DO_APP_FUNC(0x0150C6B0, 0x02AA34D0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* entity));
 
 DO_APP_FUNC(0x07557AE0, 0x075E6D00, app::String*, Marshal_PtrToStringAnsi, (void* ptr));
 
 // Game Object, Transform, Object, Component Utility
-DO_APP_FUNC(0x07BFFC60, 0x07C8E3B0, void, GameObject__ctor, (app::GameObject* __this, void* name));
-DO_APP_FUNC(0x07BFF830, 0x07C8DF70, app::GameObject*, UnityEngine_GameObject_CreatePrimitive, (app::PrimitiveType__Enum type));
+DO_APP_FUNC(0x07BFF830, 0x07C8DF70, app::GameObject*, GameObject_CreatePrimitive, (app::PrimitiveType__Enum type));
 DO_APP_FUNC(0x07BFFD30, 0x07C8E480, bool, GameObject_get_active, (app::GameObject* __this));
-DO_APP_FUNC(0x07BFFC00, 0x07C8E350, void, UnityEngine__GameObject__SetActive, (app::GameObject* object, bool value));
-DO_APP_FUNC(0x07BFF860, 0x07C8DFA0, app::GameObject*, UnityEngine__GameObject__Find, (app::String* nameFind));
-DO_APP_FUNC(0x07BFF870, 0x07C8DFB0, app::Component_1*, UnityEngine_GameObject_GetComponent, (app::GameObject* __this, void* type));
-DO_APP_FUNC(0x07BFF7B0, 0x07C8DF00, app::Component_1*, AddComponentInternal, (app::GameObject* __this, app::String* className));
-DO_APP_FUNC(0x07BFFDE0, 0x07C8E530, app::Transform*, UnityEngine__Component__get__Transform, (app::GameObject* object));
+DO_APP_FUNC(0x07BFFC00, 0x07C8E350, void, GameObject_SetActive, (app::GameObject* __this, bool value));
+DO_APP_FUNC(0x07BFF860, 0x07C8DFA0, app::GameObject*, GameObject_Find, (app::String* name));
+DO_APP_FUNC(0x07BFF870, 0x07C8DFB0, app::Component_1*, GameObject_GetComponentByName, (app::GameObject* __this, void* type));
+DO_APP_FUNC(0x07BFF7B0, 0x07C8DF00, app::Component_1*, GameObject_AddComponentInternal, (app::GameObject* __this, app::String* className));
+DO_APP_FUNC(0x07BFFDE0, 0x07C8E530, app::Transform*, GameObject_get_transform, (app::GameObject* __this));
 
 DO_APP_FUNC(0x07AFDCB0, 0x07B8D1F0, app::Transform*, Transform_GetChild, (app::Transform* __this, int32_t index));
-DO_APP_FUNC(0x07AFDCA0, 0x07B8D1E0, int32_t, UnityEngine_Transform_GetChildCount, (app::Transform* __this));
-DO_APP_FUNC(0x07AFF400, 0x07B8D3E0, void, set_localPosition, (app::Transform* __this, app::Vector3 value));
-DO_APP_FUNC(0x07AFDE80, 0x07B8D3F0, void, set_localRotation, (app::Transform* __this, app::Quaternion value));
+DO_APP_FUNC(0x07AFDCA0, 0x07B8D1E0, int32_t, Transform_get_childCount, (app::Transform* __this));
+DO_APP_FUNC(0x07AFF400, 0x07B8D3E0, void, Transform_set_localPosition, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x07AFDE80, 0x07B8D3F0, void, Transform_set_localRotation, (app::Transform* __this, app::Quaternion value));
 DO_APP_FUNC(0x07AFEFB0, 0x07B8E500, app::Vector3, Transform_get_localScale, (app::Transform* __this));
-DO_APP_FUNC(0x07AFDE90, 0x07B8D400, void, set_localScale, (app::Transform* __this, app::Vector3 value));
+DO_APP_FUNC(0x07AFDE90, 0x07B8D400, void, Transform_set_localScale, (app::Transform* __this, app::Vector3 value));
 
 DO_APP_FUNC(0x07AFA800, 0x07B89DB0, app::String*, Object_1_get_name, (app::Object_1* __this));
 DO_APP_FUNC(0x07AFA0B0, 0x07B89660, void, Object_1_DestroyImmediate_1, (app::Object_1* obj));
@@ -69,9 +75,9 @@ DO_APP_FUNC(0x07C01DB0, 0x07C90500, float, Time_get_deltaTime, ());
 DO_APP_FUNC(0x07C01F40, 0x07C90690, void*, Time_set_timeScale, (float time));
 DO_APP_FUNC(0x07C01E90, 0x07C905E0, float, Time_get_timeScale, ());
 
-DO_APP_FUNC(0x07BDEF60, 0x07C6D7E0, bool*, UnityEngine__Application__get__isFocused, ());
-DO_APP_FUNC(0x07BDF5F0, 0x07C6DE70, void*, UnityEngine__Application__set__targetFramerate, (int32_t value));
-DO_APP_FUNC(0x07C245D0, 0x07CB2B20, void*, UnityEngine__QualitySettings__set__vSyncCount, (int32_t value));
+DO_APP_FUNC(0x07BDEF60, 0x07C6D7E0, bool*, Application_get_isFocused, ());
+DO_APP_FUNC(0x07BDF5F0, 0x07C6DE70, void*, Application_set_targetFrameRate, (int32_t value));
+DO_APP_FUNC(0x07C245D0, 0x07CB2B20, void*, QualitySettings_set_vSyncCount, (int32_t value));
 
 DO_APP_FUNC(0x07BFD530, 0x07C8BC80, float, Vector3_Distance, (app::Vector3 pos1, app::Vector3 pos2));
 DO_APP_FUNC(0x07BFD960, 0x07C8C0B0, app::Vector3, Vector3_Slerp, (app::Vector3 start, app::Vector3 end, float time));
@@ -79,6 +85,9 @@ DO_APP_FUNC(0x07BFD960, 0x07C8C0B0, app::Vector3, Vector3_Slerp, (app::Vector3 s
 DO_APP_FUNC(0x07B1A4F0, 0x07BA99D0, bool, Cursor_get_visible, (app::MethodInfo* method));
 DO_APP_FUNC(0x07B1A510, 0x07BA99F0, void, Cursor_set_visible, (bool value));
 DO_APP_FUNC(0x07B1A500, 0x07BA99E0, void, Cursor_set_lockState, (app::CursorLockMode__Enum value));
+
+DO_APP_FUNC(0x07AF79D0, 0x07B87040, int32_t, Screen_get_width, (app::MethodInfo* method));
+DO_APP_FUNC(0x07AF7960, 0x07B86FD0, int32_t, Screen_get_height, (app::MethodInfo* method));
 
 DO_APP_FUNC(0x07AFF0B0, 0x07B8E600, app::Vector3, Transform_get_position, (app::Transform* __this));
 DO_APP_FUNC(0x07AFF480, 0x07B8E9C0, void, Transform_set_position, (app::Transform* __this, app::Vector3 value));
@@ -129,9 +138,10 @@ DO_APP_FUNC(0x020D8BC0, 0x02116770, void, MoleMole_LCIndicatorPlugin_HideIcon, (
 DO_APP_FUNC(0x02EC4030, 0x02F1E7B0, app::Button_1*, ProfilePage, (app::MonoInLevelPlayerProfilePage* __this, app::MethodInfo* method));
 
 // Visuals
-DO_APP_FUNC(0x0349D9D0, 0x0, void, MonoParticleDamageTextContainer_ShowDamageText, (void* __this, void* MPNOONEAJLB, void* AKFGHNDBADA));
-DO_APP_FUNC(0x012141B0, 0x0, float, get_gammaValue, (app::MethodInfo* method));
-DO_APP_FUNC(0x06A40B80, 0x0, void, set_gammaValue, (float value));
+DO_APP_FUNC(0x0349D9D0, 0x03504BF0, void, MonoParticleDamageTextContainer_ShowDamageText, (void* __this, void* MPNOONEAJLB, void* AKFGHNDBADA));
+DO_APP_FUNC(0x0349E230, 0x03505450, void, MonoParticleDamageTextContainer_ShowReactionText, (void* __this, void* ODIALFBPKOO, void* DDKPJLOMEIN, void* BHBLALOIKBM, void* AKFGHNDBADA, int MKOAJMOFAHC));
+//DO_APP_FUNC(0x012141B0, 0x0, float, get_gammaValue, (app::MethodInfo* method));
+//DO_APP_FUNC(0x06A40B80, 0x0, void, set_gammaValue, (float value));
 
 // Modify
 DO_APP_FUNC(0x033EC7D0, 0x03452BC0, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));

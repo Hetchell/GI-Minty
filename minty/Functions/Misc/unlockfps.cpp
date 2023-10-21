@@ -6,6 +6,8 @@ namespace cheat {
 	UnlockFPS::UnlockFPS() {
 		f_Enabled = config::getValue("functions:UnlockFPS", "enabled", false);
 		f_Fps = config::getValue("functions:UnlockFPS", "value", 60);
+		f_EnabledLimit = config::getValue("functions:UnlockFPS", "enabledLimit", false);
+		f_FpsLimit = config::getValue("functions:UnlockFPS", "valueLimit", 60);
 
 		HookManager::install(app::GameManager_Update, onUpdate_2);
 	}
@@ -16,20 +18,24 @@ namespace cheat {
 	}
 
 	void UnlockFPS::GUI() {
-		ConfigCheckbox("Unlock FPS", f_Enabled);
-		ImGui::SameLine();
-		HelpMarker(_("Unlocks framerate to target value."));
+		ConfigCheckbox("Unlock FPS", f_Enabled, "Unlocks higher framerate.");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			ConfigSliderInt(_("Target FPS"), f_Fps, 10, 360);
-			unlockFPSHotkey.Draw();
+			ConfigSliderInt(_("FPS"), f_Fps, 1, 360);
+			ConfigCheckbox("Lock FPS", f_EnabledLimit, "Limit framerate while the game window isn't focused.\n"
+				"This won't work if the cheat menu is open or if you're in a loading screen.");
+
+			if (f_EnabledLimit.getValue())
+				ConfigSliderInt(_("FPS Limit"), f_FpsLimit, 1, 360);
+
+			hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void UnlockFPS::Outer() {
-		if (unlockFPSHotkey.IsPressed())
+		if (hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 
@@ -43,16 +49,18 @@ namespace cheat {
 	}
 
 	void onUpdate_2(app::GameManager* __this, app::MethodInfo* method) {
-		auto& UnlockFPS = UnlockFPS::getInstance();
-		bool enabled = UnlockFPS.f_Enabled.getValue();
+		auto& unlockFPS = UnlockFPS::getInstance();
+		bool enabled = unlockFPS.f_Enabled.getValue();
 
-		__try {
-			app::UnityEngine__Application__set__targetFramerate(enabled ? UnlockFPS.f_Fps.getValue() : 60);
-			app::UnityEngine__QualitySettings__set__vSyncCount(enabled ? 0 : 1);
-		} __except (1) {
-			util::log(M_Info, "lol");
+		if (!app::Application_get_isFocused()) {
+			if (unlockFPS.f_EnabledLimit.getValue())
+				app::Application_set_targetFrameRate(unlockFPS.f_FpsLimit.getValue());
+		} else {
+			if (enabled) {
+				app::Application_set_targetFrameRate(enabled ? unlockFPS.f_Fps.getValue() : 60);
+				app::QualitySettings_set_vSyncCount(enabled ? 0 : 1);
+			}
 		}
-
 		CALL_ORIGIN(onUpdate_2, __this, method);
 	}
 }

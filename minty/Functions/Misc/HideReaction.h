@@ -8,14 +8,11 @@
 #include "../../Utils/GuiUtils.hpp"
 
 namespace cheat {
-	class UnlockFPS : public Function {
+	class HideReaction : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
-		ConfigField<int> f_Fps;
-		ConfigField<bool> f_EnabledLimit;
-		ConfigField<int> f_FpsLimit;
 
-		inline static Hotkey hotkey = Hotkey("UnlockFPS");
+		inline static Hotkey hotkey = Hotkey("HideReaction");
 
 		void GUI() override;
 		void Outer() override;
@@ -23,8 +20,8 @@ namespace cheat {
 
 		std::string getModule() override;
 
-		static UnlockFPS& getInstance();
+		static HideReaction& getInstance();
 
-		UnlockFPS();
+		HideReaction();
 	};
 }

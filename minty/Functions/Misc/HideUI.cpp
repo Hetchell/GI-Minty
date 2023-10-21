@@ -44,14 +44,14 @@ namespace cheat {
 
         if (hideUI.f_Enabled.getValue()) {
             if (ui_camera == nullptr)
-                ui_camera = app::UnityEngine__GameObject__Find(string_to_il2cppi("/UICamera"));
+                ui_camera = app::GameObject_Find(string_to_il2cppi("/UICamera"));
 
             if (ui_camera->fields._.m_CachedPtr != nullptr)
-                app::UnityEngine__GameObject__SetActive(ui_camera, false);
+                app::GameObject_SetActive(ui_camera, false);
         } else {
             if (ui_camera) {
                 if (ui_camera->fields._.m_CachedPtr != nullptr)
-                    app::UnityEngine__GameObject__SetActive(ui_camera, true);
+                    app::GameObject_SetActive(ui_camera, true);
 
                 ui_camera = nullptr;
             }

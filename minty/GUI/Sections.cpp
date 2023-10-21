@@ -6,7 +6,9 @@
 #include "../Functions/Misc/ElementalSight.h"
 #include "../Functions/Misc/FovChanger.h"
 #include "../Functions/Misc/HideDamage.h"
+#include "../Functions/Misc/HideReaction.h"
 #include "../Functions/Misc/HideUI.h"
+#include "../Functions/Misc/NoFog.h"
 #include "../Functions/Misc/OpenTeamImmediately.h"
 #include "../Functions/Misc/Peeking.h"
 #include "../Functions/Misc/ProfileChanger.h"
@@ -44,7 +46,9 @@ void Init() {
     //INIT_FUNC(ElementalSight);
     INIT_FUNC(FovChanger);
     INIT_FUNC(HideDamage);
+    INIT_FUNC(HideReaction);
     INIT_FUNC(HideUI);
+    INIT_FUNC(NoFog);
     //INIT_FUNC(OpenTeamImmediately);
     INIT_FUNC(Peeking);
     INIT_FUNC(ProfileChanger);

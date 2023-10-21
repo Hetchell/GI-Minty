@@ -116,18 +116,6 @@ int main() {
         if (settings_file.is_open()) {
             // Write the executable path to the settings file
             cfg["exec_path"] = exe_path;
-            // hotkeys
-            cfg["hotkeys"]["InfBurst"] = 0;
-            cfg["hotkeys"]["NoCD"] = 0;
-            cfg["hotkeys"]["NoClip"] = 0;
-            cfg["hotkeys"]["InfStamina"] = 0;
-            cfg["hotkeys"]["NoFallDmg"] = 0;
-            cfg["hotkeys"]["InstantBow"] = 0;
-            cfg["hotkeys"]["DumbEnemies"] = 0;
-            cfg["hotkeys"]["Booty"] = 0;
-            cfg["hotkeys"]["AutoTalk"] = 0;
-            cfg["hotkeys"]["CutsceneSkip"] = 0;
-            cfg["hotkeys"]["ShowChest"] = 0;
 
             settings_file << cfg.dump(4) << std::endl;
             exe_path = cfg["exec_path"];

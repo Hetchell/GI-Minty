@@ -53,6 +53,17 @@ void ConfigSliderInt(const char* name, ConfigField<T>& field, const int min, con
 }
 
 template <typename T>
+void ConfigDragInt(const char* name, ConfigField<T>& field, const int step, const int min, const int max, const char* description = nullptr) {
+    T& value = field.getValue();
+
+    if (ImGui::DragInt(name, &value, (float) step, min, max, nullptr, ImGuiSliderFlags_AlwaysClamp)) {
+        field.setValue(value);
+        config::setValue(field, value);
+    }
+    END_WIDGET();
+}
+
+template <typename T>
 void ConfigSliderFloat(const char* name, ConfigField<T>& field, const float min, const float max, const char* description = nullptr) {
     T& value = field.getValue();
 

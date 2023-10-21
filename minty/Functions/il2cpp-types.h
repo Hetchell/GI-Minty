@@ -11130,6 +11130,79 @@ typedef union Il2CppSingle_float
 
     struct HumanoidMoveFSM__Fields {
         struct BaseComponentPlugin__Fields _;
+        struct Action_1_MoleMole_HumanoidMoveFSMCallBackInfo_* HNBEFFMHEME; // Offset: 0x40
+        struct Rigidbody* DJCKKIMNMDJ; // Offset: 0x48
+        struct Transform* PEDPKCNEBKF; // Offset: 0x50
+        struct Transform* KFJJPHMLEJN; // Offset: 0x58
+        struct VCHumanoidMove* FANHGBPIBOD; // Offset: 0x60
+        struct GLCJKHGIOAJ* BBDOMALLEDM; // Offset: 0x68
+        struct Action_1_MoleMole_HumanoidMoveFSMCallBackInfo_* EHELBFCFDKA; // Offset: 0x70
+        struct PKEDMKGFCEN* NHGBOEDDGHN; // Offset: 0x78
+        void* GEFOIGIPGNL; // Offset: 0x80
+        struct AnimatorController* _animatorController; // Offset: 0xC8
+        struct VCHumanoidMoveData* LPKOBEJKENA; // Offset: 0xD0
+        struct Dictionary_2_MoleMole_HumanoidMoveFSM_MoleMole_HumanoidMoveFSM_FSMStateID_MoleMole_HumanoidMoveFSMBaseMoveState_* NFIMMGELDGO; // Offset: 0xD8
+        void* DBFCNGOOCEH; // Offset: 0xE0
+        struct KNDIGJKNJHJ* GMJFNOFPMBI; // Offset: 0x128
+        struct Transform* KLJOKKLOKKI; // Offset: 0x130
+        struct Animator* MEHACKFJHHA; // Offset: 0x138
+        struct MoleMole_HumanoidMoveFSMBaseMoveState* EFOEGLEFGAH; // Offset: 0x140
+        int32_t MLAJKGHHOFM; // Offset: 0x148
+        float FNLIKLJFEGD; // Offset: 0x14C
+        float ICLNAFFHEBF; // Offset: 0x150
+        bool AEDONEJFPBI; // Offset: 0x154
+        bool KJJJFHKONLF; // Offset: 0x155
+        bool CJMCMHCGLBB; // Offset: 0x156
+        bool NIPFKCEPHOF; // Offset: 0x157
+        float HJNMFFCJHJH; // Offset: 0x158
+        int32_t JCEINBFLCBP; // Offset: 0x15C
+        float AMCCIDFFOLC; // Offset: 0x160
+        float EDKHMPJFGID; // Offset: 0x164
+        struct Quaternion HLAPCIDCIPD; // Offset: 0x168
+        struct Vector3 JCDMFKBLPLA; // Offset: 0x178
+        float NFGJDGMIINP; // Offset: 0x184
+        bool GJECOBJCAOD; // Offset: 0x188
+        bool MMKHGENBOAL; // Offset: 0x189
+        bool KEDMMNOLLMO; // Offset: 0x18A
+        bool NFEOBOMKFPI; // Offset: 0x18B
+        struct Vector2 PLJFOCLEBCA; // Offset: 0x18C
+        float DCACLFHGGJL; // Offset: 0x194
+        float FPPNMJFINLA; // Offset: 0x198
+        void* LCHGALAGKBL; // Offset: 0x19C
+        int32_t BDKHKLKKKEC; // Offset: 0x1B0
+        float PEOAMBALABB; // Offset: 0x1B4
+        float GBCPDGAJLIJ; // Offset: 0x1B8
+        bool IKDGCAEDNDO; // Offset: 0x1BC
+        bool JDCNDDFBCHE; // Offset: 0x1BD
+        bool ADJKECIIBJD; // Offset: 0x1BE
+        float GLKJDHPCOAJ; // Offset: 0x1C0
+        int32_t HBFDGIIBGJO; // Offset: 0x1C4
+        float LCMHFMFPIML; // Offset: 0x1C8
+        bool BMEPPFOKNLB; // Offset: 0x1CC
+        bool CADJKDIOKHI; // Offset: 0x1CD
+        bool CFADNPPFJPA; // Offset: 0x1CE
+        bool IIMPKEHOJMG; // Offset: 0x1CF
+        int32_t MHLBHEFGBOF; // Offset: 0x1D0
+        uint32_t _lastFrameVelocityCheckBits; // Offset: 0x1D4
+        float BCDMMKAJNKJ; // Offset: 0x1D8
+        int32_t AKGPIJLCGCF; // Offset: 0x1DC
+        struct Vector3 BFLCIMJAAJH; // Offset: 0x1E0
+        struct Vector2 KDGHMHBHAPJ; // Offset: 0x1EC
+        bool HEIDEKEKKIO; // Offset: 0x1F4
+        bool HOHDBCBOGMF; // Offset: 0x1F5
+        bool BJOLGFNKDOG; // Offset: 0x1F6
+        bool _positionRotationChanged_k__BackingField; // Offset: 0x1F7
+        float AKIBNLGAFJA; // Offset: 0x1F8
+        void* LBFHMJBJJPC; // Offset: 0x1FC
+        float PFAKKJCINBJ; // Offset: 0x210
+        float FNBOINBHNDI; // Offset: 0x214
+        struct Vector3 FBNOJFHILKO; // Offset: 0x218
+        float JAECMFAMCHE; // Offset: 0x224
+        void* ICPMKAFNMHO; // Offset: 0x228
+        float OFLMGMDJJPP; // Offset: 0x23C
+        int32_t ALACNIHIDAJ; // Offset: 0x240
+        float CFFIGNNMFPM; // Offset: 0x244
+        /*
         struct MoleMole_HumanoidMoveFSMBaseMoveState* _curState;
         int32_t fallOnGroundFirstFrame;
         struct Dictionary_2_MoleMole_HumanoidMoveFSM_MoleMole_HumanoidMoveFSM_FSMStateID_MoleMole_HumanoidMoveFSMBaseMoveState_* stateMapInfo;
@@ -11191,6 +11264,7 @@ typedef union Il2CppSingle_float
         bool _lastFrameVelocityCheckResult;
         bool _remoteCheckLightCoreMove;
         struct Vector3 _remoteCheckLightCoreMoveTarget;
+        */
     };
 
     struct HumanoidMoveFSM {

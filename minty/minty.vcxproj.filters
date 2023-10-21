@@ -98,6 +98,8 @@
     <ClCompile Include="Functions\Misc\ElementalSight.cpp" />
     <ClCompile Include="Functions\Misc\HideUI.cpp" />
     <ClCompile Include="Functions\Misc\HideDamage.cpp" />
+    <ClCompile Include="Functions\Misc\HideReaction.cpp" />
+    <ClCompile Include="Functions\Misc\NoFog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\MainGUI.h" />
@@ -238,6 +240,8 @@
     <ClInclude Include="Functions\Misc\ElementalSight.h" />
     <ClInclude Include="Functions\Misc\HideUI.h" />
     <ClInclude Include="Functions\Misc\HideDamage.h" />
+    <ClInclude Include="Functions\Misc\HideReaction.h" />
+    <ClInclude Include="Functions\Misc\NoFog.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Lua\lua53.lib" />

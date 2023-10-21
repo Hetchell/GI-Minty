@@ -1,9 +1,6 @@
 #include "NoClip.h"
 
 namespace cheat {
-	app::Vector3 prevPos, newPos;
-	app::Vector3 posCheck;
-
 	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method);
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method);
 
@@ -60,23 +57,25 @@ namespace cheat {
 		return _("Player");
 	}
 
-	void OnNoClip() {
-		static std::string ActiveHero;
+	app::Vector3 prevPos, newPos;
+	app::Vector3 posCheck;
 
-		app::Rigidbody* rigidbody = nullptr;
-		app::GameObject* AvatarRoot = nullptr;
-		app::GameObject* nameAvatar = nullptr;
-		app::Transform* avatarTransform = nullptr;
-		app::GameObject* HeroGameObject = nullptr;
+	static std::string ActiveHero;
 
-		AvatarRoot = app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
+	app::Rigidbody* rigidbody;
+	app::GameObject* AvatarRoot;
+	app::GameObject* nameAvatar;
+	app::Transform* avatarTransform;
+	app::GameObject* HeroGameObject;
+	void onNoClip() {
+		AvatarRoot = app::GameObject_Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
 		//util::log(M_Info, "found avatar");
-		if (!AvatarRoot)
-			return;
+		//if (!AvatarRoot)
+			//return;
 
-		auto Transform = app::UnityEngine_GameObject_GetComponent(AvatarRoot, string_to_il2cppi("Transform"));
+		auto Transform = app::GameObject_GetComponentByName(AvatarRoot, string_to_il2cppi("Transform"));
 		//util::log(M_Info, "found transform");
-		auto HeroCount = app::UnityEngine_Transform_GetChildCount(reinterpret_cast<app::Transform*>(Transform));
+		auto HeroCount = app::Transform_get_childCount(reinterpret_cast<app::Transform*>(Transform));
 		//util::log(M_Info, "found count");
 		for (int i = 0; i <= HeroCount - 1; i++) {
 			auto HeroComponent = app::Transform_GetChild(reinterpret_cast<app::Transform*>(Transform), i);
@@ -90,12 +89,12 @@ namespace cheat {
 				//util::log(M_Info, "found name");
 				ActiveHero = il2cppi_to_string(GameObjectName);
 				std::string Hero = ActiveHero.erase(ActiveHero.find("(Clone)"));
-				std::string avatarNamestring = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str();
-				nameAvatar = app::UnityEngine__GameObject__Find(string_to_il2cppi(avatarNamestring.c_str()));
+				std::string avatarName = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str();
+				nameAvatar = app::GameObject_Find(string_to_il2cppi(avatarName));
 				//util::log(M_Info, "found gameob2");
-				avatarTransform = app::UnityEngine__Component__get__Transform(nameAvatar);
+				avatarTransform = app::GameObject_get_transform(nameAvatar);
 				//util::log(M_Info, "found transfor2");
-				rigidbody = reinterpret_cast<app::Rigidbody*>(app::UnityEngine_GameObject_GetComponent(HeroGameObject, string_to_il2cppi("Rigidbody")));
+				rigidbody = reinterpret_cast<app::Rigidbody*>(app::GameObject_GetComponentByName(HeroGameObject, string_to_il2cppi("Rigidbody")));
 				//util::log(M_Info, "found rb");
 				if (rigidbody != 0)
 					break;
@@ -103,8 +102,9 @@ namespace cheat {
 		}
 
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
+		app::Rigidbody_set_detectCollisions(rigidbody, false);
 		//util::log(M_Info, "coli det")
-		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::UnityEngine__Component__get__Transform(app::UnityEngine__GameObject__Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
+		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::GameObject_get_transform(app::GameObject_Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
 		//util::log(M_Info, "found transfom cam");
 		auto avatarEntity = reinterpret_cast<app::BaseEntity*>(avatarTransform);
 		app::Vector3 dir = {};
@@ -137,28 +137,39 @@ namespace cheat {
 		newPos = prevPos + dir * NoClip::f_finalSpeed * deltaTime;
 		// if (iNoClipMode == 0) 
 		app::Rigidbody_set_velocity(rigidbody, { 0,0,0 });
+		//app::Rigidbody_set_velocity(rigidbody, dir * NoClip::f_finalSpeed);
 		app::Rigidbody_MovePosition(rigidbody, newPos);
 	}
 
 	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method) {
-		auto& NoClip = NoClip::getInstance();
+		auto& noClip = NoClip::getInstance();
 
 		__try {
-			if (NoClip.f_Enabled.getValue())
-				OnNoClip();
+			if (noClip.f_Enabled.getValue())
+				onNoClip();
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
-			util::log(M_Error, "Exception 0x%08x.", _exception_code());
+			//LOG_WARNING("Exception 0x%08x.", GetExceptionCode());
 		}
 
 		CALL_ORIGIN(GameManager_Update_Hook, __this, method);
 	}
 
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method) {
-		auto& NoClip = NoClip::getInstance();
+		auto& noClip = NoClip::getInstance();
 
-		if (NoClip.f_Enabled.getValue()) {
-			if (app::Vector3_Distance(posCheck, newPos) > 3.f)
+		if (noClip.f_Enabled.getValue()) {
+			__this->fields.HBFDGIIBGJO = 2;
+			/*
+			std::cout << "-------------" << "\n";
+			std::cout << "MLAJKGHHOFM: " << __this->fields.MLAJKGHHOFM << "\n";
+			std::cout << "JCEINBFLCBP: " << __this->fields.JCEINBFLCBP << "\n";
+			std::cout << "HBFDGIIBGJO: " << __this->fields.HBFDGIIBGJO << "\n";
+			std::cout << "AKGPIJLCGCF: " << __this->fields.AKGPIJLCGCF << "\n";
+			std::cout << "ALACNIHIDAJ: " << __this->fields.ALACNIHIDAJ << "\n";
+			std::cout << "-------------" << "\n";
+			*/
+			if (app::Vector3_Distance(posCheck, newPos) > 3.0f)
 				posCheck = newPos;
 			else
 				return;
