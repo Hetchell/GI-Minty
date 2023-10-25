@@ -33,7 +33,7 @@ namespace cheat {
                     std::filesystem::path path = std::filesystem::current_path() / folderPath;
                     folderPath = path.string();
                     if (!std::filesystem::exists(path)) {
-                        util::log(M_Error, "Folder not found: %s", folderPath); // Use %s for string format
+                        LOG_ERROR("Folder not found: %s", folderPath); // Use %s for string format
                         return;
                     }
                 }
@@ -74,13 +74,13 @@ namespace cheat {
                     if (!b_startTeleporting) {
                         if (ImGui::Button("Start teleporting")) {
                             b_startTeleporting = true;
-                            util::log(M_Debug, "Start teleporting pressed");
+                            LOG_DEBUG("Start teleporting pressed");
                         }
                     }
                     if (b_startTeleporting) {
                         if (ImGui::Button("Stop teleporting")) {
                             b_startTeleporting = false;
-                            util::log(M_Debug, "Stop teleporting pressed");
+                            LOG_DEBUG("Stop teleporting pressed");
                         }
                     }
                     ImGui::SliderFloat("Time to wait", &timerWait, 0.f, 100.0f);
@@ -143,7 +143,7 @@ namespace cheat {
     void TeleportToCurrentPoint(int point) {
         if (point >= 0 && point < AutoTP::parseds.size()) {
             AutoTP::currentPoint = AutoTP::parseds[point];
-            util::log(M_Info, "Teleporting to point: %s", AutoTP::parseds[point].name.c_str());
+            LOG_INFO("Teleporting to point: %s", AutoTP::parseds[point].name.c_str());
             auto avatarPos = app::MoleMole_ActorUtils_GetAvatarPos();
             auto endPos = AutoTP::parseds[point].position;
 
@@ -155,11 +155,11 @@ namespace cheat {
                         newPos = app::Vector3_Slerp(avatarPos, endPos, t);
                         app::ActorUtils_SetAvatarPos(newPos);
                         t += 5 / 100.0f;
-                        util::log(M_Info, "time; %f", t);
+                        LOG_INFO("time; %f", t);
                         Sleep(10);
                     } });
             interpolate.detach();
-            util::log(M_Info, "Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
+            LOG_INFO("Teleported to pos: %f, %f, %f", AutoTP::currentPoint.position.x, AutoTP::currentPoint.position.y, AutoTP::currentPoint.position.z);
         }
     }
 

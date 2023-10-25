@@ -1,9 +1,7 @@
 #pragma once
 
-#include "../Function.h"
-#include "../../Utils/GuiUtils.hpp"
-#include "../../Config/ConfigManager.h"
-#include "../../Themes/themes.hpp"
+#include "../FunctionIncludes.h"
+#include "../../themes/Themes.h"
 
 namespace cheat {
 	class Settings : public Function {

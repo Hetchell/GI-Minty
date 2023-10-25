@@ -2,10 +2,9 @@
 #include <optional>
 #include <libloaderapi.h>
 
-#include "FontsLoader.hpp"
+#include "FontsLoader.h"
 
-bool LoadFontFromResources(ImFontConfig font_cfg, const wchar_t* fontName, float fontSize)
-{
+bool LoadFontFromResources(ImFontConfig font_cfg, const wchar_t* fontName, float fontSize) {
     HMODULE hModuleF = GetModuleHandle("minty.dll");
     //HMODULE hModuleF;
     // Find the resource handle within the DLL

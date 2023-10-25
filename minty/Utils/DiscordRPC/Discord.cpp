@@ -1,14 +1,12 @@
 #include "Discord.h"
-#include "time.h"
-void Discord::Initialize()
-{
+
+void Discord::Initialize() {
     DiscordEventHandlers Handle;
     memset(&Handle, 0, sizeof(Handle));
     Discord_Initialize("1112360491847778344", &Handle, 1, NULL);
 }
-using namespace std;
-void Discord::Update()
-{
+
+void Discord::Update() {
     DiscordRichPresence discordPresence;
     memset(&discordPresence, 0, sizeof(discordPresence));
     discordPresence.state = "Hacking MHY <333";

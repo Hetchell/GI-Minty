@@ -1,18 +1,17 @@
 #pragma once
 
-#include "../Config/ConfigManager.h"
+#include "../config/ConfigManager.h"
 #include <chrono>
 
-class Hotkey
-{
+class Hotkey {
 public:
 	unsigned int m_nHkey;
 	bool bWaitsInput = false;
-	const char* hotkeyJsonName;
+	const char* functionName;
 	std::chrono::steady_clock::time_point lastInputTime;
 
 	Hotkey();
-	Hotkey(const char* jsonStateName);
+	Hotkey(const char* functionName);
 
 	bool IsPressed();
 	bool IsDown();

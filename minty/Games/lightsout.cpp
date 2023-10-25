@@ -1,6 +1,7 @@
 #include <string>
 
-#include "../ImGui/ImGui/imgui.h"
+#include "../api/imgui/ImGui/imgui.h"
+
 void lightsout_main() {
     static char sailor_selected[4][4] = {{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
     const float time = (float)ImGui::GetTime();

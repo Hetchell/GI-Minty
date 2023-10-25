@@ -1,9 +1,5 @@
-//#include <iostream>
-//#include <fstream>
-
-#include "../ImGui/ImGui/imgui.h"
-#include "../Json/json.hpp"
-#include "Themes.hpp"
+#include "../api/imgui/ImGui/imgui.h"
+#include "Themes.h"
 
 void dark_theme() {
     ImGui::StyleColorsDark();
@@ -169,18 +165,6 @@ void cozy_square_style() {
 }
 
 void setTheme(int themeIndex) {
-    /*nlohmann::json cfgjsonobj;
-    std::ifstream config_file("minty.json");
-    nlohmann::json config_json;
-    config_file >> config_json;
-    config_file.close();
-
-    cfgjsonobj["theme"]["color"] = themefunc_index;
-    config_json.merge_patch(cfgjsonobj);
-    std::ofstream merged_file("minty.json");
-    merged_file << config_json.dump(4);
-    merged_file.close();*/
-
     switch (themeIndex) {
     case 1:
         dark_theme();
@@ -197,6 +181,8 @@ void setTheme(int themeIndex) {
     default:
         break;
     }
+
+    config::setValue("general:theme", "color", themeIndex);
 }
 
 void setStyle(int styleIndex) {
@@ -212,6 +198,8 @@ void setStyle(int styleIndex) {
         default:
             break;
     }
+
+    config::setValue("general:theme", "style", styleIndex);
 }
 
 void setFont(int fontIndex) {
@@ -228,4 +216,6 @@ void setFont(int fontIndex) {
         default:
             break;
     }
+
+    config::setValue("general:theme", "font", fontIndex);
 }

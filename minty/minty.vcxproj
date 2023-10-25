@@ -113,8 +113,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)/api/lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
@@ -152,291 +152,290 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>d3d11.lib;dxgi.lib;lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(projectDir)lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(projectDir)/api/lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Functions\Misc\CameraZoom.cpp" />
-    <ClCompile Include="Functions\Misc\ElementalSight.cpp" />
-    <ClCompile Include="Functions\Misc\HideDamage.cpp" />
-    <ClCompile Include="Functions\Misc\HideReaction.cpp" />
-    <ClCompile Include="Functions\Misc\HideUI.cpp" />
-    <ClCompile Include="Functions\Misc\NoFog.cpp" />
-    <ClCompile Include="Functions\Misc\OpenTeamImmediately.cpp" />
-    <ClCompile Include="Functions\Misc\ProfileChanger.cpp" />
-    <ClCompile Include="Functions\Misc\ShowChestIndicator.cpp" />
-    <ClCompile Include="Functions\Misc\SkipEnhanceAnimation.cpp" />
-    <ClCompile Include="Functions\Settings\Settings.cpp" />
-    <ClCompile Include="Discord SDK\src\connection_win.cpp" />
-    <ClCompile Include="Discord SDK\src\discord_register_win.cpp" />
-    <ClCompile Include="Discord SDK\src\discord_rpc.cpp" />
-    <ClCompile Include="Discord SDK\src\rpc_connection.cpp" />
-    <ClCompile Include="Discord SDK\src\serialization.cpp" />
-    <ClCompile Include="Functions\About\About.cpp" />
-    <ClCompile Include="Functions\il2cppUtils.cpp" />
-    <ClCompile Include="Functions\Misc\Peeking.cpp" />
-    <ClCompile Include="Functions\Misc\FovChanger.cpp" />
-    <ClCompile Include="Functions\Misc\UnlockFPS.cpp" />
-    <ClCompile Include="Functions\World\AutoTP.cpp" />
-    <ClCompile Include="Functions\Player\GodMode.cpp" />
-    <ClCompile Include="Functions\Player\InfinityEnergy.cpp" />
-    <ClCompile Include="Functions\Player\InfinityStamina.cpp" />
-    <ClCompile Include="Functions\Player\MultiHit.cpp" />
-    <ClCompile Include="Functions\Player\NoCooldown.cpp" />
-    <ClCompile Include="Functions\Player\NoClip.cpp" />
-    <ClCompile Include="Functions\Misc\CutsceneSkip.cpp" />
-    <ClCompile Include="Functions\Misc\AutoTalk.cpp" />
-    <ClCompile Include="Functions\World\DumbEnemies.cpp" />
-    <ClCompile Include="Functions\World\GameSpeed.cpp" />
-    <ClCompile Include="GUI\MainGUI.cpp" />
-    <ClCompile Include="GUI\Translations.cpp" />
-    <ClCompile Include="Hotkeys\Hotkey.cpp" />
-    <ClCompile Include="Hotkeys\KeyBind.cpp" />
-    <ClCompile Include="ImGui\ImGui\imgui_stdlib.cpp" />
-    <ClCompile Include="Utils\DiscordRPC\Discord.cpp" />
-    <ClCompile Include="Utils\GuiUtils.cpp" />
-    <ClCompile Include="Utils\ImageLoader\ImageLoader.cpp" />
-    <ClCompile Include="Utils\Logger.cpp" />
-    <ClCompile Include="Utils\LuaUtils.cpp" />
-    <ClCompile Include="Utils\ProtectionBypass.cpp" />
-    <ClCompile Include="Utils\util.cpp" />
-    <ClInclude Include="Config\ConfigField.h" />
-    <ClInclude Include="Config\ConfigManager.h" />
-    <ClInclude Include="Functions\Misc\CameraZoom.h" />
-    <ClInclude Include="Functions\Misc\ElementalSight.h" />
-    <ClInclude Include="Functions\Misc\HideDamage.h" />
-    <ClInclude Include="Functions\Misc\HideReaction.h" />
-    <ClInclude Include="Functions\Misc\HideUI.h" />
-    <ClInclude Include="Functions\Misc\NoFog.h" />
-    <ClInclude Include="Functions\Misc\OpenTeamImmediately.h" />
-    <ClInclude Include="Functions\Misc\ProfileChanger.h" />
-    <ClInclude Include="Functions\Misc\ShowChestIndicator.h" />
-    <ClInclude Include="Functions\Misc\SkipEnhanceAnimation.h" />
-    <ClInclude Include="Functions\Settings\Settings.h" />
-    <ClCompile Include="Config\ConfigManager.cpp">
+    <ClCompile Include="functions\visuals\CameraZoom.cpp" />
+    <ClCompile Include="functions\world\ElementalSight.cpp" />
+    <ClCompile Include="functions\visuals\HideDamage.cpp" />
+    <ClCompile Include="functions\visuals\HideReaction.cpp" />
+    <ClCompile Include="functions\visuals\HideUI.cpp" />
+    <ClCompile Include="functions\visuals\NoFog.cpp" />
+    <ClCompile Include="functions\world\OpenTeamImmediately.cpp" />
+    <ClCompile Include="functions\visuals\ProfileChanger.cpp" />
+    <ClCompile Include="functions\visuals\ShowChestIndicator.cpp" />
+    <ClCompile Include="functions\world\SkipEnhanceAnimation.cpp" />
+    <ClCompile Include="functions\settings\Settings.cpp" />
+    <ClCompile Include="api\discord\src\connection_win.cpp" />
+    <ClCompile Include="api\discord\src\discord_register_win.cpp" />
+    <ClCompile Include="api\discord\src\discord_rpc.cpp" />
+    <ClCompile Include="api\discord\src\rpc_connection.cpp" />
+    <ClCompile Include="api\discord\src\serialization.cpp" />
+    <ClCompile Include="functions\about\About.cpp" />
+    <ClCompile Include="il2cpp\il2cppUtils.cpp" />
+    <ClCompile Include="functions\visuals\Peeking.cpp" />
+    <ClCompile Include="functions\visuals\FovChanger.cpp" />
+    <ClCompile Include="functions\visuals\UnlockFPS.cpp" />
+    <ClCompile Include="functions\world\AutoTP.cpp" />
+    <ClCompile Include="functions\player\GodMode.cpp" />
+    <ClCompile Include="functions\player\InfinityEnergy.cpp" />
+    <ClCompile Include="functions\player\InfinityStamina.cpp" />
+    <ClCompile Include="functions\player\MultiHit.cpp" />
+    <ClCompile Include="functions\player\NoCooldown.cpp" />
+    <ClCompile Include="functions\player\NoClip.cpp" />
+    <ClCompile Include="functions\world\CutsceneSkip.cpp" />
+    <ClCompile Include="functions\world\AutoTalk.cpp" />
+    <ClCompile Include="functions\world\DumbEnemies.cpp" />
+    <ClCompile Include="functions\world\GameSpeed.cpp" />
+    <ClCompile Include="gui\MainGUI.cpp" />
+    <ClCompile Include="gui\Translations.cpp" />
+    <ClCompile Include="hotkeys\Hotkey.cpp" />
+    <ClCompile Include="hotkeys\KeyBind.cpp" />
+    <ClCompile Include="api\imgui\ImGui\imgui_stdlib.cpp" />
+    <ClCompile Include="utils\discordrpc\Discord.cpp" />
+    <ClCompile Include="utils\GuiUtils.cpp" />
+    <ClCompile Include="utils\image\ImageLoader.cpp" />
+    <ClCompile Include="utils\Logger.cpp" />
+    <ClCompile Include="utils\LuaUtils.cpp" />
+    <ClCompile Include="utils\ProtectionBypass.cpp" />
+    <ClCompile Include="utils\util.cpp" />
+    <ClInclude Include="config\ConfigField.h" />
+    <ClInclude Include="config\ConfigManager.h" />
+    <ClInclude Include="functions\FunctionIncludes.h" />
+    <ClInclude Include="functions\visuals\CameraZoom.h" />
+    <ClInclude Include="functions\world\ElementalSight.h" />
+    <ClInclude Include="functions\visuals\HideDamage.h" />
+    <ClInclude Include="functions\visuals\HideReaction.h" />
+    <ClInclude Include="functions\visuals\HideUI.h" />
+    <ClInclude Include="functions\visuals\NoFog.h" />
+    <ClInclude Include="functions\world\OpenTeamImmediately.h" />
+    <ClInclude Include="functions\visuals\ProfileChanger.h" />
+    <ClInclude Include="functions\visuals\ShowChestIndicator.h" />
+    <ClInclude Include="functions\world\SkipEnhanceAnimation.h" />
+    <ClInclude Include="functions\settings\Settings.h" />
+    <ClCompile Include="config\ConfigManager.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="DirectX\D3D11Hook.cpp">
+    <ClCompile Include="api\directx\D3D11Hook.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="DirectX\shadez.h" />
-    <ClInclude Include="DirectX\D3D11Hook.hpp" />
-    <ClInclude Include="Discord SDK\include\discord_register.h" />
-    <ClInclude Include="Discord SDK\include\discord_rpc.h" />
-    <ClInclude Include="Discord SDK\src\backoff.h" />
-    <ClInclude Include="Discord SDK\src\connection.h" />
-    <ClInclude Include="Discord SDK\src\msg_queue.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\allocators.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\cursorstreamwrapper.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\document.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\encodedstream.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\encodings.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\filereadstream.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\filewritestream.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\fwd.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\istreamwrapper.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\memorybuffer.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\memorystream.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\ostreamwrapper.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\pointer.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\prettywriter.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\rapidjson.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\reader.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\schema.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\stream.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\stringbuffer.h" />
-    <ClInclude Include="Discord SDK\src\rapidjson\writer.h" />
-    <ClInclude Include="Discord SDK\src\rpc_connection.h" />
-    <ClInclude Include="Discord SDK\src\serialization.h" />
-    <ClInclude Include="Functions\About\About.h" />
-    <ClInclude Include="Functions\detours.h" />
-    <ClInclude Include="Functions\Function.h" />
-    <ClInclude Include="Functions\HookManager.h" />
-    <ClInclude Include="Functions\il2cpp-api-functions.h" />
-    <ClInclude Include="Functions\il2cpp-appdata.h" />
-    <ClInclude Include="Functions\il2cpp-functions.h" />
-    <ClInclude Include="Functions\il2cpp-init.hpp" />
-    <ClInclude Include="Functions\il2cpp-types-ptr.h" />
-    <ClInclude Include="Functions\il2cpp-types.h" />
-    <ClInclude Include="Functions\il2cpp-unityplayer-functions.h" />
-    <ClInclude Include="Functions\il2cppUtils.h" />
-    <ClInclude Include="Functions\Misc\Peeking.h" />
-    <ClInclude Include="Functions\Misc\FovChanger.h" />
-    <ClInclude Include="Functions\Misc\UnlockFPS.h" />
-    <ClInclude Include="Functions\World\AutoTP.h" />
-    <ClInclude Include="Functions\Player\GodMode.h" />
-    <ClInclude Include="Functions\Player\InfinityEnergy.h" />
-    <ClInclude Include="Functions\Player\InfinityStamina.h" />
-    <ClInclude Include="Functions\Player\MultiHit.h" />
-    <ClInclude Include="Functions\Player\NoCooldown.h" />
-    <ClInclude Include="Functions\Player\NoClip.h" />
-    <ClInclude Include="Functions\Misc\CutsceneSkip.h" />
-    <ClInclude Include="Functions\Misc\AutoTalk.h" />
-    <ClInclude Include="Functions\World\DumbEnemies.h" />
-    <ClInclude Include="Functions\World\GameSpeed.h" />
-    <ClInclude Include="Games\lightsout.hpp" />
-    <ClInclude Include="Games\minesweeper.hpp" />
-    <ClInclude Include="Games\tictactoe.hpp" />
-    <ClInclude Include="Games\wordle.hpp" />
-    <ClInclude Include="GUI\GuiDefinitions.h" />
-    <ClInclude Include="GUI\InitGui.hpp" />
-    <ClCompile Include="GUI\Sections.cpp" />
-    <ClInclude Include="GUI\Sections.hpp" />
-    <ClInclude Include="GUI\Translations.h" />
-    <ClInclude Include="Hotkeys\Hotkey.h" />
-    <ClInclude Include="Hotkeys\KeyBind.h" />
-    <ClInclude Include="Hotkeys\KeyBinds.h" />
-    <ClCompile Include="ImGui\ImGui\imgui.cpp" />
-    <ClCompile Include="ImGui\ImGui\imgui_demo.cpp" />
-    <ClCompile Include="ImGui\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="ImGui\ImGui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="ImGui\ImGui\imgui_impl_win32.cpp" />
-    <ClCompile Include="ImGui\ImGui\imgui_tables.cpp" />
-    <ClCompile Include="ImGui\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="ImGui\TextEditor\TextEditor.cpp" />
-    <ClCompile Include="Lua\lapi.c" />
-    <ClCompile Include="Lua\lauxlib.c" />
-    <ClCompile Include="Lua\lbaselib.c" />
-    <ClCompile Include="Lua\lbitlib.c" />
-    <ClCompile Include="Lua\lcode.c" />
-    <ClCompile Include="Lua\lcorolib.c" />
-    <ClCompile Include="Lua\lctype.c" />
-    <ClCompile Include="Lua\ldblib.c" />
-    <ClCompile Include="Lua\ldebug.c" />
-    <ClCompile Include="Lua\ldo.c" />
-    <ClCompile Include="Lua\ldump.c" />
-    <ClCompile Include="Lua\lfunc.c" />
-    <ClCompile Include="Lua\lgc.c" />
-    <ClCompile Include="Lua\linit.c" />
-    <ClCompile Include="Lua\liolib.c" />
-    <ClCompile Include="Lua\llex.c" />
-    <ClCompile Include="Lua\lmathlib.c" />
-    <ClCompile Include="Lua\lmem.c" />
-    <ClCompile Include="Lua\loadlib.c" />
-    <ClCompile Include="Lua\lobject.c" />
-    <ClCompile Include="Lua\lopcodes.c" />
-    <ClCompile Include="Lua\loslib.c" />
-    <ClCompile Include="Lua\lparser.c" />
-    <ClCompile Include="Lua\lstate.c" />
-    <ClCompile Include="Lua\lstring.c" />
-    <ClCompile Include="Lua\lstrlib.c" />
-    <ClCompile Include="Lua\ltable.c" />
-    <ClCompile Include="Lua\ltablib.c" />
-    <ClCompile Include="Lua\ltm.c" />
-    <ClCompile Include="Lua\lua.c" />
-    <ClCompile Include="Lua\lundump.c" />
-    <ClCompile Include="Lua\lutf8lib.c" />
-    <ClCompile Include="Lua\lvm.c" />
-    <ClCompile Include="Lua\lzio.c" />
-    <ClCompile Include="Utils\dllmain.cpp" />
-    <ClCompile Include="GUI\InitGui.cpp">
+    <ClInclude Include="api\directx\D3D11Hook.hpp" />
+    <ClInclude Include="api\discord\include\discord_register.h" />
+    <ClInclude Include="api\discord\include\discord_rpc.h" />
+    <ClInclude Include="api\discord\src\backoff.h" />
+    <ClInclude Include="api\discord\src\connection.h" />
+    <ClInclude Include="api\discord\src\msg_queue.h" />
+    <ClInclude Include="api\discord\src\rapidjson\allocators.h" />
+    <ClInclude Include="api\discord\src\rapidjson\cursorstreamwrapper.h" />
+    <ClInclude Include="api\discord\src\rapidjson\document.h" />
+    <ClInclude Include="api\discord\src\rapidjson\encodedstream.h" />
+    <ClInclude Include="api\discord\src\rapidjson\encodings.h" />
+    <ClInclude Include="api\discord\src\rapidjson\filereadstream.h" />
+    <ClInclude Include="api\discord\src\rapidjson\filewritestream.h" />
+    <ClInclude Include="api\discord\src\rapidjson\fwd.h" />
+    <ClInclude Include="api\discord\src\rapidjson\istreamwrapper.h" />
+    <ClInclude Include="api\discord\src\rapidjson\memorybuffer.h" />
+    <ClInclude Include="api\discord\src\rapidjson\memorystream.h" />
+    <ClInclude Include="api\discord\src\rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="api\discord\src\rapidjson\pointer.h" />
+    <ClInclude Include="api\discord\src\rapidjson\prettywriter.h" />
+    <ClInclude Include="api\discord\src\rapidjson\rapidjson.h" />
+    <ClInclude Include="api\discord\src\rapidjson\reader.h" />
+    <ClInclude Include="api\discord\src\rapidjson\schema.h" />
+    <ClInclude Include="api\discord\src\rapidjson\stream.h" />
+    <ClInclude Include="api\discord\src\rapidjson\stringbuffer.h" />
+    <ClInclude Include="api\discord\src\rapidjson\writer.h" />
+    <ClInclude Include="api\discord\src\rpc_connection.h" />
+    <ClInclude Include="api\discord\src\serialization.h" />
+    <ClInclude Include="functions\about\About.h" />
+    <ClInclude Include="il2cpp\detours.h" />
+    <ClInclude Include="functions\Function.h" />
+    <ClInclude Include="il2cpp\HookManager.h" />
+    <ClInclude Include="il2cpp\il2cpp-api-functions.h" />
+    <ClInclude Include="il2cpp\il2cpp-appdata.h" />
+    <ClInclude Include="il2cpp\il2cpp-functions.h" />
+    <ClInclude Include="il2cpp\il2cpp-init.hpp" />
+    <ClInclude Include="il2cpp\il2cpp-types-ptr.h" />
+    <ClInclude Include="il2cpp\il2cpp-types.h" />
+    <ClInclude Include="il2cpp\il2cpp-unityplayer-functions.h" />
+    <ClInclude Include="il2cpp\il2cppUtils.h" />
+    <ClInclude Include="functions\visuals\Peeking.h" />
+    <ClInclude Include="functions\visuals\FovChanger.h" />
+    <ClInclude Include="functions\visuals\UnlockFPS.h" />
+    <ClInclude Include="functions\world\AutoTP.h" />
+    <ClInclude Include="functions\player\GodMode.h" />
+    <ClInclude Include="functions\player\InfinityEnergy.h" />
+    <ClInclude Include="functions\player\InfinityStamina.h" />
+    <ClInclude Include="functions\player\MultiHit.h" />
+    <ClInclude Include="functions\player\NoCooldown.h" />
+    <ClInclude Include="functions\player\NoClip.h" />
+    <ClInclude Include="functions\world\CutsceneSkip.h" />
+    <ClInclude Include="functions\world\AutoTalk.h" />
+    <ClInclude Include="functions\world\DumbEnemies.h" />
+    <ClInclude Include="functions\world\GameSpeed.h" />
+    <ClInclude Include="games\lightsout.hpp" />
+    <ClInclude Include="games\minesweeper.hpp" />
+    <ClInclude Include="games\tictactoe.hpp" />
+    <ClInclude Include="games\wordle.hpp" />
+    <ClInclude Include="gui\GuiDefinitions.h" />
+    <ClInclude Include="gui\InitGui.h" />
+    <ClCompile Include="gui\Sections.cpp" />
+    <ClInclude Include="gui\Sections.h" />
+    <ClInclude Include="gui\Translations.h" />
+    <ClInclude Include="hotkeys\Hotkey.h" />
+    <ClInclude Include="hotkeys\KeyBind.h" />
+    <ClInclude Include="hotkeys\KeyBinds.h" />
+    <ClCompile Include="api\imgui\ImGui\imgui.cpp" />
+    <ClCompile Include="api\imgui\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="api\imgui\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="api\imgui\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="api\imgui\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="api\imgui\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="api\imgui\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="api\imgui\TextEditor\TextEditor.cpp" />
+    <ClCompile Include="api\lua\lapi.c" />
+    <ClCompile Include="api\lua\lauxlib.c" />
+    <ClCompile Include="api\lua\lbaselib.c" />
+    <ClCompile Include="api\lua\lbitlib.c" />
+    <ClCompile Include="api\lua\lcode.c" />
+    <ClCompile Include="api\lua\lcorolib.c" />
+    <ClCompile Include="api\lua\lctype.c" />
+    <ClCompile Include="api\lua\ldblib.c" />
+    <ClCompile Include="api\lua\ldebug.c" />
+    <ClCompile Include="api\lua\ldo.c" />
+    <ClCompile Include="api\lua\ldump.c" />
+    <ClCompile Include="api\lua\lfunc.c" />
+    <ClCompile Include="api\lua\lgc.c" />
+    <ClCompile Include="api\lua\linit.c" />
+    <ClCompile Include="api\lua\liolib.c" />
+    <ClCompile Include="api\lua\llex.c" />
+    <ClCompile Include="api\lua\lmathlib.c" />
+    <ClCompile Include="api\lua\lmem.c" />
+    <ClCompile Include="api\lua\loadlib.c" />
+    <ClCompile Include="api\lua\lobject.c" />
+    <ClCompile Include="api\lua\lopcodes.c" />
+    <ClCompile Include="api\lua\loslib.c" />
+    <ClCompile Include="api\lua\lparser.c" />
+    <ClCompile Include="api\lua\lstate.c" />
+    <ClCompile Include="api\lua\lstring.c" />
+    <ClCompile Include="api\lua\lstrlib.c" />
+    <ClCompile Include="api\lua\ltable.c" />
+    <ClCompile Include="api\lua\ltablib.c" />
+    <ClCompile Include="api\lua\ltm.c" />
+    <ClCompile Include="api\lua\lua.c" />
+    <ClCompile Include="api\lua\lundump.c" />
+    <ClCompile Include="api\lua\lutf8lib.c" />
+    <ClCompile Include="api\lua\lvm.c" />
+    <ClCompile Include="api\lua\lzio.c" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="gui\InitGui.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="ImGui\ImGui\imgui_stdlib.h" />
-    <ClInclude Include="Lua\function.h" />
-    <ClInclude Include="Lua\lapi.h" />
-    <ClInclude Include="Lua\lcode.h" />
-    <ClInclude Include="Lua\lctype.h" />
-    <ClInclude Include="Lua\ldebug.h" />
-    <ClInclude Include="Lua\ldo.h" />
-    <ClInclude Include="Lua\lfunc.h" />
-    <ClInclude Include="Lua\lgc.h" />
-    <ClInclude Include="Lua\llex.h" />
-    <ClInclude Include="Lua\llimits.h" />
-    <ClInclude Include="Lua\lmem.h" />
-    <ClInclude Include="Lua\lobject.h" />
-    <ClInclude Include="Lua\lopcodes.h" />
-    <ClInclude Include="Lua\lparser.h" />
-    <ClInclude Include="Lua\lstate.h" />
-    <ClInclude Include="Lua\lstring.h" />
-    <ClInclude Include="Lua\ltable.h" />
-    <ClInclude Include="Lua\ltm.h" />
-    <ClInclude Include="Lua\lua.hpp" />
-    <ClInclude Include="Lua\luahook.hpp" />
-    <ClInclude Include="Lua\lundump.h" />
-    <ClInclude Include="Lua\lvm.h" />
-    <ClInclude Include="Lua\lzio.h" />
+    <ClInclude Include="api\imgui\ImGui\imgui_stdlib.h" />
+    <ClInclude Include="api\lua\function.h" />
+    <ClInclude Include="api\lua\lapi.h" />
+    <ClInclude Include="api\lua\lcode.h" />
+    <ClInclude Include="api\lua\lctype.h" />
+    <ClInclude Include="api\lua\ldebug.h" />
+    <ClInclude Include="api\lua\ldo.h" />
+    <ClInclude Include="api\lua\lfunc.h" />
+    <ClInclude Include="api\lua\lgc.h" />
+    <ClInclude Include="api\lua\llex.h" />
+    <ClInclude Include="api\lua\llimits.h" />
+    <ClInclude Include="api\lua\lmem.h" />
+    <ClInclude Include="api\lua\lobject.h" />
+    <ClInclude Include="api\lua\lopcodes.h" />
+    <ClInclude Include="api\lua\lparser.h" />
+    <ClInclude Include="api\lua\lstate.h" />
+    <ClInclude Include="api\lua\lstring.h" />
+    <ClInclude Include="api\lua\ltable.h" />
+    <ClInclude Include="api\lua\ltm.h" />
+    <ClInclude Include="api\lua\lua.hpp" />
+    <ClInclude Include="api\lua\luahook.hpp" />
+    <ClInclude Include="api\lua\lundump.h" />
+    <ClInclude Include="api\lua\lvm.h" />
+    <ClInclude Include="api\lua\lzio.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Themes\Fonts\FontsLoader.hpp" />
-    <ClCompile Include="Lua\luahook.cpp">
+    <ClInclude Include="themes\fonts\FontsLoader.h" />
+    <ClCompile Include="api\lua\luahook.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="Themes\ThemeLoader.hpp" />
-    <ClCompile Include="Themes\Themes.cpp">
+    <ClInclude Include="themes\ThemeLoader.h" />
+    <ClCompile Include="themes\Themes.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="Themes\Themes.hpp" />
-    <ClInclude Include="Utils\DiscordRPC\Discord.h" />
-    <ClInclude Include="Utils\GuiUtils.hpp" />
-    <ClInclude Include="Utils\ImageLoader\ImageLoader.hpp" />
-    <ClInclude Include="Utils\ImageLoader\stb_image.h" />
-    <ClInclude Include="Utils\Logger.h" />
-    <ClInclude Include="Utils\LuaUtils.hpp" />
-    <ClInclude Include="Utils\ProtectionBypass.h" />
-    <ClInclude Include="Utils\util.h" />
-    <ClInclude Include="Utils\Utils.hpp" />
+    <ClInclude Include="themes\Themes.h" />
+    <ClInclude Include="utils\discordrpc\Discord.h" />
+    <ClInclude Include="utils\GuiUtils.h" />
+    <ClInclude Include="utils\image\ImageLoader.h" />
+    <ClInclude Include="utils\image\stb_image.h" />
+    <ClInclude Include="utils\Logger.h" />
+    <ClInclude Include="utils\LuaUtils.h" />
+    <ClInclude Include="utils\ProtectionBypass.h" />
+    <ClInclude Include="utils\util.h" />
+    <ClInclude Include="utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Games\lightsout.cpp">
+    <ClCompile Include="games\lightsout.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="Games\minesweeper.cpp">
+    <ClCompile Include="games\minesweeper.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="Games\tictactoe.cpp">
+    <ClCompile Include="games\tictactoe.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="Games\wordle.cpp">
+    <ClCompile Include="games\wordle.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="GUI\MainGUI.h" />
-    <ClInclude Include="ImGui\ImGuiNotify\fa_solid_900.h" />
-    <ClInclude Include="ImGui\ImGuiNotify\font_awesome_5.h" />
-    <ClInclude Include="ImGui\ImGuiNotify\imgui_notify.h" />
-    <ClInclude Include="ImGui\ImGuiNotify\tahoma.h" />
-    <ClInclude Include="ImGui\ImGui\imconfig.h" />
-    <ClInclude Include="ImGui\ImGui\imgui.h" />
-    <ClInclude Include="ImGui\ImGui\imgui_impl_dx11.h" />
-    <ClInclude Include="ImGui\ImGui\imgui_impl_win32.h" />
-    <ClInclude Include="ImGui\ImGui\imgui_internal.h" />
-    <ClInclude Include="ImGui\ImGui\imstb_rectpack.h" />
-    <ClInclude Include="ImGui\ImGui\imstb_textedit.h" />
-    <ClInclude Include="ImGui\ImGui\imstb_truetype.h" />
-    <ClInclude Include="ImGui\TextEditor\TextEditor.h" />
+    <ClInclude Include="gui\MainGUI.h" />
+    <ClInclude Include="api\imgui\ImGuiNotify\fa_solid_900.h" />
+    <ClInclude Include="api\imgui\ImGuiNotify\font_awesome_5.h" />
+    <ClInclude Include="api\imgui\ImGuiNotify\imgui_notify.h" />
+    <ClInclude Include="api\imgui\ImGuiNotify\tahoma.h" />
+    <ClInclude Include="api\imgui\ImGui\imconfig.h" />
+    <ClInclude Include="api\imgui\ImGui\imgui.h" />
+    <ClInclude Include="api\imgui\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="api\imgui\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="api\imgui\ImGui\imgui_internal.h" />
+    <ClInclude Include="api\imgui\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="api\imgui\ImGui\imstb_textedit.h" />
+    <ClInclude Include="api\imgui\ImGui\imstb_truetype.h" />
+    <ClInclude Include="api\imgui\TextEditor\TextEditor.h" />
     <ClInclude Include="includes.h" />
-    <ClInclude Include="Json\json.hpp" />
-    <ClInclude Include="Lua\lauxlib.h" />
-    <ClInclude Include="Lua\lprefix.h" />
-    <ClInclude Include="Lua\lua.h" />
-    <ClInclude Include="Lua\luaconf.h" />
-    <ClInclude Include="Lua\lualib.h" />
-    <ClInclude Include="Lua\pe.h" />
-    <ClInclude Include="Lua\scanner.h" />
-    <ClCompile Include="Themes\Fonts\FontsLoader.cpp">
+    <ClInclude Include="api\json\json.hpp" />
+    <ClInclude Include="api\lua\lauxlib.h" />
+    <ClInclude Include="api\lua\lprefix.h" />
+    <ClInclude Include="api\lua\lua.h" />
+    <ClInclude Include="api\lua\luaconf.h" />
+    <ClInclude Include="api\lua\lualib.h" />
+    <ClInclude Include="api\lua\pe.h" />
+    <ClInclude Include="api\lua\scanner.h" />
+    <ClCompile Include="themes\fonts\FontsLoader.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="Themes\ThemeLoader.cpp">
+    <ClCompile Include="themes\ThemeLoader.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="Utils\ExtraGuiFuncs.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="Functions\detours.lib" />
-    <Library Include="Lua\lua53.lib" />
+    <Library Include="api\lua\lua53.lib" />
+    <Library Include="il2cpp\detours.lib" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="gato.png" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Themes\Fonts\m-n.otf" />
+    <Font Include="themes\fonts\m-n.otf" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="minty.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lua\lua53.dll" />
-    <None Include="Resources\translations.json" />
+    <None Include="api\lua\lua53.dll" />
+    <None Include="resources\translations.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,14 +1,11 @@
 #include <Windows.h>
 
-#include "../ImGui/ImGui/imgui.h"
-#include "../ImGui/ImGui/imgui_internal.h"
+#include "../api/imgui/ImGui/imgui.h"
+#include "../api/imgui/ImGui/imgui_internal.h"
+#include "../config/ConfigManager.h"
 #include "KeyBind.h"
-#include "../Config/ConfigManager.h"
 
-
-// Checks key press passed in first parameter
-bool KeyBind::IsKeyPressed(unsigned int k) noexcept
-{
+bool KeyBind::IsKeyPressed(unsigned int k) noexcept {
 	if (k == KeyCodes[0])
 		return false;
 
@@ -16,9 +13,8 @@ bool KeyBind::IsKeyPressed(unsigned int k) noexcept
 }
 
 namespace {
-	nlohmann::json cfgjsonobj;
-	void saveHotkeyToJson(std::string hotkeyName, int hotkey)
-	{
+	//nlohmann::json cfgjsonobj;
+	void saveHotkeyToJson(std::string hotkeyName, int hotkey) {
 		/*std::ifstream config_file("minty.json");
 		nlohmann::json config_json;
 		config_file >> config_json;
@@ -32,17 +28,15 @@ namespace {
 	}
 }
 
-bool KeyBind::SetToPressedKey(unsigned int* key, const char* hotkeyJsonName) noexcept
-{
+bool KeyBind::SetToPressedKey(unsigned int* key, const char* functionName) noexcept {
 	// fuck this, because it sucks on binding on other buttons
 	Sleep(10);
-	for (auto &Key : KeyCodes)
-	{
+
+	for (auto &Key : KeyCodes) {
 		if (IsKeyPressed(VK_LBUTTON) || IsKeyPressed(VK_RBUTTON) || IsKeyPressed(VK_MENU) /* unexpected random alt presses */)
 			continue;
 
-		if (IsKeyPressed(VK_ESCAPE))
-		{
+		if (IsKeyPressed(VK_ESCAPE)) {
 			*key = KeyCodes[0];
 			return true;
 			break;
@@ -50,7 +44,7 @@ bool KeyBind::SetToPressedKey(unsigned int* key, const char* hotkeyJsonName) noe
 
 		if (IsKeyPressed(Key)) {
 			*key = Key;
-			saveHotkeyToJson(hotkeyJsonName, Key);
+			saveHotkeyToJson(functionName, Key);
 			return true;
 			break;
 		}

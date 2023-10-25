@@ -2,10 +2,6 @@
 #define UNICODE
 #endif
 
-#include "Utils.hpp"
-
-#include "ProtectionBypass.h"
-
 #include <Windows.h>
 #include <stdio.h>
 #include <iostream>
@@ -14,9 +10,12 @@
 #include <format>
 #include <intsafe.h>
 #include <vector>
-#include "../Functions/il2cpp-appdata.h"
-#include "../Functions/HookManager.h"
-#include "../Functions/il2cppUtils.h"
+
+#include "ProtectionBypass.h"
+#include "Logger.h"
+#include "../il2cpp/il2cpp-appdata.h"
+#include "../il2cpp/HookManager.h"
+#include "../il2cpp/il2cppUtils.h"
 
 #pragma comment(lib,"ntdll.lib")
 
@@ -193,7 +192,7 @@ bool CloseHandleByName(const wchar_t* name)
 	/* NtQuerySystemInformation stopped giving us STATUS_INFO_LENGTH_MISMATCH. */
 	if (!NT_SUCCESS(status))
 	{
-		util::log(M_Error, "NtQuerySystemInformation failed!");
+		LOG_ERROR("NtQuerySystemInformation failed!");
 		return false;
 	}
 
@@ -284,8 +283,7 @@ void ProtectionBypass::DisableVMP() {
 std::map<int32_t, std::string> m_CorrectSignatures;
 app::Byte__Array* OnRecordUserData(int32_t nType);
 
-static app::Byte__Array* RecordUserData_Hook(int32_t nType)
-{
+static app::Byte__Array* RecordUserData_Hook(int32_t nType) {
 	return OnRecordUserData(nType);
 }
 
@@ -310,7 +308,7 @@ app::Byte__Array* OnRecordUserData(int32_t nType) {
 	auto stringValue = std::string((char*)result->vector, length);
 	m_CorrectSignatures[nType] = stringValue;
 
-	util::log(M_Debug, "Sniffed correct signature for type %d value '%s'", nType, stringValue.c_str());
+	LOG_DEBUG("Sniffed correct signature for type %d value '%s'", nType, stringValue.c_str());
 	return result;
 }
 
@@ -318,7 +316,7 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size) {
 	auto ret = CALL_ORIGIN(RecordChecksumUserData_Hook, type, out, out_size);
 
 	while (true) {
-		util::log(M_Debug, "type %d\nret %d: %s", type, ret, out);
+		LOG_DEBUG("type %d\nret %d: %s", type, ret, out);
 		Sleep(10);
 	}
 
@@ -332,7 +330,7 @@ static int RecordChecksumUserData_Hook(int type, char* out, int out_size) {
 	assert(type < sizeof(data) / sizeof(const char*));
 	ret = strlen(data[type]);
 	if (strcmp(data[type], out) != 0)
-		util::log(M_Error, "Wrong checksum");
+		LOG_ERROR("Wrong checksum");
 
 	strncpy(out, data[type], out_size);
 	return ret;
@@ -378,13 +376,13 @@ void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 	xor_payload(value_bytes);
 
 	auto value_string = std::string((char*)value_bytes.data(), value_bytes.size());
-	//util::log(M_Info, "ReportLuaShellResult: %s, %s", il2cppi_to_string(type).c_str(), value_string.c_str());
+	//LOG_INFO("ReportLuaShellResult: %s, %s", il2cppi_to_string(type).c_str(), value_string.c_str());
 
 	auto json_report = nlohmann::json::parse(value_string);
 
 	if (json_report.contains("1"))
 	{
-		util::log(M_Info, "Letting the first LuaShellResult pass, blocking the rest.");
+		LOG_INFO("Letting the first LuaShellResult pass, blocking the rest.");
 		report_sent = false;
 	}
 	else
@@ -432,12 +430,12 @@ void ProtectionBypass::Init() {
 
 	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
-	//util::log(M_Info, "Trying to close mhyprot.");
+	//LOG_INFO("Trying to close mhyprot.");
 
 	if (CloseHandleByName(L"\\Device\\mhyprot2"))
-		util::log(M_Info, "mhyprot anticheat has been killed");
+		LOG_INFO("mhyprot anticheat has been killed");
 
-	util::log(M_Info, "Disable the *stupid* hoyo log spam..");
+	LOG_INFO("Disable the *stupid* hoyo log spam..");
 	DisableLogReport();
 
 	while (hTelemetry == (uint64_t) nullptr) {
@@ -446,6 +444,6 @@ void ProtectionBypass::Init() {
 	}
 
 	HookManager::install((sub_18012A580)(hTelemetry + 0x12A580), sub_18012A580_Hook);
-	util::log(M_Info, "Initialized protection bypass");
+	LOG_INFO("Initialized protection bypass");
 	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 }

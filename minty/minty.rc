@@ -50,9 +50,9 @@ END
 // RCDATA
 //
 
-IDR_RCDATA1             RCDATA                  "Themes\\Fonts\\m-n.otf"
+IDR_RCDATA1             RCDATA                  "themes\\fonts\\m-n.otf"
 
-IDR_RCDATA2             RCDATA                  "Resources\\translations.json"
+IDR_RCDATA2             RCDATA                  "resources\\translations.json"
 
 
 /////////////////////////////////////////////////////////////////////////////

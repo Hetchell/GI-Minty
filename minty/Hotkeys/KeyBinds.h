@@ -1,7 +1,6 @@
 #pragma once
 
-static
-const char* KeyNames[] = {
+static const char* KeyNames[] = {
   "OFF",
   "LBUTTON",
   "RBUTTON",
@@ -265,8 +264,7 @@ const char* KeyNames[] = {
   "CLEAR"
 };
 
-static
-const int KeyCodes[] = {
+static const int KeyCodes[] = {
   0x0, //Undefined
   0x01,
   0x02,

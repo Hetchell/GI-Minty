@@ -1,4 +1,4 @@
-#include "GuiUtils.hpp"
+#include "GuiUtils.h"
 
 void HelpMarker(const char* description) {
     ImGui::TextDisabled("(?)");

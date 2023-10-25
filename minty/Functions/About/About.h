@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../Function.h"
-#include "../../Utils/GuiUtils.hpp"
+#include "../FunctionIncludes.h"
 
 namespace cheat {
 	class About : public Function {

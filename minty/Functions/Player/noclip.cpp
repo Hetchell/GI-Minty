@@ -69,43 +69,43 @@ namespace cheat {
 	app::GameObject* HeroGameObject;
 	void onNoClip() {
 		AvatarRoot = app::GameObject_Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
-		//util::log(M_Info, "found avatar");
+		//LOG_INFO("found avatar");
 		//if (!AvatarRoot)
 			//return;
 
 		auto Transform = app::GameObject_GetComponentByName(AvatarRoot, string_to_il2cppi("Transform"));
-		//util::log(M_Info, "found transform");
+		//LOG_INFO("found transform");
 		auto HeroCount = app::Transform_get_childCount(reinterpret_cast<app::Transform*>(Transform));
-		//util::log(M_Info, "found count");
+		//LOG_INFO("found count");
 		for (int i = 0; i <= HeroCount - 1; i++) {
 			auto HeroComponent = app::Transform_GetChild(reinterpret_cast<app::Transform*>(Transform), i);
-			//util::log(M_Info, "found child");
+			//LOG_INFO("found child");
 			HeroGameObject = app::Component_1_get_gameObject(reinterpret_cast<app::Component_1*>(HeroComponent));
-			//util::log(M_Info, "found gameobj");
+			//LOG_INFO("found gameobj");
 			auto isActiveHero = app::GameObject_get_active(HeroGameObject);
-			//util::log(M_Info, "found active");
+			//LOG_INFO("found active");
 			if (isActiveHero) {
 				auto GameObjectName = app::Object_1_get_name(reinterpret_cast<app::Object_1*>(HeroGameObject));
-				//util::log(M_Info, "found name");
+				//LOG_INFO("found name");
 				ActiveHero = il2cppi_to_string(GameObjectName);
 				std::string Hero = ActiveHero.erase(ActiveHero.find("(Clone)"));
 				std::string avatarName = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str();
 				nameAvatar = app::GameObject_Find(string_to_il2cppi(avatarName));
-				//util::log(M_Info, "found gameob2");
+				//LOG_INFO("found gameob2");
 				avatarTransform = app::GameObject_get_transform(nameAvatar);
-				//util::log(M_Info, "found transfor2");
+				//LOG_INFO("found transfor2");
 				rigidbody = reinterpret_cast<app::Rigidbody*>(app::GameObject_GetComponentByName(HeroGameObject, string_to_il2cppi("Rigidbody")));
-				//util::log(M_Info, "found rb");
+				//LOG_INFO("found rb");
 				if (rigidbody != 0)
 					break;
 			}
 		}
 
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
-		app::Rigidbody_set_detectCollisions(rigidbody, false);
-		//util::log(M_Info, "coli det")
+		//app::Rigidbody_set_detectCollisions(rigidbody, false);
+		//LOG_INFO("coli det")
 		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::GameObject_get_transform(app::GameObject_Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
-		//util::log(M_Info, "found transfom cam");
+		//LOG_INFO("found transfom cam");
 		auto avatarEntity = reinterpret_cast<app::BaseEntity*>(avatarTransform);
 		app::Vector3 dir = {};
 
@@ -128,12 +128,12 @@ namespace cheat {
 			dir = dir - app::MoleMole_BaseEntity_GetUp(avatarEntity);
 
 		prevPos = app::Rigidbody_get_position(rigidbody);
-		//util::log(M_Info, "rb go pos");
+		//LOG_INFO("rb go pos");
 		if (prevPos.x == 0 && prevPos.y == 0 && prevPos.z == 0)
 			return;
 
 		float deltaTime = app::Time_get_deltaTime() * 1.5F;
-		//util::log(M_Info, "got delt");
+		//LOG_INFO("got delt");
 		newPos = prevPos + dir * NoClip::f_finalSpeed * deltaTime;
 		// if (iNoClipMode == 0) 
 		app::Rigidbody_set_velocity(rigidbody, { 0,0,0 });

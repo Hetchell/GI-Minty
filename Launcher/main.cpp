@@ -9,7 +9,7 @@
 #include <commdlg.h>
 #include <tchar.h>
 
-#include "../minty/json/json.hpp"
+#include "../minty/api/json/json.hpp"
 
 namespace fs = std::filesystem;
 
@@ -101,26 +101,24 @@ int main() {
     auto dll_path = current_dir.value() / "minty.dll";
 
     if (!fs::is_regular_file(dll_path)) {
-        printf("Minty.dll not found\n");
+        printf("minty.dll not found\n");
         system("pause");
         return 0;
     }
 
     std::string exe_path;
     fs::path settings_path = fs::current_path() / "minty.json";
-
     std::ifstream settings_file(settings_path);
-    // Check if the settings file exists
+
     if (!fs::exists(settings_path)) {
         std::ofstream settings_file(settings_path);
+
         if (settings_file.is_open()) {
             // Write the executable path to the settings file
-            cfg["exec_path"] = exe_path;
+            cfg["general"]["execPath"] = exe_path;
 
             settings_file << cfg.dump(4) << std::endl;
-            exe_path = cfg["exec_path"];
-            std::cout << exe_path << std::endl;
-
+            exe_path = cfg["general"]["execPath"];
             if (!fs::is_regular_file(exe_path)) {
                 std::cout << "File path in minty.json invalid" << std::endl;
                 std::cout << "Please select your Game Executable" << std::endl;
@@ -143,21 +141,19 @@ int main() {
                     std::ofstream settings_file("minty.json", std::ios_base::out);
 
                     if (settings_file.is_open()) {
-                        cfg["exec_path"] = exe_path;
+                        cfg["general"]["execPath"] = exe_path;
                         settings_file << cfg.dump(4) << std::endl;
                         settings_file.close();
-                    }
-                    else {
+                    } else {
                         std::cout << "Error: Unable to open settings file." << std::endl;
                         return 1;
                     }
-                }
-                else {
+                } else {
                     std::cout << "Error: Unable to open file dialog." << std::endl;
                     return 1;
                 }
 
-                exe_path = cfg["exec_path"];
+                exe_path = cfg["general"]["execPath"];
                 PROCESS_INFORMATION proc_info{};
                 STARTUPINFOA startup_info{};
                 CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
@@ -168,22 +164,17 @@ int main() {
                 CloseHandle(proc_info.hProcess);
                 return 0;
             }
-        }
-        else {
+        } else {
             std::cout << "Error: Unable to create config file." << std::endl;
         }
     }
 
     settings_file >> cfg;
 
-    auto settings = read_whole_file(settings_path);
-
-    if (!settings)
+    if (!read_whole_file(settings_path))
         printf("Failed reading config\n");
 
-    std::cout << exe_path << std::endl;
-    exe_path = cfg["exec_path"];
-    std::cout << exe_path << std::endl;
+    exe_path = cfg["general"]["execPath"];
 
     if (!fs::is_regular_file(exe_path)) {
         std::cout << "File path in minty.json invalid" << std::endl;
@@ -207,7 +198,7 @@ int main() {
             std::ofstream settings_file("minty.json", std::ios_base::out);
 
             if (settings_file.is_open()) {
-                cfg["exec_path"] = exe_path;
+                cfg["general"]["execPath"] = exe_path;
                 settings_file << cfg.dump(4) << std::endl;
                 settings_file.close();
             } else {
@@ -219,7 +210,7 @@ int main() {
             return 1;
         }
 
-        exe_path = cfg["exec_path"];
+        exe_path = cfg["general"]["execPath"];
         PROCESS_INFORMATION proc_info{};
         STARTUPINFOA startup_info{};
         CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
@@ -267,8 +258,11 @@ bool CreateDeviceD3D(HWND hWnd) {
     D3D_FEATURE_LEVEL featureLevel;
     const D3D_FEATURE_LEVEL featureLevelArray[2] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_10_0, };
     HRESULT res = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, createDeviceFlags, featureLevelArray, 2, D3D11_SDK_VERSION, &sd, &g_pSwapChain, &g_pd3dDevice, &featureLevel, &g_pd3dDeviceContext);
-    if (res == DXGI_ERROR_UNSUPPORTED) // Try high-performance WARP software driver if hardware is not available.
+
+    // Try high-performance WARP software driver if hardware is not available.
+    if (res == DXGI_ERROR_UNSUPPORTED)
         res = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_WARP, nullptr, createDeviceFlags, featureLevelArray, 2, D3D11_SDK_VERSION, &sd, &g_pSwapChain, &g_pd3dDevice, &featureLevel, &g_pd3dDeviceContext);
+    
     if (res != S_OK)
         return false;
 

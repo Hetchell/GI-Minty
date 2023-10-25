@@ -1,11 +1,6 @@
 #pragma once
 
-#include "../il2cpp-appdata.h"
-#include "../il2cppUtils.h"
-#include "../Function.h"
-#include "../../Hotkeys/Hotkey.h"
-#include "../HookManager.h"
-#include "../../Utils/GuiUtils.hpp"
+#include "../FunctionIncludes.h"
 
 namespace cheat {
 	class MultiHit : public Function {

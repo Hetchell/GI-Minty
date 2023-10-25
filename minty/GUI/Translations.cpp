@@ -1,6 +1,6 @@
 #include "Translations.h"
 
-string result;
+std::string result;
 static bool ifParse;
 int LangTR = 0;
 
@@ -8,11 +8,9 @@ void InitTR() {
     HMODULE hModule = GetModuleHandle("minty.dll");
     HRSRC hResource = FindResource(hModule, MAKEINTRESOURCE(IDR_RCDATA2), RT_RCDATA);
 
-    if (hResource)
-    {
+    if (hResource) {
         HGLOBAL hData = LoadResource(hModule, hResource);
-        if (hData)
-        {
+        if (hData) {
             DWORD dataSize = SizeofResource(hModule, hResource);
             char* data = (char*)LockResource(hData);
             result.assign(data, dataSize);
@@ -20,14 +18,15 @@ void InitTR() {
     }
 }
 
-u8string u8result;
+std::u8string u8result;
 const char* _(const char* code) {
-    /*nlohmann::json trJson;
+    /*
+    nlohmann::json trJson;
     if (result == "") {
         InitTR();
+        trJson = nlohmann::json::parse(result);
     }
     string retStr;
-    trJson = nlohmann::json::parse(result);
     switch (LangTR) {
     case 0:
         retStr = trJson["EN"][code];
@@ -46,6 +45,7 @@ const char* _(const char* code) {
         break;
     }
     u8result = u8string(retStr.begin(), retStr.end());
-    return reinterpret_cast<const char*>(u8result.c_str());*/
+    return reinterpret_cast<const char*>(u8result.c_str());
+    */
     return code;
 }

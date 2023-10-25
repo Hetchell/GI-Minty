@@ -18,10 +18,9 @@ namespace cheat {
     void Settings::GUI() {
         ImGui::SeparatorText("General");
 
-        ConfigCheckbox("Show current FPS", f_ShowFps);
-        ConfigCheckbox("Show Discord RPC", f_ShowRpc);
-        ImGui::SameLine();
-        HelpMarker("Turn Discord custom RPC on/off. Requires re-entering game.");
+        ConfigCheckbox("Show current FPS", f_ShowFps, "Shows the current FPS.");
+        ConfigCheckbox("Show Discord RPC", f_ShowRpc, "Shows the Discord RPC.\n"
+            "Requires re - entering game.");
 
         ConfigSliderInt("Initialization delay (ms)", f_InitDelay, 0, 60000,
             "Change delay before showing menu. May cause lags while opening, so try to change this value in case.");
@@ -29,36 +28,28 @@ namespace cheat {
         ImGui::SeparatorText("Theme");
 
         static int themeIndex = 1;
-        if (ImGui::RadioButton("Dark", &themeIndex, 1)) {
+        if (ImGui::RadioButton("Dark", &themeIndex, 1))
             setTheme(1);
-            config::setValue("general:theme", "color", 1);
-        }
 
-        if (ImGui::RadioButton("Light", &themeIndex, 2)) {
+        if (ImGui::RadioButton("Light", &themeIndex, 2))
             setTheme(2);
-            config::setValue("general:theme", "color", 2);
-        }
 
         ImGui::SeparatorText("Style");
 
-        static int themestyleindex = 1;
-        if (ImGui::RadioButton("Cozy", &themestyleindex, 1)) {
+        static int styleIndex = 1;
+        if (ImGui::RadioButton("Cozy", &styleIndex, 1))
             setStyle(1);
-            config::setValue("theme", "style", 1);
-        }
 
-        if (ImGui::RadioButton("Cozy Squared", &themestyleindex, 2)) {
+        if (ImGui::RadioButton("Cozy Squared", &styleIndex, 2))
             setStyle(2);
-            config::setValue("theme", "style", 2);
-        }
 
         ImGui::SeparatorText("Font");
 
-        static int fontSelectionIndex = 0;
-        if (ImGui::RadioButton("Normal", &fontSelectionIndex, 0))
+        static int fontIndex = 0;
+        if (ImGui::RadioButton("Normal", &fontIndex, 0))
             setFont(1);
 
-        if (ImGui::RadioButton("Bold", &fontSelectionIndex, 1))
+        if (ImGui::RadioButton("Bold", &fontIndex, 1))
             setFont(2);
 
         ImGui::SeparatorText("Customize");

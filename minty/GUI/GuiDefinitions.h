@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Utils/Utils.hpp"
-#include "../Functions/Function.h"
+#include "../utils/Utils.hpp"
+#include "../functions/Function.h"
 
 static bool g_ShowMenu = true;
 static bool block_input = true;

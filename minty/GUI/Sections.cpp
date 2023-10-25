@@ -1,60 +1,44 @@
-﻿#include "../Functions/About/About.h"
+﻿#include "../functions/about/About.h"
 
-#include "../Functions/Misc/AutoTalk.h"
-#include "../Functions/Misc/CameraZoom.h"
-#include "../Functions/Misc/CutsceneSkip.h"
-#include "../Functions/Misc/ElementalSight.h"
-#include "../Functions/Misc/FovChanger.h"
-#include "../Functions/Misc/HideDamage.h"
-#include "../Functions/Misc/HideReaction.h"
-#include "../Functions/Misc/HideUI.h"
-#include "../Functions/Misc/NoFog.h"
-#include "../Functions/Misc/OpenTeamImmediately.h"
-#include "../Functions/Misc/Peeking.h"
-#include "../Functions/Misc/ProfileChanger.h"
-#include "../Functions/Misc/ShowChestIndicator.h"
-#include "../Functions/Misc/SkipEnhanceAnimation.h"
-#include "../Functions/Misc/UnlockFPS.h"
+#include "../functions/player/GodMode.h"
+#include "../functions/player/InfinityEnergy.h"
+#include "../functions/player/InfinityStamina.h"
+#include "../functions/player/MultiHit.h"
+#include "../functions/player/NoClip.h"
+#include "../functions/player/NoCooldown.h"
 
-#include "../Functions/Player/GodMode.h"
-#include "../Functions/Player/InfinityEnergy.h"
-#include "../Functions/Player/InfinityStamina.h"
-#include "../Functions/Player/MultiHit.h"
-#include "../Functions/Player/NoClip.h"
-#include "../Functions/Player/NoCooldown.h"
+#include "../functions/settings/Settings.h"
 
-#include "../Functions/Settings/Settings.h"
+#include "../functions/visuals/CameraZoom.h"
+#include "../functions/visuals/FovChanger.h"
+#include "../functions/visuals/HideDamage.h"
+#include "../functions/visuals/HideReaction.h"
+#include "../functions/visuals/HideUI.h"
+#include "../functions/visuals/NoFog.h"
+#include "../functions/visuals/Peeking.h"
+#include "../functions/visuals/ProfileChanger.h"
+#include "../functions/visuals/ShowChestIndicator.h"
+#include "../functions/visuals/UnlockFPS.h"
 
-#include "../Functions/World/AutoTP.h"
-#include "../Functions/World/DumbEnemies.h"
-#include "../Functions/World/GameSpeed.h"
+#include "../functions/world/AutoTalk.h"
+#include "../functions/world/AutoTP.h"
+#include "../functions/world/CutsceneSkip.h"
+#include "../functions/world/DumbEnemies.h"
+#include "../functions/world/ElementalSight.h"
+#include "../functions/world/GameSpeed.h"
+#include "../functions/world/OpenTeamImmediately.h"
+#include "../functions/world/SkipEnhanceAnimation.h"
 
 std::vector<std::string> ModuleOrder = {
     "Player",
     "World",
-    "Misc",
+    "Visuals",
     "About",
     "Settings"
 };
 
 void Init() {
     INIT_FUNC(About);
-
-    INIT_FUNC(AutoTalk);
-    INIT_FUNC(CameraZoom);
-    INIT_FUNC(CutsceneSkip);
-    //INIT_FUNC(ElementalSight);
-    INIT_FUNC(FovChanger);
-    INIT_FUNC(HideDamage);
-    INIT_FUNC(HideReaction);
-    INIT_FUNC(HideUI);
-    INIT_FUNC(NoFog);
-    //INIT_FUNC(OpenTeamImmediately);
-    INIT_FUNC(Peeking);
-    INIT_FUNC(ProfileChanger);
-    INIT_FUNC(ShowChestIndicator);
-    INIT_FUNC(SkipEnhanceAnimation);
-    INIT_FUNC(UnlockFPS);
 
     INIT_FUNC(GodMode);
     INIT_FUNC(InfinityEnergy);
@@ -65,9 +49,25 @@ void Init() {
 
     INIT_FUNC(Settings);
 
-    //INIT_FUNC(AutoTP);
+    INIT_FUNC(CameraZoom);
+    INIT_FUNC(FovChanger);
+    INIT_FUNC(HideDamage);
+    INIT_FUNC(HideReaction);
+    INIT_FUNC(HideUI);
+    INIT_FUNC(NoFog);
+    INIT_FUNC(Peeking);
+    INIT_FUNC(ProfileChanger);
+    INIT_FUNC(ShowChestIndicator);
+    INIT_FUNC(UnlockFPS);
+
+    INIT_FUNC(AutoTalk);
+    INIT_FUNC(AutoTP);
+    INIT_FUNC(CutsceneSkip);
     INIT_FUNC(DumbEnemies);
+    //INIT_FUNC(ElementalSight);
     INIT_FUNC(GameSpeed);
+    //INIT_FUNC(OpenTeamImmediately);
+    INIT_FUNC(SkipEnhanceAnimation);
 }
 
 void Outer() {

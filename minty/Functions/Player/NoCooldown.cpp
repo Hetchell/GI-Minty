@@ -92,7 +92,7 @@ namespace cheat {
 		
 		if (NoCooldown.f_EnabledBow.getValue() && il2cppi_to_string(key) == "_Enchanted_Time") {
 			value = maxValue;
-			//util::log(M_Info, "value: %d, minValue: %d, maxValue: %d, nextValidAbilityID: %d", value, minValue, maxValue, __this->fields.nextValidAbilityID);
+			//LOG_INFO("value: %d, minValue: %d, maxValue: %d, nextValidAbilityID: %d", value, minValue, maxValue, __this->fields.nextValidAbilityID);
 			//__this->fields.nextValidAbilityID = 36;
 		}
 		CALL_ORIGIN(ActorAbilityPlugin_AddDynamicFloatWithRange_Hook, __this, key, value, minValue, maxValue, forceDoAtRemote);

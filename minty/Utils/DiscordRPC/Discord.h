@@ -1,8 +1,10 @@
 #pragma once
-#pragma once
-#include "../../Discord SDK/include/discord_register.h"
-#include "../../Discord SDK/include/discord_rpc.h"
+
 #include <Windows.h>
+#include <time.h>
+
+#include "../../api/discord/include/discord_register.h"
+#include "../../api/discord/include/discord_rpc.h"
 
 class Discord {
 public:

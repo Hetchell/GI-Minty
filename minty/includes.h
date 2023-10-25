@@ -12,24 +12,22 @@
 #include <dxgi.h>
 #include <Windows.h>
 
-#include "ImGui/ImGui/imgui.h"
-#include "ImGui/ImGui/imgui_impl_win32.h"
-#include "ImGui/ImGui/imgui_impl_dx11.h"
-#include "ImGui/TextEditor/TextEditor.h"
+#include "api/imgui/ImGui/imgui.h"
+#include "api/imgui/ImGui/imgui_impl_win32.h"
+#include "api/imgui/ImGui/imgui_impl_dx11.h"
+#include "api/imgui/TextEditor/TextEditor.h"
 
 //#include "Themes/themes.hpp"
-//#include "Utils/ExtraGuiFuncs.hpp"
-#include "Utils/LuaUtils.hpp"
-#include "Utils/Utils.hpp"
-#include "Json/json.hpp"
+#include "utils/LuaUtils.h"
+#include "utils/Utils.hpp"
+#include "api/json/json.hpp"
 //#include "Lua/luahook.h"
 
 //#include "Games/lightsout.hpp"
 //#include "Games/minesweeper.hpp"
 //#include "Games/tictactoe.hpp"
 //#include "Games/wordle.hpp"
-//#include "Utils/ExtraGuiFuncs.hpp"
-#include "ImGui/TextEditor/TextEditor.h"
+#include "api/imgui/TextEditor/TextEditor.h"
 //#include "ImGui/ImGuiNotify/imgui_notify.h"
 //#include "ImGui/ImGuiNotify/tahoma.h"
 //#include "../minty/Games/lightsout.hpp"

@@ -1,11 +1,11 @@
 #include "MainGUI.h"
 
-#include "../Utils/GuiUtils.hpp"
+#include "../utils/GuiUtils.h"
 #include "GuiDefinitions.h"
-#include "Sections.hpp"
-#include "../ImGui/ImGuiNotify/imgui_notify.h"
-#include "../Themes/Themes.hpp"
-#include "../Utils/ImageLoader/ImageLoader.hpp"
+#include "Sections.h"
+#include "../api/imgui/ImGuiNotify/imgui_notify.h"
+#include "../themes/Themes.h"
+//#include "../utils/image/ImageLoader.h"
 
 using namespace std;
 

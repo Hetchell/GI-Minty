@@ -1,5 +1,4 @@
-
-#include "LuaUtils.hpp"
+#include "LuaUtils.h"
 
 namespace fs = std::filesystem;
 
@@ -15,14 +14,10 @@ const PIMAGE_SECTION_HEADER get_section_by_name(HMODULE base, const char* name) 
     return NULL;
 }
 
-uintptr_t PatternScan(LPCSTR module, LPCSTR pattern)
-{
+uintptr_t PatternScan(LPCSTR module, LPCSTR pattern) {
 	static auto pattern_to_byte = [](const char* pattern) {
-
 		auto bytes = std::vector<int>{};
-
 		auto start = const_cast<char*>(pattern);
-
 		auto end = const_cast<char*>(pattern) + strlen(pattern);
 
 		for (auto current = start; current < end; ++current) {
@@ -41,6 +36,7 @@ uintptr_t PatternScan(LPCSTR module, LPCSTR pattern)
 	};
 
 	auto mod = GetModuleHandleA(module);
+
 	if (!mod)
 		return 0;
 
@@ -89,7 +85,6 @@ const uint8_t* find_pat(const uint8_t* pat, const char* mask, const uint8_t* sta
             if (cmp_pat(pat, mask, pattern_len, ptr) == true)
                 return ptr;
     }
-
     return 0;
 }
 
@@ -105,6 +100,5 @@ const uint8_t* find_ref_relative(const uint8_t* addr, const uint8_t* start, size
             if (*(uint32_t*)(ptr) + ptr + 4 == addr)
                 return ptr;
     }
-
     return 0;
 }
