@@ -62,7 +62,7 @@ void gui::Render() {
 
     Outer();
 
-    if (ImGui::IsKeyPressed(ImGuiKey_F12, false)) {
+    if (cheat::Settings::showMenuHotkey.IsPressed()) {
         g_ShowMenu = !g_ShowMenu;
     }
 

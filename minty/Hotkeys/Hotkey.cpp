@@ -17,6 +17,13 @@ Hotkey::Hotkey(const char* functionName) {
     this->bWaitsInput = false;
 }
 
+Hotkey::Hotkey(const char* jsonStateName, int defaultKey)
+{
+	this->m_nHkey = defaultKey;
+	this->hotkeyJsonName = jsonStateName;
+	this->bWaitsInput = false;
+}
+
 bool Hotkey::IsPressed() {
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastInputTime).count() > 100 &&
 		ImGui::IsKeyPressed(static_cast<ImGuiKey>(this->m_nHkey), false);

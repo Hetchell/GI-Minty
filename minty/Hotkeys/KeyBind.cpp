@@ -24,7 +24,9 @@ namespace {
 		config_json.merge_patch(cfgjsonobj);
 		std::ofstream merged_file("minty.json");
 		merged_file << config_json.dump(4);
-		merged_file.close();*/
+		merged_file.close();
+		шо не так почему закоментированно	
+		*/
 	}
 }
 

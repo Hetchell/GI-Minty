@@ -18,9 +18,14 @@ namespace cheat {
     void Settings::GUI() {
         ImGui::SeparatorText("General");
 
-        ConfigCheckbox("Show current FPS", f_ShowFps, "Shows the current FPS.");
-        ConfigCheckbox("Show Discord RPC", f_ShowRpc, "Shows the Discord RPC.\n"
-            "Requires re - entering game.");
+        ImGui::Text("Show menu hotkey:");
+        ImGui::SameLine();
+        showMenuHotkey.Draw();
+
+        ConfigCheckbox("Show current FPS", f_ShowFps);
+        ConfigCheckbox("Show Discord RPC", f_ShowRpc);
+        ImGui::SameLine();
+        HelpMarker("Turn Discord custom RPC on/off. Requires re-entering game.");
 
         ConfigSliderInt("Initialization delay (ms)", f_InitDelay, 0, 60000,
             "Change delay before showing menu. May cause lags while opening, so try to change this value in case.");

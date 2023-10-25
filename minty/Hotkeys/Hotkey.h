@@ -11,7 +11,8 @@ public:
 	std::chrono::steady_clock::time_point lastInputTime;
 
 	Hotkey();
-	Hotkey(const char* functionName);
+	Hotkey(const char* jsonStateName);
+	Hotkey(const char* jsonStateName, int defaultKey);
 
 	bool IsPressed();
 	bool IsDown();

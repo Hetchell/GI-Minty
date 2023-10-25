@@ -12,7 +12,7 @@ using namespace std;
 namespace gui {
     void FrameLoadGui() {
         ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[fontindex_menu]);
-        ImGui::Begin("Minty (CLOSE: F12)");
+        ImGui::Begin("Minty"); 
         ImGui::BeginGroup();
 
         static int SelectedSection = 0;
