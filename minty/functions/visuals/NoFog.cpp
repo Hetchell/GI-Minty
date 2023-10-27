@@ -5,6 +5,7 @@ namespace cheat {
 
     NoFog::NoFog() : Function() {
         f_Enabled = config::getValue("functions:NoFog", "enabled", false);
+        f_Hotkey = Hotkey("functions:NoFog");
 
         HookManager::install(app::GameManager_Update, onUpdate_5);
     }
@@ -19,13 +20,13 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            hotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void NoFog::Outer() {
-        if (hotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

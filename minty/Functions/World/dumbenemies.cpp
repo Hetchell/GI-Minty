@@ -5,6 +5,7 @@ namespace cheat {
     
     DumbEnemies::DumbEnemies() {
         f_Enabled = config::getValue("functions:DumbEnemies", "enabled", false);
+        f_Hotkey = Hotkey("functions:DumbEmenies");
 
         HookManager::install(app::MoleMole_VCMonsterAIController_TryDoSkill, VCMonsterAIController_TryDoSkill_Hook);
     }
@@ -14,20 +15,21 @@ namespace cheat {
         return instance;
     }
 
+    void DumbEnemies::GUI() {
+        ConfigCheckbox("Dumb Enemies", f_Enabled, "Enemies don't attack or use abilities against player.\n"
+            "May not work with some enemies or enemy abilities.");
+
+        if (f_Enabled.getValue())
+            f_Hotkey.Draw();
+    }
+
     void DumbEnemies::Status() {
         if (f_Enabled.getValue())
             ImGui::Text(_("Dumb enemies"));
     }
 
-    void DumbEnemies::GUI() {
-        ConfigCheckbox("Dumb Enemies", f_Enabled);
-        ImGui::SameLine();
-        HelpMarker("Enemies don't attack or use abilities against player.\n"
-            "May not work with some enemies or enemy abilities.");
-    }
-
     void DumbEnemies::Outer() {
-        if (dumbEnemiesHotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

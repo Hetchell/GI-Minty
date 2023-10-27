@@ -5,6 +5,7 @@ namespace cheat {
 
     HideReaction::HideReaction() : Function() {
         f_Enabled = config::getValue("functions:HideReaction", "enabled", false);
+        f_Hotkey = Hotkey("functions:HideReaction");
 
         HookManager::install(app::MonoParticleDamageTextContainer_ShowReactionText, MonoParticleDamageTextContainer_ShowReactionText);
     }
@@ -19,13 +20,13 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            hotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void HideReaction::Outer() {
-        if (hotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

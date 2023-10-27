@@ -7,6 +7,7 @@ namespace cheat {
 
 	OpenTeamImmediately::OpenTeamImmediately() {
 		f_Enabled = config::getValue("functions:OpenTeamImmediately", "enabled", false);
+		f_Hotkey = Hotkey("functions:OpenTeamImmediately");
 
 		InLevelPlayerProfilePageContext = nullptr;
 
@@ -25,13 +26,13 @@ namespace cheat {
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			otiHotkey.Draw();
+			f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 	
 	void OpenTeamImmediately::Outer() {
-		if (otiHotkey.IsPressed())
+		if (f_Hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 

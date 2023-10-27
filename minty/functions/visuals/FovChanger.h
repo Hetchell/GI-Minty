@@ -8,7 +8,7 @@ namespace cheat {
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_Fov;
 
-		inline static Hotkey fovChangerHotkey = Hotkey("FovChanger");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

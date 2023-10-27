@@ -6,6 +6,9 @@ namespace cheat {
 	static void VCHumanoidMove_Scara_Hook(app::VCHumanoidMove* __this, float value);
 
 	InfinityStamina::InfinityStamina() {
+		f_Enabled = config::getValue("functions:InfinityStamina", "enabled", false);
+		f_Hotkey = Hotkey("functions:InfinityStamina");
+
 		HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
 		HookManager::install(app::VCHumanoidMove_Scara, VCHumanoidMove_Scara_Hook);
 	}
@@ -16,19 +19,17 @@ namespace cheat {
 	}
 
 	void InfinityStamina::GUI() {
-		ConfigCheckbox("Infinity Stamina", f_Enabled);
-		ImGui::SameLine();
-		HelpMarker("Enables infinite stamina option.");
+		ConfigCheckbox("Infinity Stamina", f_Enabled, "Enables infinite stamina option.");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			infStaminaHotkey.Draw();
+			f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void InfinityStamina::Outer() {
-		if (infStaminaHotkey.IsPressed())
+		if (f_Hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 

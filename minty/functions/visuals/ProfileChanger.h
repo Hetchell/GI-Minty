@@ -35,8 +35,7 @@ namespace cheat {
 		ConfigField<bool> f_EnabledExpBar;
 		ConfigField<float> f_ExpBar;
 
-
-		inline static Hotkey hotkey = Hotkey("ProfileChanger");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

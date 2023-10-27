@@ -8,7 +8,7 @@ namespace cheat {
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_TalkSpeed;
 
-		inline static Hotkey dialogSkipHotkey = Hotkey("DialogSkip");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

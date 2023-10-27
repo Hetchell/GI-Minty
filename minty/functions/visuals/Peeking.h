@@ -6,7 +6,8 @@ namespace cheat {
 	class Peeking : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
-		inline static Hotkey peekingHotkey = Hotkey("Peeking");
+
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

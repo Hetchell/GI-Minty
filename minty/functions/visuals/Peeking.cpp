@@ -5,6 +5,7 @@ namespace cheat {
 
     Peeking::Peeking() {
         f_Enabled = config::getValue("functions:Peeking", "enabled", false);
+        f_Hotkey = Hotkey("functions:Peeking");
 
         HookManager::install(app::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue);
     }
@@ -18,11 +19,11 @@ namespace cheat {
         ConfigCheckbox("Enable Peeking", f_Enabled, ";)");
 
         if (f_Enabled.getValue())
-            Peeking::peekingHotkey.Draw();
+            f_Hotkey.Draw();
     }
     
     void Peeking::Outer() {
-        if (peekingHotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

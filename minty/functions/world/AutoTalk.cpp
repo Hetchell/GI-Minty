@@ -7,6 +7,7 @@ namespace cheat {
     AutoTalk::AutoTalk() {
         f_Enabled = config::getValue("functions:AutoTalk", "enabled", false);
         f_TalkSpeed = config::getValue("functions:AutoTalk", "talkSpeed", 1.0f);
+        f_Hotkey = Hotkey("functions:AutoTalk");
 
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
@@ -18,24 +19,23 @@ namespace cheat {
     }
 
     void AutoTalk::GUI() {
-        ConfigCheckbox("Auto Talk", f_Enabled);
-        ImGui::SameLine();
-        HelpMarker(_("Automatically goes through dialogue."));
+        ConfigCheckbox("Auto Talk", f_Enabled, _("Automatically goes through dialogue."));
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
             ConfigSliderFloat(_("Dialog speed"), f_TalkSpeed, 1.0f, 50.0f);
-            dialogSkipHotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
+
     void AutoTalk::Status() {
         if (f_Enabled.getValue())
             ImGui::Text(_("AutoTalk"));
     }
 
     void AutoTalk::Outer() {
-        if (dialogSkipHotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

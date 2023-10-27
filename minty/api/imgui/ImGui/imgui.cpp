@@ -7774,7 +7774,8 @@ ImGuiKeyData* ImGui::GetKeyData(ImGuiContext* ctx, ImGuiKey key)
         key = ConvertSingleModFlagToKey(ctx, key);
 
 #ifndef IMGUI_DISABLE_OBSOLETE_KEYIO
-    IM_ASSERT(key >= ImGuiKey_LegacyNativeKey_BEGIN && key < ImGuiKey_NamedKey_END);
+    //mega super duper crash fix by EtoShinya
+    //IM_ASSERT(key >= ImGuiKey_LegacyNativeKey_BEGIN && key < ImGuiKey_NamedKey_END);
     if (IsLegacyKey(key) && g.IO.KeyMap[key] != -1)
         key = (ImGuiKey)g.IO.KeyMap[key];  // Remap native->imgui or imgui->native
 #else

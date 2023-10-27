@@ -7,7 +7,7 @@ namespace cheat {
 	public:
 		ConfigField<bool> f_Enabled;
 
-		inline static Hotkey hotkey = Hotkey("HideUI");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

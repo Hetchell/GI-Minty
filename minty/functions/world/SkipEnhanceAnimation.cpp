@@ -10,6 +10,7 @@ namespace cheat {
 	SkipEnhanceAnimation::SkipEnhanceAnimation() {
 		f_Enabled = config::getValue("functions:SkipEnhanceAnimation", "enabled", false);
 		f_ShowLevelUp = config::getValue("functions:SkipEnhanceAnimation", "showLevelUp", true);
+        f_Hotkey = Hotkey("functions:SkipEnhanceAnimation");
 
         HookManager::install(app::MoleMole_EquipLevelUpDialogContext_SetupView, MoleMole_EquipLevelUpDialogContext_SetupView_Hook);
         HookManager::install(app::MoleMole_EquipOverviewPageContext_PlayExpAddAnimation, MoleMole_EquipOverviewPageContext_PlayExpAddAnimation_Hook);
@@ -22,23 +23,19 @@ namespace cheat {
 	}
 
 	void SkipEnhanceAnimation::GUI() {
-		ConfigCheckbox("Skip Enhance Animation", f_Enabled);
-        ImGui::SameLine();
-        HelpMarker("Skip weapon and artifact enhancement animation.");
+		ConfigCheckbox("Skip Enhance Animation", f_Enabled, "Skip weapon and artifact enhancement animation.");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-            ConfigCheckbox("Show Level-Up Dialog For Substat Rolls", f_ShowLevelUp);
-            ImGui::SameLine();
-            HelpMarker(_("Show level up dialog when artifacts roll substats\n"
+            ConfigCheckbox("Show Level-Up Dialog For Substat Rolls", f_ShowLevelUp, _("Show level up dialog when artifacts roll substats\n"
                 "(when hitting levels 4, 8, 12, 16, and 20)."));
-            skipAnimHotkey.Draw();
+            f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void SkipEnhanceAnimation::Outer() {
-        if (skipAnimHotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
 	}
 

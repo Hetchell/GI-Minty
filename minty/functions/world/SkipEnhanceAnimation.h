@@ -8,7 +8,7 @@ namespace cheat {
 		ConfigField<bool> f_Enabled;
 		ConfigField<bool> f_ShowLevelUp;
 
-		inline static Hotkey skipAnimHotkey = Hotkey("SkipAnim");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

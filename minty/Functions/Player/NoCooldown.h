@@ -9,9 +9,9 @@ namespace cheat {
 		ConfigField<bool> f_EnabledBow;
 		ConfigField<bool> f_EnabledSprint;
 
-		inline static Hotkey noSkillCDHotkey = Hotkey("NoSkillCD");
-		inline static Hotkey noBowCDHotkey = Hotkey("NoBowCD");
-		inline static Hotkey noSprintCDHotkey = Hotkey("NoSprintCD");
+		Hotkey f_HotkeySkill;
+		Hotkey f_HotkeyBow;
+		Hotkey f_HotkeySprint;
 
 		void GUI() override;
 		void Outer() override;

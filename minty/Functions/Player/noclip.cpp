@@ -6,9 +6,11 @@ namespace cheat {
 
 	NoClip::NoClip() {
 		f_Enabled = config::getValue("functions:NoClip", "enabled", false);
-		f_EnabledAltSpeed = config::getValue("functions:NoClip", "enabledAltSpeed", false);
+		f_EnabledAltSpeed = config::getValue("functions:NoClip:Alt", "enabled", false);
 		f_Speed = config::getValue("functions:NoClip", "speed", 5.0f);
-		f_AltSpeed = config::getValue("functions:NoClip", "altSpeed", 10.0f);
+		f_AltSpeed = config::getValue("functions:NoClip:Alt", "speed", 10.0f);
+		f_Hotkey = Hotkey("functions:NoClip");
+		f_HotkeyAlt = Hotkey("functions:NoClip:Alt");
 
 		HookManager::install(app::GameManager_Update, GameManager_Update_Hook);
 		HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
@@ -30,19 +32,19 @@ namespace cheat {
 			if (f_EnabledAltSpeed.getValue()) {
 				ImGui::Indent();
 				ConfigSliderFloat("Alternate Speed (HOLD HOTKEY)", f_AltSpeed, 0.1f, 100.0f);
-				noClipAltHotkey.Draw();
+				f_HotkeyAlt.Draw();
 				ImGui::Unindent();
 			}
-			noClipHotkey.Draw();
+			f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void NoClip::Outer() {
-		if (noClipHotkey.IsPressed())
+		if (f_Hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 
-		if (f_EnabledAltSpeed.getValue() && noClipAltHotkey.IsDown())
+		if (f_EnabledAltSpeed.getValue() && f_HotkeyAlt.IsDown())
 			f_finalSpeed = f_AltSpeed.getValue();
 		else
 			f_finalSpeed = f_Speed.getValue();

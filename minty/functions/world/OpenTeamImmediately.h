@@ -7,9 +7,9 @@ namespace cheat {
 	public:
 		ConfigField<bool> f_Enabled;
 
-		void* InLevelPlayerProfilePageContext;
+		Hotkey f_Hotkey;
 
-		inline static Hotkey otiHotkey = Hotkey("OTI");
+		void* InLevelPlayerProfilePageContext;
 
 		void GUI() override;
 		void Outer() override;

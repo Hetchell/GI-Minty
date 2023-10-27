@@ -6,6 +6,7 @@ namespace cheat {
 
 	GodMode::GodMode() {
 		f_Enabled = config::getValue("functions:GodMode", "enabled", false);
+		f_Hotkey = Hotkey("functions:GodMode");
 
 		HookManager::install(app::Miscs_CheckTargetAttackable, Miscs_CheckTargetAttackableH);
 		HookManager::install(app::VCHumanoidMove_NotifyLandVelocity, VCHumanoidMove_NotifyLandVelocity_Hook);
@@ -21,13 +22,13 @@ namespace cheat {
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			godModeHotkey.Draw();
+			f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void GodMode::Outer() {
-		if (godModeHotkey.IsPressed())
+		if (f_Hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 

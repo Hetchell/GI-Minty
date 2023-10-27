@@ -9,6 +9,9 @@ namespace cheat {
 
     AutoTP::AutoTP() {
         f_Enabled = config::getValue("functions:AutoTP", "enabled", false);
+        f_TeleportBackHotkey = Hotkey("functions:AutoTP", "teleportBackHotkey");
+        f_TeleportForwardHotkey = Hotkey("functions:AutoTP", "teleportForwardHotkey");
+        f_TeleportAutoHotkey = Hotkey("functions:AutoTP", "teleportAutoHotkey");
 
         std::thread thread(AutoTpThread);
         thread.detach();
@@ -84,7 +87,7 @@ namespace cheat {
                         }
                     }
                     ImGui::SliderFloat("Time to wait", &timerWait, 0.f, 100.0f);
-                    autoTeleportHotkey.Draw();
+                    f_TeleportAutoHotkey.Draw();
                 }
 
                 ImGui::Checkbox("TP manually", &ifManual);
@@ -104,9 +107,9 @@ namespace cheat {
                             TeleportToCurrentPoint(currentPointIndex);
                         }
                     }
-                    teleportForwardHotkey.Draw();
+                    f_TeleportBackHotkey.Draw();
                     ImGui::SameLine();
-                    teleportBackHotkey.Draw();
+                    f_TeleportBackHotkey.Draw();
                 }
                 ImGui::Separator();
             }
@@ -115,19 +118,19 @@ namespace cheat {
     }
 
     void AutoTP::Outer() {
-        if (teleportBackHotkey.IsPressed()) {
+        if (f_TeleportBackHotkey.IsPressed()) {
             if (currentPointIndex > 0) {
                 currentPointIndex--;
                 TeleportToCurrentPoint(currentPointIndex);
             }
         }
-        if (teleportForwardHotkey.IsPressed()) {
+        if (f_TeleportForwardHotkey.IsPressed()) {
             if (currentPointIndex < parseds.size() - 1) {
                 currentPointIndex++;
                 TeleportToCurrentPoint(currentPointIndex);
             }
         }
-        if (autoTeleportHotkey.IsPressed())
+        if (f_TeleportAutoHotkey.IsPressed())
             b_startTeleporting = !b_startTeleporting;
     }
 

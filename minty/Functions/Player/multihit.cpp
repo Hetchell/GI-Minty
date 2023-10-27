@@ -6,6 +6,7 @@ namespace cheat {
 	MultiHit::MultiHit() {
 		f_Enabled = config::getValue("functions:MultiHit", "enabled", false);
 		f_Hits = config::getValue("functions:MultiHit", "hits", 1);
+		f_Hotkey = Hotkey("functions:MultiHit");
 
 		HookManager::install(app::MoleMole_LCBaseCombat_FireBeingHitEvent, LCBaseCombat_FireBeingHitEvent_Hook);
 	}
@@ -21,13 +22,13 @@ namespace cheat {
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
 			ConfigSliderInt("Hits", f_Hits, 1, 50);
-			multiHitHotkey.Draw();
+			f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void MultiHit::Outer() {
-		if (multiHitHotkey.IsPressed())
+		if (f_Hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 

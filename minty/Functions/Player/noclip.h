@@ -10,10 +10,10 @@ namespace cheat {
         ConfigField<float> f_Speed;
         ConfigField<float> f_AltSpeed;
 
-        inline static float f_finalSpeed;
+        Hotkey f_Hotkey;
+        Hotkey f_HotkeyAlt;
 
-        inline static Hotkey noClipHotkey = Hotkey("Noclip");
-        inline static Hotkey noClipAltHotkey = Hotkey("AltNoclipSpeed");
+        inline static float f_finalSpeed;
 
         void GUI() override;
         void Outer() override;

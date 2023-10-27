@@ -10,7 +10,7 @@ namespace cheat {
 		ConfigField<bool> f_EnabledLimit;
 		ConfigField<int> f_FpsLimit;
 
-		inline static Hotkey hotkey = Hotkey("UnlockFPS");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

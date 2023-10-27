@@ -8,6 +8,7 @@ namespace cheat {
         f_ShowRpc = config::getValue("functions:Settings", "showRpc", true);
         f_InitDelay = config::getValue("functions:Settings", "initDelay", 15000);
         f_AnimationDuration = config::getValue("functions:Settings", "animationDuration", 0.2f);
+        f_Hotkey = Hotkey("functions:Settings:Menu", VK_F12);
     }
 
     Settings& Settings::getInstance() {
@@ -18,14 +19,13 @@ namespace cheat {
     void Settings::GUI() {
         ImGui::SeparatorText("General");
 
-        ImGui::Text("Show menu hotkey:");
+        f_Hotkey.Draw();
         ImGui::SameLine();
-        showMenuHotkey.Draw();
+        HelpMarker("Show the Minty Menu.");
 
-        ConfigCheckbox("Show current FPS", f_ShowFps);
-        ConfigCheckbox("Show Discord RPC", f_ShowRpc);
-        ImGui::SameLine();
-        HelpMarker("Turn Discord custom RPC on/off. Requires re-entering game.");
+        ConfigCheckbox("Show current FPS", f_ShowFps, "Shows the current FPS.");
+        ConfigCheckbox("Show Discord RPC", f_ShowRpc, "Shows the Discord RPC.\n"
+            "Requires re-entering game.");
 
         ConfigSliderInt("Initialization delay (ms)", f_InitDelay, 0, 60000,
             "Change delay before showing menu. May cause lags while opening, so try to change this value in case.");

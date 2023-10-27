@@ -13,6 +13,10 @@ namespace cheat {
 
 		ConfigField<bool> f_Enabled;
 
+		Hotkey f_TeleportBackHotkey;
+		Hotkey f_TeleportForwardHotkey;
+		Hotkey f_TeleportAutoHotkey;
+
 		inline static bool ifAutomatic = false;
 		inline static bool ifManual = false;
 		inline static float timerWait = 0.0f;
@@ -21,10 +25,6 @@ namespace cheat {
 		inline static char folderPathBuffer[1024] = "";
 		static std::vector<TP> parseds;
 		inline static int currentPointIndex = 0;
-
-		inline static Hotkey teleportBackHotkey = Hotkey("TeleportBack");
-		inline static Hotkey teleportForwardHotkey = Hotkey("TeleportForward");
-		inline static Hotkey autoTeleportHotkey = Hotkey("ToggleAutomatic");
 
 		void GUI() override;
 		void Outer() override;

@@ -7,7 +7,7 @@ namespace cheat {
 	public:
 		ConfigField<bool> f_Enabled;
 
-		inline static Hotkey skipCutsceneHotkey = Hotkey("CutsceneSkip");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

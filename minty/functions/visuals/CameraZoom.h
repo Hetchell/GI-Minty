@@ -8,7 +8,7 @@ namespace cheat {
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_CameraZoom;
 
-		inline static Hotkey cameraZoomHotkey = Hotkey("CameraZoom");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

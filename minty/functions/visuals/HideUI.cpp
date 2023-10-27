@@ -5,6 +5,7 @@ namespace cheat {
 
     HideUI::HideUI() : Function() {
         f_Enabled = config::getValue("functions:HideUI", "enabled", false);
+        f_Hotkey = Hotkey("functions:HideUI");
 
         HookManager::install(app::GameManager_Update, onUpdate_4);
     }
@@ -19,13 +20,13 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            hotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void HideUI::Outer() {
-        if (hotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

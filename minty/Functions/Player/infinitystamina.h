@@ -7,7 +7,7 @@ namespace cheat {
 	public:
 		ConfigField<bool> f_Enabled;
 
-		inline static Hotkey infStaminaHotkey = Hotkey("InfStamina");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

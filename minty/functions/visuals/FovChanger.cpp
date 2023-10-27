@@ -6,6 +6,7 @@ namespace cheat {
     FovChanger::FovChanger() {
         f_Enabled = config::getValue("functions:FovChanger", "enabled", false);
         f_Fov = config::getValue("functions:FovChanger", "fov", 45.0f);
+        f_Hotkey = Hotkey("functions:FovChanger");
 
         HookManager::install(app::Camera_set_fieldOfView, InLevelCameraSetFov_Hook);
     }
@@ -21,13 +22,13 @@ namespace cheat {
         if (f_Enabled.getValue()) {
             ImGui::Indent();
             ConfigSliderFloat("FOV value", f_Fov, 10.0f, 170.0f, "Set a field of view value.");
-            fovChangerHotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void FovChanger::Outer() {
-        if (fovChangerHotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

@@ -197,7 +197,6 @@
     <ClInclude Include="games\wordle.hpp" />
     <ClInclude Include="hotkeys\Hotkey.h" />
     <ClInclude Include="hotkeys\KeyBind.h" />
-    <ClInclude Include="hotkeys\KeyBinds.h" />
     <ClInclude Include="il2cpp\detours.h" />
     <ClInclude Include="functions\Function.h" />
     <ClInclude Include="il2cpp\HookManager.h" />

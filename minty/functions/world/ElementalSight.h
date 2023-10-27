@@ -7,7 +7,7 @@ namespace cheat {
 	public:
 		ConfigField<bool> f_Enabled;
 
-		inline static Hotkey hotkey = Hotkey("ElementalSight");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

@@ -286,7 +286,6 @@
     <ClInclude Include="gui\Translations.h" />
     <ClInclude Include="hotkeys\Hotkey.h" />
     <ClInclude Include="hotkeys\KeyBind.h" />
-    <ClInclude Include="hotkeys\KeyBinds.h" />
     <ClCompile Include="api\imgui\ImGui\imgui.cpp" />
     <ClCompile Include="api\imgui\ImGui\imgui_demo.cpp" />
     <ClCompile Include="api\imgui\ImGui\imgui_draw.cpp" />

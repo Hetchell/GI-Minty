@@ -6,9 +6,12 @@ namespace cheat {
 	static bool HumanoidMoveFSM_CheckSprintCooldown_Hook(void* __this);
 
 	NoCooldown::NoCooldown() {
-		f_EnabledSkill = config::getValue("functions:NoCooldown", "enabledSkill", false);
-		f_EnabledBow = config::getValue("functions:NoCooldown", "enabledBow", false);
-		f_EnabledSprint = config::getValue("functions:NoCooldown", "enabledSprint", false);
+		f_EnabledSkill = config::getValue("functions:NoCooldown:Skill", "enabled", false);
+		f_EnabledBow = config::getValue("functions:NoCooldown:Bow", "enabled", false);
+		f_EnabledSprint = config::getValue("functions:NoCooldown:Sprint", "enabled", false);
+		f_HotkeySkill = Hotkey("functions:NoCooldown:Skill");
+		f_HotkeyBow = Hotkey("functions:NoCooldown:Bow");
+		f_HotkeySprint = Hotkey("functions:NoCooldown:Sprint");
 
 		HookManager::install(app::LCAvatarCombat_OnSkillStart, LCAvatarCombat_OnSkillStart);
 		HookManager::install(app::MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, ActorAbilityPlugin_AddDynamicFloatWithRange_Hook);
@@ -21,46 +24,40 @@ namespace cheat {
 	}
 
 	void NoCooldown::GUI() {
-		ConfigCheckbox(_("No Skill Cooldown"), f_EnabledSkill);
-		ImGui::SameLine();
-		HelpMarker("Remove cooldowns of elemental skills and bursts.");
+		ConfigCheckbox(_("No Skill Cooldown"), f_EnabledSkill, "Remove cooldowns of elemental skills and bursts.");
 
 		if (f_EnabledSkill.getValue()) {
 			ImGui::Indent();
-			noSkillCDHotkey.Draw();
+			f_HotkeySkill.Draw();
 			ImGui::Unindent();
 		}
 
-		ConfigCheckbox(_("Instant Bow Charge"), f_EnabledBow);
-		ImGui::SameLine();
-		HelpMarker("Disable cooldown of bow charge.\n"
+		ConfigCheckbox(_("Instant Bow Charge"), f_EnabledBow, "Disable cooldown of bow charge.\n"
 			"Known issues with Fischl.");
 
 		if (f_EnabledBow.getValue()) {
 			ImGui::Indent();
-			noBowCDHotkey.Draw();
+			f_HotkeyBow.Draw();
 			ImGui::Unindent();
 		}
 
-		ConfigCheckbox(_("No Sprint Cooldown"), f_EnabledSprint);
-		ImGui::SameLine();
-		HelpMarker("Removes delay in-between sprints.");
+		ConfigCheckbox(_("No Sprint Cooldown"), f_EnabledSprint, "Removes delay in-between sprints.");
 
 		if (f_EnabledSprint.getValue()) {
 			ImGui::Indent();
-			noSprintCDHotkey.Draw();
+			f_HotkeySprint.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void NoCooldown::Outer() {
-		if (noSkillCDHotkey.IsPressed())
+		if (f_HotkeySkill.IsPressed())
 			f_EnabledSkill.setValue(!f_EnabledSkill.getValue());
 
-		if (noBowCDHotkey.IsPressed())
+		if (f_HotkeyBow.IsPressed())
 			f_EnabledBow.setValue(!f_EnabledBow.getValue());
 
-		if (noSprintCDHotkey.IsPressed())
+		if (f_HotkeySprint.IsPressed())
 			f_EnabledSprint.setValue(!f_EnabledSprint.getValue());
 	}
 

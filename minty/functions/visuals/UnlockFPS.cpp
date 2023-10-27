@@ -5,9 +5,10 @@ namespace cheat {
 
 	UnlockFPS::UnlockFPS() {
 		f_Enabled = config::getValue("functions:UnlockFPS", "enabled", false);
+		f_EnabledLimit = config::getValue("functions:UnlockFPS:Limit", "enabled", false);
 		f_Fps = config::getValue("functions:UnlockFPS", "value", 60);
-		f_EnabledLimit = config::getValue("functions:UnlockFPS", "enabledLimit", false);
-		f_FpsLimit = config::getValue("functions:UnlockFPS", "valueLimit", 60);
+		f_FpsLimit = config::getValue("functions:UnlockFPS:Limit", "value", 60);
+		f_Hotkey = Hotkey("functions:UnlockFPS");
 
 		HookManager::install(app::GameManager_Update, onUpdate_2);
 	}
@@ -29,13 +30,13 @@ namespace cheat {
 			if (f_EnabledLimit.getValue())
 				ConfigSliderInt(_("FPS Limit"), f_FpsLimit, 1, 360);
 
-			hotkey.Draw();
+			f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void UnlockFPS::Outer() {
-		if (hotkey.IsPressed())
+		if (f_Hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 

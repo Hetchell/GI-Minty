@@ -2,7 +2,6 @@
 
 namespace cheat {
     static void onUpdate_1(app::GameManager* __this, app::MethodInfo* method);
-    void Change_UID(const std::string uidText);
     app::Button_1* ProfilePage(app::MonoInLevelPlayerProfilePage* __this, app::MethodInfo* method);
 
     ProfileChanger::ProfileChanger(): Function() {
@@ -35,6 +34,8 @@ namespace cheat {
 
         f_EnabledExpBar = config::getValue("functions:ProfileChanger:ExpBar", "enabled", false);
         f_ExpBar = config::getValue("functions:ProfileChanger:ExpBar", "value", 20.0f);
+
+        f_Hotkey = Hotkey("functions:ProfileChanger");
 
         HookManager::install(app::GameManager_Update, onUpdate_1);
         HookManager::install(app::ProfilePage, ProfilePage);
@@ -77,13 +78,14 @@ namespace cheat {
 
             ConfigCheckbox("ExpBar", f_EnabledExpBar, "Changes the exp bar visually.");
             ConfigSliderFloat("ExpBar Value", f_ExpBar, 1.0f, 100.0f);
-            hotkey.Draw();
+
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void ProfileChanger::Outer() {
-        if (hotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

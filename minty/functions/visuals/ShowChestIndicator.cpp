@@ -5,6 +5,7 @@ namespace cheat {
 
     ShowChestIndicator::ShowChestIndicator() {
         f_Enabled = config::getValue("functions:ShowChestIndicator", "enabled", false);
+        f_Hotkey = Hotkey("functions:ShowChestIndicator");
 
         HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck);
     }
@@ -19,13 +20,13 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            chestIndicHotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void ShowChestIndicator::Outer() {
-        if (chestIndicHotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

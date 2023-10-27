@@ -5,6 +5,7 @@ namespace cheat {
 
     HideDamage::HideDamage() : Function() {
         f_Enabled = config::getValue("functions:HideDamage", "enabled", false);
+        f_Hotkey = Hotkey("functions:HideDamage");
 
         HookManager::install(app::MonoParticleDamageTextContainer_ShowDamageText, MonoParticleDamageTextContainer_ShowDamageText);
     }
@@ -19,13 +20,13 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            hotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void HideDamage::Outer() {
-        if (hotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 

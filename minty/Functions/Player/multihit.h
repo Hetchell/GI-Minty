@@ -8,7 +8,7 @@ namespace cheat {
 		ConfigField<bool> f_Enabled;
 		ConfigField<int> f_Hits;
 
-		inline static Hotkey multiHitHotkey;
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

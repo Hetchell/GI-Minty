@@ -8,7 +8,7 @@ namespace cheat {
 		ConfigField<bool> f_Enabled;
 		ConfigField<float> f_Speed;
 
-		inline static Hotkey speedHackHotkey = Hotkey("Speedhack");
+		Hotkey f_Hotkey;
 
 		void GUI() override;
 		void Outer() override;

@@ -5,6 +5,7 @@ namespace cheat {
 
 	InfinityEnergy::InfinityEnergy() {
 		f_Enabled = config::getValue("functions:InfinityEnergy", "enabled", false);
+		f_Hotkey = Hotkey("functions:InfinityEnergy");
 
 		HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMax);
 	}
@@ -15,20 +16,18 @@ namespace cheat {
 	}
 
 	void InfinityEnergy::GUI() {
-		ConfigCheckbox(_("Infinity Energy"), f_Enabled);
-		ImGui::SameLine();
-		HelpMarker("Removes energy requirement for elemental bursts.\n"
+		ConfigCheckbox(_("Infinity Energy"), f_Enabled, "Removes energy requirement for elemental bursts.\n"
 			"(Energy bubble may appear incomplete but still usable)");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			infEnergyHotkey.Draw();
+			f_Hotkey.Draw();
 			ImGui::Unindent();
 		}
 	}
 
 	void InfinityEnergy::Outer() {
-		if (infEnergyHotkey.IsPressed())
+		if (f_Hotkey.IsPressed())
 			f_Enabled.setValue(!f_Enabled.getValue());
 	}
 

@@ -1,18 +1,26 @@
 #pragma once
 
-#include "../config/ConfigManager.h"
 #include <chrono>
+#include <Windows.h>
+#include <thread>
+
+#include "../api/imgui/ImGui/imgui.h"
+#include "../config/ConfigManager.h"
+#include "KeyBind.h"
 
 class Hotkey {
 public:
-	unsigned int m_nHkey;
-	bool bWaitsInput = false;
-	const char* functionName;
+	short key;
+	const char* path;
+	const char* name;
+	bool waitInput = false;
 	std::chrono::steady_clock::time_point lastInputTime;
 
 	Hotkey();
-	Hotkey(const char* jsonStateName);
-	Hotkey(const char* jsonStateName, int defaultKey);
+	Hotkey(const char* path);
+	Hotkey(const char* path, short key);
+	Hotkey(const char* path, const char* name);
+	Hotkey(const char* path, const char* name, short key);
 
 	bool IsPressed();
 	bool IsDown();

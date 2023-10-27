@@ -37,7 +37,7 @@ namespace config {
     }
 
     template<typename T>
-    void setValue(const std::string& path, const std::string key, const T& newValue) {
+    void setValue(const std::string& path, const std::string& key, const T& newValue) {
         std::ifstream configFile("minty.json");
         json configRoot;
         

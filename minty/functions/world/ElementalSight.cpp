@@ -5,6 +5,7 @@ namespace cheat {
 
     ElementalSight::ElementalSight() : Function() {
         f_Enabled = config::getValue("functions:ElementalSight", "enabled", false);
+        f_Hotkey = Hotkey("functions:ElementalSight");
         
         HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook);
     }
@@ -20,13 +21,13 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            hotkey.Draw();
+            f_Hotkey.Draw();
             ImGui::Unindent();
         }
     }
 
     void ElementalSight::Outer() {
-        if (hotkey.IsPressed())
+        if (f_Hotkey.IsPressed())
             f_Enabled.setValue(!f_Enabled.getValue());
     }
 
