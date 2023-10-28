@@ -61,7 +61,7 @@ void Init() {
     INIT_FUNC(UnlockFPS);
 
     INIT_FUNC(AutoTalk);
-    INIT_FUNC(AutoTP);
+    //INIT_FUNC(AutoTP);
     INIT_FUNC(CutsceneSkip);
     INIT_FUNC(DumbEnemies);
     //INIT_FUNC(ElementalSight);
