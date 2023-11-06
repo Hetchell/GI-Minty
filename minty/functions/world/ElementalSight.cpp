@@ -46,8 +46,9 @@ namespace cheat {
         if (!elementalSight.f_Enabled.getValue())
             return;
 
-        LOG_DEBUG("_triggerElementView: %d", __this->fields._triggerElementView);
-        __this->fields._triggerElementView = true;
+        app::MoleMole_LevelSceneElementViewPlugin_TriggerElementView(__this, true);
+        //LOG_DEBUG("_triggerElementView: %d", __this->fields._triggerElementView);
+        //__this->fields._triggerElementView = true;
         CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_Hook, __this, inDeltaTime);
     }
 }

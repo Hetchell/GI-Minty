@@ -7,7 +7,7 @@ namespace cheat {
 		f_Enabled = config::getValue("functions:InfinityEnergy", "enabled", false);
 		f_Hotkey = Hotkey("functions:InfinityEnergy");
 
-		HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMax);
+		HookManager::install(app::MoleMole_LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMax);
 	}
 
 	InfinityEnergy& InfinityEnergy::getInstance() {

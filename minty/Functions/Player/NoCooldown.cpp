@@ -13,7 +13,7 @@ namespace cheat {
 		f_HotkeyBow = Hotkey("functions:NoCooldown:Bow");
 		f_HotkeySprint = Hotkey("functions:NoCooldown:Sprint");
 
-		HookManager::install(app::LCAvatarCombat_OnSkillStart, LCAvatarCombat_OnSkillStart);
+		HookManager::install(app::MoleMole_LCAvatarCombat_OnSkillStart, LCAvatarCombat_OnSkillStart);
 		HookManager::install(app::MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, ActorAbilityPlugin_AddDynamicFloatWithRange_Hook);
 		HookManager::install(app::MoleMole_HumanoidMoveFSM_CheckSprintCooldown, HumanoidMoveFSM_CheckSprintCooldown_Hook);
 	}

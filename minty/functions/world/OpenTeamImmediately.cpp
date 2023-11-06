@@ -46,9 +46,9 @@ namespace cheat {
 	}
 
 	static bool MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext_Hook(app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this) {
-		auto& OpenTeamImmediately = OpenTeamImmediately::getInstance();
+		auto& openTeamImmediately = OpenTeamImmediately::getInstance();
 
-		if (OpenTeamImmediately.f_Enabled.getValue() && !OpenTeamImmediately.InLevelPlayerProfilePageContext) {
+		if (openTeamImmediately.f_Enabled.getValue() && !openTeamImmediately.InLevelPlayerProfilePageContext) {
 			__this->fields._levelMainPageContext->fields.LBENNACEFMN = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.EIKHAEMJIIN = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.BEMNEGGOOAJ = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
@@ -105,16 +105,16 @@ namespace cheat {
 	}
 
 	static void MoleMole_InLevelPlayerProfilePageContext_SetupView_Hook(void* __this) {
-		auto& OpenTeamImmediately = OpenTeamImmediately::getInstance();
+		auto& openTeamImmediately = OpenTeamImmediately::getInstance();
 
-		OpenTeamImmediately.InLevelPlayerProfilePageContext = __this;
+		openTeamImmediately.InLevelPlayerProfilePageContext = __this;
 		CALL_ORIGIN(MoleMole_InLevelPlayerProfilePageContext_SetupView_Hook, __this);
 	}
 
 	static void MoleMole_InLevelPlayerProfilePageContext_ClearView_Hook(void* __this) {
-		auto& OpenTeamImmediately = OpenTeamImmediately::getInstance();
+		auto& openTeamImmediately = OpenTeamImmediately::getInstance();
 
 		CALL_ORIGIN(MoleMole_InLevelPlayerProfilePageContext_ClearView_Hook, __this);
-		OpenTeamImmediately.InLevelPlayerProfilePageContext = nullptr;
+		openTeamImmediately.InLevelPlayerProfilePageContext = nullptr;
 	}
 }

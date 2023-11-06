@@ -38,9 +38,9 @@ namespace cheat {
     }
 
     void VCMonsterAIController_TryDoSkill_Hook(void* __this, uint32_t skillID) {
-        auto& DumbEnemies = DumbEnemies::getInstance();
+        auto& dumbEnemies = DumbEnemies::getInstance();
 
-        if (DumbEnemies.f_Enabled.getValue())
+        if (dumbEnemies.f_Enabled.getValue() && skillID != 101)
             return;
 
         CALL_ORIGIN(VCMonsterAIController_TryDoSkill_Hook, __this, skillID);

@@ -155,7 +155,7 @@ namespace cheat {
                     app::Vector3 zero = { 0,0,0 };
                     auto newPos = zero;
                     while (t < 1.0f) {
-                        newPos = app::Vector3_Slerp(avatarPos, endPos, t);
+                        newPos = app::Vector3_Lerp(avatarPos, endPos, t);
                         app::ActorUtils_SetAvatarPos(newPos);
                         t += 5 / 100.0f;
                         LOG_INFO("time; %f", t);

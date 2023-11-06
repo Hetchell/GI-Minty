@@ -87,12 +87,11 @@ std::optional<std::string> compile(lua_State* L, const char* script) {
 
 void get_gi_L() {
     HMODULE ua = NULL;
-    while ((ua = GetModuleHandleW(L"UserAssembly.dll")) == 0) {
-        Sleep(50);
-    }
-    LOG_INFO("FOUND");
 
-    il2cpp_base = (uintptr_t)ua;
+    while ((ua = GetModuleHandleW(L"UserAssembly.dll")) == 0)
+        Sleep(50);
+
+    il2cpp_base = (uintptr_t) ua;
     g_xluaL_loadbuffer = PatternScan("UserAssembly.dll", "48 83 EC 38 E9");
     g_lua_pcall = PatternScan("UserAssembly.dll", "48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3");
     LOG_DEBUG("xluaL_loadbuffer: %p, rva: %p", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);

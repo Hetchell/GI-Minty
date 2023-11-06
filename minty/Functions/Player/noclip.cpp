@@ -72,12 +72,9 @@ namespace cheat {
 	void onNoClip() {
 		AvatarRoot = app::GameObject_Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
 		//LOG_INFO("found avatar");
-		//if (!AvatarRoot)
-			//return;
-
 		auto Transform = app::GameObject_GetComponentByName(AvatarRoot, string_to_il2cppi("Transform"));
 		//LOG_INFO("found transform");
-		auto HeroCount = app::Transform_get_childCount(reinterpret_cast<app::Transform*>(Transform));
+		auto HeroCount = app::Transform_GetChildCount(reinterpret_cast<app::Transform*>(Transform));
 		//LOG_INFO("found count");
 		for (int i = 0; i <= HeroCount - 1; i++) {
 			auto HeroComponent = app::Transform_GetChild(reinterpret_cast<app::Transform*>(Transform), i);

@@ -380,12 +380,10 @@ void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 
 	auto json_report = nlohmann::json::parse(value_string);
 
-	if (json_report.contains("1"))
-	{
+	if (json_report.contains("1")) {
 		LOG_INFO("Letting the first LuaShellResult pass, blocking the rest.");
 		report_sent = false;
-	}
-	else
+	} else
 		report_sent = true;
 
 	if (!report_sent)
@@ -422,11 +420,11 @@ uintptr_t hTelemetry;
 void ProtectionBypass::Init() {
 	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 
-	for (int i = 0; i < 4; i++) {
-		app::Application_RecordUserData(i, nullptr);
+	//for (int i = 0; i < 4; i++) {
+		//app::Application_RecordUserData(i, nullptr);
 		//std::string checksum = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
 		//std::cout << "checksum #" << i << ": " << checksum << "\n";
-	}
+	//}
 
 	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
@@ -444,6 +442,7 @@ void ProtectionBypass::Init() {
 	}
 
 	HookManager::install((sub_18012A580)(hTelemetry + 0x12A580), sub_18012A580_Hook);
-	LOG_INFO("Initialized protection bypass");
+	LOG_INFO("Disabled the *stupid* hoyo log spam..");
 	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
+	LOG_INFO("Initialized protection bypass");
 }
