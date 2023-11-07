@@ -149,7 +149,7 @@ DO_APP_FUNC(0x03FBD750, 0x03FC8730, void, MoleMole_HumanoidMoveFSM_LateTick, (ap
 //DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo);
 
 // Protection bypass
-//DO_APP_FUNC(0x07BDE850, 0x07C6D0D0, app::Byte__Array*, Application_RecordUserData, (int32_t nType, app::MethodInfo* method));
+DO_APP_FUNC(0x03FEC590, 0x03FF74B0, app::Byte__Array*, MoleMole_SecurityModule_RecordUserData, (int32_t nType, app::MethodInfo* method));
 
 // Skip enhance animation
 DO_APP_FUNC(0x02828590, 0x02832AA0, void, MoleMole_EquipLevelUpDialogContext_SetupView, (app::MoleMole_EquipLevelUpDialogContext* __this));

@@ -420,11 +420,12 @@ uintptr_t hTelemetry;
 void ProtectionBypass::Init() {
 	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
 
-	//for (int i = 0; i < 4; i++) {
-		//app::Application_RecordUserData(i, nullptr);
-		//std::string checksum = std::string((char*)app::Application_RecordUserData(i, nullptr)->vector, app::Application_RecordUserData(i, nullptr)->max_length);
-		//std::cout << "checksum #" << i << ": " << checksum << "\n";
-	//}
+	for (int i = 0; i < 4; i++) {
+		app::MoleMole_SecurityModule_RecordUserData(i, nullptr);
+		//std::string checksum = std::string((char*) app::MoleMole_SecurityModule_RecordUserData(i, nullptr)->vector,
+		//	app::MoleMole_SecurityModule_RecordUserData(i, nullptr)->max_length);
+		//std::cout << "[DEBUG] checksum #" << i << ": " << checksum << "\n";
+	}
 
 	HookManager::install(app::CrashReporter, CrashReporter_Hook);
 	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
