@@ -15,21 +15,21 @@ namespace fs = std::filesystem;
 
 bool InjectStandard(HANDLE hTarget, const char* dllpath) {
     LPVOID loadlib = GetProcAddress(GetModuleHandle(L"kernel32"), "LoadLibraryA");
-    LPVOID dllPathAddr = VirtualAllocEx(hTarget, NULL, strlen(dllpath) + 1, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    LPVOID dllPathAddr = VirtualAllocEx(hTarget, nullptr, strlen(dllpath) + 1, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
-    if (dllPathAddr == NULL) {
+    if (dllPathAddr == nullptr) {
         std::cout << "Failed allocating memory in the target process. GetLastError(): " << GetLastError() << "\n";
         return false;
     }
 
-    if (!WriteProcessMemory(hTarget, dllPathAddr, dllpath, strlen(dllpath) + 1, NULL)) {
+    if (!WriteProcessMemory(hTarget, dllPathAddr, dllpath, strlen(dllpath) + 1, nullptr)) {
         std::cout << "Failed writing to process. GetLastError(): " << GetLastError() << "\n";
         return false;
     }
 
-    HANDLE hThread = CreateRemoteThread(hTarget, NULL, NULL, (LPTHREAD_START_ROUTINE)loadlib, dllPathAddr, NULL, NULL);
+    HANDLE hThread = CreateRemoteThread(hTarget, nullptr, NULL, (LPTHREAD_START_ROUTINE)loadlib, dllPathAddr, NULL, nullptr);
 
-    if (hThread == NULL) {
+    if (hThread == nullptr) {
         std::cout << "Failed to create a thread in the target process. GetLastError(): " << GetLastError() << "\n";
         return false;
     }
@@ -49,23 +49,24 @@ bool InjectStandard(HANDLE hTarget, const char* dllpath) {
     return true;
 }
 
-std::optional<std::string> read_whole_file(const fs::path& file)
-try {
-    std::stringstream buf;
-    std::ifstream ifs(file);
+std::optional<std::string> read_whole_file(const fs::path& file) {
+    try {
+        std::ifstream ifs(file);
+        if (!ifs.is_open())
+            return std::nullopt;
 
-    if (!ifs.is_open())
+        ifs.exceptions(std::ios::failbit);
+        std::stringstream buf;
+        buf << ifs.rdbuf();
+        return buf.str();
+    }
+    catch (const std::ios::failure&) {
         return std::nullopt;
-
-    ifs.exceptions(std::ios::failbit);
-    buf << ifs.rdbuf();
-    return buf.str();
-} catch (const std::ios::failure&) {
-    return std::nullopt;
+    }
 }
 
 std::optional<fs::path> this_dir() {
-    HMODULE mod = NULL;
+    HMODULE mod = nullptr;
     TCHAR path[MAX_PATH]{};
 
     if (!GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCTSTR)&this_dir, &mod)) {
@@ -79,6 +80,20 @@ std::optional<fs::path> this_dir() {
     }
 
     return fs::path(path).remove_filename();
+}
+
+void StartAndInject(std::string exe_path, std::filesystem::path dll_path, std::string startupArguments) {
+    PROCESS_INFORMATION proc_info{};
+    STARTUPINFOA startup_info{};
+
+    std::string command_line = exe_path + " " + startupArguments;
+
+    if (CreateProcessA(nullptr, const_cast<char*>(command_line.c_str()), nullptr, nullptr, FALSE, 0, nullptr, nullptr, &startup_info, &proc_info)) {
+        InjectStandard(proc_info.hProcess, dll_path.string().c_str());
+        ResumeThread(proc_info.hThread);
+        CloseHandle(proc_info.hThread);
+        CloseHandle(proc_info.hProcess);
+    }
 }
 
 // Data
@@ -97,8 +112,8 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int main() {
     nlohmann::json cfg;
-    auto current_dir = this_dir();
-    auto dll_path = current_dir.value() / "minty.dll";
+    std::optional<fs::path> current_dir = this_dir();
+    std::filesystem::path dll_path = current_dir.value() / "minty.dll";
 
     if (!fs::is_regular_file(dll_path)) {
         printf("minty.dll not found\n");
@@ -107,6 +122,7 @@ int main() {
     }
 
     std::string exe_path;
+    std::string startupArguments;
     fs::path settings_path = fs::current_path() / "minty.json";
     std::ifstream settings_file(settings_path);
 
@@ -116,6 +132,7 @@ int main() {
         if (settings_file.is_open()) {
             // Write the executable path to the settings file
             cfg["general"]["execPath"] = exe_path;
+            cfg["general"]["startupArguments"] = "";
 
             settings_file << cfg.dump(4) << std::endl;
             exe_path = cfg["general"]["execPath"];
@@ -154,14 +171,9 @@ int main() {
                 }
 
                 exe_path = cfg["general"]["execPath"];
-                PROCESS_INFORMATION proc_info{};
-                STARTUPINFOA startup_info{};
-                CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
+                startupArguments = cfg["general"]["startupArguments"];
+                StartAndInject(exe_path, dll_path, startupArguments);
 
-                InjectStandard(proc_info.hProcess, dll_path.string().c_str());
-                ResumeThread(proc_info.hThread);
-                CloseHandle(proc_info.hThread);
-                CloseHandle(proc_info.hProcess);
                 return 0;
             }
         } else {
@@ -175,6 +187,7 @@ int main() {
         printf("Failed reading config\n");
 
     exe_path = cfg["general"]["execPath"];
+    startupArguments = cfg["general"]["startupArguments"];
 
     if (!fs::is_regular_file(exe_path)) {
         std::cout << "File path in minty.json invalid" << std::endl;
@@ -209,27 +222,10 @@ int main() {
             std::cout << "Error: Unable to open file dialog." << std::endl;
             return 1;
         }
-
         exe_path = cfg["general"]["execPath"];
-        PROCESS_INFORMATION proc_info{};
-        STARTUPINFOA startup_info{};
-        CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
-
-        InjectStandard(proc_info.hProcess, dll_path.string().c_str());
-        ResumeThread(proc_info.hThread);
-        CloseHandle(proc_info.hThread);
-        CloseHandle(proc_info.hProcess);
-        return 0;
     }
 
-    PROCESS_INFORMATION proc_info{};
-    STARTUPINFOA startup_info{};
-    CreateProcessA(exe_path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startup_info, &proc_info);
-
-    InjectStandard(proc_info.hProcess, dll_path.string().c_str());
-    ResumeThread(proc_info.hThread);
-    CloseHandle(proc_info.hThread);
-    CloseHandle(proc_info.hProcess);
+    StartAndInject(exe_path, dll_path, startupArguments);
     return 0;
 }
 
