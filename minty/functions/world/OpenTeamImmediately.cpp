@@ -57,9 +57,6 @@ namespace cheat {
 			__this->fields._levelMainPageContext->fields.PNONLMKONHN = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.KJCGOMNIEOM = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.KJCGOMNIEOM = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
-			__this->fields._levelMainPageContext->fields.NMNOKLKCLBD_k__BackingField = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
-			__this->fields._levelMainPageContext->fields.PNHDLHHINJP_k__BackingField = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
-			__this->fields._levelMainPageContext->fields.IMJOJMPCECK_k__BackingField = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.EMJGCLKKODO = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.GPIEGIOKFDB = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.OHANLENNCBK = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
@@ -73,6 +70,7 @@ namespace cheat {
 			__this->fields._levelMainPageContext->fields.OMDENNKLIGB = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.DMIDIKDLGCC = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
 			__this->fields._levelMainPageContext->fields.HCCKIJEIKGM = __this->fields._levelMainPageContext->fields.EnterCountDown + 1.f;
+
 			std::cout << "----------" << "\n";
 			std::cout << "LBENNACEFMN: " << __this->fields._levelMainPageContext->fields.LBENNACEFMN << "\n";
 			std::cout << "EIKHAEMJIIN: " << __this->fields._levelMainPageContext->fields.EIKHAEMJIIN << "\n";
@@ -81,9 +79,6 @@ namespace cheat {
 			std::cout << "GBCCEOBJOMO: " << __this->fields._levelMainPageContext->fields.GBCCEOBJOMO << "\n";
 			//std::cout << "PNONLMKONHN: " << __this->fields._levelMainPageContext->fields.PNONLMKONHN << "\n";
 			//std::cout << "KJCGOMNIEOM: " << __this->fields._levelMainPageContext->fields.KJCGOMNIEOM << "\n";
-			//std::cout << "NMNOKLKCLBD_k__BackingField: " << __this->fields._levelMainPageContext->fields.NMNOKLKCLBD_k__BackingField << "\n";
-			//std::cout << "PNHDLHHINJP_k__BackingField: " << __this->fields._levelMainPageContext->fields.PNHDLHHINJP_k__BackingField << "\n";
-			//std::cout << "IMJOJMPCECK_k__BackingField: " << __this->fields._levelMainPageContext->fields.IMJOJMPCECK_k__BackingField << "\n";
 			//std::cout << "EMJGCLKKODO: " << __this->fields._levelMainPageContext->fields.EMJGCLKKODO << "\n";
 			std::cout << "GPIEGIOKFDB: " << __this->fields._levelMainPageContext->fields.GPIEGIOKFDB << "\n";
 			std::cout << "OHANLENNCBK: " << __this->fields._levelMainPageContext->fields.OHANLENNCBK << "\n";

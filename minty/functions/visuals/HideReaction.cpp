@@ -1,7 +1,7 @@
 #include "HideReaction.h"
 
 namespace cheat {
-    void MonoParticleDamageTextContainer_ShowReactionText(void* __this, void* ODIALFBPKOO, void* DDKPJLOMEIN, void* BHBLALOIKBM, void* AKFGHNDBADA, int MKOAJMOFAHC);
+    void MonoParticleDamageTextContainer_ShowReactionText(void* __this, void* reaction, void* elemType1, void* elemType2, void* attackee, int hitIndex);
 
     HideReaction::HideReaction() : Function() {
         f_Enabled = config::getValue("functions:HideReaction", "enabled", false);
@@ -39,11 +39,11 @@ namespace cheat {
         return _("Visuals");
     }
 
-    void MonoParticleDamageTextContainer_ShowReactionText(void* __this, void* ODIALFBPKOO, void* DDKPJLOMEIN, void* BHBLALOIKBM, void* AKFGHNDBADA, int MKOAJMOFAHC) {
+    void MonoParticleDamageTextContainer_ShowReactionText(void* __this, void* reaction, void* elemType1, void* elemType2, void* attackee, int hitIndex) {
         auto& hideReaction = HideReaction::getInstance();
 
         if (hideReaction.f_Enabled.getValue())
             return;
-        CALL_ORIGIN(MonoParticleDamageTextContainer_ShowReactionText, __this, ODIALFBPKOO, DDKPJLOMEIN, BHBLALOIKBM, AKFGHNDBADA, MKOAJMOFAHC);
+        CALL_ORIGIN(MonoParticleDamageTextContainer_ShowReactionText, __this, reaction, elemType1, elemType2, attackee, hitIndex);
     }
 }

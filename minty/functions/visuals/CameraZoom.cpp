@@ -42,9 +42,9 @@ namespace cheat {
     }
 
     void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data) {
-        auto& CameraZoom = CameraZoom::getInstance();
+        auto& cameraZoom = CameraZoom::getInstance();
 
-        data->currentWarningLocateRatio = static_cast<double>(CameraZoom.f_Enabled.getValue() ? CameraZoom.f_CameraZoom.getValue() : 1.0f);
+        data->currentWarningLocateRatio = static_cast<double>(cameraZoom.f_Enabled.getValue() ? cameraZoom.f_CameraZoom.getValue() : 1.0f);
         CALL_ORIGIN(SCameraModuleInitialize_SetWarningLocateRatio_Hook, __this, deltaTime, data);
     }
 }

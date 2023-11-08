@@ -21,7 +21,7 @@ namespace cheat {
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();
-            ConfigSliderFloat("FOV value", f_Fov, 10.0f, 170.0f, "Set a field of view value.");
+            ConfigSliderFloat("Fov value", f_Fov, 10.0f, 170.0f, "Set a field of view value.");
             f_Hotkey.Draw();
             ImGui::Unindent();
         }

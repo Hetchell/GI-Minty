@@ -43,12 +43,7 @@ namespace cheat {
     void LevelSceneElementViewPlugin_Tick_Hook(app::LevelSceneElementViewPlugin* __this, float inDeltaTime) {
         auto& elementalSight = ElementalSight::getInstance();
 
-        if (!elementalSight.f_Enabled.getValue())
-            return;
-
-        app::MoleMole_LevelSceneElementViewPlugin_TriggerElementView(__this, true);
-        //LOG_DEBUG("_triggerElementView: %d", __this->fields._triggerElementView);
-        //__this->fields._triggerElementView = true;
+        app::MoleMole_LevelSceneElementViewPlugin_TriggerElementView(__this, elementalSight.f_Enabled.getValue());
         CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_Hook, __this, inDeltaTime);
     }
 }

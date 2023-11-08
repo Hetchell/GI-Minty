@@ -1,8 +1,8 @@
 ﻿#include "../functions/about/About.h"
 
 #include "../functions/player/GodMode.h"
-#include "../functions/player/InfinityEnergy.h"
-#include "../functions/player/InfinityStamina.h"
+#include "../functions/player/InfiniteEnergy.h"
+#include "../functions/player/InfiniteStamina.h"
 #include "../functions/player/MultiHit.h"
 #include "../functions/player/NoClip.h"
 #include "../functions/player/NoCooldown.h"
@@ -41,8 +41,8 @@ void Init() {
     INIT_FUNC(About);
 
     INIT_FUNC(GodMode);
-    INIT_FUNC(InfinityEnergy);
-    INIT_FUNC(InfinityStamina);
+    INIT_FUNC(InfiniteEnergy);
+    INIT_FUNC(InfiniteStamina);
     INIT_FUNC(MultiHit);
     INIT_FUNC(NoClip);
     INIT_FUNC(NoCooldown);
@@ -64,7 +64,7 @@ void Init() {
     //INIT_FUNC(AutoTP);
     INIT_FUNC(CutsceneSkip);
     INIT_FUNC(DumbEnemies);
-    //INIT_FUNC(ElementalSight);
+    INIT_FUNC(ElementalSight);
     INIT_FUNC(GameSpeed);
     //INIT_FUNC(OpenTeamImmediately);
     INIT_FUNC(SkipEnhanceAnimation);
