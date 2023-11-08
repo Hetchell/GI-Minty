@@ -20,7 +20,8 @@ DO_APP_FUNC(0x02749300, 0x02751BE0, void, MoleMole_LCBaseCombat_FireBeingHitEven
 DO_APP_FUNC(0x02FA6AF0, 0x02FB1C90, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (app::ActorAbilityPlugin* __this, float delay, app::Object* arg));
 
 // Utility
-DO_APP_FUNC(0x0141BE70, 0x01421A80, app::Vector3, MoleMole_ActorUtils_GetAvatarPos, ());
+DO_APP_FUNC(0x0141BE70, 0x01421A80, app::Vector3, ActorUtils_GetAvatarPos, ());
+DO_APP_FUNC(0x01408E20, 0x0140EA50, void, ActorUtils_SetAvatarPos, (app::Vector3 pos));
 
 DO_APP_FUNC(0x06E62170, 0x06EA6530, void, Text_set_text, (app::Text* __this, app::String* value));
 DO_APP_FUNC(0x06E61CF0, 0x06EA60B0, void, Text_set_alignment, (app::Text* __this, app::TextAnchor__Enum value));
@@ -44,7 +45,7 @@ DO_APP_FUNC(0x02C101D0, 0x02C1A8E0, float, MoleMole_SafeFloat_get_Value, (app::S
 // should be 'op_Implicit' not 'set_value'
 DO_APP_FUNC(0x02C10260, 0x02C1A970, app::SafeFloat, MoleMole_SafeFloat_set_Value, (float value));
 
-DO_APP_FUNC(0x01118BE0, 0x038104A0, app::EntityType__Enum_1, get_entityType, (app::BaseEntity* entity));
+DO_APP_FUNC(0x01118BE0, 0x038104A0, app::EntityType__Enum_1, MoleMole_BaseEntity_get_entityType, (app::BaseEntity* entity));
 
 DO_APP_FUNC(0x067EE040, 0x0682F680, app::String*, Marshal_PtrToStringAnsi, (void* ptr));
 
@@ -117,7 +118,7 @@ DO_APP_FUNC(0x06D96670, 0x06DDB1B0, void, Camera_set_fieldOfView, (app::Camera* 
 // World cheats
 DO_APP_FUNC(0x0098B2A0, 0x0098F7A0, void, MoleMole_VCMonsterAIController_TryDoSkill, (void* __this, uint32_t skillID));
 DO_APP_FUNC(0x0093A980, 0x0093F330, void, MoleMole_LevelSceneElementViewPlugin_Tick, (app::LevelSceneElementViewPlugin* __this, float inDeltaTime));
-DO_APP_FUNC(0x009398D0, 0x0, void, MoleMole_LevelSceneElementViewPlugin_TriggerElementView, (app::LevelSceneElementViewPlugin* __this, bool trigger));
+DO_APP_FUNC(0x009398D0, 0x0093E210, void, MoleMole_LevelSceneElementViewPlugin_TriggerElementView, (app::LevelSceneElementViewPlugin* __this, bool trigger));
 
 // Dialog skipping
 DO_APP_FUNC(0x00A9B0E0, 0x00A9F580, void, MoleMole_TalkDialogContext_OnDialogSelectItem, (app::TalkDialogContext* __this, app::Notify* notify));
@@ -138,8 +139,8 @@ DO_APP_FUNC(0x02A13DD0, 0x02A1DFC0, void, MoleMole_LCIndicatorPlugin_HideIcon, (
 DO_APP_FUNC(0x020E4DD0, 0x020ECC40, app::Button_1*, ProfilePage, (app::MonoInLevelPlayerProfilePage* __this, app::MethodInfo* method));
 
 // Visuals
-DO_APP_FUNC(0x0133A8C0, 0x01340300, void, MonoParticleDamageTextContainer_ShowDamageText, (void* __this, void* MPNOONEAJLB, void* AKFGHNDBADA));
-DO_APP_FUNC(0x0133AFC0, 0x01340A00, void, MonoParticleDamageTextContainer_ShowReactionText, (void* __this, void* ODIALFBPKOO, void* DDKPJLOMEIN, void* BHBLALOIKBM, void* AKFGHNDBADA, int MKOAJMOFAHC));
+DO_APP_FUNC(0x0133A8C0, 0x01340300, void, MonoParticleDamageTextContainer_ShowDamageText, (void* __this, void* attackResult, void* attackee));
+DO_APP_FUNC(0x0133AFC0, 0x01340A00, void, MonoParticleDamageTextContainer_ShowReactionText, (void* __this, void* reaction, void* elemType1, void* elemType2, void* attackee, int hitIndex));
 
 // Modify
 DO_APP_FUNC(0x03FBD750, 0x03FC8730, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
@@ -159,15 +160,15 @@ DO_APP_FUNC(0x02D8E440, 0x02D99250, void, MoleMole_EquipOverviewPageContext_Play
 
 // Teleport hooks
 DO_APP_FUNC(0x02262880, 0x0226AB70, void, GameManager_Update, (app::GameManager* __this, app::MethodInfo* method));
-DO_APP_FUNC(0x01408E20, 0x0140EA50, void, ActorUtils_SetAvatarPos, (app::Vector3 pos));
 
 // Open team immediately
 DO_APP_FUNC(0x04475550, 0x044816E0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
-DO_APP_FUNC(0x00D82A70, 0x00D86F80, void, MoleMole_InLevelPlayerProfilePageContext_SetupView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
-DO_APP_FUNC(0x00D7EFF0, 0x00D83500, void, MoleMole_InLevelPlayerProfilePageContext_ClearView, (/*MoleMole_InLevelPlayerProfilePageContext*/void* __this));
+DO_APP_FUNC(0x00D82A70, 0x00D86F80, void, MoleMole_InLevelPlayerProfilePageContext_SetupView, (/*MoleMole_InLevelPlayerProfilePageContext*/ void* __this));
+DO_APP_FUNC(0x00D7EFF0, 0x00D83500, void, MoleMole_InLevelPlayerProfilePageContext_ClearView, (/*MoleMole_InLevelPlayerProfilePageContext*/ void* __this));
+DO_APP_FUNC(0x013E7B30, 0x0, void, MoleMole_InLevelMainPageContext_EndCountDown, (app::InLevelMainPageContext* __this));
 
 // Unlimited stamina
-DO_APP_FUNC(0x03E693A0, 0x03E744C0, void, MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, (app::LevelSyncCombatPlugin* __this, uint32_t entityId, app::MotionInfo* syncInfo, bool isReliable, uint32_t HAOCOEMOMBG));
+DO_APP_FUNC(0x03E693A0, 0x03E744C0, void, MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, (app::LevelSyncCombatPlugin* __this, uint32_t entityId, app::MotionInfo* syncInfo, bool isReliable, uint32_t reliableSeq));
 DO_APP_FUNC(0x01A04B70, 0x01A0B570, void, MoleMole_DataItem_HandleNormalProp, (app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state));
 // Wanderer E Stamina
 DO_APP_FUNC(0x02115EC0, 0x0211DD70, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));

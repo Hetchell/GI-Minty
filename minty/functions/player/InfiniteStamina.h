@@ -3,7 +3,7 @@
 #include "../FunctionIncludes.h"
 
 namespace cheat {
-	class InfinityEnergy : public Function {
+	class InfiniteStamina : public Function {
 	public:
 		ConfigField<bool> f_Enabled;
 
@@ -15,8 +15,8 @@ namespace cheat {
 
 		std::string getModule() override;
 
-		static InfinityEnergy& getInstance();
+		static InfiniteStamina& getInstance();
 
-		InfinityEnergy();
+		InfiniteStamina();
 	};
 }

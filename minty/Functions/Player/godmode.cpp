@@ -2,13 +2,13 @@
 
 namespace cheat {
 	static void VCHumanoidMove_NotifyLandVelocity_Hook(app::VCHumanoidMove* __this, app::Vector3 velocity, float reachMaxDownVelocityTime);
-	static bool Miscs_CheckTargetAttackableH(app::BaseEntity* attacker, app::BaseEntity* target, bool idk);
+	static bool Miscs_CheckTargetAttackable_Hook(app::BaseEntity* attacker, app::BaseEntity* target, bool checkBackstage);
 
 	GodMode::GodMode() {
 		f_Enabled = config::getValue("functions:GodMode", "enabled", false);
 		f_Hotkey = Hotkey("functions:GodMode");
 
-		HookManager::install(app::Miscs_CheckTargetAttackable, Miscs_CheckTargetAttackableH);
+		HookManager::install(app::Miscs_CheckTargetAttackable, Miscs_CheckTargetAttackable_Hook);
 		HookManager::install(app::VCHumanoidMove_NotifyLandVelocity, VCHumanoidMove_NotifyLandVelocity_Hook);
 	}
 
@@ -42,9 +42,9 @@ namespace cheat {
 	}
 
 	void VCHumanoidMove_NotifyLandVelocity_Hook(app::VCHumanoidMove* __this, app::Vector3 velocity, float reachMaxDownVelocityTime) {
-		auto& GodMode = GodMode::getInstance();
+		auto& godMode = GodMode::getInstance();
 
-		if (GodMode.f_Enabled.getValue() && -velocity.y > 13) {
+		if (godMode.f_Enabled.getValue() && -velocity.y > 13) {
 			float randAdd = (float)(std::rand() % 1000) / 1000;
 			velocity.y = -8 - randAdd;
 			reachMaxDownVelocityTime = 0;
@@ -52,11 +52,11 @@ namespace cheat {
 		CALL_ORIGIN(VCHumanoidMove_NotifyLandVelocity_Hook, __this, velocity, reachMaxDownVelocityTime);
 	}
 
-	bool Miscs_CheckTargetAttackableH(app::BaseEntity* attacker, app::BaseEntity* target, bool idk) {
-		auto& GodMode = GodMode::getInstance();
+	bool Miscs_CheckTargetAttackable_Hook(app::BaseEntity* attacker, app::BaseEntity* target, bool checkBackstage) {
+		auto& godMode = GodMode::getInstance();
 
-		if (GodMode.f_Enabled.getValue() && app::get_entityType(target) == app::EntityType__Enum_1::Avatar)
+		if (godMode.f_Enabled.getValue() && app::MoleMole_BaseEntity_get_entityType(target) == app::EntityType__Enum_1::Avatar)
 			return false;
-		return CALL_ORIGIN(Miscs_CheckTargetAttackableH, attacker, target, idk);
+		return CALL_ORIGIN(Miscs_CheckTargetAttackable_Hook, attacker, target, checkBackstage);
 	}
 }

@@ -20,8 +20,11 @@ namespace cheat {
     void Peeking::GUI() {
         ConfigCheckbox("Enable Peeking", f_Enabled, ";)");
 
-        if (f_Enabled.getValue())
+        if (f_Enabled.getValue()) {
+            ImGui::Indent();
             f_Hotkey.Draw();
+            ImGui::Unindent();
+        }
     }
     
     void Peeking::Outer() {
@@ -50,7 +53,7 @@ namespace cheat {
     void onUpdate_6(app::GameManager* __this, app::MethodInfo* method) {
         auto& peeking = Peeking::getInstance();
 
-        if (peeking.f_Enabled.getValue()) {
+        /*if (peeking.f_Enabled.getValue()) {
             if (divingRoot == nullptr || app::GameObject_get_active(divingRoot))
                 divingRoot = app::GameObject_Find(string_to_il2cppi("/EffectPool/Eff_Player_Diving_Root"));
         } else {
@@ -59,7 +62,7 @@ namespace cheat {
 
                 divingRoot = nullptr;
             }
-        }
+        }*/
         CALL_ORIGIN(onUpdate_6, __this, method);
     }
 }

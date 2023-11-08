@@ -1,7 +1,7 @@
 #include "HideDamage.h"
 
 namespace cheat {
-    void MonoParticleDamageTextContainer_ShowDamageText(void* __this, void* MPNOONEAJLB, void* AKFGHNDBADA);
+    void MonoParticleDamageTextContainer_ShowDamageText(void* __this, void* attackResult, void* attackee);
 
     HideDamage::HideDamage() : Function() {
         f_Enabled = config::getValue("functions:HideDamage", "enabled", false);
@@ -39,11 +39,11 @@ namespace cheat {
         return _("Visuals");
     }
 
-    void MonoParticleDamageTextContainer_ShowDamageText(void* __this, void* MPNOONEAJLB, void* AKFGHNDBADA) {
+    void MonoParticleDamageTextContainer_ShowDamageText(void* __this, void* attackResult, void* attackee) {
         auto& hideDamage = HideDamage::getInstance();
 
         if (hideDamage.f_Enabled.getValue())
             return;
-        CALL_ORIGIN(MonoParticleDamageTextContainer_ShowDamageText, __this, MPNOONEAJLB, AKFGHNDBADA);
+        CALL_ORIGIN(MonoParticleDamageTextContainer_ShowDamageText, __this, attackResult, attackee);
     }
 }

@@ -4041,8 +4041,17 @@ typedef union Il2CppSingle_float
         CustomGadget = 0x0000003f,
         RoguelikeOperatorGadget = 0x00000040,
         ActivityInteractGadget = 0x00000041,
-        SubEquip = 0x00000042,
-        UIInteractGadget = 0x00000043,
+        BlackMud = 0x00000042,
+        SubEquip = 0x00000043,
+        UIInteractGadget = 0x00000044,
+        NightCrowGadget = 0x00000045,
+        Partner = 0x00000046,
+        DeshretObeliskGadget = 0x00000047,
+        CoinCollectLevelGadget = 0x00000048,
+        UgcSpecialGadget = 0x00000049,
+        UgcTowerLevelUpGadget = 0x0000004a,
+        JourneyGearOperatorGadget = 0x0000004b,
+        CurveMoveGadget = 0x0000004c,
         PlaceHolder = 0x00000063,
     };
 
@@ -9164,18 +9173,18 @@ typedef union Il2CppSingle_float
 
     struct MoleMole_EquipLevelUpDialogContext__Fields {
         struct MoleMole_BaseDialogContext__Fields _;
-        struct MoleMole_BagItem* _equip; // 0x0198
-        struct List_1_MoleMole_PropertyChange_* _propertyChange; // 0x01B8
-        struct MonoEquipLevelUpDialog* _dialogMono; // 0x01A8
-        struct MonoAvatarPropertyItem* _propertyItemPrefab; // 0x01B0
-        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList; // 0x01A0
-        uint32_t _currLevel; // 0x01C4
-        uint32_t _prevLevel; // 0x01C0
-        uint32_t _propertyItemPrefabHandle; // 0x01C8
-        uint32_t _mainPropItemPrefabHandle; // 0x01CC
-        uint32_t _powerUpRate; // 0x01D4
-        MoleMole_Config_ItemType__Enum _equipType; // 0x01D0
-        bool _canClose; // 0x01D8
+        struct MonoEquipLevelUpDialog* _dialogMono;
+        struct MonoAvatarPropertyItem* _propertyItemPrefab;
+        struct List_1_MoleMole_PropertyChange_* _propertyChange;
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_ItemParam_* _returnedMaterialList;
+        struct MoleMole_BagItem* _equip;
+        uint32_t _powerUpRate;
+        MoleMole_Config_ItemType__Enum _equipType;
+        uint32_t _prevLevel;
+        uint32_t _propertyItemPrefabHandle;
+        uint32_t _currLevel;
+        uint32_t _mainPropItemPrefabHandle;
+        bool _canClose;
         /* old version:
         struct MonoAvatarPropertyItem* _propertyItemPrefab;
         uint32_t _propertyItemPrefabHandle;
@@ -11576,15 +11585,15 @@ typedef union Il2CppSingle_float
 
     struct LCIndicatorPlugin__Fields {
         struct BaseComponentPlugin__Fields _;
-        void* _timeCheckConditionKeys;
-        void* allConditions;
+        void* _timeCheckConditionKeys; // List<Type>
+        void* allConditions; // Dictionary<Type, List<???>>
         void* _owner;
         bool unknow;
         void* _levelGadget;
         struct GadgetDataItem* _dataItem;
         void* _tempLateData;
         void* _configIndicator;
-        void* indicatorDominators;
+        void* indicatorDominators; // List<???>
         bool _isIndicatorShow;
         void* _checkTimer;
     };

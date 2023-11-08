@@ -19,8 +19,11 @@ namespace cheat {
         ConfigCheckbox("Dumb Enemies", f_Enabled, "Enemies don't attack or use abilities against player.\n"
             "May not work with some enemies or enemy abilities.");
 
-        if (f_Enabled.getValue())
+        if (f_Enabled.getValue()) {
+            ImGui::Indent();
             f_Hotkey.Draw();
+            ImGui::Unindent();
+        }
     }
 
     void DumbEnemies::Status() {

@@ -147,7 +147,7 @@ namespace cheat {
         if (point >= 0 && point < AutoTP::parseds.size()) {
             AutoTP::currentPoint = AutoTP::parseds[point];
             LOG_INFO("Teleporting to point: %s", AutoTP::parseds[point].name.c_str());
-            auto avatarPos = app::MoleMole_ActorUtils_GetAvatarPos();
+            auto avatarPos = app::ActorUtils_GetAvatarPos();
             auto endPos = AutoTP::parseds[point].position;
 
             std::thread interpolate([avatarPos, endPos]() {

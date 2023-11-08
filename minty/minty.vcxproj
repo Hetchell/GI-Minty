@@ -180,8 +180,8 @@
     <ClCompile Include="functions\visuals\UnlockFPS.cpp" />
     <ClCompile Include="functions\world\AutoTP.cpp" />
     <ClCompile Include="functions\player\GodMode.cpp" />
-    <ClCompile Include="functions\player\InfinityEnergy.cpp" />
-    <ClCompile Include="functions\player\InfinityStamina.cpp" />
+    <ClCompile Include="functions\player\InfiniteEnergy.cpp" />
+    <ClCompile Include="functions\player\InfiniteStamina.cpp" />
     <ClCompile Include="functions\player\MultiHit.cpp" />
     <ClCompile Include="functions\player\NoCooldown.cpp" />
     <ClCompile Include="functions\player\NoClip.cpp" />
@@ -266,8 +266,8 @@
     <ClInclude Include="functions\visuals\UnlockFPS.h" />
     <ClInclude Include="functions\world\AutoTP.h" />
     <ClInclude Include="functions\player\GodMode.h" />
-    <ClInclude Include="functions\player\InfinityEnergy.h" />
-    <ClInclude Include="functions\player\InfinityStamina.h" />
+    <ClInclude Include="functions\player\InfiniteEnergy.h" />
+    <ClInclude Include="functions\player\InfiniteStamina.h" />
     <ClInclude Include="functions\player\MultiHit.h" />
     <ClInclude Include="functions\player\NoCooldown.h" />
     <ClInclude Include="functions\player\NoClip.h" />

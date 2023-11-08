@@ -40,9 +40,9 @@ namespace cheat {
     }
 
     bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this) {
-        auto& ShowChestIndicator = ShowChestIndicator::getInstance();
+        auto& showChestIndicator = ShowChestIndicator::getInstance();
 
-        if (ShowChestIndicator.f_Enabled.getValue()) {
+        if (showChestIndicator.f_Enabled.getValue()) {
             //if (__this->fields._dataItem != nullptr)
                 app::MoleMole_LCIndicatorPlugin_ShowIcon(__this);
         } else
