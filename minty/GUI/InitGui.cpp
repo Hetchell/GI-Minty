@@ -4,7 +4,8 @@ float alpha = 0;
 void MergeIconsWithLatestFont(float font_size, bool FontDataOwnedByAtlas) {
     static const ImWchar icons_ranges[] = {ICON_MIN_FA, ICON_MAX_FA, 0};
     ImFontConfig icons_config;
-    icons_config.MergeMode = true;
+
+    //icons_config.MergeMode = true;
     icons_config.PixelSnapH = true;
     icons_config.FontDataOwnedByAtlas = FontDataOwnedByAtlas;
 
@@ -29,39 +30,35 @@ void gui::InitImGui(HWND window, ID3D11Device* pDevice, ID3D11DeviceContext* pCo
 
     ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &font_cfg);
     // init notify
-    MergeIconsWithLatestFont(16.f, false);
-    Init();
+    //MergeIconsWithLatestFont(16.f, false);
     LoadThemes();
     LoadFonts();
+    Init();
 }
 
 void gui::Render() {
     ImGui_ImplWin32_NewFrame();
     ImGui_ImplDX11_NewFrame();
     ImGui::NewFrame();
-    
-    static double startTime = ImGui::GetTime();
-    static bool prevShowMenu = g_ShowMenu;
-    const float animDuration = cheat::Settings::getInstance().f_AnimationDuration.getValue();
 
-    if (g_ShowMenu != prevShowMenu) {
+    auto& settings = cheat::Settings::getInstance();
+    static double startTime = ImGui::GetTime();
+    static bool prevShowMenu = settings.f_ShowMenu;
+    const float animDuration = settings.f_AnimationDuration.getValue();
+
+    if (settings.f_ShowMenu != prevShowMenu) {
         startTime = ImGui::GetTime(); // Reset startTime when the menu state changes
-        prevShowMenu = g_ShowMenu;
+        prevShowMenu = settings.f_ShowMenu;
     }
 
-    float alpha = g_ShowMenu ? min(1.0f, (ImGui::GetTime() - startTime) / animDuration) : max(0.0f, 1.0f - (ImGui::GetTime() - startTime) / animDuration);
+    float alpha = settings.f_ShowMenu ? min(1.0f, (ImGui::GetTime() - startTime) / animDuration) : max(0.0f, 1.0f - (ImGui::GetTime() - startTime) / animDuration);
 
     ImGui::PushStyleVar(ImGuiStyleVar_Alpha, alpha);
 
-    if (g_ShowMenu || alpha > 0.0f)
+    if (settings.f_ShowMenu || alpha > 0.0f)
         gui::FrameLoadGui();
 
     ImGui::PopStyleVar();
-
     Outer();
-
-    if (cheat::Settings::getInstance().f_Hotkey.IsPressed())
-        g_ShowMenu = !g_ShowMenu;
-
     ImGui::Render();
 }

@@ -1,10 +1,7 @@
 #pragma once
 
-#include "../utils/Utils.hpp"
 #include "../functions/Function.h"
 
-static bool g_ShowMenu = true;
-static bool block_input = true;
 static bool show_style_editor;
 static bool show_lua_editor = false;
 

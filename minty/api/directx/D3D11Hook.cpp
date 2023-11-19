@@ -1,4 +1,3 @@
-#include "../../gui/MainGUI.h"
 // Check windows
 #if _WIN32 || _WIN64
 #if _WIN64
@@ -21,19 +20,17 @@
 
 #include "../../includes.h"
 #include "../imgui/ImGui/imgui_internal.h"
-#include "../../gui/GuiDefinitions.h"
-
-//#include "../ImGui/ImGuiNotify/imgui_notify.h"
-
 #include "../../gui/InitGui.h"
 
 // D3X HOOK DEFINITIONS
 typedef HRESULT(__fastcall* IDXGISwapChainPresent)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 typedef void(__stdcall* ID3D11DrawIndexed)(ID3D11DeviceContext* pContext, UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
+//typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 // Definition of WndProc Hook. Its here to avoid dragging dependencies on <windows.h> types.
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Main D3D11 Objects
+//ResizeBuffers oResizeBuffers;
 ID3D11DeviceContext* pContext = NULL;
 namespace { ID3D11Device* pDevice = NULL; }
 ID3D11RenderTargetView* mainRenderTargetView;
@@ -103,29 +100,37 @@ bool LoadTextureFromResources(LPCTSTR resource_name, LPCTSTR resource_type, ID3D
 
 	*out_width = desc.Width;
 	*out_height = desc.Height;
-
 	return true;
 }
 
 // Boolean
 BOOL g_bInitialised = false;
-//bool g_ShowMenu = true; -> defined in GUIDefinitions
 bool g_PresentHooked = false;
 
 LRESULT CALLBACK hWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	if (block_input) {
-		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam) && ImGui::GetIO().WantCaptureMouse || ImGui::GetIO().WantCaptureKeyboard) {
-			return true; // ImGui wants to capture input, so return true
-		}
-		else {
-			return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam); // let the main app handle the input
-		}
-	} else {
-		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
-			return true;
+	ImGuiIO& io = ImGui::GetIO();
+	POINT mPos;
+	GetCursorPos(&mPos);
+	ScreenToClient(hWnd, &mPos);
+	ImGui::GetIO().MousePos.x = static_cast<float>(mPos.x);
+	ImGui::GetIO().MousePos.y = static_cast<float>(mPos.y);
 
-		return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
+	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+
+	auto& settings = cheat::Settings::getInstance();
+
+	if (settings.f_ShowMenu) {
+		if (!app::Cursor_get_visible(nullptr)) {
+			app::Cursor_set_visible(true);
+			app::Cursor_set_lockState(app::CursorLockMode__Enum::None);
+		}
+		return true;
+	} else if (!app::Cursor_get_visible(nullptr)) {
+		app::Cursor_set_visible(false);
+		app::Cursor_set_lockState(app::CursorLockMode__Enum::Locked);
 	}
+
+	return CallWindowProc(OriginalWndProcHandler, hWnd, uMsg, wParam, lParam);
 }
 
 HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext) {
@@ -137,12 +142,45 @@ HRESULT GetDeviceAndCtxFromSwapchain(IDXGISwapChain* pSwapChain, ID3D11Device** 
 	return ret;
 }
 
+//HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
+//	if (mainRenderTargetView) {
+//		pContext->OMSetRenderTargets(0, 0, 0);
+//		mainRenderTargetView->Release();
+//	}
+//
+//	HRESULT hr = oResizeBuffers(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+//
+//	ID3D11Texture2D* pBuffer;
+//	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&pBuffer);
+//	// Perform error handling here!
+//
+//	pDevice->CreateRenderTargetView(pBuffer, NULL, &mainRenderTargetView);
+//	// Perform error handling here!
+//	pBuffer->Release();
+//
+//	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+//
+//	// Set up the viewport.
+//	D3D11_VIEWPORT vp;
+//	vp.Width = Width;
+//	vp.Height = Height;
+//	vp.MinDepth = 0.0f;
+//	vp.MaxDepth = 1.0f;
+//	vp.TopLeftX = 0;
+//	vp.TopLeftY = 0;
+//	pContext->RSSetViewports(1, &vp);
+//	return hr;
+//}
+
 HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Flags) {
 	if (!g_bInitialised) {
 		g_PresentHooked = true;
-		LOG_DEBUG("DirectX Present Hook called by first time");
+
+		//LOG_DEBUG("DirectX Present Hook called by first time");
+
 		if (FAILED(GetDeviceAndCtxFromSwapchain(pChain, &pDevice, &pContext)))
 			return fnIDXGISwapChainPresent(pChain, SyncInterval, Flags);
+
 		pSwapChain = pChain;
 		DXGI_SWAP_CHAIN_DESC sd;
 		pChain->GetDesc(&sd);
@@ -192,15 +230,17 @@ HRESULT __fastcall hkPresent(IDXGISwapChain* pChain, UINT SyncInterval, UINT Fla
 }
 
 void DetourDirectXPresent() {
-	//util::log(3, "Calling fnIDXGISwapChainPresent Detour");
+	//LOG_DEBUG("Calling fnIDXGISwapChainPresent Detour");
 	DetourTransactionBegin();
-	//util::log(3, "Detour Begin Transaction");
+	//LOG_DEBUG("Detour Begin Transaction");
 	DetourUpdateThread(GetCurrentThread());
-	//util::log(3, "Detour Update Thread");
+	//LOG_DEBUG("Detour Update Thread");
 	// Detours the original fnIDXGISwapChainPresent with our Present
-	LOG_DEBUG("DX11 Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
+	//LOG_DEBUG("DX11 Present Address: %s", util::get_ptr(fnIDXGISwapChainPresent));
+	//LOG_DEBUG("HookBuf Address: %s", util::get_ptr(oResizeBuffers));
 	DetourAttach(&(LPVOID&)fnIDXGISwapChainPresent, (PBYTE)hkPresent);
-	LOG_DEBUG("DX11 Detour Attach");
+	//DetourAttach(&(LPVOID&)oResizeBuffers, (PBYTE)hkResizeBuffers);
+	//LOG_DEBUG("DX11 Detour Attach");
 	DetourTransactionCommit();
 }
 
@@ -216,10 +256,12 @@ LRESULT CALLBACK DXGIMsgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 void GetPresent() {
 	WNDCLASSEXA wc = { sizeof(WNDCLASSEX), CS_CLASSDC, DXGIMsgProc, 0L, 0L, GetModuleHandleA(NULL), NULL, NULL, NULL, NULL, "DX", NULL };
-	RegisterClassExA(&wc);
-	HWND hWnd = CreateWindowA("DX", NULL, WS_OVERLAPPEDWINDOW, 100, 100, 300, 300, NULL, NULL, wc.hInstance, NULL);
 
+	RegisterClassExA(&wc);
+
+	HWND hWnd = CreateWindowA("DX", NULL, WS_OVERLAPPEDWINDOW, 100, 100, 300, 300, NULL, NULL, wc.hInstance, NULL);
 	DXGI_SWAP_CHAIN_DESC sd;
+
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
 	sd.BufferDesc.Width = 2;
@@ -240,6 +282,7 @@ void GetPresent() {
 	IDXGISwapChain* swapchain = 0;
 	ID3D11Device* dev = 0;
 	ID3D11DeviceContext* devcon = 0;
+
 	if (FAILED(hr = D3D11CreateDeviceAndSwapChain(NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
@@ -255,13 +298,13 @@ void GetPresent() {
 		LOG_ERROR("Failed to hook Present with VT method.");
 		return;
 	}
+
 	DWORD_PTR* pSwapChainVtable = NULL;
 	pSwapChainVtable = (DWORD_PTR*)swapchain;
 	pSwapChainVtable = (DWORD_PTR*)pSwapChainVtable[0];
 	fnIDXGISwapChainPresent = (IDXGISwapChainPresent)(DWORD_PTR)pSwapChainVtable[8];
+	//oResizeBuffers = (ResizeBuffers)(DWORD_PTR)pSwapChainVtable[13];
 	g_PresentHooked = true;
-
-	//Sleep(2000);
 }
 
 void* SwapChain[18];
