@@ -66,7 +66,7 @@ void Init() {
     INIT_FUNC(DumbEnemies);
     INIT_FUNC(ElementalSight);
     INIT_FUNC(GameSpeed);
-    //INIT_FUNC(OpenTeamImmediately);
+    INIT_FUNC(OpenTeamImmediately);
     INIT_FUNC(SkipEnhanceAnimation);
 }
 

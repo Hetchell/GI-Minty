@@ -1,7 +1,3 @@
-#include <Windows.h>
-#include <optional>
-#include <libloaderapi.h>
-
 #include "FontsLoader.h"
 
 bool LoadFontFromResources(ImFontConfig font_cfg, const wchar_t* fontName, float fontSize) {
@@ -9,16 +5,14 @@ bool LoadFontFromResources(ImFontConfig font_cfg, const wchar_t* fontName, float
     //HMODULE hModuleF;
     // Find the resource handle within the DLL
     HRSRC hResource = FindResource(hModuleF, (LPCSTR)fontName, RT_RCDATA);
-    if (!hResource)
-    {
+    if (!hResource) {
         // Resource not found
         return false;
     }
 
     // Load the resource data
     HGLOBAL hMemory = LoadResource(hModuleF, hResource);
-    if (!hMemory)
-    {
+    if (!hMemory) {
         // Failed to load resource
         return false;
     }
@@ -34,6 +28,5 @@ bool LoadFontFromResources(ImFontConfig font_cfg, const wchar_t* fontName, float
     // Clean up the resource handles
     UnlockResource(hMemory);
     FreeResource(hMemory);
-
     return true;
 }

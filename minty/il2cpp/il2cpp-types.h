@@ -6565,19 +6565,19 @@ typedef union Il2CppSingle_float
     };
 
     struct __declspec(align(8)) BaseComponentPlugin__Fields {
-        struct BaseComponent* owner;
-        bool isInited;
-        bool hasTick;
-        bool hasLateTick;
-        struct Int32__Array* _selfOnEventIDsCache;
-        bool _isSelfOnEventIDsCached;
-        struct Int32__Array* _selfOnEventResolvedIDsCache;
-        bool _isSelfOnEventResolvedIDsCached;
         struct Int32__Array* _selfListenEventIDsCache;
-        bool _isSelfListenEventIDsCached;
+        struct Int32__Array* _selfOnEventResolvedIDsCache;
+        struct BaseComponent* owner;
+        struct Int32__Array* _selfOnEventIDsCache;
         bool _enabled;
+        bool _isSelfListenEventIDsCached;
+        bool _isSelfOnEventIDsCached;
         bool _hasEnabledInited;
+        bool hasLateTick;
+        bool isInited;
+        bool _isSelfOnEventResolvedIDsCached;
         bool _listenEventValid_k__BackingField;
+        bool hasTick;
     };
 
     struct BaseComponentPlugin {
@@ -7431,15 +7431,15 @@ typedef union Il2CppSingle_float
 
     struct MotionInfo__Fields {
         struct MessageBase_1__Fields _;
+        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_Vector_* params_;
         struct Vector_1* pos_;
         struct Vector_1* rot_;
         struct Vector_1* speed_;
-        MotionState__Enum motionState;
-        struct Google_Protobuf_Collections_RepeatedMessageField_1_Proto_Vector_* params_;
         struct Vector_1* refPos_;
+        uint32_t intervalVelocity_; // ulong
         uint32_t refId_;
+        MotionState__Enum motionState;
         uint32_t sceneTime_;
-        uint32_t intervalVelocity_;
     };
 
     struct MotionInfo {
@@ -10744,9 +10744,9 @@ typedef union Il2CppSingle_float
 
     struct __declspec(align(8)) InLevelMainPageContext_DoTeamCountDown_Iterator__Fields
     {
-        struct Object* KOBKOALABHL;
-        struct InLevelMainPageContext* _levelMainPageContext;
-        int32_t HGCHJINEMCM;
+        struct InLevelMainPageContext* __this;
+        struct Object* __current;
+        int32_t __state;
     };
 
     struct InLevelMainPageContext_DoTeamCountDown_Iterator

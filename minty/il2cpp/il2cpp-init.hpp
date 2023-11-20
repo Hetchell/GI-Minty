@@ -72,8 +72,8 @@ VOID init_il2cpp() {
 		if (GetModuleHandleA("UserAssembly.dll") != nullptr) {
 			baseAddress = (uint64_t) GetModuleHandleA("UserAssembly.dll");
 			unityPlayerAddress = (uint64_t) GetModuleHandleA("UnityPlayer.dll");
-			LOG_DEBUG("UserAssembly ptr: %p", baseAddress);
-			LOG_DEBUG("UnityPlayer ptr: %p", unityPlayerAddress);
+			//LOG_DEBUG("UserAssembly ptr: %p", baseAddress);
+			//LOG_DEBUG("UnityPlayer ptr: %p", unityPlayerAddress);
 
 			#define DO_API(a, b, r, n, p) n = (r (*) p)(baseAddress + SELECT_VERSION(gameVersion, a, b))
 				#include "il2cpp-api-functions.h"

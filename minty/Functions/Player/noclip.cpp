@@ -10,7 +10,7 @@ namespace cheat {
 		f_Speed = config::getValue("functions:NoClip", "speed", 5.0f);
 		f_AltSpeed = config::getValue("functions:NoClip:Alt", "speed", 10.0f);
 		f_Hotkey = Hotkey("functions:NoClip");
-		f_HotkeyAlt = Hotkey("functions:NoClip:Alt");
+		f_HotkeyAlt = Hotkey("functions:NoClip:Alt", VK_LCONTROL);
 
 		HookManager::install(app::GameManager_Update, GameManager_Update_Hook);
 		HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
@@ -22,16 +22,20 @@ namespace cheat {
 	}
 
 	void NoClip::GUI() {
-		ConfigCheckbox("No Clip", f_Enabled);
+		ConfigCheckbox("No Clip", f_Enabled, "Enables No Clip (fast speed + no collision).\n"
+			"To move, use WASD, Space (go up), and Shift (go down).");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();
-			ConfigSliderFloat("Speed", f_Speed, 0.1f, 100.0f);
-			ConfigCheckbox("Alternate NoClip", f_EnabledAltSpeed);
+			ConfigSliderFloat("Speed", f_Speed, 0.1f, 100.0f, "No Clip move speed.\n"
+				"Not recommended setting above 5.0.");
+			ConfigCheckbox("Alternate No Clip", f_EnabledAltSpeed, "Allows usage of alternate speed when holding down LeftCtrl key.\n"
+				"Useful if you want to temporarily go faster/slower than the No Clip speed setting.");
 
 			if (f_EnabledAltSpeed.getValue()) {
 				ImGui::Indent();
-				ConfigSliderFloat("Alternate Speed (HOLD HOTKEY)", f_AltSpeed, 0.1f, 100.0f);
+				ConfigSliderFloat("Alternate Speed", f_AltSpeed, 0.1f, 100.0f, "Alternate No Clip move speed.\n"
+					"Not recommended setting above 5.0.");
 				f_HotkeyAlt.Draw();
 				ImGui::Unindent();
 			}
@@ -102,7 +106,7 @@ namespace cheat {
 
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
 		//app::Rigidbody_set_detectCollisions(rigidbody, false);
-		//LOG_INFO("coli det")
+		//LOG_INFO("coli det");
 		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::GameObject_get_transform(app::GameObject_Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
 		//LOG_INFO("found transfom cam");
 		auto avatarEntity = reinterpret_cast<app::BaseEntity*>(avatarTransform);
@@ -134,7 +138,7 @@ namespace cheat {
 		float deltaTime = app::Time_get_deltaTime() * 1.5F;
 		//LOG_INFO("got delt");
 		newPos = prevPos + dir * NoClip::f_finalSpeed * deltaTime;
-		// if (iNoClipMode == 0) 
+
 		app::Rigidbody_set_velocity(rigidbody, { 0,0,0 });
 		//app::Rigidbody_set_velocity(rigidbody, dir * NoClip::f_finalSpeed);
 		app::Rigidbody_MovePosition(rigidbody, newPos);
@@ -146,8 +150,7 @@ namespace cheat {
 		__try {
 			if (noClip.f_Enabled.getValue())
 				onNoClip();
-		}
-		__except (EXCEPTION_EXECUTE_HANDLER) {
+		} __except (EXCEPTION_EXECUTE_HANDLER) {
 			//LOG_WARNING("Exception 0x%08x.", GetExceptionCode());
 		}
 
@@ -158,16 +161,6 @@ namespace cheat {
 		auto& noClip = NoClip::getInstance();
 
 		if (noClip.f_Enabled.getValue()) {
-			__this->fields.HBFDGIIBGJO = 2;
-			/*
-			std::cout << "-------------" << "\n";
-			std::cout << "MLAJKGHHOFM: " << __this->fields.MLAJKGHHOFM << "\n";
-			std::cout << "JCEINBFLCBP: " << __this->fields.JCEINBFLCBP << "\n";
-			std::cout << "HBFDGIIBGJO: " << __this->fields.HBFDGIIBGJO << "\n";
-			std::cout << "AKGPIJLCGCF: " << __this->fields.AKGPIJLCGCF << "\n";
-			std::cout << "ALACNIHIDAJ: " << __this->fields.ALACNIHIDAJ << "\n";
-			std::cout << "-------------" << "\n";
-			*/
 			if (app::Vector3_Distance(posCheck, newPos) > 3.0f)
 				posCheck = newPos;
 			else

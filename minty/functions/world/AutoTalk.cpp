@@ -44,22 +44,19 @@ namespace cheat {
     }
 
     void AutoTalk::OnCutScenePageUpdate(app::InLevelCutScenePageContext* context) {
-        auto& AutoTalk = AutoTalk::getInstance();
-        bool enabled = AutoTalk.f_Enabled.getValue();
+        auto& autoTalk = AutoTalk::getInstance();
+        bool enabled = autoTalk.f_Enabled.getValue();
 
         if (!enabled)
             return;
 
-        app::Time_set_timeScale(enabled ? AutoTalk.f_TalkSpeed.getValue() : 1.0f);
+        app::Time_set_timeScale(enabled ? autoTalk.f_TalkSpeed.getValue() : 1.0f);
         app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context);
     }
 
     void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this) {
         CALL_ORIGIN(InLevelCutScenePageContext_UpdateView_Hook, __this);
-
-        auto& AutoTalk = AutoTalk::getInstance();
-
-        AutoTalk.OnCutScenePageUpdate(__this);
+        AutoTalk::getInstance().OnCutScenePageUpdate(__this);
     }
 
     void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this) {

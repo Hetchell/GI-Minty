@@ -31,10 +31,10 @@ uintptr_t il2cpp_base = 0;
 
 int xluaL_loadbuffer_hook(lua_State* L, const char* chunk, size_t sz, const char* chunkname) {
     gi_L = L;
-    LOG_INFO("xluaL_loadbuffer_hook called. Lua ready!");
+    //LOG_INFO("xluaL_loadbuffer_hook called. Lua ready!");
     is_hook_success = true;
     main_thread = OpenThread(THREAD_ALL_ACCESS, false, GetCurrentThreadId());
-    LOG_INFO("main_thread created; id: %i", GetCurrentThreadId());
+    //LOG_INFO("main_thread created; id: %i", GetCurrentThreadId());
     int i = CALL_ORIGIN(xluaL_loadbuffer_hook, L, chunk, sz, chunkname);
     HookManager::detach(xluaL_loadbuffer_hook);
     return i;
@@ -94,15 +94,15 @@ void get_gi_L() {
     il2cpp_base = (uintptr_t) ua;
     g_xluaL_loadbuffer = PatternScan("UserAssembly.dll", "48 83 EC 38 E9");
     g_lua_pcall = PatternScan("UserAssembly.dll", "48 83 EC 38 33 C0 48 89 44 24 ? 48 89 44 24 ? E8 ? ? ? ? 48 83 C4 38 C3");
-    LOG_DEBUG("xluaL_loadbuffer: %p, rva: %p", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
-    LOG_DEBUG("lua_pcall: %p, rva: %p", g_lua_pcall, g_lua_pcall - il2cpp_base);
+    //LOG_DEBUG("xluaL_loadbuffer: %p, rva: %p", g_xluaL_loadbuffer, g_xluaL_loadbuffer - il2cpp_base);
+    //LOG_DEBUG("lua_pcall: %p, rva: %p", g_lua_pcall, g_lua_pcall - il2cpp_base);
 
     HookManager::install((loadbuffer_ftn)g_xluaL_loadbuffer, xluaL_loadbuffer_hook);
 
     while (!gi_L)
         Sleep(50);
 
-    LOG_DEBUG("L: %p", gi_L);
+    //LOG_DEBUG("L: %p", gi_L);
 }
 
 void luahookfunc(const char* charLuaScript) {

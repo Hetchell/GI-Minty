@@ -167,10 +167,10 @@ namespace cheat {
     }
 
     void AutoTpThread() {
-        auto& AutoTP = AutoTP::getInstance();
+        auto& autoTP = AutoTP::getInstance();
 
         while (!stopThread.load()) {
-            if (!AutoTP.f_Enabled.getValue() || !AutoTP::b_startTeleporting)
+            if (!autoTP.f_Enabled.getValue() || !AutoTP::b_startTeleporting)
                 return;
 
             for (int i = 0; i < AutoTP::parseds.size(); i++) {

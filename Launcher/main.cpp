@@ -122,7 +122,7 @@ int main() {
     }
 
     std::string exe_path;
-    std::string startupArguments;
+    std::string startupArguments = "";
     fs::path settings_path = fs::current_path() / "minty.json";
     std::ifstream settings_file(settings_path);
 
@@ -132,7 +132,7 @@ int main() {
         if (settings_file.is_open()) {
             // Write the executable path to the settings file
             cfg["general"]["execPath"] = exe_path;
-            cfg["general"]["startupArguments"] = "";
+            cfg["functions"]["Settings"]["startupArguments"] = "";
 
             settings_file << cfg.dump(4) << std::endl;
             exe_path = cfg["general"]["execPath"];
@@ -171,9 +171,8 @@ int main() {
                 }
 
                 exe_path = cfg["general"]["execPath"];
-                startupArguments = cfg["general"]["startupArguments"];
+                startupArguments = cfg["functions"]["Settings"]["startupArguments"];
                 StartAndInject(exe_path, dll_path, startupArguments);
-
                 return 0;
             }
         } else {
@@ -187,7 +186,9 @@ int main() {
         printf("Failed reading config\n");
 
     exe_path = cfg["general"]["execPath"];
-    startupArguments = cfg["general"]["startupArguments"];
+
+    if (cfg["functions"]["Settings"].find("startupArguments") != cfg["functions"]["Settings"].end())
+        startupArguments = cfg["functions"]["Settings"]["startupArguments"];
 
     if (!fs::is_regular_file(exe_path)) {
         std::cout << "File path in minty.json invalid" << std::endl;

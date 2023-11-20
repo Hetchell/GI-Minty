@@ -11,5 +11,5 @@ void LoadThemes() {
 }
 
 void LoadFonts() {
-    LOG_INFO("Loading font (name here)");
+    LOG_INFO("Loading font");
 }

@@ -16,6 +16,7 @@
 #include "../il2cpp/il2cpp-appdata.h"
 #include "../il2cpp/HookManager.h"
 #include "../il2cpp/il2cppUtils.h"
+#include "../functions/settings/Settings.h"
 
 #pragma comment(lib,"ntdll.lib")
 
@@ -363,8 +364,7 @@ static bool report_sent = false;
 void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 	auto xor_payload = [](std::vector<uint8_t>& value_bytes) -> void {
 		auto length = value_bytes.size() - 1;
-		for (signed long long i = length; i >= 0; i -= 1)
-		{
+		for (signed long long i = length; i >= 0; i -= 1) {
 			if (i == length)
 				value_bytes[i] ^= 0xA3;
 			else
@@ -380,6 +380,7 @@ void OnReportLuaShell(void* __this, app::String* type, app::String* value) {
 
 	auto json_report = nlohmann::json::parse(value_string);
 
+	//std::cout << "[DEBUG] json_report: " << json_report.dump(4) << "\n";
 	if (json_report.contains("1")) {
 		LOG_INFO("Letting the first LuaShellResult pass, blocking the rest.");
 		report_sent = false;
@@ -411,39 +412,45 @@ void DisableLogReport() {
 	return;
 }
 
+uintptr_t hTelemetry;
 typedef __int64 (*sub_18012A580)(__int64 a1, __int64 a2);
 static __int64 __fastcall sub_18012A580_Hook(__int64 a1, __int64 a2) {
 	return 0;
 }
 
-uintptr_t hTelemetry;
 void ProtectionBypass::Init() {
-	HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+	auto& settings = cheat::Settings::getInstance();
 
-	for (int i = 0; i < 4; i++) {
-		app::MoleMole_SecurityModule_RecordUserData(i, nullptr);
-		//std::string checksum = std::string((char*) app::MoleMole_SecurityModule_RecordUserData(i, nullptr)->vector,
-		//	app::MoleMole_SecurityModule_RecordUserData(i, nullptr)->max_length);
-		//std::cout << "[DEBUG] checksum #" << i << ": " << checksum << "\n";
+	if (settings.f_UseSignature.getValue()) {
+		HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
+
+		for (int i = 0; i < 4; i++) {
+			app::MoleMole_SecurityModule_RecordUserData(i, nullptr);
+			//std::string checksum = std::string((char*) app::MoleMole_SecurityModule_RecordUserData(i, nullptr)->vector,
+			//	app::MoleMole_SecurityModule_RecordUserData(i, nullptr)->max_length);
+			//std::cout << "[DEBUG] checksum #" << i << ": " << checksum << "\n";
+		}
+
+		HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
 	}
 
 	HookManager::install(app::CrashReporter, CrashReporter_Hook);
-	HookManager::install(app::RecordChecksumUserData, RecordChecksumUserData_Hook);
-	//LOG_INFO("Trying to close mhyprot.");
 
-	if (CloseHandleByName(L"\\Device\\mhyprot2"))
-		LOG_INFO("mhyprot anticheat has been killed");
+	if (settings.f_DisableProtection.getValue())
+		CloseHandleByName(L"\\Device\\HoYoProtect");
 
-	LOG_INFO("Disable the *stupid* hoyo log spam..");
-	DisableLogReport();
+	if (settings.f_DisableLog.getValue()) {
+		DisableLogReport();
 
-	while (hTelemetry == (uint64_t) nullptr) {
-		Sleep(1000);
-		hTelemetry = (uint64_t) GetModuleHandleA("telemetry.dll");
+		while (hTelemetry == (uint64_t) nullptr) {
+			Sleep(1000);
+			hTelemetry = (uint64_t) GetModuleHandleA("telemetry.dll");
+		}
+
+		HookManager::install((sub_18012A580)(hTelemetry + 0x12A580), sub_18012A580_Hook);
 	}
 
-	HookManager::install((sub_18012A580)(hTelemetry + 0x12A580), sub_18012A580_Hook);
-	LOG_INFO("Disabled the *stupid* hoyo log spam..");
-	HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
+	if (settings.f_SpoofACResult.getValue())
+		HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
 	LOG_INFO("Initialized protection bypass");
 }

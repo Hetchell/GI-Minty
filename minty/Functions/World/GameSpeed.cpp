@@ -42,9 +42,9 @@ namespace cheat {
 	}
 
 	void onUpdate_3(app::GameManager* __this, app::MethodInfo* method) {
-		auto& GameSpeed = GameSpeed::getInstance();
+		auto& gameSpeed = GameSpeed::getInstance();
 
-		app::Time_set_timeScale(GameSpeed.f_Enabled.getValue() ? GameSpeed.f_Speed.getValue() : 1.0f);
+		app::Time_set_timeScale(gameSpeed.f_Enabled.getValue() ? gameSpeed.f_Speed.getValue() : 1.0f);
 		CALL_ORIGIN(onUpdate_3, __this, method);
 	}
 }

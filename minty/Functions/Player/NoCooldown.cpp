@@ -77,17 +77,17 @@ namespace cheat {
 	}
 
 	bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float multipler) {
-		auto& NoCooldown = NoCooldown::getInstance();
+		auto& noCooldown = NoCooldown::getInstance();
 
-		if (NoCooldown.f_EnabledSkill.getValue())
+		if (noCooldown.f_EnabledSkill.getValue())
 			multipler = 0;
 		return CALL_ORIGIN(LCAvatarCombat_OnSkillStart, __this, skillID, multipler);
 	}
 
 	void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minValue, float maxValue, bool forceDoAtRemote) {
-		auto& NoCooldown = NoCooldown::getInstance();
+		auto& noCooldown = NoCooldown::getInstance();
 		
-		if (NoCooldown.f_EnabledBow.getValue() && il2cppi_to_string(key) == "_Enchanted_Time") {
+		if (noCooldown.f_EnabledBow.getValue() && il2cppi_to_string(key) == "_Enchanted_Time") {
 			value = maxValue;
 			//LOG_INFO("value: %d, minValue: %d, maxValue: %d, nextValidAbilityID: %d", value, minValue, maxValue, __this->fields.nextValidAbilityID);
 			//__this->fields.nextValidAbilityID = 36;
@@ -96,9 +96,9 @@ namespace cheat {
 	}
 
 	bool HumanoidMoveFSM_CheckSprintCooldown_Hook(void* __this) {
-		auto& NoCooldown = NoCooldown::getInstance();
+		auto& noCooldown = NoCooldown::getInstance();
 
-		if (NoCooldown.f_EnabledSprint.getValue())
+		if (noCooldown.f_EnabledSprint.getValue())
 			return true;
 		return CALL_ORIGIN(HumanoidMoveFSM_CheckSprintCooldown_Hook, __this);
 	}

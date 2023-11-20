@@ -25,12 +25,12 @@
 // D3X HOOK DEFINITIONS
 typedef HRESULT(__fastcall* IDXGISwapChainPresent)(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 typedef void(__stdcall* ID3D11DrawIndexed)(ID3D11DeviceContext* pContext, UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
-//typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
+typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 // Definition of WndProc Hook. Its here to avoid dragging dependencies on <windows.h> types.
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Main D3D11 Objects
-//ResizeBuffers oResizeBuffers;
+ResizeBuffers oResizeBuffers;
 ID3D11DeviceContext* pContext = NULL;
 namespace { ID3D11Device* pDevice = NULL; }
 ID3D11RenderTargetView* mainRenderTargetView;
@@ -303,8 +303,10 @@ void GetPresent() {
 	pSwapChainVtable = (DWORD_PTR*)swapchain;
 	pSwapChainVtable = (DWORD_PTR*)pSwapChainVtable[0];
 	fnIDXGISwapChainPresent = (IDXGISwapChainPresent)(DWORD_PTR)pSwapChainVtable[8];
-	//oResizeBuffers = (ResizeBuffers)(DWORD_PTR)pSwapChainVtable[13];
+	oResizeBuffers = (ResizeBuffers)(DWORD_PTR)pSwapChainVtable[13];
 	g_PresentHooked = true;
+
+	//Sleep(2000);
 }
 
 void* SwapChain[18];

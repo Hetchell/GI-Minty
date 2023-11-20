@@ -18,7 +18,7 @@ namespace cheat {
 	}
 
 	void GodMode::GUI() {
-		ConfigCheckbox("God Mode", f_Enabled);
+		ConfigCheckbox("God Mode", f_Enabled, "Enables god mode, i.e. no incoming damage including environmental damage.");
 
 		if (f_Enabled.getValue()) {
 			ImGui::Indent();

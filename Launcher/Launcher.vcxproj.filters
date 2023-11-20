@@ -30,9 +30,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Users\Chak\Downloads\virus.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Res\virus.ico">
       <Filter>Resource Files</Filter>
     </Image>

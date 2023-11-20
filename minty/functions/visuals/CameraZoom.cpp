@@ -17,7 +17,7 @@ namespace cheat {
     }
 
     void CameraZoom::GUI() {
-        ConfigCheckbox("Camera zoom", f_Enabled);
+        ConfigCheckbox("Camera Zoom", f_Enabled, "Enables custom camera zoom settings.");
 
         if (f_Enabled.getValue()) {
             ImGui::Indent();

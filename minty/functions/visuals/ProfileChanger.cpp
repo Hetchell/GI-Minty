@@ -52,32 +52,50 @@ namespace cheat {
         if (f_Enabled.getValue()) {
             ImGui::Indent();
             ConfigCheckbox("UID", f_EnabledUid, "Changes the UID visually.");
-            ConfigInputText("UID Value", f_Uid);
-            ConfigSliderInt("UID Size", f_UidSize, 1, 500, "Set UID size");
-            ConfigSliderFloat("UID Pos X", f_UidPosX, 1.0f, static_cast<float>(app::Screen_get_width(nullptr)), "Set UID position X");
-            ConfigSliderFloat("UID Pos Y", f_UidPosY, 1.0f, static_cast<float>(app::Screen_get_height(nullptr)), "Set UID position Y");
+
+            if (f_EnabledUid.getValue()) {
+                ConfigInputText("UID Value", f_Uid);
+                ConfigSliderInt("UID Size", f_UidSize, 1, 500, "Set UID size");
+                ConfigSliderFloat("UID Pos X", f_UidPosX, 1.0f, static_cast<float>(app::Screen_get_width(nullptr)), "Set UID position X");
+                ConfigSliderFloat("UID Pos Y", f_UidPosY, 1.0f, static_cast<float>(app::Screen_get_height(nullptr)), "Set UID position Y");
+            }
 
             ConfigCheckbox("Name", f_EnabledName, "Changes the nickname visually.");
-            ConfigInputText("Name Value", f_Name);
+
+            if (f_EnabledName.getValue())
+                ConfigInputText("Name Value", f_Name);
 
             ConfigCheckbox("Level", f_EnabledLevel, "Changes the level visually.");
-            ConfigInputText("Level Value", f_Level);
+
+            if (f_EnabledLevel.getValue())
+                ConfigInputText("Level Value", f_Level);
 
             ConfigCheckbox("WorldLevel", f_EnabledWorldLevel, "Changes the world level visually.");
-            ConfigInputText("WorldLevel Value", f_WorldLevel);
+
+            if (f_EnabledWorldLevel.getValue())
+                ConfigInputText("WorldLevel Value", f_WorldLevel);
 
             ConfigCheckbox("Birthday", f_EnabledBirthday, "Changes the birthday visually.");
-            ConfigInputText("Birthday Value", f_Birthday);
+
+            if (f_EnabledBirthday.getValue())
+                ConfigInputText("Birthday Value", f_Birthday);
 
             ConfigCheckbox("Signature", f_EnabledSignature, "Changes the signature visually.");
-            ConfigInputText("Signature Value", f_Signature);
+
+            if (f_EnabledSignature.getValue())
+                ConfigInputText("Signature Value", f_Signature);
 
             ConfigCheckbox("Exp", f_EnabledExp, "Changes the exp visually.");
-            ConfigDragInt("Current Value", f_CurrentExp, 2, 1, INT32_MAX);
-            ConfigDragInt("Max Value", f_MaxExp, 2, 1, INT32_MAX);
+
+            if (f_EnabledExp.getValue()) {
+                ConfigDragInt("Current Value", f_CurrentExp, 2, 1, INT32_MAX);
+                ConfigDragInt("Max Value", f_MaxExp, 2, 1, INT32_MAX);
+            }
 
             ConfigCheckbox("ExpBar", f_EnabledExpBar, "Changes the exp bar visually.");
-            ConfigSliderFloat("ExpBar Value", f_ExpBar, 1.0f, 100.0f);
+
+            if (f_EnabledExpBar.getValue())
+                ConfigSliderFloat("ExpBar Value", f_ExpBar, 1.0f, 100.0f);
 
             f_Hotkey.Draw();
             ImGui::Unindent();

@@ -16,12 +16,14 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
     freopen("CONOUT$", "w", stderr);
 
     LOG_INFO("Starting...");
+
+    while (!FindWindowA("UnityWndClass", nullptr))
+        Sleep(3000);
+
     LOG_INFO("Initializing IL2CPP...");
     init_il2cpp();
     Sleep(5000);
-
-    while (!FindWindowA("UnityWndClass", nullptr))
-        Sleep(1000);
+    LOG_INFO("Initialized IL2CPP");
 
     ProtectionBypass::Init();
 
@@ -34,14 +36,14 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
         LOG_INFO("Showing RPC...");
     }
 
-    LOG_INFO("Initialized IL2CPP. Waiting %i seconds before starting DirectX...", initDelay / 1000);
+    LOG_INFO("Waiting %i seconds before starting DirectX...", initDelay / 1000);
     Sleep(initDelay);
     LOG_INFO("Waited, assuming that your game already opened. Opening menu...");
 
-    try {
+    __try {
         GetPresent();
         DetourDirectXPresent();
-    } catch (const std::exception& e) {
+    } __except (EXCEPTION_EXECUTE_HANDLER) {
         LOG_ERROR("Unhandled exception in opening menu.");
     }
     return 0;

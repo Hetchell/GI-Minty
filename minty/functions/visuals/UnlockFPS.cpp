@@ -52,16 +52,22 @@ namespace cheat {
 	void onUpdate_2(app::GameManager* __this, app::MethodInfo* method) {
 		auto& unlockFPS = UnlockFPS::getInstance();
 		bool enabled = unlockFPS.f_Enabled.getValue();
+		int fps = unlockFPS.f_Fps.getValue();
 
-		if (!app::Application_get_isFocused()) {
-			if (unlockFPS.f_EnabledLimit.getValue())
-				app::Application_set_targetFrameRate(unlockFPS.f_FpsLimit.getValue());
-		} else {
-			if (enabled) {
-				app::Application_set_targetFrameRate(enabled ? unlockFPS.f_Fps.getValue() : 60);
-				app::QualitySettings_set_vSyncCount(enabled ? 0 : 1);
+		app::Application_set_targetFrameRate(enabled ? fps : 60);
+		app::QualitySettings_set_vSyncCount(enabled ? 0 : 1);
+
+		if (enabled) {
+			if (!unlockFPS.f_EnabledLimit.getValue())
+				app::Application_set_targetFrameRate(fps);
+			else {
+				if (!app::Application_get_isFocused())
+					app::Application_set_targetFrameRate(unlockFPS.f_FpsLimit.getValue());
+				else
+					app::Application_set_targetFrameRate(fps);
 			}
 		}
+
 		CALL_ORIGIN(onUpdate_2, __this, method);
 	}
 }

@@ -42,10 +42,10 @@ namespace cheat {
     }
 
     void InLevelCameraSetFov_Hook(app::Camera* __this, float value) {
-        auto& FovChanger = FovChanger::getInstance();
+        auto& fovChanger = FovChanger::getInstance();
 
-        if (FovChanger.f_Enabled.getValue())
-            value = FovChanger.f_Fov.getValue();
+        if (fovChanger.f_Enabled.getValue())
+            value = fovChanger.f_Fov.getValue();
         CALL_ORIGIN(InLevelCameraSetFov_Hook, __this, value);
     }
 }
