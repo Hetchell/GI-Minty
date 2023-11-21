@@ -27,19 +27,3 @@ app::String* string_to_il2cppi(std::string input) {
 app::String* string_to_il2cppi(const char* input) {
     return app::Marshal_PtrToStringAnsi((void*)input);
 }
-
-
-app::Vector3 operator + (const app::Vector3& A, const app::Vector3& B)
-{
-    return { A.x + B.x, A.y + B.y, A.z + B.z };
-}
-
-app::Vector3 operator - (const app::Vector3& A, const app::Vector3& B)
-{
-    return { A.x - B.x, A.y - B.y, A.z - B.z };
-}
-
-app::Vector3 operator * (const app::Vector3& A, const float k)
-{
-    return { A.x * k, A.y * k, A.z * k };
-}

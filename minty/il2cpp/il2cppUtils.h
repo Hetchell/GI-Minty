@@ -8,10 +8,6 @@ std::string il2cppi_to_string(app::String* str);
 app::String* string_to_il2cppi(std::string input);
 app::String* string_to_il2cppi(const char* input);
 
-app::Vector3 operator + (const app::Vector3& A, const app::Vector3& B);
-app::Vector3 operator - (const app::Vector3& A, const app::Vector3& B);
-app::Vector3 operator * (const app::Vector3& A, const float k);
-
 template<typename ElementT>
 struct UniArray {
     void* klass;
@@ -42,3 +38,31 @@ struct UniArray {
 
 #define TO_UNI_COLLECTION(field, collection) reinterpret_cast<collection*>(field)
 #define TO_UNI_ARRAY(field, type) TO_UNI_COLLECTION(field, UniArray<type>)
+
+inline app::Vector3 operator + (const app::Vector3& A, const app::Vector3& B) {
+    return { A.x + B.x, A.y + B.y, A.z + B.z };
+}
+
+inline app::Vector3 operator + (const app::Vector3& A, const float k) {
+    return { A.x + k, A.y + k, A.z + k };
+}
+
+inline app::Vector3 operator - (const app::Vector3& A, const app::Vector3& B) {
+    return { A.x - B.x, A.y - B.y, A.z - B.z };
+}
+
+inline app::Vector3 operator - (const app::Vector3& A, const float k) {
+    return { A.x - k, A.y - k, A.z - k };
+}
+
+inline app::Vector3 operator * (const app::Vector3& A, const float k) {
+    return { A.x * k, A.y * k, A.z * k };
+}
+
+inline app::Vector3 operator / (const app::Vector3& A, const float k) {
+    return { A.x / k, A.y / k, A.z / k };
+}
+
+inline app::Vector3 operator - (const app::Vector3& A) {
+    return { -A.x, -A.y, -A.z };
+}

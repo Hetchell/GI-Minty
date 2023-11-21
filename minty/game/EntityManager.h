@@ -1,0 +1,29 @@
+#pragma once
+
+#include <map>
+#include <mutex>
+
+#include "Entity.h"
+
+namespace cheat::game {
+	class EntityManager {
+	public:
+		static EntityManager& getInstance();
+
+		Entity* entity(app::BaseEntity*);
+		Entity* entity(uint32_t runtimeID, bool unsafe = false);
+
+		Entity* avatar();
+
+		app::CameraEntity* mainCamera();
+	private:
+		EntityManager();
+
+		std::mutex m_EntityCacheLock;
+		std::map<app::BaseEntity*, std::pair<Entity*, uint32_t>> m_EntityCache;
+
+		Entity m_AvatarEntity;
+
+		inline static Entity* s_EmptyEntity = new Entity(nullptr);
+	};
+}

@@ -100,6 +100,8 @@
     <ClCompile Include="functions\visuals\HideDamage.cpp" />
     <ClCompile Include="functions\visuals\HideReaction.cpp" />
     <ClCompile Include="functions\visuals\NoFog.cpp" />
+    <ClCompile Include="game\Entity.cpp" />
+    <ClCompile Include="game\EntityManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\MainGUI.h" />
@@ -121,7 +123,6 @@
     <ClInclude Include="gui\GuiDefinitions.h" />
     <ClInclude Include="gui\InitGui.h" />
     <ClInclude Include="gui\Translations.h" />
-    <ClInclude Include="utils\Utils.hpp" />
     <ClInclude Include="api\lua\scanner.h" />
     <ClInclude Include="api\lua\pe.h" />
     <ClInclude Include="api\lua\lualib.h" />
@@ -240,6 +241,9 @@
     <ClInclude Include="functions\visuals\HideReaction.h" />
     <ClInclude Include="functions\visuals\NoFog.h" />
     <ClInclude Include="functions\FunctionIncludes.h" />
+    <ClInclude Include="api\magic_enum\magic_enum.hpp" />
+    <ClInclude Include="game\EntityManager.h" />
+    <ClInclude Include="game\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="api\lua\lua53.lib" />

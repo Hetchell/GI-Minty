@@ -174,6 +174,8 @@
     <ClCompile Include="api\discord\src\rpc_connection.cpp" />
     <ClCompile Include="api\discord\src\serialization.cpp" />
     <ClCompile Include="functions\about\About.cpp" />
+    <ClCompile Include="game\Entity.cpp" />
+    <ClCompile Include="game\EntityManager.cpp" />
     <ClCompile Include="il2cpp\il2cppUtils.cpp" />
     <ClCompile Include="functions\visuals\Peeking.cpp" />
     <ClCompile Include="functions\visuals\FovChanger.cpp" />
@@ -201,6 +203,7 @@
     <ClCompile Include="utils\LuaUtils.cpp" />
     <ClCompile Include="utils\ProtectionBypass.cpp" />
     <ClCompile Include="utils\util.cpp" />
+    <ClInclude Include="api\magic_enum\magic_enum.hpp" />
     <ClInclude Include="config\ConfigField.h" />
     <ClInclude Include="config\ConfigManager.h" />
     <ClInclude Include="functions\FunctionIncludes.h" />
@@ -250,6 +253,8 @@
     <ClInclude Include="api\discord\src\rpc_connection.h" />
     <ClInclude Include="api\discord\src\serialization.h" />
     <ClInclude Include="functions\about\About.h" />
+    <ClInclude Include="game\Entity.h" />
+    <ClInclude Include="game\EntityManager.h" />
     <ClInclude Include="il2cpp\detours.h" />
     <ClInclude Include="functions\Function.h" />
     <ClInclude Include="il2cpp\HookManager.h" />
@@ -374,7 +379,6 @@
     <ClInclude Include="utils\LuaUtils.h" />
     <ClInclude Include="utils\ProtectionBypass.h" />
     <ClInclude Include="utils\util.h" />
-    <ClInclude Include="utils\Utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="games\lightsout.cpp">

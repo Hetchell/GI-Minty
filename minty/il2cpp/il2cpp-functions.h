@@ -3,10 +3,10 @@
 using namespace app;
 
 // Cooldown cheats
+DO_APP_FUNC(0x00E599B0, 0x0, void, MoleMole_LCVehicleCombat_UpdateSkillCD, (void* __this, uint32_t skillID, uint32_t cd));
 DO_APP_FUNC(0x03FB80E0, 0x03FC3090, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
 DO_APP_FUNC(0x03004A80, 0x0300FB20, bool, MoleMole_LCAvatarCombat_IsEnergyMax, (void* __this));
 DO_APP_FUNC(0x0300ABE0, 0x03015C50, bool, MoleMole_LCAvatarCombat_OnSkillStart, (app::LCAvatarCombat* __this, uint32_t skillid, float multipler));
-DO_APP_FUNC(0x03005BD0, 0x03010C70, bool, MoleMole_LCAvatarCombat_IsSkillInCD_1, (app::LCAvatarCombat* __this, app::LCAvatarCombat_LCAvatarCombat_SkillInfo* skillInfo));
 DO_APP_FUNC(0x02FD17D0, 0x02FDC9A0, void, MoleMole_ActorAbilityPlugin_AddDynamicFloatWithRange, (app::MoleMole_ActorAbilityPlugin* __this, app::String* key, float value, float minf, float maxf, bool forceDoAtRemote));
 
 // Visuals
@@ -34,18 +34,14 @@ DO_APP_FUNC(0x06DC74C0, 0x06E0C2D0, void, Slider_1_set_minValue, (app::Slider_1*
 DO_APP_FUNC(0x06DC7470, 0x06E0C280, void, Slider_1_set_maxValue, (app::Slider_1* __this, float value));
 DO_APP_FUNC(0x06DC7550, 0x06E0C360, void, Slider_1_set_value, (app::Slider_1* __this, float value));
 
-//DO_APP_FUNC(0x05A6AFA0, 0x05A9F0D0, app::Vector3, WorldShiftManager_GetRelativePosition, (app::Vector3 __this));
-
-DO_APP_FUNC(0x06D6A310, 0x06DAF120, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEntity* __this));
-DO_APP_FUNC(0x06D6A3F0, 0x06DAF200, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
-DO_APP_FUNC(0x06D6A040, 0x06DAEE50, app::Vector3, MoleMole_BaseEntity_GetForward, (app::BaseEntity* __this));
+DO_APP_FUNC(0x06D6A310, 0x06DAF120, app::Vector3, Transform_get_right, (app::Transform* __this));
+DO_APP_FUNC(0x06D6A3F0, 0x06DAF200, app::Vector3, Transform_get_up, (app::Transform* __this));
+DO_APP_FUNC(0x06D6A040, 0x06DAEE50, app::Vector3, Transform_get_forward, (app::Transform* __this));
 
 // should be 'op_Implicit' not 'get_value'
 DO_APP_FUNC(0x02C101D0, 0x02C1A8E0, float, MoleMole_SafeFloat_get_Value, (app::SafeFloat safeFloat));
 // should be 'op_Implicit' not 'set_value'
 DO_APP_FUNC(0x02C10260, 0x02C1A970, app::SafeFloat, MoleMole_SafeFloat_set_Value, (float value));
-
-DO_APP_FUNC(0x01118BE0, 0x038104A0, app::EntityType__Enum_1, MoleMole_BaseEntity_get_entityType, (app::BaseEntity* entity));
 
 DO_APP_FUNC(0x067EE040, 0x0682F680, app::String*, Marshal_PtrToStringAnsi, (void* ptr));
 
@@ -145,9 +141,27 @@ DO_APP_FUNC(0x0133AFC0, 0x01340A00, void, MonoParticleDamageTextContainer_ShowRe
 // Modify
 DO_APP_FUNC(0x03FBD750, 0x03FC8730, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
 
-// Singletons
-//DO_APP_FUNC(0x2191C0, 0x0, void*, Singleton_GetInstance, (app::MethodInfo* method));
-//DO_APP_FUNC_METHODINFO(0x09E89398, Singleton_1_MoleMole_EntityManager__get_Instance__MethodInfo);
+// Entities
+DO_APP_FUNC(0x0131F640, 0x0, app::MoleMole_EntityManager*, MoleMole_InLevelDrumPageContext_get_ENTITY, (app::MethodInfo* method));
+
+DO_APP_FUNC(0x029EDB30, 0x0, app::BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
+DO_APP_FUNC(0x029F0270, 0x0, app::CameraEntity*, MoleMole_EntityManager_GetMainCameraEntity, (app::MoleMole_EntityManager* __this));
+DO_APP_FUNC(0x029F2980, 0x0, app::BaseEntity*, MoleMole_EntityManager_GetValidEntity, (app::MoleMole_EntityManager* __this, uint32_t runtimeID));
+
+DO_APP_FUNC(0x01114D90, 0x0, uint32_t, MoleMole_BaseEntity_get_runtimeID, (app::BaseEntity* __this));
+DO_APP_FUNC(0x0111DD90, 0x0, uint32_t, MoleMole_BaseEntity_get_configID, (app::BaseEntity* __this));
+DO_APP_FUNC(0x0111C030, 0x0, bool, MoleMole_BaseEntity_IsActive, (app::BaseEntity* __this));
+DO_APP_FUNC(0x022D2940, 0x0, app::Animator*, MoleMole_BaseEntity_get_animator, (app::BaseEntity* __this));
+DO_APP_FUNC(0x024C5010, 0x0, app::GameObject*, MoleMole_BaseEntity_get_rootGameObject, (app::BaseEntity* __this));
+DO_APP_FUNC(0x0411F660, 0x0, app::Rigidbody*, MoleMole_BaseEntity_GetRigidbody, (app::BaseEntity* __this));
+DO_APP_FUNC(0x01118BE0, 0x038104A0, app::EntityType__Enum_1, MoleMole_BaseEntity_get_entityType, (app::BaseEntity* __this));
+DO_APP_FUNC(0x0412DF50, 0x0, app::Vector3, MoleMole_BaseEntity_GetRelativePosition, (app::BaseEntity* __this));
+DO_APP_FUNC(0x0412CC20, 0x0, void, MoleMole_BaseEntity_SetRelativePosition, (app::BaseEntity* __this, app::Vector3 position, bool forceSyncToRigidbody));
+DO_APP_FUNC(0x04118C30, 0x0, app::Vector3, MoleMole_BaseEntity_GetForward, (app::BaseEntity* __this));
+DO_APP_FUNC(0x0412A8E0, 0x0, app::Vector3, MoleMole_BaseEntity_GetRight, (app::BaseEntity* __this));
+DO_APP_FUNC(0x04122610, 0x0, app::Vector3, MoleMole_BaseEntity_GetUp, (app::BaseEntity* __this));
+
+DO_APP_FUNC(0x02F20870, 0x0, app::BaseEntity*, MoleMole_GadgetEntity_GetOwnerEntity, (app::GadgetEntity* __this));
 
 // Protection bypass
 DO_APP_FUNC(0x03FEC590, 0x03FF74B0, app::Byte__Array*, MoleMole_SecurityModule_RecordUserData, (int32_t nType, app::MethodInfo* method));
@@ -165,10 +179,12 @@ DO_APP_FUNC(0x02262880, 0x0226AB70, void, GameManager_Update, (app::GameManager*
 DO_APP_FUNC(0x04475550, 0x044816E0, bool, MoleMole_InLevelMainPageContext_DoTeamCountDown_c_Iterator0__MoveNext, (app::InLevelMainPageContext_DoTeamCountDown_Iterator* __this));
 DO_APP_FUNC(0x00D82A70, 0x00D86F80, void, MoleMole_InLevelPlayerProfilePageContext_SetupView, (/*MoleMole_InLevelPlayerProfilePageContext*/ void* __this));
 DO_APP_FUNC(0x00D7EFF0, 0x00D83500, void, MoleMole_InLevelPlayerProfilePageContext_ClearView, (/*MoleMole_InLevelPlayerProfilePageContext*/ void* __this));
-DO_APP_FUNC(0x013E7B30, 0x0, void, MoleMole_InLevelMainPageContext_EndCountDown, (app::InLevelMainPageContext* __this));
+DO_APP_FUNC(0x013E7B30, 0x013ED760, void, MoleMole_InLevelMainPageContext_EndCountDown, (app::InLevelMainPageContext* __this));
 
 // Unlimited stamina
 DO_APP_FUNC(0x03E693A0, 0x03E744C0, void, MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, (app::LevelSyncCombatPlugin* __this, uint32_t entityId, app::MotionInfo* syncInfo, bool isReliable, uint32_t reliableSeq));
+DO_APP_FUNC(0x00B8B550, 0x0, app::MotionState__Enum, MotionInfo_get_State, (app::MotionInfo* __this));
+DO_APP_FUNC(0x0341EBE0, 0x0, app::MotionState__Enum, MotionInfo_set_State, (app::MotionInfo* __this, app::MotionState__Enum value));
 DO_APP_FUNC(0x01A04B70, 0x01A0B570, void, MoleMole_DataItem_HandleNormalProp, (app::DataItem* __this, uint32_t type, int64_t value, app::DataPropOp__Enum state));
 // Wanderer E Stamina
 DO_APP_FUNC(0x02115EC0, 0x0211DD70, void, VCHumanoidMove_Scara, (app::VCHumanoidMove* __this, float value));

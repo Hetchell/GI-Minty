@@ -107,28 +107,28 @@ namespace cheat {
 		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
 		//app::Rigidbody_set_detectCollisions(rigidbody, false);
 		//LOG_INFO("coli det");
-		auto cameraEntity = reinterpret_cast<app::BaseEntity*>(app::GameObject_get_transform(app::GameObject_Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)"))));
+		auto cameraEntity = app::GameObject_get_transform(
+		 app::GameObject_Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)")));
 		//LOG_INFO("found transfom cam");
-		auto avatarEntity = reinterpret_cast<app::BaseEntity*>(avatarTransform);
 		app::Vector3 dir = {};
 
 		if (ImGui::IsKeyDown(ImGuiKey_W))
-			dir = dir + app::MoleMole_BaseEntity_GetForward(cameraEntity);
+			dir = dir + app::Transform_get_forward(cameraEntity);
 
 		if (ImGui::IsKeyDown(ImGuiKey_S))
-			dir = dir - app::MoleMole_BaseEntity_GetForward(cameraEntity);
+			dir = dir - app::Transform_get_forward(cameraEntity);
 
 		if (ImGui::IsKeyDown(ImGuiKey_D))
-			dir = dir + app::MoleMole_BaseEntity_GetRight(cameraEntity);
+			dir = dir + app::Transform_get_right(cameraEntity);
 
 		if (ImGui::IsKeyDown(ImGuiKey_A))
-			dir = dir - app::MoleMole_BaseEntity_GetRight(cameraEntity);
+			dir = dir - app::Transform_get_right(cameraEntity);
 
 		if (ImGui::IsKeyDown(ImGuiKey_Space))
-			dir = dir + app::MoleMole_BaseEntity_GetUp(avatarEntity);
+			dir = dir + app::Transform_get_up(avatarTransform);
 
 		if (ImGui::IsKeyDown(ImGuiKey_ModShift))
-			dir = dir - app::MoleMole_BaseEntity_GetUp(avatarEntity);
+			dir = dir - app::Transform_get_up(avatarTransform);
 
 		prevPos = app::Rigidbody_get_position(rigidbody);
 		//LOG_INFO("rb go pos");

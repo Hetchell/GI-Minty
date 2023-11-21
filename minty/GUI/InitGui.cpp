@@ -40,6 +40,7 @@ void gui::Render() {
     ImGui_ImplWin32_NewFrame();
     ImGui_ImplDX11_NewFrame();
     ImGui::NewFrame();
+    Outer();
 
     auto& settings = cheat::Settings::getInstance();
     static double startTime = ImGui::GetTime();
@@ -59,6 +60,6 @@ void gui::Render() {
         gui::FrameLoadGui();
 
     ImGui::PopStyleVar();
-    Outer();
+    //ImGui::GetIO().MouseDrawCursor = settings.f_ShowMenu;
     ImGui::Render();
 }
