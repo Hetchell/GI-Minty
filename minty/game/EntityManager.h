@@ -4,6 +4,7 @@
 #include <mutex>
 
 #include "Entity.h"
+#include "IEntityFilter.h"
 
 namespace cheat::game {
 	class EntityManager {
@@ -14,6 +15,12 @@ namespace cheat::game {
 		Entity* entity(uint32_t runtimeID, bool unsafe = false);
 
 		Entity* avatar();
+
+		std::vector<app::BaseEntity*> rawEntities();
+		std::vector<Entity*> entities();
+		std::vector<Entity*> entities(const IEntityFilter& filter);
+		typedef bool (*Validator)(game::Entity* entity);
+		std::vector<Entity*> entities(Validator validator);
 
 		app::CameraEntity* mainCamera();
 	private:

@@ -2,6 +2,16 @@
 
 using namespace app;
 
+DO_APP_FUNC(0x03B2D630, 0x0, void, MoleMole_LCAbilityElement_ReduceModifierDurability, (LCAbilityElement* __this, int32_t modifierDurabilityIndex, float reduceDurability, Nullable_1_Single_ deltaTime, app::MethodInfo* method));
+DO_APP_FUNC(0x029EF0A0, 0x0, app::List_1_MoleMole_BaseEntity_*, MoleMole_EntityManager_GetEntities, (app::MoleMole_EntityManager* __this)); // ?
+DO_APP_FUNC(0x0111F480, 0x0, String*, MoleMole_BaseEntity_ToStringRelease, (BaseEntity* __this));
+DO_APP_FUNC(0x02DB7A10, 0x0, app::Vector2, Miscs_GenLevelPos_1, (Vector3 worldPos));
+DO_APP_FUNC(0x05A6AE30, 0x0, app::Vector3, MoleMole_BaseEntity_GetAbsolutePosition, (BaseEntity* __this));
+DO_APP_FUNC(0x07BF620, 0x0, LCBaseCombat*, MoleMole_BaseEntity_GetLogicCombatComponent_1, (BaseEntity* __this, MethodInfo* method));
+DO_APP_FUNC_METHODINFO(0x931C7A8, MoleMole_BaseEntity_GetLogicCombatComponent_1__MethodInfo);
+DO_APP_FUNC(0x06D63F90, 0x0, float, Vector2_Distance, (app::Vector2 pos1, app::Vector2 pos2));
+
+
 // Cooldown cheats
 DO_APP_FUNC(0x00E599B0, 0x0, void, MoleMole_LCVehicleCombat_UpdateSkillCD, (void* __this, uint32_t skillID, uint32_t cd));
 DO_APP_FUNC(0x03FB80E0, 0x03FC3090, bool, MoleMole_HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this));
@@ -150,9 +160,11 @@ DO_APP_FUNC(0x03FBD750, 0x03FC8730, void, MoleMole_HumanoidMoveFSM_LateTick, (ap
 // Entities
 DO_APP_FUNC(0x0131F640, 0x0, app::MoleMole_EntityManager*, MoleMole_InLevelDrumPageContext_get_ENTITY, (app::MethodInfo* method));
 
+
 DO_APP_FUNC(0x029EDB30, 0x0, app::BaseEntity*, MoleMole_EntityManager_GetLocalAvatarEntity, (app::MoleMole_EntityManager* __this));
 DO_APP_FUNC(0x029F0270, 0x0, app::CameraEntity*, MoleMole_EntityManager_GetMainCameraEntity, (app::MoleMole_EntityManager* __this));
 DO_APP_FUNC(0x029F2980, 0x0, app::BaseEntity*, MoleMole_EntityManager_GetValidEntity, (app::MoleMole_EntityManager* __this, uint32_t runtimeID));
+
 
 DO_APP_FUNC(0x01114D90, 0x0, uint32_t, MoleMole_BaseEntity_get_runtimeID, (app::BaseEntity* __this));
 DO_APP_FUNC(0x0111DD90, 0x0, uint32_t, MoleMole_BaseEntity_get_configID, (app::BaseEntity* __this));

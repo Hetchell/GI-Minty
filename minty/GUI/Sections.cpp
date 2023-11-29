@@ -21,6 +21,9 @@
 #include "../functions/visuals/UnlockFPS.h"
 
 #include "../functions/world/AutoTalk.h"
+#include "../functions/world/VacuumLoot.h"
+#include "../functions/world/AutoDestroy.h"
+#include "../functions/world/AutoChallenge.h"
 #include "../functions/world/AutoTP.h"
 #include "../functions/world/CutsceneSkip.h"
 #include "../functions/world/DumbEnemies.h"
@@ -60,6 +63,8 @@ void Init() {
     INIT_FUNC(ShowChestIndicator);
     INIT_FUNC(UnlockFPS);
 
+    INIT_FUNC(AutoChallenge);
+    INIT_FUNC(AutoDestroy);
     INIT_FUNC(AutoTalk);
     //INIT_FUNC(AutoTP);
     INIT_FUNC(CutsceneSkip);
@@ -68,6 +73,7 @@ void Init() {
     INIT_FUNC(GameSpeed);
     //INIT_FUNC(OpenTeamImmediately);
     INIT_FUNC(SkipEnhanceAnimation);
+    INIT_FUNC(VacuumLoot);
 }
 
 void Outer() {

@@ -102,6 +102,13 @@
     <ClCompile Include="functions\visuals\NoFog.cpp" />
     <ClCompile Include="game\Entity.cpp" />
     <ClCompile Include="game\EntityManager.cpp" />
+    <ClCompile Include="game\Chest.cpp" />
+    <ClCompile Include="game\ChestFilter.cpp" />
+    <ClCompile Include="game\filters.cpp" />
+    <ClCompile Include="game\SimpleFilter.cpp" />
+    <ClCompile Include="Functions\World\AutoChallenge.cpp" />
+    <ClCompile Include="Functions\World\AutoDestroy.cpp" />
+    <ClCompile Include="Functions\World\VacuumLoot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\MainGUI.h" />
@@ -244,6 +251,15 @@
     <ClInclude Include="api\magic_enum\magic_enum.hpp" />
     <ClInclude Include="game\EntityManager.h" />
     <ClInclude Include="game\Entity.h" />
+    <ClInclude Include="game\AdvancedFilter.h" />
+    <ClInclude Include="game\Chest.h" />
+    <ClInclude Include="game\ChestFilter.h" />
+    <ClInclude Include="game\filters.h" />
+    <ClInclude Include="game\IEntityFilter.h" />
+    <ClInclude Include="game\SimpleFilter.h" />
+    <ClInclude Include="Functions\World\AutoDestroy.h" />
+    <ClInclude Include="Functions\World\VacuumLoot.h" />
+    <ClInclude Include="Functions\World\AutoChallenge.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="api\lua\lua53.lib" />

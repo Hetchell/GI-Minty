@@ -158,6 +158,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="functions\visuals\CameraZoom.cpp" />
+    <ClCompile Include="Functions\World\AutoChallenge.cpp" />
+    <ClCompile Include="Functions\World\AutoDestroy.cpp" />
     <ClCompile Include="functions\world\ElementalSight.cpp" />
     <ClCompile Include="functions\visuals\HideDamage.cpp" />
     <ClCompile Include="functions\visuals\HideReaction.cpp" />
@@ -174,8 +176,13 @@
     <ClCompile Include="api\discord\src\rpc_connection.cpp" />
     <ClCompile Include="api\discord\src\serialization.cpp" />
     <ClCompile Include="functions\about\About.cpp" />
+    <ClCompile Include="Functions\World\VacuumLoot.cpp" />
+    <ClCompile Include="game\Chest.cpp" />
+    <ClCompile Include="game\ChestFilter.cpp" />
     <ClCompile Include="game\Entity.cpp" />
     <ClCompile Include="game\EntityManager.cpp" />
+    <ClCompile Include="game\filters.cpp" />
+    <ClCompile Include="game\SimpleFilter.cpp" />
     <ClCompile Include="il2cpp\il2cppUtils.cpp" />
     <ClCompile Include="functions\visuals\Peeking.cpp" />
     <ClCompile Include="functions\visuals\FovChanger.cpp" />
@@ -208,6 +215,8 @@
     <ClInclude Include="config\ConfigManager.h" />
     <ClInclude Include="functions\FunctionIncludes.h" />
     <ClInclude Include="functions\visuals\CameraZoom.h" />
+    <ClInclude Include="Functions\World\AutoChallenge.h" />
+    <ClInclude Include="Functions\World\AutoDestroy.h" />
     <ClInclude Include="functions\world\ElementalSight.h" />
     <ClInclude Include="functions\visuals\HideDamage.h" />
     <ClInclude Include="functions\visuals\HideReaction.h" />
@@ -253,8 +262,15 @@
     <ClInclude Include="api\discord\src\rpc_connection.h" />
     <ClInclude Include="api\discord\src\serialization.h" />
     <ClInclude Include="functions\about\About.h" />
+    <ClInclude Include="Functions\World\VacuumLoot.h" />
+    <ClInclude Include="game\AdvancedFilter.h" />
+    <ClInclude Include="game\Chest.h" />
+    <ClInclude Include="game\ChestFilter.h" />
     <ClInclude Include="game\Entity.h" />
     <ClInclude Include="game\EntityManager.h" />
+    <ClInclude Include="game\filters.h" />
+    <ClInclude Include="game\IEntityFilter.h" />
+    <ClInclude Include="game\SimpleFilter.h" />
     <ClInclude Include="il2cpp\detours.h" />
     <ClInclude Include="functions\Function.h" />
     <ClInclude Include="il2cpp\HookManager.h" />

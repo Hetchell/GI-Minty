@@ -19,6 +19,8 @@ namespace cheat::game {
 
 		bool isGadget() const;
 		bool isAvatar() const;
+		bool isChest();
+		//bool isItem();
 
 		bool isLoaded() const;
 
@@ -26,6 +28,15 @@ namespace cheat::game {
 
 		app::Animator* animator();
 		app::Rigidbody* rigidbody();
+
+		float distance(Entity* entity);
+		float distance(app::BaseEntity* rawEntity);
+		float distance(const app::Vector3& point);
+		float distance(const app::Vector2& levelPoint);
+		app::Vector3 absolutePosition();
+		app::Vector2 levelPosition();
+		app::LCBaseCombat* combat();
+		std::string& name();
 
 		app::Vector3 forward() const;
 		app::Vector3 back() const;

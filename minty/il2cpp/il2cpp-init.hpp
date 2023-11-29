@@ -80,7 +80,7 @@ VOID init_il2cpp() {
 			#undef DO_API
 
 			#define DO_APP_FUNC(a, b, r, n, p) n = (r (*) p)(baseAddress + SELECT_VERSION(gameVersion, a, b))
-			#define DO_APP_FUNC_METHODINFO(a, b, n) n = (struct MethodInfo **)(baseAddress + SELECT_VERSION(gameVersion, a, b))
+			#define DO_APP_FUNC_METHODINFO(a, n) n = (struct MethodInfo **)(baseAddress + a)
 				#include "il2cpp-functions.h"
 			#undef DO_APP_FUNC
 			#undef DO_APP_FUNC_METHODINFO

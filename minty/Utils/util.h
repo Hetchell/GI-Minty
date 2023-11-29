@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-
+#include <chrono>
 #include "Logger.h"
 
 #define SAFE_BEGIN() __try {
@@ -16,6 +16,7 @@
 
 namespace util {
 	std::vector<std::string> split(const std::string& content, const std::string& delimiter);
+	int64_t GetCurrentTimeMillisec();
 
 	template <typename T>
 	const char* get_ptr(const T& value) {

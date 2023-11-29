@@ -5,6 +5,104 @@ namespace cheat::game {
 	Entity::Entity(app::BaseEntity* rawEntity) : m_RawEntity(rawEntity), m_HasName(false), m_Name({}) {
 	}
 
+	app::String* GetRawName(game::Entity* entity)
+	{
+		SAFE_BEGIN();
+		return app::MoleMole_BaseEntity_ToStringRelease(entity->raw());
+		SAFE_ERROR();
+		return nullptr;
+		SAFE_END();
+	}
+
+	float Entity::distance(Entity* entity)
+	{
+		if (entity == nullptr)
+			return 10000;
+
+		return distance(entity->relativePosition());
+	}
+
+	float Entity::distance(app::BaseEntity* rawEntity)
+	{
+		if (rawEntity == nullptr)
+			return 10000;
+
+		auto point = app::MoleMole_BaseEntity_GetRelativePosition(rawEntity);
+		return distance(point);
+	}
+
+	float Entity::distance(const app::Vector3& point)
+	{
+		if (m_RawEntity == nullptr)
+			return 10000;
+
+		auto dist = app::Vector3_Distance(relativePosition(), point);
+		return dist;
+	}
+
+	float Entity::distance(const app::Vector2& levelPoint)
+	{
+		if (m_RawEntity == nullptr)
+			return 10000;
+
+		return app::Vector2_Distance(levelPosition(), levelPoint);
+	}
+
+	app::Vector3 Entity::absolutePosition()
+	{
+		if (m_RawEntity == nullptr)
+			return {};
+
+		return app::MoleMole_BaseEntity_GetAbsolutePosition(m_RawEntity);
+	}
+
+
+	app::Vector2 Entity::levelPosition()
+	{
+		if (m_RawEntity == nullptr)
+			return {};
+
+		return app::Miscs_GenLevelPos_1(absolutePosition());
+	}
+
+
+	app::LCBaseCombat* Entity::combat()
+	{
+		if (!isLoaded())
+			return nullptr;
+
+		SAFE_BEGIN();
+		return app::MoleMole_BaseEntity_GetLogicCombatComponent_1(m_RawEntity, *app::MoleMole_BaseEntity_GetLogicCombatComponent_1__MethodInfo);
+		SAFE_ERROR();
+		return nullptr;
+		SAFE_END();
+	}
+
+
+	bool Entity::isChest()
+	{
+		if (m_RawEntity == nullptr)
+			return false;
+
+		return type() == app::EntityType__Enum_1::Chest;
+	}
+
+	std::string& Entity::name()
+	{
+		if (m_HasName || m_RawEntity == nullptr || !isLoaded())
+			return m_Name;
+
+		auto rawName = GetRawName(this);
+		if (rawName == nullptr)
+			return m_Name;
+
+		auto name = il2cppi_to_string(rawName);
+		m_Name = name;
+		m_HasName = true;
+		return m_Name;
+	}
+
+
 	app::BaseEntity* Entity::raw() {
 		return m_RawEntity;
 	}
@@ -56,7 +154,6 @@ namespace cheat::game {
 			return false;
 		return avatar->raw() == m_RawEntity;
 	}
-
 	void Entity::setRelativePosition(const app::Vector3& value) {
 		if (m_RawEntity == nullptr)
 			return;
