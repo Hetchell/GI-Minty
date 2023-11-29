@@ -141,6 +141,12 @@ DO_APP_FUNC(0x0133AFC0, 0x01340A00, void, MonoParticleDamageTextContainer_ShowRe
 // Modify
 DO_APP_FUNC(0x03FBD750, 0x03FC8730, void, MoleMole_HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method));
 
+// Singletons 4.2
+// 48 8b 0d ?? ?? ?? ?? e8 ?? ?? ?? fd 48 85 c0 0f 84 5f 01 00 00 48 8b c8 e8 ?? ?? ?? ?? 48 85 c0 74 14 48 8b 15 ?? ?? ?? ?? 48 8b c8 e8 ?? ?? ?? ?? 48 8b f0 eb ??
+// 0x9316540 EntityManager
+// 
+// 0x0 UIManager
+
 // Entities
 DO_APP_FUNC(0x0131F640, 0x0, app::MoleMole_EntityManager*, MoleMole_InLevelDrumPageContext_get_ENTITY, (app::MethodInfo* method));
 
