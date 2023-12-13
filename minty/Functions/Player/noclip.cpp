@@ -3,10 +3,15 @@
 namespace cheat {
 	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method);
 	void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, app::MethodInfo* method);
+	void LevelSyncCombatPlugin_RequestSceneEntityMoveReq_Hook(app::LevelSyncCombatPlugin* __this, uint32_t entityId, app::MotionInfo* syncInfo, bool isReliable, uint32_t reliableSeq);
+
+	app::Vector3 dir;
 
 	NoClip::NoClip() {
 		f_Enabled = config::getValue("functions:NoClip", "enabled", false);
 		f_EnabledAltSpeed = config::getValue("functions:NoClip:Alt", "enabled", false);
+		f_NoAnimation = config::getValue("functions:NoClip", "noAnimation", false);
+		f_DetectCollisions = config::getValue("functions:NoClip", "detectCollisions", true);
 		f_Speed = config::getValue("functions:NoClip", "speed", 5.0f);
 		f_AltSpeed = config::getValue("functions:NoClip:Alt", "speed", 10.0f);
 		f_Hotkey = Hotkey("functions:NoClip");
@@ -14,6 +19,7 @@ namespace cheat {
 
 		HookManager::install(app::GameManager_Update, GameManager_Update_Hook);
 		HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
+		HookManager::install(app::MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, LevelSyncCombatPlugin_RequestSceneEntityMoveReq_Hook);
 	}
 
 	NoClip& NoClip::getInstance() {
@@ -29,9 +35,10 @@ namespace cheat {
 			ImGui::Indent();
 			ConfigSliderFloat("Speed", f_Speed, 0.1f, 100.0f, "No Clip move speed.\n"
 				"Not recommended setting above 5.0.");
+			ConfigCheckbox("No Animation", f_NoAnimation, "Disables player animations.");
+			ConfigCheckbox("Detect collisions", f_DetectCollisions, "Allows the player to go thrught textures(it breaks some of the game mechanics).");
 			ConfigCheckbox("Alternate No Clip", f_EnabledAltSpeed, "Allows usage of alternate speed when holding down LeftCtrl key.\n"
 				"Useful if you want to temporarily go faster/slower than the No Clip speed setting.");
-
 			if (f_EnabledAltSpeed.getValue()) {
 				ImGui::Indent();
 				ConfigSliderFloat("Alternate Speed", f_AltSpeed, 0.1f, 100.0f, "Alternate No Clip move speed.\n"
@@ -63,96 +70,114 @@ namespace cheat {
 		return _("Player");
 	}
 
-	app::Vector3 prevPos, newPos;
-	app::Vector3 posCheck;
+	void LevelSyncCombatPlugin_RequestSceneEntityMoveReq_Hook(app::LevelSyncCombatPlugin* __this, uint32_t entityId, app::MotionInfo* syncInfo, bool isReliable, uint32_t reliableSeq) {
+		auto& noClip = NoClip::getInstance();
+		
+		static app::Vector3 prevPosition = {};
+		static int64_t prevSyncTime = 0;
 
-	static std::string ActiveHero;
-
-	app::Rigidbody* rigidbody;
-	app::GameObject* AvatarRoot;
-	app::GameObject* nameAvatar;
-	app::Transform* avatarTransform;
-	app::GameObject* HeroGameObject;
-	void onNoClip() {
-		AvatarRoot = app::GameObject_Find(string_to_il2cppi("/EntityRoot/AvatarRoot"));
-		//LOG_INFO("found avatar");
-		auto Transform = app::GameObject_GetComponentByName(AvatarRoot, string_to_il2cppi("Transform"));
-		//LOG_INFO("found transform");
-		auto HeroCount = app::Transform_GetChildCount(reinterpret_cast<app::Transform*>(Transform));
-		//LOG_INFO("found count");
-		for (int i = 0; i <= HeroCount - 1; i++) {
-			auto HeroComponent = app::Transform_GetChild(reinterpret_cast<app::Transform*>(Transform), i);
-			//LOG_INFO("found child");
-			HeroGameObject = app::Component_1_get_gameObject(reinterpret_cast<app::Component_1*>(HeroComponent));
-			//LOG_INFO("found gameobj");
-			auto isActiveHero = app::GameObject_get_active(HeroGameObject);
-			//LOG_INFO("found active");
-			if (isActiveHero) {
-				auto GameObjectName = app::Object_1_get_name(reinterpret_cast<app::Object_1*>(HeroGameObject));
-				//LOG_INFO("found name");
-				ActiveHero = il2cppi_to_string(GameObjectName);
-				std::string Hero = ActiveHero.erase(ActiveHero.find("(Clone)"));
-				std::string avatarName = "/EntityRoot/AvatarRoot/" + il2cppi_to_string(GameObjectName) + "/OffsetDummy/" + Hero.c_str();
-				nameAvatar = app::GameObject_Find(string_to_il2cppi(avatarName));
-				//LOG_INFO("found gameob2");
-				avatarTransform = app::GameObject_get_transform(nameAvatar);
-				//LOG_INFO("found transfor2");
-				rigidbody = reinterpret_cast<app::Rigidbody*>(app::GameObject_GetComponentByName(HeroGameObject, string_to_il2cppi("Rigidbody")));
-				//LOG_INFO("found rb");
-				if (rigidbody != 0)
-					break;
-			}
+		if (!noClip.f_Enabled.getValue())
+		{
+			prevSyncTime = 0;
+			return;
 		}
 
-		app::Rigidbody_set_collisionDetectionMode(rigidbody, app::CollisionDetectionMode__Enum::Continuous);
-		//app::Rigidbody_set_detectCollisions(rigidbody, false);
-		//LOG_INFO("coli det");
-		auto cameraEntity = app::GameObject_get_transform(
-		 app::GameObject_Find(string_to_il2cppi("/EntityRoot/MainCamera(Clone)(Clone)")));
-		//LOG_INFO("found transfom cam");
-		app::Vector3 dir = {};
+		auto& manager = game::EntityManager::getInstance();
+		if (manager.avatar()->runtimeID() != entityId)
+			return;
+
+		auto avatarEntity = manager.avatar();
+		if (avatarEntity == nullptr)
+			return;
+
+		auto avatarPosition = avatarEntity->absolutePosition();
+		auto currentTime = util::GetCurrentTimeMillisec();
+		if (prevSyncTime > 0)
+		{
+			auto posDiff = avatarPosition - prevPosition;
+			auto timeDiff = ((float)(currentTime - prevSyncTime)) / 1000;
+			auto velocity = posDiff / timeDiff;
+
+			auto speed = sqrtf(velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z);
+			if (speed > 0.1)
+			{
+				syncInfo->fields.motionState = (speed < 2) ? app::MotionState__Enum::MotionWalk : app::MotionState__Enum::MotionRun;
+
+				syncInfo->fields.speed_->fields.x = velocity.x;
+				syncInfo->fields.speed_->fields.y = velocity.y;
+				syncInfo->fields.speed_->fields.z = velocity.z;
+			}
+
+			syncInfo->fields.pos_->fields.x = avatarPosition.x;
+			syncInfo->fields.pos_->fields.y = avatarPosition.y;
+			syncInfo->fields.pos_->fields.z = avatarPosition.z;
+		}
+
+		prevPosition = avatarPosition;
+		prevSyncTime = currentTime;
+
+	}
+
+	void OnNoClip() {
+		auto& noClip = NoClip::getInstance();
+		auto& manager = game::EntityManager::getInstance();
+
+		auto avatarEntity = manager.avatar();
+		if (avatarEntity == nullptr)
+			return;
+		auto rigidBody = avatarEntity->rigidbody();
+		if (rigidBody == nullptr)
+			return;
+		
+		if (!noClip.f_Enabled.getValue()) {
+			app::Rigidbody_set_detectCollisions(rigidBody, true);
+			return;
+		}
+		else if (!noClip.f_DetectCollisions.getValue()) {
+			app::Rigidbody_set_detectCollisions(rigidBody, false);
+		}
+
+		app::Rigidbody_set_collisionDetectionMode(rigidBody, app::CollisionDetectionMode__Enum::Continuous);
+		app::Rigidbody_set_velocity(rigidBody, {0,0,0});
+
+		auto cameraEntity = game::Entity(reinterpret_cast<app::BaseEntity*>(manager.mainCamera()));
+		dir = {};
 
 		if (ImGui::IsKeyDown(ImGuiKey_W))
-			dir = dir + app::Transform_get_forward(cameraEntity);
+			dir = dir + cameraEntity.forward();
 
 		if (ImGui::IsKeyDown(ImGuiKey_S))
-			dir = dir - app::Transform_get_forward(cameraEntity);
+			dir = dir + cameraEntity.back();
 
 		if (ImGui::IsKeyDown(ImGuiKey_D))
-			dir = dir + app::Transform_get_right(cameraEntity);
+			dir = dir + cameraEntity.right();
 
 		if (ImGui::IsKeyDown(ImGuiKey_A))
-			dir = dir - app::Transform_get_right(cameraEntity);
+			dir = dir + cameraEntity.left();
 
 		if (ImGui::IsKeyDown(ImGuiKey_Space))
-			dir = dir + app::Transform_get_up(avatarTransform);
+			dir = dir + avatarEntity->up();
 
 		if (ImGui::IsKeyDown(ImGuiKey_ModShift))
-			dir = dir - app::Transform_get_up(avatarTransform);
+			dir = dir + avatarEntity->down();
 
-		prevPos = app::Rigidbody_get_position(rigidbody);
-		//LOG_INFO("rb go pos");
-		if (prevPos.x == 0 && prevPos.y == 0 && prevPos.z == 0)
+
+		noClip.prevPos = app::Rigidbody_get_position(rigidBody);
+
+		if (noClip.prevPos.x == 0 && noClip.prevPos.y == 0 && noClip.prevPos.z == 0)
 			return;
 
 		float deltaTime = app::Time_get_deltaTime() * 1.5F;
-		//LOG_INFO("got delt");
-		newPos = prevPos + dir * NoClip::f_finalSpeed * deltaTime;
+		noClip.newPos = noClip.prevPos + dir * NoClip::f_finalSpeed * deltaTime;
 
-		app::Rigidbody_set_velocity(rigidbody, { 0,0,0 });
-		//app::Rigidbody_set_velocity(rigidbody, dir * NoClip::f_finalSpeed);
-		app::Rigidbody_MovePosition(rigidbody, newPos);
+		app::Rigidbody_MovePosition(rigidBody, noClip.newPos);
 	}
+
 
 	void GameManager_Update_Hook(app::GameManager* __this, app::MethodInfo* method) {
 		auto& noClip = NoClip::getInstance();
 
-		__try {
-			if (noClip.f_Enabled.getValue())
-				onNoClip();
-		} __except (EXCEPTION_EXECUTE_HANDLER) {
-			//LOG_WARNING("Exception 0x%08x.", GetExceptionCode());
-		}
+		OnNoClip();
 
 		CALL_ORIGIN(GameManager_Update_Hook, __this, method);
 	}
@@ -161,8 +186,13 @@ namespace cheat {
 		auto& noClip = NoClip::getInstance();
 
 		if (noClip.f_Enabled.getValue()) {
-			if (app::Vector3_Distance(posCheck, newPos) > 3.0f)
-				posCheck = newPos;
+			if (!noClip.f_NoAnimation.getValue()) 
+				__this->fields._layerMaskScene = 2;
+			else 
+				return;
+
+			if (app::Vector3_Distance(noClip.posCheck, noClip.newPos) > 3.0f)
+				noClip.posCheck = noClip.newPos;
 			else
 				return;
 		}

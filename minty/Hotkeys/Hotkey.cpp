@@ -59,6 +59,21 @@ void Hotkey::Draw() {
 	ImGui::PopID();
 }
 
+void Hotkey::Draw(const char* label) {
+	ImGui::PushID(this->path);
+	ImGui::TextUnformatted(label);
+	ImGui::SameLine();
+
+	if (!this->waitInput && ImGui::Button(KeyBind::getKeyName(this->key).c_str(), ImVec2(100.0f, 0.0f)))
+		this->waitInput = true;
+	else if (this->waitInput)
+		ImGui::Button("...", ImVec2(100.0f, 0.0f));
+
+	if (this->waitInput)
+		this->Rebind();
+	ImGui::PopID();
+}
+
 void Hotkey::Rebind() {
 	lastInputTime = std::chrono::steady_clock::now();
 

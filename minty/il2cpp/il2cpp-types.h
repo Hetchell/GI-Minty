@@ -4153,6 +4153,7 @@ typedef union Il2CppSingle_float
     // Entity fields
     struct __declspec(align(8)) BaseEntity__Fields {
         struct BaseEntity_BaseEntity_AnimeOverrideFlushList* _animatorOverrideFlushList;
+        EntityType__Enum_1 entityType;
         EntityType__Enum_1 et1;
         EntityType__Enum_1 et2;
         struct AnimatorOverrideController* _animatorOverrideController;
@@ -11211,6 +11212,8 @@ typedef union Il2CppSingle_float
         float OFLMGMDJJPP; // Offset: 0x23C
         int32_t ALACNIHIDAJ; // Offset: 0x240
         float CFFIGNNMFPM; // Offset: 0x244
+        int32_t _layerMaskScene;
+
         /*
         struct MoleMole_HumanoidMoveFSMBaseMoveState* _curState;
         int32_t fallOnGroundFirstFrame;
@@ -11231,7 +11234,6 @@ typedef union Il2CppSingle_float
         struct Transform* _transform;
         struct Vector3 lateTickStartPosition;
         struct Quaternion lateTickStartRotation;
-        int32_t _layerMaskScene;
         int32_t _layerMaskDynamicBarrier;
         int32_t layerMaskDynamicBarrierCheckAuthority;
         bool ignoreOverallMoveWallProtectionCurrentFrame;

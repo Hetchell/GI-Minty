@@ -61,5 +61,6 @@ void gui::Render() {
 
     ImGui::PopStyleVar();
     //ImGui::GetIO().MouseDrawCursor = settings.f_ShowMenu;
+
     ImGui::Render();
 }

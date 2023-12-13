@@ -30,6 +30,10 @@ void ConfigCheckbox(const char* name, ConfigField<T>& field, const char* descrip
     END_WIDGET();
 }
 
+bool BeginGroupPanel(const char* label, bool node = false, const ImVec2& size = ImVec2(-1.0f, 0.0f));
+void EndGroupPanel();
+
+
 template <typename T>
 void ConfigInputText(const char* name, ConfigField<T>& field, const char* description = nullptr) {
     T& value = field.getValue();

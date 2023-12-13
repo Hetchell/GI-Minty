@@ -57,7 +57,7 @@ namespace cheat::game::filters
 		extern SimpleFilter FishingPoint;
 		extern SimpleFilter Geoculus;
 		extern SimpleFilter ImagingConch;
-		extern WhitelistFilter ItemDrops;
+		extern SimpleFilter ItemDrops;
 		extern SimpleFilter Lumenspar;
 		extern SimpleFilter KeySigil;
 		extern SimpleFilter ShrineOfDepth;
@@ -349,7 +349,10 @@ namespace cheat::game::filters
 		extern SimpleFilter Oculies;
 		extern SimpleFilter Chests;
 		extern SimpleFilter Ores;
+		extern SimpleFilter OresDrop;
+		extern SimpleFilter Equipments;
 		extern SimpleFilter PlantDestroy;
+		extern SimpleFilter Plants;
 		extern SimpleFilter BreakableObjects;
 		extern WhitelistFilter Doodads;
 		extern SimpleFilter Animals;

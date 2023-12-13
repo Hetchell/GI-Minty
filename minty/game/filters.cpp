@@ -54,9 +54,7 @@ namespace cheat::game::filters
 		SimpleFilter FishingPoint = { EntityType__Enum_1::FishPool, "_FishingShoal" };
 		SimpleFilter Geoculus = { EntityType__Enum_1::GatherObject, "RockCrystalShell" };
 		SimpleFilter ImagingConch = { EntityType__Enum_1::EchoShell, "_Dreamconch" };
-		WhitelistFilter ItemDrops = { {EntityType__Enum_1::GatherObject, EntityType__Enum_1::DropItem }, {"_Food_BirdMeat", "_Food_Meat", "_DropItem" } };
-		SimpleFilter ItemDropsSimple1 = {  EntityType__Enum_1::DropItem, {"_Food_BirdMeat", "_Food_Meat", "_DropItem" } };
-		SimpleFilter ItemDropsSimple2 = { EntityType__Enum_1::GatherObject, {"_Food_BirdMeat", "_Food_Meat", "_DropItem" } };
+		SimpleFilter ItemDrops = { EntityType__Enum_1::DropItem, "DropItem" };
 		SimpleFilter Lumenspar = { EntityType__Enum_1::GatherObject, "CelestiaSplinter" };
 		SimpleFilter KeySigil = { EntityType__Enum_1::GatherObject, "RuneContent" };
 		SimpleFilter ShrineOfDepth = { EntityType__Enum_1::Gadget, "Temple" };
@@ -584,21 +582,7 @@ namespace cheat::game::filters
 
 		SimpleFilter Lightning = { EntityType__Enum_1::Lightning };
 
-		SimpleFilter AllPickableLoot = {
-			Ores, 
-			OresDrop,
-			AnimalDrop, 
-			AnimalPickUp,
-			Oculies,
-			featured::ItemDropsSimple1,
-			featured::ItemDropsSimple2,
-			equipment::Artifacts,
-			equipment::Catalyst,
-			equipment::Sword,
-			equipment::Bow,
-			equipment::Claymore,
-			equipment::Pole,
-			living::Meat,
+		SimpleFilter Plants = {
 			plant::AmakumoFruit,
 			plant::Apple,
 			plant::BambooShoot,
@@ -651,7 +635,29 @@ namespace cheat::game::filters
 			plant::Viparyas,
 			plant::ZaytunPeach,
 			plant::Redcrest,
-			plant::Ajilenakh,
+			plant::Ajilenakh
 		};
+
+		SimpleFilter Equipments {
+			equipment::Artifacts,
+			equipment::Catalyst,
+			equipment::Sword,
+			equipment::Bow,
+			equipment::Claymore,
+			equipment::Pole,
+		};
+
+		SimpleFilter AllPickableLoot = {
+			Ores, 
+			OresDrop,
+			AnimalDrop, 
+			AnimalPickUp,
+			Oculies,
+			Plants,
+			Equipments,
+
+			featured::ItemDrops,
+			living::Meat,
+		}; 
 	}
 }

@@ -165,6 +165,7 @@
     <ClCompile Include="functions\visuals\HideReaction.cpp" />
     <ClCompile Include="functions\visuals\HideUI.cpp" />
     <ClCompile Include="functions\visuals\NoFog.cpp" />
+    <ClCompile Include="Functions\World\MobVacuum.cpp" />
     <ClCompile Include="functions\world\OpenTeamImmediately.cpp" />
     <ClCompile Include="functions\visuals\ProfileChanger.cpp" />
     <ClCompile Include="functions\visuals\ShowChestIndicator.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="functions\visuals\HideReaction.h" />
     <ClInclude Include="functions\visuals\HideUI.h" />
     <ClInclude Include="functions\visuals\NoFog.h" />
+    <ClInclude Include="Functions\World\MobVacuum.h" />
     <ClInclude Include="functions\world\OpenTeamImmediately.h" />
     <ClInclude Include="functions\visuals\ProfileChanger.h" />
     <ClInclude Include="functions\visuals\ShowChestIndicator.h" />

@@ -75,13 +75,13 @@ namespace cheat {
 		auto& manager = game::EntityManager::getInstance();
 		auto avatarID = manager.avatar()->configID();
 		auto attackerID = attacker.configID();
-		LOG_DEBUG("attackerID.configID(): %d", attackerID);
+		//LOG_DEBUG("attackerID.configID(): %d", attackerID);
 		// IDs can be found in ConfigAbility_Avatar_*.json or GadgetExcelConfigData.json
 		bool bulletID = attackerID >= 40000160 && attackerID <= 41089999;
 
-		LOG_DEBUG("avatarID == attackerID: %d", avatarID == attackerID);
+		/*LOG_DEBUG("avatarID == attackerID: %d", avatarID == attackerID);
 		LOG_DEBUG("bulletID: %d", bulletID);
-		LOG_DEBUG("attacker.type() == app::EntityType__Enum_1::Bullet: %d", attacker.type() == app::EntityType__Enum_1::Bullet);
+		LOG_DEBUG("attacker.type() == app::EntityType__Enum_1::Bullet: %d", attacker.type() == app::EntityType__Enum_1::Bullet);*/
 		return avatarID == attackerID || (bulletID && attacker.type() == app::EntityType__Enum_1::Bullet);
 	}
 

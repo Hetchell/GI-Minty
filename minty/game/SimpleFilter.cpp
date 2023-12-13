@@ -15,16 +15,16 @@ namespace cheat::game
 		if (entity == nullptr)
 			return false;
 
-		if (entity->type() != m_Type)
+		if (entity->type() != m_Type) 
 			return false;
 
-		if (m_Names.size() == 0)
+		if (m_Names.size() == 0) 
 			return true;
 
 		auto& name = entity->name();
 		for (auto& pattern : m_Names)
 		{
-			if (name.find(pattern) != -1)
+			if (name.find(pattern) != std::string::npos)
 				return true;
 		}
 

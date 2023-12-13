@@ -35,7 +35,7 @@ namespace cheat {
             "(changes will take effect after relaunch).");
         ConfigCheckbox("Spoof anticheat result", f_SpoofACResult, "Spoofs/Blocks anticheat reports made by WindSeedClientNotify.\n"
             "(changes will take effect after relaunch).");
-        ConfigCheckbox("Use predifined file signature", f_UseSignature, "Uses 'hardcoded' signature value for file check.\n"
+        ConfigCheckbox("Use predefined file signature", f_UseSignature, "Uses 'hardcoded' signature value for file check.\n"
             "Can be useful, when you put the additional executable files to game directory.\n"
             "And can't pass the 'Integrity check' on login.\n"
             "(changes will take effect after relaunch).");

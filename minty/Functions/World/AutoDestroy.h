@@ -26,7 +26,6 @@ namespace cheat {
         std::string getModule() override;
 
         static AutoDestroy& getInstance();
-
         AutoDestroy();
     };
 }

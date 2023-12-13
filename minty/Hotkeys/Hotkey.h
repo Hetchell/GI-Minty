@@ -17,6 +17,7 @@ public:
 	std::chrono::steady_clock::time_point lastInputTime;
 
 	Hotkey();
+
 	Hotkey(const char* path);
 	Hotkey(const char* path, short key);
 	Hotkey(const char* path, const char* name);
@@ -24,6 +25,7 @@ public:
 
 	bool IsPressed();
 	bool IsDown();
+	void Draw(const char* label);
 	void Draw();
 	void Rebind();
 };

@@ -2,6 +2,17 @@
 
 using namespace app;
 
+DO_APP_FUNC(0x06073320, 0x0, Object*, SingletonManager_GetSingletonInstance, (String* typeName));
+
+
+DO_APP_FUNC(0x01B53C00, 0x0, void, MoleMole_LCSelectPickup_AddInteeBtnByID, (void* __this, BaseEntity* entity, MethodInfo* method));
+DO_APP_FUNC(0x01B526F0, 0x0, bool, MoleMole_LCSelectPickup_IsInPosition, (void* __this, BaseEntity* entity, MethodInfo* method));
+DO_APP_FUNC(0x01B52890, 0x0, bool, MoleMole_LCSelectPickup_IsOutPosition, (void* __this, BaseEntity* entity, MethodInfo* method));
+// ItemModule в дампе по такому паттерну найти можно
+// Void [A-Z]{11}\([A-Z]{11} PARAM1, [A-Z]{11} PARAM2, int32 PARAM3, uint32 PARAM4, UInt64 PARAM5, uint32 PARAM6, boolean PARAM7\)
+//DO_APP_FUNC(0x008C3420, 0x0, void, MoleMole_ItemModule_PickItem, (app::MoleMole_ItemModule* __this, uint32_t entityID, app::MethodInfo* method));
+DO_APP_FUNC(0x008C3420, 0x0, void, MoleMole_ItemModule_PickItem, (void* __this, uint32_t entityID, app::MethodInfo* method));
+
 DO_APP_FUNC(0x03B2D630, 0x0, void, MoleMole_LCAbilityElement_ReduceModifierDurability, (LCAbilityElement* __this, int32_t modifierDurabilityIndex, float reduceDurability, Nullable_1_Single_ deltaTime, app::MethodInfo* method));
 DO_APP_FUNC(0x029EF0A0, 0x0, app::List_1_MoleMole_BaseEntity_*, MoleMole_EntityManager_GetEntities, (app::MoleMole_EntityManager* __this)); // ?
 DO_APP_FUNC(0x0111F480, 0x0, String*, MoleMole_BaseEntity_ToStringRelease, (BaseEntity* __this));

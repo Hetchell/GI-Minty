@@ -11,7 +11,6 @@ namespace cheat {
         ConfigField<bool> f_BombDestroy;
         ConfigField<int> f_Delay;
 
-
         Hotkey f_Hotkey;
 
         void GUI() override;
